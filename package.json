@@ -35,5 +35,9 @@
   },
   "scripts": {
     "test": "grunt test"
+  },
+  "dependencies": {
+    "google-auth-library": "^0.9.6",
+    "googleapis": "^2.1.5"
   }
 }
