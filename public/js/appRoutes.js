@@ -20,7 +20,7 @@ angular.module('appRoutes', []).config(['$routeProvider', '$locationProvider', f
 
 		.when('/manage',{
 			templateUrl: 'views/manage.html',
-			controller: 'AccountController'				
+			controller: 'ManageController'				
 		});
 
 	$locationProvider.html5Mode(true);
