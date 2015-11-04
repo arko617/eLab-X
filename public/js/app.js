@@ -16,3 +16,24 @@ var apiKey = "AIzaSyB71KszVh0JIH-7EXVgmTv8vt2uy33lPMU";
 var dropboxAPIKey = 'r2k206ydj5s5kv1';
 var dropBoxClient = new Dropbox.Client({ key: dropboxAPIKey });
 console.log("Connecting to Dropbox Client...",dropBoxClient);
+
+//Load DROPBOX OAUTH
+var that = this;
+dropBoxClient.authenticate(function(error,dbClient){
+	if(error){
+		alert(error);
+		return error;
+		}			
+	//Assign variable
+	that.dbClient = dbClient;
+		
+	// Example with Dropbox. Get user information
+	getDropboxUserInfo(dbClient, function(accountInfo){
+		console.log("Hello, " + accountInfo.name + "!");
+	});
+		
+	//----------------------------LOAD GOOGLE DRIVE OAUTH
+	console.log('Dropbox is authorized successfully:', dbClient);
+	//handleGoogleClientLoad();
+});
+
