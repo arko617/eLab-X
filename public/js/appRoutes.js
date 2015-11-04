@@ -16,6 +16,11 @@ angular.module('appRoutes', []).config(['$routeProvider', '$locationProvider', f
 		.when('/account', {
 			templateUrl: 'views/account.html',
 			controller: 'AccountController'	
+		})
+
+		.when('/manage',{
+			templateUrl: 'views/manage.html',
+			controller: 'ManageController'				
 		});
 
 	$locationProvider.html5Mode(true);
