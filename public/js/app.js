@@ -49,6 +49,7 @@ function handleGoogleClientLoad() {
 /**
 * Check if the current user has authorized the application.
 */
+
 function checkAuth() {
 	gapi.auth.authorize(
 	{'client_id': CLIENT_ID, 'scope': SCOPES, 'immediate': true},

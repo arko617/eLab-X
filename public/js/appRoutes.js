@@ -23,27 +23,6 @@ angular.module('appRoutes', []).config(['$routeProvider', '$locationProvider', f
 			controller: 'ManageController'				
 		});
 
-		.when('/google',{
-			templateUrl: 'views/google.html',
-			controller: 'GoogleController'				
-		});
-
-		.when('/dropbox',{
-			templateUrl: 'views/dropbox.html',
-			controller: 'DropboxController'				
-		});
-
-		.when('/box',{
-			templateUrl: 'views/box.html',
-			controller: 'BoxController'				
-		});
-
-		.when('/local',{
-			templateUrl: 'views/local.html',
-			controller: 'LocalController'				
-		});
-
-
 	$locationProvider.html5Mode(true);
 
 }]);

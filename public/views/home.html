@@ -1,5 +1,118 @@
-<div class="jumbotron text-center">
-	<h1>Home</h1>
+<div class="container">
+  <center>
+  <ul class="nav navbar-nav">
+    <li class="li-margin"><a ng-click="showgoogle=true; showdropbox=false; showbox=false; showlocal= false"><img class="drive-size" src="../img/google.png"></a></li>
+    <li class="li-margin"><a ng-click="showgoogle=false; showdropbox=true; showbox=false; showlocal= false"><img class="drive-size" src="../img/dropbox.png"></a></li>
+    <li class="li-margin"><a ng-click="showgoogle=false; showdropbox=false; showbox=true; showlocal= false"><img class="drive-size" src="../img/box.png"></a></li>
+    <li class="li-margin"><a ng-click="showgoogle=false; showdropbox=false; showbox=false; showlocal= true"><img class="drive-size" src="../img/local.png"></a></li>
+  </ul>
+  </center>
+</div>
 
-	<p>{{ tagline }}</p>
+<div ng-show="showgoogle"class="container" id="google-display">
+	
+	<div class="dropdown" id="file-operation">
+	    <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" style="background-color:green; border-color:green" >
+	    	Operation
+	    	<span class="caret"></span>
+	    </button>
+	    <ul class="dropdown-menu">
+	      <li><a href="#">Create</a></li>
+	      <li class="divider"></li>
+	      <li><a href="#">Rename</a></li>
+	      <li class="divider"></li>
+	      <li><a href="#">Delete</a></li>
+	      <li><a href="#">Download</a></li>
+	      <li><a href="#">Transfer</a></li>
+	    </ul>
+	</div>
+
+	<ul ng-repeat="x in googleFile" class="nav navbar-nav">
+		<li>
+			<img class="folder-size-green" src="../img/folder.png"></a>
+			<br/>
+			<div class="folder-name" style="color:green">{{x}}</div>
+		</li>
+	</ul>
+</div>
+
+<div ng-show="showdropbox"class="container" id="dropbox-display">
+
+	<div class="dropdown" id="file-operation">
+	    <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" style="background-color:blue; border-color:blue" >
+	    	Operation
+	    	<span class="caret"></span>
+	    </button>
+	    <ul class="dropdown-menu">
+	      <li><a href="#">Create</a></li>
+	      <li class="divider"></li>
+	      <li><a href="#">Rename</a></li>
+	      <li class="divider"></li>
+	      <li><a href="#">Delete</a></li>
+	      <li><a href="#">Download</a></li>
+	      <li><a href="#">Transfer</a></li>
+	    </ul>
+	</div>
+
+	<ul ng-repeat="x in dropboxFile" class="nav navbar-nav">
+		<li>
+			<img class="folder-size-blue" src="../img/folder.png"></a>
+			<br/>
+			<div class="folder-name" style="color:blue">{{x}}</div>
+		</li>
+	</ul>
+</div>
+
+<div ng-show="showbox"class="container" id="box-display">
+
+	<div class="dropdown" id="file-operation">
+	    <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" style="background-color:violet; border-color:violet" >
+	    	Operation
+	    	<span class="caret"></span>
+	    </button>
+	    <ul class="dropdown-menu">
+	      <li><a href="#">Create</a></li>
+	      <li class="divider"></li>
+	      <li><a href="#">Rename</a></li>
+	      <li class="divider"></li>
+	      <li><a href="#">Delete</a></li>
+	      <li><a href="#">Download</a></li>
+	      <li><a href="#">Transfer</a></li>
+	    </ul>
+	</div>
+
+	<ul ng-repeat="x in boxFile" class="nav navbar-nav">
+		<li>
+			<img class="folder-size-violet" src="../img/folder.png"></a>
+			<br/>
+			<div class="folder-name" style="color:violet">{{x}}</div>
+		</li>
+	</ul>
+</div>
+
+<div ng-show="showlocal"class="container" id="local-display">
+	
+	<div class="dropdown" id="file-operation">
+	    <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" style="background-color:red; border-color:red" >
+	    	Operation
+	    	<span class="caret"></span>
+	    </button>
+	    <ul class="dropdown-menu">
+	      <li><a href="#">Create</a></li>
+	      <li class="divider"></li>
+	      <li><a href="#">Rename</a></li>
+	      <li class="divider"></li>
+	      <li><a href="#">Delete</a></li>
+	      <li><a href="#">Download</a></li>
+	      <li><a href="#">Transfer</a></li>
+	    </ul>
+	</div>
+
+	<ul ng-repeat="x in localFile" class="nav navbar-nav">
+		<li>
+			<img class="folder-size-red" src="../img/folder.png"></a>
+			<br/>
+			<div class="folder-name" style="color:red">{{x}}</div>
+		</li>
+	</ul>
 </div>
