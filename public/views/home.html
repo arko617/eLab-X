@@ -1,10 +1,10 @@
 <div class="container">
   <center>
   <ul class="nav navbar-nav">
-    <li class="li-margin"><a ng-click="showgoogle=true; showdropbox=false; showbox=false; showlocal= false"><img class="drive-size" src="../img/google.png"></a></li>
-    <li class="li-margin"><a ng-click="showgoogle=false; showdropbox=true; showbox=false; showlocal= false"><img class="drive-size" src="../img/dropbox.png"></a></li>
-    <li class="li-margin"><a ng-click="showgoogle=false; showdropbox=false; showbox=true; showlocal= false"><img class="drive-size" src="../img/box.png"></a></li>
-    <li class="li-margin"><a ng-click="showgoogle=false; showdropbox=false; showbox=false; showlocal= true"><img class="drive-size" src="../img/local.png"></a></li>
+    <li class="li-margin"><a ng-click="showgoogle=true; showdropbox=false; showbox=false; showlocal= false" href="#"><img class="drive-size" src="../img/google.png"></a></li>
+    <li class="li-margin"><a ng-click="showgoogle=false; showdropbox=true; showbox=false; showlocal= false" href="#"><img class="drive-size" src="../img/dropbox.png"></a></li>
+    <li class="li-margin"><a ng-click="showgoogle=false; showdropbox=false; showbox=true; showlocal= false" href="#"><img class="drive-size" src="../img/box.png"></a></li>
+    <li class="li-margin"><a ng-click="showgoogle=false; showdropbox=false; showbox=false; showlocal= true" href="#"><img class="drive-size" src="../img/local.png"></a></li>
   </ul>
   </center>
 </div>
@@ -29,7 +29,7 @@
 
 	<ul ng-repeat="x in googleFile" class="nav navbar-nav">
 		<li>
-			<img class="folder-size-green" src="../img/folder.png"></a>
+			<img class="folder-size-green" src="../img/folder.png">
 			<br/>
 			<div class="folder-name" style="color:green">{{x}}</div>
 		</li>
@@ -56,7 +56,7 @@
 
 	<ul ng-repeat="x in dropboxFile" class="nav navbar-nav">
 		<li>
-			<img class="folder-size-blue" src="../img/folder.png"></a>
+			<img class="folder-size-blue" src="../img/folder.png">
 			<br/>
 			<div class="folder-name" style="color:blue">{{x}}</div>
 		</li>
@@ -83,7 +83,7 @@
 
 	<ul ng-repeat="x in boxFile" class="nav navbar-nav">
 		<li>
-			<img class="folder-size-violet" src="../img/folder.png"></a>
+			<img class="folder-size-violet" src="../img/folder.png">
 			<br/>
 			<div class="folder-name" style="color:violet">{{x}}</div>
 		</li>
@@ -110,7 +110,7 @@
 
 	<ul ng-repeat="x in localFile" class="nav navbar-nav">
 		<li>
-			<img class="folder-size-red" src="../img/folder.png"></a>
+			<img class="folder-size-red" src="../img/folder.png">
 			<br/>
 			<div class="folder-name" style="color:red">{{x}}</div>
 		</li>
