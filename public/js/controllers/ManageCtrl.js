@@ -49,7 +49,7 @@ var SCOPES = ['https://www.googleapis.com/auth/drive.install','https://www.googl
 */
 function handleGoogleClientLoad() {
 	//gapi.client.setApiKey(apiKey);
-	window.setTimeout(checkAuth, 200);	//e.g.500ms; remember to wait some time for the google script to load
+	window.setTimeout(checkAuth, 400);	//e.g.500ms; remember to wait some time for the google script to load
 	console.log("Checking auth...");
 }
 
