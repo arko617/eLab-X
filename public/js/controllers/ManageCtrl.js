@@ -83,7 +83,7 @@ function handleAuthResult(authResult) {
 		//gapi.auth.authorize(
 		//	{'client_id': CLIENT_ID, 'scope': SCOPES, 'immediate': false},
 		//	handleAuthResult);
-		//};
+		//};o
 	}
 }
 
