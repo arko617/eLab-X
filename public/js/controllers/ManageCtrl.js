@@ -96,17 +96,23 @@ angular.module('ManageCtrl', []).controller('ManageController', function($scope)
 
 });
 
+
+
+
+// *************************************************************************
+// ***********Mathew testing code
+// *************************************************************************
 //Copy from Dropbox to Google Drive
 //1) Copy rom Dropbox
 //2) Store info in Google Drive
 /*Matthew's Experiemental added code*/
-dropBoxClient.copy(function(from, toPath, callback){ 
-	//Grab current file's path
-	googleDriveClient.insert(from, callback);
-	//Call googleDriveClient and append the "from" parameter to the new path.
+// dropBoxClient.copy(function(from, toPath, callback){ 
+// 	//Grab current file's path
+// 	googleDriveClient.insert(from, callback);
+// 	//Call googleDriveClient and append the "from" parameter to the new path.
 
 
-});
+// });
 
 //Example: Modify this later
 // googleDriveClient.insert(function(fileData, callback) {
@@ -152,5 +158,5 @@ dropBoxClient.copy(function(from, toPath, callback){
 //   }
 // });
 
-console.log("TEST AND EXECUTES TO THE END! MATTHEW");
+//console.log("TEST AND EXECUTES TO THE END! MATTHEW");
 /*End*/
