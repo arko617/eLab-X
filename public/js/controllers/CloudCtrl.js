@@ -24,10 +24,10 @@ dropBoxClient.authenticate(function(error,client){
 	console.log('Dropbox is authorized successfully:', client);
 
 	// assign value
-	dbClient = client		
+	dbClient = new DbClient(client)		
 		
 	// Example with Dropbox. Get user information
-	getAccountInfo_db(dbClient, function(accountInfo){
+	dbClient.getAccountInfo(function(accountInfo){
 		console.log("HegetAccountInfo_dbllo, " + accountInfo.name + "!");
 	});
 		
@@ -66,11 +66,13 @@ function checkAuth() {
 function handleAuthResult(authResult) {
 	if (authResult && !authResult.error) {
 		console.log('Google drive client is authorized successfully', gapi)
-		gdClient = gapi
 
-		//test and go into main mangement loop
-		gdClient.client.load('drive', 'v2', function(){
-			getAccountInfo_gd(function(account){
+		// load the particular drive api and then just into main application
+		gapi.client.load('drive', 'v2', function(){
+			//assign the drive api
+			gdClient = new GdClient(gapi.client.drive)
+
+			gdClient.getAccountInfo(function(account){
 				console.log('Hello gDrive user:',account.name)
 			})
 
@@ -92,15 +94,10 @@ function handleAuthResult(authResult) {
 */
 function mainCloudLoop(){
 		// google drive
-		gdClient.client.load('drive', 'v2', function(){
-
-		});
+		console.log(gdClient)
 
 		// Dropbox
-		//dbClient
+		console.log(dbClient)
 }
-
-
-
 
 

@@ -1,13 +1,16 @@
 // #########################################
-// This is the CRUD for google drive
+// An object for google drive api to handle CRUD operations
 // #########################################
 
-/**
- * Print information about the current user along with the Drive API
- * settings.
- */
-function getAccountInfo_gd(callback) {
-  var request = gapi.client.drive.about.get();
+var GdClient = function(api){
+	this.api = api
+}
+
+var gdp = GdClient.prototype
+
+// account info
+gdp.getAccountInfo = function(callback) {
+  var request = this.api.about.get();
 
   // resp = {name, rootFolerId, quotaBytesTotal, quotaBytesused}
   request.execute(function(resp) {
