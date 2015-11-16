@@ -10,7 +10,8 @@ angular.module('appRoutes', []).config(['$routeProvider', '$locationProvider', f
 
 		.when('/home', {
 			templateUrl: 'views/home.html',
-			controller: 'HomeController'
+			controller: 'HomeController',
+			controller: 'CloudController',
 		})
 
 		.when('/account', {
