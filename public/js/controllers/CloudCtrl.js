@@ -27,8 +27,8 @@ dropBoxClient.authenticate(function(error,client){
 	dbClient = client		
 		
 	// Example with Dropbox. Get user information
-	getDropboxUserInfo(dbClient, function(accountInfo){
-		console.log("Hello, " + accountInfo.name + "!");
+	getAccountInfo_db(dbClient, function(accountInfo){
+		console.log("HegetAccountInfo_dbllo, " + accountInfo.name + "!");
 	});
 		
 	//LOAD GOOGLE DRIVE OAUTH
@@ -68,17 +68,15 @@ function handleAuthResult(authResult) {
 		console.log('Google drive client is authorized successfully', gapi)
 		gdClient = gapi
 
-		//test
-		// google drive
+		//test and go into main mangement loop
 		gdClient.client.load('drive', 'v2', function(){
-		 	var request = gdClient.client.drive.about.get();
-		 	request.execute(function(resp){
-		 		console.log('Hello user:',resp.name)
-		 	})
-		});
+			getAccountInfo_gd(function(account){
+				console.log('Hello gDrive user:',account.name)
+			})
 
-		// jump into drive management loop
-		mainCloudLoop()
+			// jump into drive management loop
+			mainCloudLoop()
+		});
 	} else {
 		console.log("Fail to do google drive client oauth");
 	}
