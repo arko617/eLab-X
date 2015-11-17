@@ -74,10 +74,12 @@ function handleAuthResult(authResult) {
 
 			gdClient.getAccountInfo(function(account){
 				console.log('Hello gDrive user:',account.name)
+				console.log('THe root folderId is:', account.rootFolderId)
+				
+				// jump into drive management loop
+				mainCloudLoop()
 			})
 
-			// jump into drive management loop
-			mainCloudLoop()
 		});
 	} else {
 		console.log("Fail to do google drive client oauth");
@@ -90,14 +92,40 @@ function handleAuthResult(authResult) {
 // ################################################################################################
 
 /**
-* Once the authis good, then load the api and do something
+* Once the authis good, then load the api and do something.
+* You can treat this as a test
 */
 function mainCloudLoop(){
-		// google drive
-		console.log(gdClient)
+		//--------------------------- google drive
+		//console.log(gdClient)
+		var rootFolderId = '0AN9TACL_6_flUk9PVA'
 
-		// Dropbox
-		console.log(dbClient)
+		// receive all file and folder from root 
+		gdClient.retrieveChildrenFiles(rootFolderId,false,false,function(files){
+			console.log('TEST:retreive files from google drive:', files)
+		})
+
+		// get a file meta
+		gdClient.getItemMeta(rootFolderId,function(meta){
+			console.log('TEST: get root folder meta data',meta)
+		})
+
+		// Create a google doc and then remove it
+		folderId = rootFolderId
+		title = 'Testing'
+		mimeType = 'application/vnd.google-apps.document'
+		gdClient.createGFile(folderId,title,mimeType,function(resp,result){
+			console.log('TEST: Create a new google item in root folder', result)
+
+			// delete it then
+			gdClient.deleteItem(result.id,function(resp,result){
+				console.log('TEST: remove an item {0}'.f(result))
+			})
+		})
+
+
+		//--------------------------- Dropbox
+		//console.log(dbClient)
 }
 
 

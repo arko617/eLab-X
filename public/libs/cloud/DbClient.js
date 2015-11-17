@@ -31,3 +31,5 @@ dbp.getAccountInfo = function(callback){
 		  callback && callback(accountInfo);
 		});
 }
+
+//
