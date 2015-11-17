@@ -28,7 +28,8 @@ dropBoxClient.authenticate(function(error,client){
 		
 	// Example with Dropbox. Get user information
 	dbClient.getAccountInfo(function(accountInfo){
-		console.log("HegetAccountInfo_dbllo, " + accountInfo.name + "!");
+		console.log("Dropbox account info", accountInfo)
+		console.log("Hello dropbox user, " + accountInfo.name + "!");
 	});
 		
 	//LOAD GOOGLE DRIVE OAUTH
