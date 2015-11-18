@@ -1,3 +1,9 @@
+<div class="test">
+	<button type="button" class="btn btn-primary testGd" ng-Click="testGDrive()"> Test google drive </button>
+	<button type="button" class="btn btn-primary testDb" ng-Click="testDropbox()"> Test dropbox </button>
+</div>
+<br>
+
 <div class="container">
   <center>
   <ul class="nav navbar-nav">
@@ -10,7 +16,6 @@
 </div>
 
 <div ng-show="showgoogle"class="container" id="google-display">
-	
 	<div class="dropdown" id="file-operation">
 	    <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" style="background-color:green; border-color:green" >
 	    	Operation
@@ -30,10 +35,11 @@
 	      <li ng-click="selectNoneGoogle()"><a href="#">Select-None</a></li>
 	    </ul>
 	</div>
-
+	<div class="btn btn-primary" id="directoryGoogle" ng--click="outofGoogleFolder()"><span class="glyphicon glyphicon-triangle-left">&nbsp;</span>{{curDirGoogle}}</div>
 	<ul ng-repeat="x in googleFile" class="nav navbar-nav">
 		<li>
-			<img class="folder-size-green" ng-src="{{x.folder}}" ng-click="toggleFolder(x)">
+			<img class="folder-size-green" ng-src="../img/folder.png" ng-dblclick="intoGoogleFolder(x)">
+			<img class="checkbox-size" ng-src="{{x.folder}}" ng-click="toggleFolder(x)">
 			<br/>
 			<div class="folder-name" style="color:green">{{x.name}}</div>
 		</li>
@@ -62,9 +68,11 @@
 	    </ul>
 	</div>
 
+	<div class="btn btn-primary" id="directoryDropbox" ng--click="outofDropboxFolder()"><span class="glyphicon glyphicon-triangle-left">&nbsp;</span>{{curDirDropbox}}</div>
 	<ul ng-repeat="x in dropboxFile" class="nav navbar-nav">
 		<li>
-			<img class="folder-size-blue" ng-src="{{x.folder}}" ng-click="toggleFolder(x)">
+			<img class="folder-size-blue" ng-src="../img/folder.png" ng-dblclick="intoDropboxFolder(x)">
+			<img class="checkbox-size" ng-src="{{x.folder}}" ng-click="toggleFolder(x)">
 			<br/>
 			<div class="folder-name" style="color:blue">{{x.name}}</div>
 		</li>
@@ -93,9 +101,11 @@
 	    </ul>
 	</div>
 
+	<div class="btn btn-primary" id="directoryBox" ng--click="outofBoxFolder()"><span class="glyphicon glyphicon-triangle-left">&nbsp;</span>{{curDirBox}}</div>
 	<ul ng-repeat="x in boxFile" class="nav navbar-nav">
 		<li>
-			<img class="folder-size-violet" ng-src="{{x.folder}}" ng-click="toggleFolder(x)">
+			<img class="folder-size-violet" ng-src="../img/folder.png" ng-dblclick="intoBoxFolder(x)">
+			<img class="checkbox-size" ng-src="{{x.folder}}" ng-click="toggleFolder(x)">
 			<br/>
 			<div class="folder-name" style="color:violet">{{x.name}}</div>
 		</li>
@@ -124,9 +134,11 @@
 	    </ul>
 	</div>
 
+	<div class="btn btn-primary" id="directoryLocal" ng--click="outofLocalFolder()"><span class="glyphicon glyphicon-triangle-left">&nbsp;</span>{{curDirLocal}}</div>
 	<ul ng-repeat="x in localFile" class="nav navbar-nav">
 		<li>
-			<img class="folder-size-red" ng-src="{{x.folder}}" ng-click="toggleFolder(x)">
+			<img class="folder-size-red" ng-src="../img/folder.png" ng-dblclick="intoLocalFolder(x)">
+			<img class="checkbox-size" ng-src="{{x.folder}}" ng-click="toggleFolder(x)">
 			<br/>
 			<div class="folder-name" style="color:red">{{x.name}}</div>
 		</li>

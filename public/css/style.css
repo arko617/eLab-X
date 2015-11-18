@@ -178,7 +178,7 @@ li{
 }
 
 .folder-size-green{
-  margin-top: 50px;
+  margin-top: 30px;
   margin-left: 75px;
   height: 100px;
   width: 100px;
@@ -189,7 +189,7 @@ li{
 }
 
 .folder-size-blue{
-  margin-top: 50px;
+  margin-top: 30px;
   margin-left: 75px;
   height: 100px;
   width: 100px;
@@ -200,7 +200,7 @@ li{
 }
 
 .folder-size-violet{
-  margin-top: 50px;
+  margin-top: 30px;
   margin-left: 75px;
   height: 100px;
   width: 100px;
@@ -211,7 +211,7 @@ li{
 }
 
 .folder-size-red{
-  margin-top: 50px;
+  margin-top: 30px;
   margin-left: 75px;
   height: 100px;
   width: 100px;
@@ -224,4 +224,51 @@ li{
 #file-operation{
   margin-left: 1030px;
   margin-top: 10px;
+}
+
+.checkbox-size{
+  margin-top: 65px;
+  margin-left: -40px;
+  height: 25px;
+  width: 25px;
+}
+
+#directoryGoogle{
+  margin-top: -57px;
+  height: 34px;
+  width: 100%;
+  background-color: black;
+  border-color: green;
+  color: green;
+  text-align: left;
+}
+
+#directoryDropbox{
+  margin-top: -57px;
+  height: 34px;
+  width: 100%;
+  background-color: black;
+  border-color: blue;
+  color: blue;
+  text-align: left;
+}
+
+#directoryBox{
+  margin-top: -57px;
+  height: 34px;
+  width: 100%;
+  background-color: black;
+  border-color: violet;
+  color: violet;
+  text-align: left;
+}
+
+#directoryLocal{
+  margin-top: -57px;
+  height: 34px;
+  width: 100%;
+  background-color: black;
+  border-color: red;
+  color: red;
+  text-align: left;
 }
