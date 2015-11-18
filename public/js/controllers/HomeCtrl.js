@@ -141,4 +141,13 @@ angular.module('HomeCtrl', []).controller('HomeController', function($scope) {
 		$scope.folderSelect = 0;
 		$scope.folderSelection();
 	};
+
+	// -------------------- johnny: for APIs testing
+	$scope.testGDrive = function(){
+		gDriveTests()
+	}
+
+	$scope.testDropbox = function(){
+		dropboxTests()
+	}
 });

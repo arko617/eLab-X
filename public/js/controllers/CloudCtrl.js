@@ -77,8 +77,10 @@ function handleAuthResult(authResult) {
 				console.log('Hello gDrive user:',account.name)
 				console.log('THe root folderId is:', account.rootFolderId)
 				
-				// jump into drive management loop
-				mainCloudLoop()
+				// jump into drive test
+				// dropboxTests()
+				// gDriveTests()
+
 			})
 
 		});
@@ -96,7 +98,7 @@ function handleAuthResult(authResult) {
 * Once the authis good, then load the api and do something.
 * You can treat this as a test
 */
-function mainCloudLoop(){
+function gDriveTests(){
 		//--------------------------- google drive
 		//console.log(gdClient)
 		var rootFolderId = '0AN9TACL_6_flUk9PVA'
@@ -123,8 +125,13 @@ function mainCloudLoop(){
 				console.log('----gDrive TEST: remove an item {0}'.f(result))
 			})
 		})
+}
 
-
+/**
+* Once the authis good, then load the api and do something.
+* You can treat this as a test
+*/
+function dropboxTests(){
 		//--------------------------- Dropbox
 
 		// Load a directory content
@@ -152,10 +159,6 @@ function mainCloudLoop(){
 		dbClient.readDirAllContent(cPos,fileList,fileIsFolderList, function(fileList, fileIsFolderList){
 			console.log('----dropbox TEST: obtain all the files and folder in dropbox', fileList, fileIsFolderList)
 		})
-
-
-
-
 }
 
 
