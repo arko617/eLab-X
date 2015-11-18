@@ -103,12 +103,12 @@ function mainCloudLoop(){
 
 		// receive all file and folder from root 
 		gdClient.retrieveChildrenFiles(rootFolderId,false,false,function(files){
-			console.log('TEST:retreive files from google drive:', files)
+			console.log('----gDrive TEST:retreive files from google drive:', files)
 		})
 
 		// get a file meta
 		gdClient.getItemMeta(rootFolderId,function(meta){
-			console.log('TEST: get root folder meta data',meta)
+			console.log('----gDrive TEST: get root folder meta data',meta)
 		})
 
 		// Create a google doc and then remove it
@@ -116,17 +116,46 @@ function mainCloudLoop(){
 		title = 'Testing'
 		mimeType = 'application/vnd.google-apps.document'
 		gdClient.createGFile(folderId,title,mimeType,function(resp,result){
-			console.log('TEST: Create a new google item in root folder', result)
+			console.log('----gDrive TEST: Create a new google item in root folder', result)
 
 			// delete it then
 			gdClient.deleteItem(result.id,function(resp,result){
-				console.log('TEST: remove an item {0}'.f(result))
+				console.log('----gDrive TEST: remove an item {0}'.f(result))
 			})
 		})
 
 
 		//--------------------------- Dropbox
-		//console.log(dbClient)
+
+		// Load a directory content
+		dbClient.readDirContent('/Apps',function(result){
+			console.log('----dropbox TEST: read a directory', result)
+
+		})
+
+		//Read a file content
+		dbClient.readAFile('gitignore.txt', function(result){
+			console.log('----dropbox TEST: read a file content', result)
+		})
+
+		// Create download link for an item
+		filePath = 'gitignore.txt'
+		options = {download:true} // download link instead of preview
+		dbClient.getDownloadLink(filePath, options, function(result){
+			console.log('----dropbox TEST: create download link for an item', result)
+		})
+
+		// identity all the files and folder in dropbox recursively
+		cPos = 0
+		fileList = ['/']
+		fileIsFolderList = [1]
+		dbClient.readDirAllContent(cPos,fileList,fileIsFolderList, function(fileList, fileIsFolderList){
+			console.log('----dropbox TEST: obtain all the files and folder in dropbox', fileList, fileIsFolderList)
+		})
+
+
+
+
 }
 
 
