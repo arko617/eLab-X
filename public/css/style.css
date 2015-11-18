@@ -272,3 +272,43 @@ li{
   color: red;
   text-align: left;
 }
+
+#directoryDestGoogle{
+  margin-top: 10px;
+  height: 34px;
+  width: 100%;
+  background-color: black;
+  border-color: green;
+  color: green;
+  text-align: left;
+}
+
+#directoryDestDropbox{
+  margin-top: 10px;
+  height: 34px;
+  width: 100%;
+  background-color: black;
+  border-color: blue;
+  color: blue;
+  text-align: left;
+}
+
+#directoryDestBox{
+  margin-top: 10px;
+  height: 34px;
+  width: 100%;
+  background-color: black;
+  border-color: violet;
+  color: violet;
+  text-align: left;
+}
+
+#directoryDestLocal{
+  margin-top: 10px;
+  height: 34px;
+  width: 100%;
+  background-color: black;
+  border-color: red;
+  color: red;
+  text-align: left;
+}

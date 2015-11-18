@@ -1,9 +1,12 @@
+<center>
 <div class="test">
 	<button type="button" class="btn btn-primary testGd" ng-Click="testGDrive()"> Test google drive </button>
 	<button type="button" class="btn btn-primary testDb" ng-Click="testDropbox()"> Test dropbox </button>
 </div>
 <br>
+</center>
 
+<br/><br/>
 <div class="container">
   <center>
   <ul class="nav navbar-nav">
@@ -15,7 +18,7 @@
   </center>
 </div>
 
-<div ng-show="showgoogle"class="container" id="google-display">
+<div ng-show="showgoogle" class="container" id="google-display">
 	<div class="dropdown" id="file-operation">
 	    <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" style="background-color:green; border-color:green" >
 	    	Operation
@@ -28,8 +31,8 @@
 	      <li class="divider"></li>
 	      <li class="{{del}}"><a href="#">Delete</a></li>
 	      <li class="{{download}}"><a href="#">Download</a></li>
-	      <li class="{{transfer}}"><a href="#">Copy</a></li>
-	      <li class="{{transfer}}"><a href="#">Move</a></li>
+	      <li ng-click="showDestination=true;" class="{{transfer}}"><a href="#">Copy</a></li>
+	      <li ng-click="showDestination=true;" class="{{transfer}}"><a href="#">Move</a></li>
 	      <li class="divider"></li>
 	      <li ng-click="selectAllGoogle()"><a href="#">Select-All</a></li>
 	      <li ng-click="selectNoneGoogle()"><a href="#">Select-None</a></li>
@@ -60,8 +63,8 @@
 	      <li class="divider"></li>
 	      <li class="{{del}}"><a href="#">Delete</a></li>
 	      <li class="{{download}}"><a href="#">Download</a></li>
-	      <li class="{{transfer}}"><a href="#">Copy</a></li>
-	      <li class="{{transfer}}"><a href="#">Move</a></li>
+	      <li ng-click="showDestination=true;" class="{{transfer}}"><a href="#">Copy</a></li>
+	      <li ng-click="showDestination=true;" class="{{transfer}}"><a href="#">Move</a></li>
 	      <li class="divider"></li>
 	      <li ng-click="selectAllDropbox()"><a href="#">Select-All</a></li>
 	      <li ng-click="selectNoneDropbox()"><a href="#">Select-None</a></li>
@@ -93,8 +96,8 @@
 	      <li class="divider"></li>
 	      <li class="{{del}}"><a href="#">Delete</a></li>
 	      <li class="{{download}}"><a href="#">Download</a></li>
-	      <li class="{{transfer}}"><a href="#">Copy</a></li>
-	      <li class="{{transfer}}"><a href="#">Move</a></li>
+	      <li ng-click="showDestination=true;" class="{{transfer}}"><a href="#">Copy</a></li>
+	      <li ng-click="showDestination=true;" class="{{transfer}}"><a href="#">Move</a></li>
 	      <li class="divider"></li>
 	      <li ng-click="selectAllBox()"><a href="#">Select-All</a></li>
 	      <li ng-click="selectNoneBox()"><a href="#">Select-None</a></li>
@@ -126,8 +129,8 @@
 	      <li class="divider"></li>
 	      <li class="{{del}}"><a href="#">Delete</a></li>
 	      <li class="{{download}}"><a href="#">Download</a></li>
-	      <li class="{{transfer}}"><a href="#">Copy</a></li>
-	      <li class="{{transfer}}"><a href="#">Move</a></li>
+	      <li ng-click="showDestination=true;" class="{{transfer}}"><a href="#">Copy</a></li>
+	      <li ng-click="showDestination=true;" class="{{transfer}}"><a href="#">Move</a></li>
 	      <li class="divider"></li>
 	      <li ng-click="selectAllLocal()"><a href="#">Select-All</a></li>
 	      <li ng-click="selectNoneLocal()"><a href="#">Select-None</a></li>
@@ -144,3 +147,69 @@
 		</li>
 	</ul>
 </div>
+
+<div ng-show="showDestination" class="container" >
+  <br/><br/><br/><br/><br/><br/>
+  <center>
+  <ul class="nav navbar-nav">
+    <li class="li-margin"><a ng-style="googleDestStyle" ng-click="showDestgoogle=true; showDestdropbox=false; showDestbox=false; showDestlocal= false; googleDestStyle={'background-color':'green'}; dropboxDestStyle={'background-color':'white'}; boxDestStyle={'background-color':'white'}; localDestStyle={'background-color':'white'}; showConfirm=true" href="#"><img class="drive-size" id="google" src="../img/google.png"></a></li>
+    <li class="li-margin"><a ng-style="dropboxDestStyle" ng-click="showDestgoogle=false; showDestdropbox=true; showDestbox=false; showDestlocal= false; googleDestStyle={'background-color':'white'}; dropboxDestStyle={'background-color':'blue'}; boxDestStyle={'background-color':'white'}; localDestStyle={'background-color':'white'}; showConfirm=true" href="#"><img class="drive-size" src="../img/dropbox.png"></a></li>
+    <li class="li-margin"><a ng-style="boxDestStyle" ng-click="showDestgoogle=false; showDestdropbox=false; showDestbox=true; showDestlocal= false; googleDestStyle={'background-color':'white'}; dropboxDestStyle={'background-color':'white'}; boxDestStyle={'background-color':'violet'}; localDestStyle={'background-color':'white'}; showConfirm=true" href="#"><img class="drive-size" src="../img/box.png"></a></li>
+    <li class="li-margin"><a ng-style="localDestStyle" ng-click="showDestgoogle=false; showDestdropbox=false; showDestbox=false; showDestlocal= true; googleDestStyle={'background-color':'white'}; dropboxDestStyle={'background-color':'white'}; boxDestStyle={'background-color':'white'}; localDestStyle={'background-color':'red'}; showConfirm=true" href="#"><img class="drive-size" src="../img/local.png"></a></li>
+  </ul>
+  </center>
+</div>
+
+<div ng-show="showDestgoogle"class="container" id="google-display">
+	<div class="btn btn-primary" id="directoryDestGoogle" ng--click="outofGoogleDestFolder()"><span class="glyphicon glyphicon-triangle-left">&nbsp;</span>{{curDestDirGoogle}}</div>
+	<ul ng-repeat="x in googleDestFile" class="nav navbar-nav">
+		<li>
+			<img class="folder-size-green" ng-src="../img/folder.png" ng-dblclick="intoGoogleDestFolder(x)">
+			<img class="checkbox-size" ng-src="{{x.folder}}" ng-click="toggleDestFolder(x)">
+			<br/>
+			<div class="folder-name" style="color:green">{{x.name}}</div>
+		</li>
+	</ul>
+</div>
+
+<div ng-show="showDestdropbox" class="container" id="dropbox-display">
+	<div class="btn btn-primary" id="directoryDestDropbox" ng--click="outofDropboxDestFolder()"><span class="glyphicon glyphicon-triangle-left">&nbsp;</span>{{curDestDirDropbox}}</div>
+	<ul ng-repeat="x in dropboxDestFile" class="nav navbar-nav">
+		<li>
+			<img class="folder-size-blue" ng-src="../img/folder.png" ng-dblclick="intoDropboxDestFolder(x)">
+			<img class="checkbox-size" ng-src="{{x.folder}}" ng-click="toggleDestFolder(x)">
+			<br/>
+			<div class="folder-name" style="color:blue">{{x.name}}</div>
+		</li>
+	</ul>
+</div>
+
+<div ng-show="showDestbox"class="container" id="box-display">
+	<div class="btn btn-primary" id="directoryDestBox" ng--click="outofBoxDestFolder()"><span class="glyphicon glyphicon-triangle-left">&nbsp;</span>{{curDestDirBox}}</div>
+	<ul ng-repeat="x in boxDestFile" class="nav navbar-nav">
+		<li>
+			<img class="folder-size-violet" ng-src="../img/folder.png" ng-dblclick="intoBoxDestFolder(x)">
+			<img class="checkbox-size" ng-src="{{x.folder}}" ng-click="toggleDestFolder(x)">
+			<br/>
+			<div class="folder-name" style="color:violet">{{x.name}}</div>
+		</li>
+	</ul>
+</div>
+
+<div ng-show="showDestlocal"class="container" id="local-display">
+	<div class="btn btn-primary" id="directoryDestLocal" ng--click="outofLocalDestFolder()"><span class="glyphicon glyphicon-triangle-left">&nbsp;</span>{{curDestDirLocal}}</div>
+	<ul ng-repeat="x in localDestFile" class="nav navbar-nav">
+		<li>
+			<img class="folder-size-red" ng-src="../img/folder.png" ng-dblclick="intoLocalDestFolder(x)">
+			<img class="checkbox-size" ng-src="{{x.folder}}" ng-click="toggleDestFolder(x)">
+			<br/>
+			<div class="folder-name" style="color:red">{{x.name}}</div>
+		</li>
+	</ul>
+</div>
+
+<div ng-show="showConfirm">
+<br/><br/><br/><br/>
+<center><button class="btn btn-primary" type="button" data-toggle="dropdown" style="background-color:black; border:5px solid yellow; color:yellow">Confirm</button></center>
+</div>
+<br/><br/>

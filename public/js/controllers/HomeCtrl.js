@@ -5,10 +5,8 @@ angular.module('HomeCtrl', []).controller('HomeController', function($scope) {
 	var gFile = [{name: 'Workspace', folder: "../img/checkbox.png"}, 
 						{name: 'Random', folder: "../img/checkbox.png"},
 						{name: 'Project', folder: "../img/checkbox.png"}];
-	$scope.googleFile = gFile;
 	
 	var dFile = [{name: 'Resume', folder: "../img/checkbox.png"}];
-	$scope.dropboxFile = dFile;
 
 	var bFile = [{name: 'eLab', folder: "../img/checkbox.png"},
 						{name: 'Physics', folder: "../img/checkbox.png"},
@@ -16,7 +14,6 @@ angular.module('HomeCtrl', []).controller('HomeController', function($scope) {
 						{name: 'Lab', folder: "../img/checkbox.png"},
 						{name: 'Math', folder: "../img/checkbox.png"},
 						{name: 'Science', folder: "../img/checkbox.png"}];
-	$scope.boxFile = bFile;
 
 	var lFile = [{name: 'A', folder: "../img/checkbox.png"},
 						{name: 'B', folder: "../img/checkbox.png"},
@@ -27,7 +24,14 @@ angular.module('HomeCtrl', []).controller('HomeController', function($scope) {
 						{name: 'G', folder: "../img/checkbox.png"},
 						{name: 'H', folder: "../img/checkbox.png"},
 						{name: 'I', folder: "../img/checkbox.png"}];
-	$scope.localFile = lFile;
+
+
+	//-----------Source
+
+	$scope.googleFile = JSON.parse(JSON.stringify(gFile));
+	$scope.dropboxFile = JSON.parse(JSON.stringify(dFile));
+	$scope.boxFile = JSON.parse(JSON.stringify(bFile));
+	$scope.localFile = JSON.parse(JSON.stringify(lFile));
 
 	$scope.curDirGoogle = "/Home";
 
@@ -42,7 +46,7 @@ angular.module('HomeCtrl', []).controller('HomeController', function($scope) {
 				$scope.curDirGoogle = $scope.curDirGoogle.slice(0, -1);
 
 			$scope.curDirGoogle = $scope.curDirGoogle.slice(0, -1);
-			$scope.googleFile = gFile;
+			$scope.googleFile = gFile.slice();
 		}
 	}
 
@@ -59,7 +63,7 @@ angular.module('HomeCtrl', []).controller('HomeController', function($scope) {
 				$scope.curDirDropbox = $scope.curDirDropbox.slice(0, -1);
 
 			$scope.curDirDropbox = $scope.curDirDropbox.slice(0, -1);
-			$scope.dropboxFile = dFile;
+			$scope.dropboxFile = dFile.slice();
 		}
 	}
 
@@ -76,7 +80,7 @@ angular.module('HomeCtrl', []).controller('HomeController', function($scope) {
 				$scope.curDirBox = $scope.curDirBox.slice(0, -1);
 
 			$scope.curDirBox = $scope.curDirBox.slice(0, -1);
-			$scope.boxFile = bFile;
+			$scope.boxFile = bFile.slice();
 		}
 	}
 
@@ -93,7 +97,7 @@ angular.module('HomeCtrl', []).controller('HomeController', function($scope) {
 				$scope.curDirLocal = $scope.curDirLocal.slice(0, -1);
 
 			$scope.curDirLocal = $scope.curDirLocal.slice(0, -1);
-			$scope.localFile = lFile;
+			$scope.localFile = lFile.slice();
 		}
 	}
 
@@ -214,6 +218,90 @@ angular.module('HomeCtrl', []).controller('HomeController', function($scope) {
 
 		$scope.folderSelect = 0;
 		$scope.folderSelection();
+	};
+
+
+	//-----------Destination
+
+	$scope.googleDestFile = JSON.parse(JSON.stringify(gFile));
+	$scope.dropboxDestFile = JSON.parse(JSON.stringify(dFile));
+	$scope.boxDestFile = JSON.parse(JSON.stringify(bFile));
+	$scope.localDestFile = JSON.parse(JSON.stringify(lFile));
+
+	$scope.curDestDirGoogle = "/Home";
+
+	$scope.intoGoogleDestFolder = function(f){
+		$scope.curDestDirGoogle += "/" + f.name;
+		$scope.googleDestFile = empty;
+	}
+
+	$scope.outofGoogleDestFolder = function(){
+		if($scope.curDestDirGoogle !== "/Home"){
+			while($scope.curDestDirGoogle[$scope.curDestDirGoogle.length-1] !== '/')
+				$scope.curDestDirGoogle = $scope.curDestDirGoogle.slice(0, -1);
+
+			$scope.curDestDirGoogle = $scope.curDestDirGoogle.slice(0, -1);
+			$scope.googleDestFile = gFile.slice();
+		}
+	}
+
+	$scope.curDestDirDropbox = "/Home";
+
+	$scope.intoDropboxDestFolder = function(f){
+		$scope.curDestDirDropbox += "/" + f.name;
+		$scope.dropboxDestFile = empty;
+	}
+
+	$scope.outofDropboxDestFolder = function(){
+		if($scope.curDestDirDropbox !== "/Home"){
+			while($scope.curDestDirDropbox[$scope.curDestDirDropbox.length-1] !== '/')
+				$scope.curDestDirDropbox = $scope.curDestDirDropbox.slice(0, -1);
+
+			$scope.curDestDirDropbox = $scope.curDestDirDropbox.slice(0, -1);
+			$scope.dropboxDestFile = dFile.slice();
+		}
+	}
+
+	$scope.curDestDirBox = "/Home";
+
+	$scope.intoBoxDestFolder = function(f){
+		$scope.curDestDirBox += "/" + f.name;
+		$scope.boxDestFile = empty;
+	}
+
+	$scope.outofBoxDestFolder = function(){
+		if($scope.curDestDirBox !== "/Home"){
+			while($scope.curDestDirBox[$scope.curDestDirBox.length-1] !== '/')
+				$scope.curDestDirBox = $scope.curDestDirBox.slice(0, -1);
+
+			$scope.curDestDirBox = $scope.curDestDirBox.slice(0, -1);
+			$scope.boxDestFile = bFile.slice();
+		}
+	}
+
+	$scope.curDestDirLocal = "/Home";
+
+	$scope.intoLocalDestFolder = function(f){
+		$scope.curDestDirLocal += "/" + f.name;
+		$scope.locaDestFile = empty;
+	}
+
+	$scope.outofLocalDestFolder = function(){
+		if($scope.curDestDirLocal !== "/Home"){
+			while($scope.curDestDirLocal[$scope.curDestDirLocal.length-1] !== '/')
+				$scope.curDestDirLocal = $scope.curDestDirLocal.slice(0, -1);
+
+			$scope.curDestDirLocal = $scope.curDestDirLocal.slice(0, -1);
+			$scope.localDestFile = lFile.slice();
+		}
+	}
+
+	$scope.toggleDestFolder = function(x){
+		if(x.folder === "../img/checkbox.png")
+			x.folder = "../img/checked_checkbox.png";
+		
+		else
+			x.folder = "../img/checkbox.png";
 	};
 
 	// -------------------- johnny: for APIs testing
