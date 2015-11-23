@@ -134,6 +134,7 @@ function gDriveTests(){
 function dropboxTests(){
 		//--------------------------- Dropbox
 
+		/*
 		// Load a directory content
 		dbClient.readDirContent('/Apps',function(result){
 			console.log('----dropbox TEST: read a directory', result)
@@ -159,6 +160,18 @@ function dropboxTests(){
 		dbClient.readDirAllContent(cPos,fileList,fileIsFolderList, function(fileList, fileIsFolderList){
 			console.log('----dropbox TEST: obtain all the files and folder in dropbox', fileList, fileIsFolderList)
 		})
+		*/
+
+		// upload a file to a google drive destination from dropbox
+		path = '/'
+		fileName = 'gitignore.txt'
+		destFolderId = 'root'
+		gClient = gdClient
+
+		dbClient.copyAFileToGDrive(path,fileName,destFolderId, gClient, function(){
+			console.log('----dropbox TEST: upload a file to google drive')
+		})
+
 }
 
 

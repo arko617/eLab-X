@@ -134,6 +134,54 @@ gdp.deleteItem = function(fileId,callback){
 	});	
 }
 
+// upload file to a google drive destination. (1) upload file to the root, (2) then move it to destination folder (remove from root)
+// elab's folder in gDrive: "0B99TACL_6_flb2EwbnhiLUVNdEE"
+gdp.upload = function(destFolderId, datablob, callback){
+	const boundary = '-------314159265358979323846';
+	const delimiter = "\r\n--" + boundary + "\r\n";
+	const close_delim = "\r\n--" + boundary + "--";
+	var reader = new FileReader();
+	reader.readAsBinaryString(datablob);
+	reader.onload = function(e) {
+		var contentType = datablob.type || 'application/octet-stream';
+		var metadata = {
+				'title': datablob.name,
+				'mimeType': contentType
+		};
+
+		var base64Data = btoa(reader.result);
+		var multipartRequestBody =
+			delimiter +
+			'Content-Type: application/json\r\n\r\n' +
+			JSON.stringify(metadata) +
+			delimiter +
+			'Content-Type: ' + contentType + '\r\n' +
+			'Content-Transfer-Encoding: base64\r\n' +
+			'\r\n' +
+			base64Data +
+			close_delim;
+
+		var request = gapi.client.request({
+			'path': '/upload/drive/v2/files',
+			'method': 'POST',
+			'params': {'uploadType': 'multipart'},	//no resumable upload at this moment. File size<5MB
+			'headers': {
+				'Content-Type': 'multipart/mixed; boundary="' + boundary + '"'
+			},
+			'body': multipartRequestBody});
+
+		//upload file to the root of google drive
+		request.execute(function(resp){
+			if (!resp.error){
+				console.log("Success: uploaded a file to google drive's root")
+
+			}else{
+				console.log("Fail to upload a file to google drive's root")
+			}
+		});
+	};
+}
+
 
 
 

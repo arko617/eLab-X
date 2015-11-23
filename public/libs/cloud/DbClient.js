@@ -110,5 +110,40 @@ dbp.readDirAllContent = function (cPos,fileList,fileIsFolderList,callback){
 	}
 }
 
+// ---------------------------------- Function to do copy and move across cloud storages	
+			// upload a single file into drive from dropbox
+dbp.copyAFileToGDrive = function(path,fileName,destinationFolderId, gClient, callback){
+	filePath = path + fileName;
+	options = {download:true}; // A direct download link in db
+
+	this.getDownloadLink(filePath,options,function(url){
+		// Put the file into the google drive
+		// ref:http://qnimate.com/javascript-create-file-object-from-url/
+		var blob = null;	// the data blob
+		var xhr = new XMLHttpRequest(); 
+		xhr.open("GET", url.url); 
+		xhr.responseType = "blob";//force the HTTP response, response-type header to be blob
+		xhr.onload = function(){
+			//Get the data blob
+			blob = xhr.response;	//xhr.response is now a blob object
+			blob.name = fileName;	//set the data name
+
+			//Upload
+			gClient.upload(destinationFolderId,blob,function(){
+
+			})
+		}
+		xhr.send();
+
+	})
+
+}
+
+// -------------------------------------------------- End copy and move core functions
+
+
+
+
+
 
 
