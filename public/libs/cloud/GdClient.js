@@ -135,7 +135,7 @@ gdp.deleteItem = function(fileId,callback){
 }
 
 // upload file to a google drive destination. Make sure you set the metaData: title and destination's folder ID
-gdp.upload = function(destFolderId, datablob, callback){
+gdp.upload = function(destFolderId, datablob,callback){
 	const boundary = '-------314159265358979323846';
 	const delimiter = "\r\n--" + boundary + "\r\n";
 	const close_delim = "\r\n--" + boundary + "--";
@@ -174,10 +174,10 @@ gdp.upload = function(destFolderId, datablob, callback){
 		//upload file to the root of google drive
 		request.execute(function(resp){
 			if (!resp.error){
-				callback && callback("Success: uploaded a file to google drive's {0}".f(destFolderId),resp)
-
+				console.log("Success: uploaded a file to google drive's {0}".f(destFolderId))
+				callback && callback()
 			}else{
-				callback && callback("Fail to upload a file to google drive's {0}".f(destFolderId),resp)
+				console.log("Fail to upload a file to google drive's {0}".f(destFolderId))
 			}
 		});
 	};

@@ -169,10 +169,11 @@ function dropboxTests(){
 		fileName = 'gitignore.txt'
 		destFolderId = "0B99TACL_6_flb2EwbnhiLUVNdEE"
 		gClient = gdClient
+		isCopy = true
 
-		dbClient.copyAFileToGDrive(path,fileName,destFolderId, gClient, function(message,result){
-			console.log('----dropbox TEST: upload a file to google drive:',result)
-			console.log(message)
+		console.log('----dropbox TEST: upload a file to google drive.')
+		console.log('Moving/Copying a file from dropbox to gooogle drive.......')
+		dbClient.aFileToGDrive(path,fileName,destFolderId, gClient, isCopy, function(){
 		})
 
 }

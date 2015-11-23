@@ -110,12 +110,24 @@ dbp.readDirAllContent = function (cPos,fileList,fileIsFolderList,callback){
 	}
 }
 
+// remove a file
+dbp.remove = function(filePath,callback){
+	this.api.remove(filePath,function(error, resp){
+		if (error){
+			return ("Fail to remove a file from dropbox,",error);
+		}
+
+		callback && callback(resp)
+	})
+}
+
 // ---------------------------------- Function to do copy and move across cloud storages	
 
-// upload a single file into drive from dropbox
-dbp.copyAFileToGDrive = function(path,fileName,destinationFolderId, gClient, callback){
+// move/copy a single file into drive from dropbox.
+dbp.aFileToGDrive = function(path,fileName,destinationFolderId, gClient, isCopy, callback){
 	filePath = path + fileName;
 	options = {download:true}; // A direct download link in db
+	var that = this
 
 	this.getDownloadLink(filePath,options,function(url){
 		// Put the file into the google drive
@@ -130,7 +142,15 @@ dbp.copyAFileToGDrive = function(path,fileName,destinationFolderId, gClient, cal
 			blob.name = fileName;	//set the data name
 
 			//Upload
-			gClient.upload(destinationFolderId,blob,callback)
+			gClient.upload(destinationFolderId,blob,function(){
+				// if not a copy, remove the original file in db
+				if (!isCopy){
+					that.remove(filePath,function(resp){
+						console.log('It is a move option from dropbox to google drive--> Deleted the original file')
+						callback && callback()
+					})
+				}
+			})
 		}
 		xhr.send();
 
