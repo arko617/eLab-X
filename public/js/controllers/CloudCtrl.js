@@ -133,6 +133,7 @@ function gDriveTests(){
 */
 function dropboxTests(){
 		//--------------------------- Dropbox
+		console.log('Test Dropbox......')
 
 		/*
 		// Load a directory content
@@ -163,13 +164,15 @@ function dropboxTests(){
 		*/
 
 		// upload a file to a google drive destination from dropbox
+		// TEST: elab's folder in gDrive: "0B99TACL_6_flb2EwbnhiLUVNdEE"
 		path = '/'
 		fileName = 'gitignore.txt'
-		destFolderId = 'root'
+		destFolderId = "0B99TACL_6_flb2EwbnhiLUVNdEE"
 		gClient = gdClient
 
-		dbClient.copyAFileToGDrive(path,fileName,destFolderId, gClient, function(){
-			console.log('----dropbox TEST: upload a file to google drive')
+		dbClient.copyAFileToGDrive(path,fileName,destFolderId, gClient, function(message,result){
+			console.log('----dropbox TEST: upload a file to google drive:',result)
+			console.log(message)
 		})
 
 }

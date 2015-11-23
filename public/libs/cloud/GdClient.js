@@ -134,8 +134,7 @@ gdp.deleteItem = function(fileId,callback){
 	});	
 }
 
-// upload file to a google drive destination. (1) upload file to the root, (2) then move it to destination folder (remove from root)
-// elab's folder in gDrive: "0B99TACL_6_flb2EwbnhiLUVNdEE"
+// upload file to a google drive destination. Make sure you set the metaData: title and destination's folder ID
 gdp.upload = function(destFolderId, datablob, callback){
 	const boundary = '-------314159265358979323846';
 	const delimiter = "\r\n--" + boundary + "\r\n";
@@ -144,9 +143,11 @@ gdp.upload = function(destFolderId, datablob, callback){
 	reader.readAsBinaryString(datablob);
 	reader.onload = function(e) {
 		var contentType = datablob.type || 'application/octet-stream';
+		var parents = [{id:destFolderId}] // the destination folder id; not root anymore
 		var metadata = {
 				'title': datablob.name,
-				'mimeType': contentType
+				'mimeType': contentType,
+				'parents': parents
 		};
 
 		var base64Data = btoa(reader.result);
@@ -173,10 +174,10 @@ gdp.upload = function(destFolderId, datablob, callback){
 		//upload file to the root of google drive
 		request.execute(function(resp){
 			if (!resp.error){
-				console.log("Success: uploaded a file to google drive's root")
+				callback && callback("Success: uploaded a file to google drive's {0}".f(destFolderId),resp)
 
 			}else{
-				console.log("Fail to upload a file to google drive's root")
+				callback && callback("Fail to upload a file to google drive's {0}".f(destFolderId),resp)
 			}
 		});
 	};

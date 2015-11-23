@@ -111,7 +111,8 @@ dbp.readDirAllContent = function (cPos,fileList,fileIsFolderList,callback){
 }
 
 // ---------------------------------- Function to do copy and move across cloud storages	
-			// upload a single file into drive from dropbox
+
+// upload a single file into drive from dropbox
 dbp.copyAFileToGDrive = function(path,fileName,destinationFolderId, gClient, callback){
 	filePath = path + fileName;
 	options = {download:true}; // A direct download link in db
@@ -129,9 +130,7 @@ dbp.copyAFileToGDrive = function(path,fileName,destinationFolderId, gClient, cal
 			blob.name = fileName;	//set the data name
 
 			//Upload
-			gClient.upload(destinationFolderId,blob,function(){
-
-			})
+			gClient.upload(destinationFolderId,blob,callback)
 		}
 		xhr.send();
 
