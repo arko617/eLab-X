@@ -19,6 +19,19 @@ var localp = LocalClient.prototype
 
 // ------------------------------------------------------------------Core functions
 
+//select
+localp.select = function(callback) {
+	if(window.File && window.FileReader && window.FileList && window.Blob) {
+		//Great success! All the File APIs are supported.
+	} else {
+		alert('The File APIs are not fully supported in the browser');
+	}
+}
+
+//Create a function that will do something after you click it!
+
+
+
 //create
 localp.create = function(callback) {
 
@@ -45,5 +58,5 @@ localp.copy = function(callback) {
 
 //move
 localp.move = function(callback) {
-	
+
 }

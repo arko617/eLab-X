@@ -17,14 +17,14 @@ var dropBoxClient = new Dropbox.Client({ key: dropboxAPIKey });
 
 //Load DROPBOX OAUTH
 dropBoxClient.authenticate(function(error,client){
-	if(error){
+	if(error) {
 		console.log(error);
 		return error;
 	}	
 	console.log('Dropbox is authorized successfully:', client);
 
 	// assign value
-	dbClient = new DbClient(client)		
+	dbClient = new DbClient(client);		
 		
 	// Example with Dropbox. Get user information
 	dbClient.getAccountInfo(function(accountInfo){
