@@ -16,3 +16,34 @@ function LocalClient(api,subject){
 LocalClient.prototype = Object.create(CloudClient.prototype);
 LocalClient.prototype.constructor = LocalClient
 var localp = LocalClient.prototype
+
+// ------------------------------------------------------------------Core functions
+
+//create
+localp.create = function(callback) {
+
+}
+
+//rename
+localp.rename = function(callback) {
+
+}
+
+//delete
+localp.delete = function(callback) {
+
+}
+//download
+localp.download = function(callback) {
+
+}
+
+//Copy
+localp.copy = function(callback) {
+
+}
+
+//move
+localp.move = function(callback) {
+	
+}
