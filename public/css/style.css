@@ -59,6 +59,7 @@ body {
   margin-top: 28px;
 }
 
+
 /* Responsive: Portrait tablets and up */
 @media screen and (min-width: 2000px) {
   .container {
@@ -142,6 +143,7 @@ li{
   border-style: solid;
   border-width: 8px;
   background-color: black;
+  margin-left: -15px;
 }
 
 #dropbox-display{
@@ -150,6 +152,7 @@ li{
   border-style: solid;
   border-width: 8px;
   background-color: black;
+  margin-left: -15px;
 }
 
 #box-display{
@@ -158,6 +161,7 @@ li{
   border-style: solid;
   border-width: 8px;
   background-color: black;
+  margin-left: -15px;
 }
 
 #local-display{
@@ -166,6 +170,7 @@ li{
   border-style: solid;
   border-width: 8px;
   background-color: black;
+  margin-left: -15px;
 }
 
 .folder-name{
@@ -274,7 +279,7 @@ li{
 }
 
 #directoryDestGoogle{
-  margin-top: 10px;
+  margin-top: -57px;
   height: 34px;
   width: 100%;
   background-color: black;
@@ -284,7 +289,7 @@ li{
 }
 
 #directoryDestDropbox{
-  margin-top: 10px;
+  margin-top: -57px;
   height: 34px;
   width: 100%;
   background-color: black;
@@ -294,7 +299,7 @@ li{
 }
 
 #directoryDestBox{
-  margin-top: 10px;
+  margin-top: -57px;
   height: 34px;
   width: 100%;
   background-color: black;
@@ -304,11 +309,16 @@ li{
 }
 
 #directoryDestLocal{
-  margin-top: 10px;
+  margin-top: -57px;
   height: 34px;
   width: 100%;
   background-color: black;
   border-color: red;
   color: red;
   text-align: left;
+}
+
+.panel{
+  background-color: yellow;
+  height: 1000px;
 }
