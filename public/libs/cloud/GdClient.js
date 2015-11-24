@@ -81,6 +81,19 @@ gdp.retrieveChildrenFiles = function(folderId, query, mimeType, callback){
 	retrievePageOfFiles(initialRequest, []);
 }
 
+//
+gdb.copy = function(folderId, fileId, callback) {
+	var body = {'id: fileId'};
+	var request = this.api.children.copy({
+		'folderId': folderId,
+		'resouce': body
+	});
+	request.execute(function(resp) {
+		callback && callback(resp);
+	});
+}
+//
+
 // move an item into a folder of drive
 gdp.insertFileIntoFolder = function(folderId, fileId, callback) {
 	var body = {'id': fileId};

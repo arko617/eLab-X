@@ -31,10 +31,9 @@ localp.select = function(callback) {
 //Create a function that will do something after you click it!
 
 
-
 //create
 localp.create = function(callback) {
-
+	
 }
 
 //rename
