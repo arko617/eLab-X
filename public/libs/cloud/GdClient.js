@@ -90,6 +90,7 @@ gdp.retrieveChildrenFiles = function(folderId, query, mimeType, callback){
 gdp.copy = function(folderId, fileId, callback) {
 	var body = {'id': fileId};
 	var request = this.api.children.copy({
+	//var request = this.api.files.copy({
 		'folderId': folderId,
 		'resource': body
 	});
