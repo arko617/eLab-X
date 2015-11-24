@@ -125,6 +125,16 @@ function gDriveTests(){
 				console.log('----gDrive TEST: remove an item {0}'.f(result))
 			})
 		})
+
+		//NEED TO TEST COPY FEATURE
+		//Copy a google doc
+		folderId = rootFolderId
+		title = 'Testing'
+		mimeType = 'application/vnd.google-apps.document'
+
+		gdClient.copy(folderId, title, function(resp,result) {
+			console.log('------gDrive TEST: Copy a google item', result)
+		})
 }
 
 /**
