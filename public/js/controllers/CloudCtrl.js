@@ -103,11 +103,13 @@ function gDriveTests(){
 		//console.log(gdClient)
 		var rootFolderId = '0AN9TACL_6_flUk9PVA'
 
+		
 		// receive all file and folder from root 
 		gdClient.retrieveChildrenFiles(rootFolderId,false,false,function(files){
 			console.log('----gDrive TEST:retreive files from google drive:', files)
 		})
 
+		/*
 		// get a file meta
 		gdClient.getItemMeta(rootFolderId,function(meta){
 			console.log('----gDrive TEST: get root folder meta data',meta)
@@ -124,6 +126,22 @@ function gDriveTests(){
 			gdClient.deleteItem(result.id,function(resp,result){
 				console.log('----gDrive TEST: remove an item {0}'.f(result))
 			})
+		})
+		*/
+
+		// Copy/move a file from google drive to dropbox
+		// 112215: more complicated to do this cause there are manay different data type in google drive and the way to download them is a bit different
+		// File "TobeRemoved.txt" in google drive: "0B99TACL_6_flODJOdThkcnJOM2c"
+		// File "xxx.exe" in google drive: 0B99TACL_6_flYlZKZGVuNVZJVTA
+		// File "xxxx.pdf" "0B99TACL_6_flYW9XTGhVUTJuZFU"
+		// A google doc "15tyK4ZMCK4s3giD6OtxdQPdcOwXkBJBxBiEv0ewAHw4"
+		fileId = "0B99TACL_6_flODJOdThkcnJOM2c"
+		console.log('----TEST: copying/moving a file from google drive to dropbox')
+		destination = '/' // destination of the file
+		options = {noOverwrite: true}
+		isCopy = true
+		gdClient.aFileToDropbox(fileId, dbClient, destination, options, isCopy, function(){
+
 		})
 }
 
@@ -163,6 +181,15 @@ function dropboxTests(){
 		})
 		*/
 
+		// upload something to the file
+		destination = '/testDb.txt'
+		options = {noOverwrite: true}
+		data = 'dddd'
+		dbClient.upload(destination,data,options,function(){
+			console.log('----Dropbox test: upload an item')
+		})
+
+		/*
 		// upload a file to a google drive destination from dropbox
 		// TEST: elab's folder in gDrive: "0B99TACL_6_flb2EwbnhiLUVNdEE"
 		path = '/'
@@ -175,7 +202,7 @@ function dropboxTests(){
 		console.log('Moving/Copying a file from dropbox to gooogle drive.......')
 		dbClient.aFileToGDrive(path,fileName,destFolderId, gClient, isCopy, function(){
 		})
-
+		*/
 }
 
 
