@@ -1,6 +1,7 @@
 angular.module('ManageCtrl', []).controller('ManageController', function($scope) {
 
 	$scope.tagline = 'The is for cloud';
+	$scope.test = 'Matthews test';
 });
 
 // *************************************************************************

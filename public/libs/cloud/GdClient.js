@@ -90,6 +90,43 @@ gdp.retrieveChildrenFiles = function(folderId, query, mimeType, callback){
 	retrievePageOfFiles(initialRequest, []);
 }
 
+/**
+ * Copy an existing file.
+ *
+ * @param {String} folderId ID of the origin file to copy.
+ * @param {String} fileId Title of the copy.
+ */
+gdp.copy = function(folderId, fileId, callback) {
+	var body = {'id': fileId};
+	var request = this.api.children.copy({
+	//var request = this.api.files.copy({
+		'folderId': folderId,
+		'resource': body
+	});
+	request.execute(function(resp) {
+		console.log('Copy ID: ' + resp.id);
+		callback && callback(resp);
+	});
+}
+
+/**
+ * Copy an existing file.
+ *
+ * @param {String} originFileId ID of the origin file to copy.
+ * @param {String} copyTitle Title of the copy.
+ */
+// function copyFile(originFileId, copyTitle) {
+//   var body = {'title': copyTitle};
+//   var request = gapi.client.drive.files.copy({
+//     'fileId': originFileId,
+//     'resource': body
+//   });
+//   request.execute(function(resp) {
+//     console.log('Copy ID: ' + resp.id);
+//   });
+// }
+//
+
 // move an item into a folder of drive
 gdp.insertFileIntoFolder = function(folderId, fileId, callback) {
 	var body = {'id': fileId};

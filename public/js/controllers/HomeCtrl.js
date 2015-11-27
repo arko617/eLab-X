@@ -1,4 +1,4 @@
-angular.module('HomeCtrl', []).controller('HomeController', function($scope) {
+angular.module('HomeCtrl', []).controller('HomeController', ['$scope', '$window', '$timeout', function($scope, $window, $timeout) {
 
 	var empty = [];
 
@@ -26,7 +26,7 @@ angular.module('HomeCtrl', []).controller('HomeController', function($scope) {
 						{name: 'I', folder: "../img/checkbox.png"}];
 
 
-	//-----------Source
+	//-----------Source-----------//
 
 	$scope.googleFile = JSON.parse(JSON.stringify(gFile));
 	$scope.dropboxFile = JSON.parse(JSON.stringify(dFile));
@@ -101,12 +101,75 @@ angular.module('HomeCtrl', []).controller('HomeController', function($scope) {
 		}
 	}
 
+	var i;
+
+	var scroll_1 = function(){
+		if(i > 1025)
+			return;
+
+		else
+			window.scrollTo(0, i+=10);
+
+		$timeout(scroll_2, 1);
+	}
+
+	var scroll_2 = function(){
+		if(i > 1025)
+			return;
+
+		else
+			window.scrollTo(0, i+=10);
+
+		$timeout(scroll_1, 1);
+	}
+
+	$scope.scroll = function(){
+		i = window.pageYOffset;
+		$timeout(scroll_1, 1);
+	}
+
+	var scrolling_1 = function(){
+		if(i < 185){
+			$scope.showDestgoogle=false;
+			$scope.showDestdropbox=false;
+			$scope.showDestbox=false;
+			$scope.showDestlocal= false;
+			$scope.showDestination=false;
+			return;
+		}
+
+		else
+			window.scrollTo(0, i-=10);
+
+		$timeout(scrolling_2, 1);
+	}
+
+	var scrolling_2 = function(){
+		if(i < 185){
+			$scope.showDestgoogle=false;
+			$scope.showDestdropbox=false;
+			$scope.showDestbox=false;
+			$scope.showDestlocal= false;
+			$scope.showDestination=false;
+			return;
+		}
+
+		else
+			window.scrollTo(0, i-=10);
+
+		$timeout(scrolling_1, 1);
+	}
+
+	$scope.scrollBack = function(){
+		i = window.pageYOffset;
+		$timeout(scrolling_1, 1);
+	}
+
 	$scope.folderSelect = 0;
 
 	$scope.create = "";
 	$scope.rename = "disabled";
 	$scope.del = "disabled";
-	$scope.download = "disabled";
 	$scope.transfer = "disabled";
 	$scope.selectNone = "disabled";
 
@@ -115,7 +178,6 @@ angular.module('HomeCtrl', []).controller('HomeController', function($scope) {
 			$scope.create = "";
 			$scope.rename = "disabled";
 			$scope.del = "disabled";
-			$scope.download = "disabled";
 			$scope.transfer = "disabled";
 			$scope.selectNone = "disabled";
 		}
@@ -124,7 +186,6 @@ angular.module('HomeCtrl', []).controller('HomeController', function($scope) {
 			$scope.create = "disabled";
 			$scope.rename = "";
 			$scope.del = "";
-			$scope.download = "";
 			$scope.transfer = "";
 			$scope.selectNone = "";
 		}
@@ -133,7 +194,6 @@ angular.module('HomeCtrl', []).controller('HomeController', function($scope) {
 			$scope.create = "disabled";
 			$scope.rename = "disabled";
 			$scope.del = "";
-			$scope.download = "";
 			$scope.transfer = "";
 			$scope.selectNone = "";
 		}
@@ -221,7 +281,7 @@ angular.module('HomeCtrl', []).controller('HomeController', function($scope) {
 	};
 
 
-	//-----------Destination
+	//-----------Destination-----------//
 
 	$scope.googleDestFile = JSON.parse(JSON.stringify(gFile));
 	$scope.dropboxDestFile = JSON.parse(JSON.stringify(dFile));
@@ -304,6 +364,50 @@ angular.module('HomeCtrl', []).controller('HomeController', function($scope) {
 			x.folder = "../img/checkbox.png";
 	};
 
+	$scope.selectAllDestGoogle = function(){
+		for(var i = 0; i < $scope.googleFile.length; i++){
+			$scope.googleDestFile[i].folder = "../img/checked_checkbox.png";
+		}
+	};
+
+	$scope.selectNoneDestGoogle = function(){
+		for(var i = 0; i < $scope.googleFile.length; i++)
+			$scope.googleDestFile[i].folder = "../img/checkbox.png";			
+	};
+
+	$scope.selectAllDestDropbox = function(){
+		for(var i = 0; i < $scope.dropboxFile.length; i++){
+			$scope.dropboxDestFile[i].folder = "../img/checked_checkbox.png";
+		}
+	};
+
+	$scope.selectNoneDestDropbox = function(){
+		for(var i = 0; i < $scope.dropboxFile.length; i++)
+			$scope.dropboxDestFile[i].folder = "../img/checkbox.png";
+	};
+
+	$scope.selectAllDestBox = function(){
+		for(var i = 0; i < $scope.boxFile.length; i++){
+			$scope.boxDestFile[i].folder = "../img/checked_checkbox.png";
+		}
+	};
+
+	$scope.selectNoneDestBox = function(){
+		for(var i = 0; i < $scope.boxFile.length; i++)
+			$scope.boxDestFile[i].folder = "../img/checkbox.png";
+	};
+
+	$scope.selectAllDestLocal = function(){
+		for(var i = 0; i < $scope.localFile.length; i++){
+			$scope.localDestFile[i].folder = "../img/checked_checkbox.png";
+		}
+	};
+
+	$scope.selectNoneDestLocal = function(){
+		for(var i = 0; i < $scope.localFile.length; i++)
+			$scope.localDestFile[i].folder = "../img/checkbox.png";
+	};
+
 	// -------------------- johnny: for APIs testing
 	$scope.testGDrive = function(){
 		gDriveTests()
@@ -312,4 +416,4 @@ angular.module('HomeCtrl', []).controller('HomeController', function($scope) {
 	$scope.testDropbox = function(){
 		dropboxTests()
 	};
-});
+}]);
