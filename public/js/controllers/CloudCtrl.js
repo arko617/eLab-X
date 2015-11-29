@@ -129,6 +129,16 @@ function gDriveTests(){
 		})
 		*/
 
+		// Create a Folder in a destination id
+		
+		title = 'testFolder'
+		destination = "0B99TACL_6_flMmYxN2YyMjRTMGs"
+		console.log('-------TEST: create a folder in google drive')
+		gdClient.createFolder(destination,title,function(){
+
+		})
+
+
 		// Copy/move a file from google drive to dropbox
 		// 112215: more complicated to do this cause there are manay different data type in google drive and the way to download them is a bit different
 		// File "TobeRemoved.txt" in google drive: "0B99TACL_6_flODJOdThkcnJOM2c"

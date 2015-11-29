@@ -139,6 +139,25 @@ gdp.insertFileIntoFolder = function(folderId, fileId, callback) {
 	});
 }
 
+// Create a folder
+gdp.createFolder = function(destination,title,callback){
+	data = new Object();
+	data.title = title;
+	data.mimeType = "application/vnd.google-apps.folder";
+	var request = this.api.files.insert({
+		'resource': data,
+		'folderId': destination,
+	});
+	request.execute(function(resp){
+		if (resp.error){
+			console.log('Fail to create folder in google drive')
+			return
+		}
+		console.log('Successfully Created a folder', resp)
+	})
+
+}
+
 // create a google drive file. 1. create 2. Insert to the destination
 gdp.createGFile = function(folderId,title,mimeType,callback){
 	var that = this // to maintain the object itself
