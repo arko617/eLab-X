@@ -130,14 +130,13 @@ function gDriveTests(){
 		*/
 
 		// Create a Folder in a destination id
-		
+		// projects 
 		title = 'testFolder'
-		destination = "0B99TACL_6_flMmYxN2YyMjRTMGs"
+		destFolderId = "0B99TACL_6_flMmYxN2YyMjRTMGs"
 		console.log('-------TEST: create a folder in google drive')
-		gdClient.createFolder(destination,title,function(){
+		gdClient.createFolder(destFolderId,title,function(){
 
 		})
-
 
 		// Copy/move a file from google drive to dropbox
 		// 112215: more complicated to do this cause there are manay different data type in google drive and the way to download them is a bit different
@@ -193,12 +192,14 @@ function dropboxTests(){
 		*/
 
 		// upload something to the file
+		/*
 		destination = '/testDb.txt'
 		options = {noOverwrite: true}
 		data = 'dddd'
 		dbClient.upload(destination,data,options,function(){
 			console.log('----Dropbox test: upload an item')
 		})
+		*/
 
 		/*
 		// upload a file to a google drive destination from dropbox

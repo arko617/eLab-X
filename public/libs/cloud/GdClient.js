@@ -140,13 +140,12 @@ gdp.insertFileIntoFolder = function(folderId, fileId, callback) {
 }
 
 // Create a folder
-gdp.createFolder = function(destination,title,callback){
-	data = new Object();
-	data.title = title;
-	data.mimeType = "application/vnd.google-apps.folder";
+gdp.createFolder = function(destFolderId,title,callback){
+	var parents = [{id:destFolderId}]
 	var request = this.api.files.insert({
-		'resource': data,
-		'folderId': destination,
+		'parents': parents,
+		'title':title,
+		'mimeType':"application/vnd.google-apps.folder",
 	});
 	request.execute(function(resp){
 		if (resp.error){
