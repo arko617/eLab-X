@@ -305,6 +305,9 @@ gdp.aFileToDropbox = function(fileId, dboxClient, destination, options, isCopy, 
 			//Get the data blob
 			blob = xhr.response;	//xhr.response is now a blob object
 			blob.name = file.title;	//set the data name
+			blob.type = 'text/plain';	//122815: useless cause this is read-only in blob setting....
+			console.log('===',downloadUrl)
+			console.log('[[]]',blob)
 
 			dataFullPath = "{0}{1}".f(destination,file.title)	//we need to give the fullpath, including the file name
 

@@ -135,11 +135,12 @@ function gDriveTests(){
 		// File "xxx.exe" in google drive: 0B99TACL_6_flYlZKZGVuNVZJVTA
 		// File "xxxx.pdf" "0B99TACL_6_flYW9XTGhVUTJuZFU"
 		// A google doc "15tyK4ZMCK4s3giD6OtxdQPdcOwXkBJBxBiEv0ewAHw4"
-		fileId = "0B99TACL_6_flODJOdThkcnJOM2c"
+		fileId = "15tyK4ZMCK4s3giD6OtxdQPdcOwXkBJBxBiEv0ewAHw4"
 		console.log('----TEST: copying/moving a file from google drive to dropbox')
 		destination = '/' // destination of the file
 		options = {noOverwrite: true}
 		isCopy = true
+
 		gdClient.aFileToDropbox(fileId, dbClient, destination, options, isCopy, function(){
 
 		})
