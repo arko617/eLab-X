@@ -134,6 +134,18 @@ dbp.upload = function(destination,data,options,callback){
 	})
 }
 
+//Create a directory
+dbp.mkdir = function(path, callback){
+	this.api.mkdir(path,function(error,resp){
+		if (error){
+			console.log('fail to create a folder in dropbox', error)
+			return
+		}
+		console.log('Created a folder in dropbox', resp)
+		callback && callback()
+	})
+}
+
 // ---------------------------------- Function to do copy and move across cloud storages	
 
 // move/copy a single file into drive from dropbox.
