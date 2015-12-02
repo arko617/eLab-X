@@ -28,6 +28,160 @@ angular.module('HomeCtrl', []).controller('HomeController', ['$scope', '$window'
 
 	//-----------Source-----------//
 
+	$scope.createHoverIn = function(){
+		angular.element(document.getElementById("google-create").innerHTML = "Create");
+		angular.element(document.getElementById("dropbox-create").innerHTML = "Create");
+		angular.element(document.getElementById("box-create").innerHTML = "Create");
+		angular.element(document.getElementById("local-create").innerHTML = "Create");
+	}
+
+	$scope.createHoverOut = function(){
+		angular.element(document.getElementById("google-create").innerHTML = "<span class='glyphicon glyphicon-folder-open'></span>");
+		angular.element(document.getElementById("dropbox-create").innerHTML = "<span class='glyphicon glyphicon-folder-open'></span>");
+		angular.element(document.getElementById("box-create").innerHTML = "<span class='glyphicon glyphicon-folder-open'></span>");
+		angular.element(document.getElementById("local-create").innerHTML = "<span class='glyphicon glyphicon-folder-open'></span>");
+	}
+
+	$scope.renameHoverIn = function(){
+		angular.element(document.getElementById("google-rename").innerHTML = "Rename");
+		angular.element(document.getElementById("dropbox-rename").innerHTML = "Rename");
+		angular.element(document.getElementById("box-rename").innerHTML = "Rename");
+		angular.element(document.getElementById("local-rename").innerHTML = "Rename");
+	}
+
+	$scope.renameHoverOut = function(){
+		angular.element(document.getElementById("google-rename").innerHTML = "<span class='glyphicon glyphicon-pencil'></span>");
+		angular.element(document.getElementById("dropbox-rename").innerHTML = "<span class='glyphicon glyphicon-pencil'></span>");
+		angular.element(document.getElementById("box-rename").innerHTML = "<span class='glyphicon glyphicon-pencil'></span>");
+		angular.element(document.getElementById("local-rename").innerHTML = "<span class='glyphicon glyphicon-pencil'></span>");
+	}
+
+	$scope.copyHoverIn = function(){
+		angular.element(document.getElementById("google-copy").innerHTML = "Copy");
+		angular.element(document.getElementById("dropbox-copy").innerHTML = "Copy");
+		angular.element(document.getElementById("box-copy").innerHTML = "Copy");
+		angular.element(document.getElementById("local-copy").innerHTML = "Copy");
+	}
+
+	$scope.copyHoverOut = function(){
+		angular.element(document.getElementById("google-copy").innerHTML = "<span class='glyphicon glyphicon-file'></span>");
+		angular.element(document.getElementById("dropbox-copy").innerHTML = "<span class='glyphicon glyphicon-file'></span>");
+		angular.element(document.getElementById("box-copy").innerHTML = "<span class='glyphicon glyphicon-file'></span>");
+		angular.element(document.getElementById("local-copy").innerHTML = "<span class='glyphicon glyphicon-file'></span>");
+	}
+
+	$scope.moveHoverIn = function(){
+		angular.element(document.getElementById("google-move").innerHTML = "Move");
+		angular.element(document.getElementById("dropbox-move").innerHTML = "Move");
+		angular.element(document.getElementById("box-move").innerHTML = "Move");
+		angular.element(document.getElementById("local-move").innerHTML = "Move");
+	}
+
+	$scope.moveHoverOut = function(){
+		angular.element(document.getElementById("google-move").innerHTML = "<span class='glyphicon glyphicon-transfer'></span>");
+		angular.element(document.getElementById("dropbox-move").innerHTML = "<span class='glyphicon glyphicon-transfer'></span>");
+		angular.element(document.getElementById("box-move").innerHTML = "<span class='glyphicon glyphicon-transfer'></span>");
+		angular.element(document.getElementById("local-move").innerHTML = "<span class='glyphicon glyphicon-transfer'></span>");
+	}
+
+	$scope.deleteHoverIn = function(){
+		angular.element(document.getElementById("google-delete").innerHTML = "Delete");
+		angular.element(document.getElementById("dropbox-delete").innerHTML = "Delete");
+		angular.element(document.getElementById("box-delete").innerHTML = "Delete");
+		angular.element(document.getElementById("local-delete").innerHTML = "Delete");
+	}
+
+	$scope.deleteHoverOut = function(){
+		angular.element(document.getElementById("google-delete").innerHTML = "<span class='glyphicon glyphicon-trash'></span>");
+		angular.element(document.getElementById("dropbox-delete").innerHTML = "<span class='glyphicon glyphicon-trash'></span>");
+		angular.element(document.getElementById("box-delete").innerHTML = "<span class='glyphicon glyphicon-trash'></span>");
+		angular.element(document.getElementById("local-delete").innerHTML = "<span class='glyphicon glyphicon-trash'></span>");
+	}
+
+	$scope.selectHoverIn = function(){
+		angular.element(document.getElementById("google-select").innerHTML = "Select-All");
+		angular.element(document.getElementById("dropbox-select").innerHTML = "Select-All");
+		angular.element(document.getElementById("box-select").innerHTML = "Select-All");
+		angular.element(document.getElementById("local-select").innerHTML = "Select-All");
+	}
+
+	$scope.selectHoverOut = function(){
+		angular.element(document.getElementById("google-select").innerHTML = "<span class='glyphicon glyphicon-check'></span>");
+		angular.element(document.getElementById("dropbox-select").innerHTML = "<span class='glyphicon glyphicon-check'></span>");
+		angular.element(document.getElementById("box-select").innerHTML = "<span class='glyphicon glyphicon-check'></span>");
+		angular.element(document.getElementById("local-select").innerHTML = "<span class='glyphicon glyphicon-check'></span>");
+	}
+
+	$scope.unselectHoverIn = function(){
+		angular.element(document.getElementById("google-unselect").innerHTML = "Unselect-All");
+		angular.element(document.getElementById("dropbox-unselect").innerHTML = "Unselect-All");
+		angular.element(document.getElementById("box-unselect").innerHTML = "Unselect-All");
+		angular.element(document.getElementById("local-unselect").innerHTML = "Unselect-All");
+	}
+
+	$scope.unselectHoverOut = function(){
+		angular.element(document.getElementById("google-unselect").innerHTML = "<span class='glyphicon glyphicon-unchecked'></span>");
+		angular.element(document.getElementById("dropbox-unselect").innerHTML = "<span class='glyphicon glyphicon-unchecked'></span>");
+		angular.element(document.getElementById("box-unselect").innerHTML = "<span class='glyphicon glyphicon-unchecked'></span>");
+		angular.element(document.getElementById("local-unselect").innerHTML = "<span class='glyphicon glyphicon-unchecked'></span>");
+	}
+
+	$scope.confirmHoverIn = function(){
+		angular.element(document.getElementById("google-confirm").innerHTML = "Confirm");
+		angular.element(document.getElementById("dropbox-confirm").innerHTML = "Confirm");
+		angular.element(document.getElementById("box-confirm").innerHTML = "Confirm");
+		angular.element(document.getElementById("local-confirm").innerHTML = "Confirm");
+	}
+
+	$scope.confirmHoverOut = function(){
+		angular.element(document.getElementById("google-confirm").innerHTML = "<span class='glyphicon glyphicon-thumbs-up'></span>");
+		angular.element(document.getElementById("dropbox-confirm").innerHTML = "<span class='glyphicon glyphicon-thumbs-up'></span>");
+		angular.element(document.getElementById("box-confirm").innerHTML = "<span class='glyphicon glyphicon-thumbs-up'></span>");
+		angular.element(document.getElementById("local-confirm").innerHTML = "<span class='glyphicon glyphicon-thumbs-up'></span>");
+	}
+
+	$scope.cancelHoverIn = function(){
+		angular.element(document.getElementById("google-cancel").innerHTML = "Cancel");
+		angular.element(document.getElementById("dropbox-cancel").innerHTML = "Cancel");
+		angular.element(document.getElementById("box-cancel").innerHTML = "Cancel");
+		angular.element(document.getElementById("local-cancel").innerHTML = "Cancel");
+	}
+
+	$scope.cancelHoverOut = function(){
+		angular.element(document.getElementById("google-cancel").innerHTML = "<span class='glyphicon glyphicon-thumbs-down'></span>");
+		angular.element(document.getElementById("dropbox-cancel").innerHTML = "<span class='glyphicon glyphicon-thumbs-down'></span>");
+		angular.element(document.getElementById("box-cancel").innerHTML = "<span class='glyphicon glyphicon-thumbs-down'></span>");
+		angular.element(document.getElementById("local-cancel").innerHTML = "<span class='glyphicon glyphicon-thumbs-down'></span>");
+	}
+
+	$scope.selectDestHoverIn = function(){
+		angular.element(document.getElementById("google-selectDest").innerHTML = "Select-All");
+		angular.element(document.getElementById("dropbox-selectDest").innerHTML = "Select-All");
+		angular.element(document.getElementById("box-selectDest").innerHTML = "Select-All");
+		angular.element(document.getElementById("local-selectDest").innerHTML = "Select-All");
+	}
+
+	$scope.selectDestHoverOut = function(){
+		angular.element(document.getElementById("google-selectDest").innerHTML = "<span class='glyphicon glyphicon-check'></span>");
+		angular.element(document.getElementById("dropbox-selectDest").innerHTML = "<span class='glyphicon glyphicon-check'></span>");
+		angular.element(document.getElementById("box-selectDest").innerHTML = "<span class='glyphicon glyphicon-check'></span>");
+		angular.element(document.getElementById("local-selectDest").innerHTML = "<span class='glyphicon glyphicon-check'></span>");
+	}
+
+	$scope.unselectDestHoverIn = function(){
+		angular.element(document.getElementById("google-unselectDest").innerHTML = "Unselect-All");
+		angular.element(document.getElementById("dropbox-unselectDest").innerHTML = "Unselect-All");
+		angular.element(document.getElementById("box-unselectDest").innerHTML = "Unselect-All");
+		angular.element(document.getElementById("local-unselectDest").innerHTML = "Unselect-All");
+	}
+
+	$scope.unselectDestHoverOut = function(){
+		angular.element(document.getElementById("google-unselectDest").innerHTML = "<span class='glyphicon glyphicon-unchecked'></span>");
+		angular.element(document.getElementById("dropbox-unselectDest").innerHTML = "<span class='glyphicon glyphicon-unchecked'></span>");
+		angular.element(document.getElementById("box-unselectDest").innerHTML = "<span class='glyphicon glyphicon-unchecked'></span>");
+		angular.element(document.getElementById("local-unselectDest").innerHTML = "<span class='glyphicon glyphicon-unchecked'></span>");
+	}
+
 	$scope.googleFile = JSON.parse(JSON.stringify(gFile));
 	$scope.dropboxFile = JSON.parse(JSON.stringify(dFile));
 	$scope.boxFile = JSON.parse(JSON.stringify(bFile));

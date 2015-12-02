@@ -20,13 +20,7 @@
 </div>
 
 <div ng-show="showgoogle" class="container" id="google-display" ng-style="destinationFade">
-	
-	<div class="dropdown" id="file-operation">
-	    <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" style="background-color:green; border-color:green" >
-	    	Operation
-	    	<span class="caret"></span>
-	    </button>
-	    <ul class="dropdown-menu">
+		 <!-- <ul class="dropdown-menu">
 	      <li class="{{create}}"><a href="#">Create</a></li>
 	      <li class="divider"></li>
 	      <li class="{{rename}}"><a href="#">Rename</a></li>
@@ -37,8 +31,7 @@
 	      <li class="divider"></li>
 	      <li ng-click="selectAllGoogle()"><a href="#">Select All</a></li>
 	      <li ng-click="selectNoneGoogle()"><a href="#">Unselect All</a></li>
-	    </ul>
-	</div>
+	    </ul> -->
 
 	<div class="btn btn-primary" id="directoryGoogle" ng--click="outofGoogleFolder()"><span class="glyphicon glyphicon-triangle-left">&nbsp;</span>{{curDirGoogle}}</div>
 	<ul ng-repeat="x in googleFile" class="nav navbar-nav">
@@ -49,10 +42,48 @@
 			<div class="folder-name" style="color:green">{{x.name}}</div>
 		</li>
 	</ul>
+
+	<div class="dropdown operation-create">
+	    <button class="btn btn-primary dropdown-toggle" id="google-create" type="button" data-toggle="dropdown" style="background-color:green; border-color:green" ng-mouseover="createHoverIn()" ng-mouseout="createHoverOut()">
+	    <span class="glyphicon glyphicon-folder-open"></span>
+	    </button>
+	</div>
+	<div class="dropdown operation-rename">
+	    <button class="btn btn-primary dropdown-toggle" id="google-rename" type="button" data-toggle="dropdown" style="background-color:green; border-color:green" ng-mouseover="renameHoverIn()" ng-mouseout="renameHoverOut()">
+	    <span class="glyphicon glyphicon-pencil"></span>
+	    </button>
+	</div>
+	<div class="dropdown operation-copy">
+	    <button class="btn btn-primary dropdown-toggle" id="google-copy" type="button" data-toggle="dropdown" style="background-color:green; border-color:green" ng-mouseover="copyHoverIn()" ng-mouseout="copyHoverOut()" ng-click="showDestination=true; scroll(); destinationFade={opacity:0.5}">
+	    <span class="glyphicon glyphicon-file"></span>
+	    </button>
+	</div>
+	<div class="dropdown operation-move">
+	    <button class="btn btn-primary dropdown-toggle" id="google-move" type="button" data-toggle="dropdown" style="background-color:green; border-color:green" ng-mouseover="moveHoverIn()" ng-mouseout="moveHoverOut()" ng-click="showDestination=true; scroll(); destinationFade={opacity:0.5}">
+	    <span class="glyphicon glyphicon-transfer"></span>
+	    </button>
+	</div>
+	<div class="dropdown operation-delete">
+	    <button class="btn btn-primary dropdown-toggle" id="google-delete" type="button" data-toggle="dropdown" style="background-color:green; border-color:green" ng-mouseover="deleteHoverIn()" ng-mouseout="deleteHoverOut()">
+	    <span class="glyphicon glyphicon-trash"></span>
+	    </button>
+	</div>
+	<div class="dropdown operation-select">
+	    <button class="btn btn-primary dropdown-toggle" id="google-select" type="button" data-toggle="dropdown" style="background-color:green; border-color:green" ng-mouseover="selectHoverIn()" ng-mouseout="selectHoverOut()" ng-click="selectAllGoogle()">
+	    <span class="glyphicon glyphicon-check"></span>
+	    </button>
+	</div>
+	<div class="dropdown operation-unselect">
+	    <button class="btn btn-primary dropdown-toggle" id="google-unselect" type="button" data-toggle="dropdown" style="background-color:green; border-color:green" ng-mouseover="unselectHoverIn()" ng-mouseout="unselectHoverOut()" ng-click="selectNoneGoogle()">
+	    <span class="glyphicon glyphicon-unchecked"></span>
+	    </button>
+	</div>
 </div>
 
-<div ng-show="showdropbox" class="container" id="dropbox-display" ng-style="destinationFade">
 
+
+<div ng-show="showdropbox" class="container" id="dropbox-display" ng-style="destinationFade">
+<!-- 
 	<div class="dropdown" id="file-operation">
 	    <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" style="background-color:blue; border-color:blue" >
 	    	Operation
@@ -70,7 +101,7 @@
 	      <li ng-click="selectAllDropbox()"><a href="#">Select All</a></li>
 	      <li ng-click="selectNoneDropbox()"><a href="#">Unselect All</a></li>
 	    </ul>
-	</div>
+	</div> -->
 
 	<div class="btn btn-primary" id="directoryDropbox" ng--click="outofDropboxFolder()"><span class="glyphicon glyphicon-triangle-left">&nbsp;</span>{{curDirDropbox}}</div>
 	<ul ng-repeat="x in dropboxFile" class="nav navbar-nav">
@@ -81,11 +112,47 @@
 			<div class="folder-name" style="color:blue">{{x.name}}</div>
 		</li>
 	</ul>
+
+	<div class="dropdown operation-create">
+	    <button class="btn btn-primary dropdown-toggle" id="dropbox-create" type="button" data-toggle="dropdown" style="background-color:blue; border-color:blue" ng-mouseover="createHoverIn()" ng-mouseout="createHoverOut()">
+	    <span class="glyphicon glyphicon-folder-open"></span>
+	    </button>
+	</div>
+	<div class="dropdown operation-rename">
+	    <button class="btn btn-primary dropdown-toggle" id="dropbox-rename" type="button" data-toggle="dropdown" style="background-color:blue; border-color:blue" ng-mouseover="renameHoverIn()" ng-mouseout="renameHoverOut()">
+	    <span class="glyphicon glyphicon-pencil"></span>
+	    </button>
+	</div>
+	<div class="dropdown operation-copy">
+	    <button class="btn btn-primary dropdown-toggle" id="dropbox-copy" type="button" data-toggle="dropdown" style="background-color:blue; border-color:blue" ng-mouseover="copyHoverIn()" ng-mouseout="copyHoverOut()" ng-click="showDestination=true; scroll(); destinationFade={opacity:0.5}">
+	    <span class="glyphicon glyphicon-file"></span>
+	    </button>
+	</div>
+	<div class="dropdown operation-move">
+	    <button class="btn btn-primary dropdown-toggle" id="dropbox-move" type="button" data-toggle="dropdown" style="background-color:blue; border-color:blue" ng-mouseover="moveHoverIn()" ng-mouseout="moveHoverOut()" ng-click="showDestination=true; scroll(); destinationFade={opacity:0.5}">
+	    <span class="glyphicon glyphicon-transfer"></span>
+	    </button>
+	</div>
+	<div class="dropdown operation-delete">
+	    <button class="btn btn-primary dropdown-toggle" id="dropbox-delete" type="button" data-toggle="dropdown" style="background-color:blue; border-color:blue" ng-mouseover="deleteHoverIn()" ng-mouseout="deleteHoverOut()">
+	    <span class="glyphicon glyphicon-trash"></span>
+	    </button>
+	</div>
+	<div class="dropdown operation-select">
+	    <button class="btn btn-primary dropdown-toggle" id="dropbox-select" type="button" data-toggle="dropdown" style="background-color:blue; border-color:blue" ng-mouseover="selectHoverIn()" ng-mouseout="selectHoverOut()" ng-click="selectAllDropbox()">
+	    <span class="glyphicon glyphicon-check"></span>
+	    </button>
+	</div>
+	<div class="dropdown operation-unselect">
+	    <button class="btn btn-primary dropdown-toggle" id="dropbox-unselect" type="button" data-toggle="dropdown" style="background-color:blue; border-color:blue" ng-mouseover="unselectHoverIn()" ng-mouseout="unselectHoverOut()" ng-click="selectNoneDropbox()">
+	    <span class="glyphicon glyphicon-unchecked"></span>
+	    </button>
+	</div>
 </div>
 
 <div ng-show="showbox"class="container" id="box-display" ng-style="destinationFade">
 
-	<div class="dropdown" id="file-operation">
+	<!-- <div class="dropdown" id="file-operation">
 	    <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" style="background-color:violet; border-color:violet" >
 	    	Operation
 	    	<span class="caret"></span>
@@ -102,7 +169,7 @@
 	      <li ng-click="selectAllBox()"><a href="#">Select All</a></li>
 	      <li ng-click="selectNoneBox()"><a href="#">Unselect All</a></li>
 	    </ul>
-	</div>
+	</div> -->
 
 	<div class="btn btn-primary" id="directoryBox" ng--click="outofBoxFolder()"><span class="glyphicon glyphicon-triangle-left">&nbsp;</span>{{curDirBox}}</div>
 	<ul ng-repeat="x in boxFile" class="nav navbar-nav">
@@ -113,11 +180,47 @@
 			<div class="folder-name" style="color:violet">{{x.name}}</div>
 		</li>
 	</ul>
+
+	<div class="dropdown operation-create">
+	    <button class="btn btn-primary dropdown-toggle" id="box-create" type="button" data-toggle="dropdown" style="background-color:violet; border-color:violet" ng-mouseover="createHoverIn()" ng-mouseout="createHoverOut()">
+	    <span class="glyphicon glyphicon-folder-open"></span>
+	    </button>
+	</div>
+	<div class="dropdown operation-rename">
+	    <button class="btn btn-primary dropdown-toggle" id="box-rename" type="button" data-toggle="dropdown" style="background-color:violet; border-color:violet" ng-mouseover="renameHoverIn()" ng-mouseout="renameHoverOut()">
+	    <span class="glyphicon glyphicon-pencil"></span>
+	    </button>
+	</div>
+	<div class="dropdown operation-copy">
+	    <button class="btn btn-primary dropdown-toggle" id="box-copy" type="button" data-toggle="dropdown" style="background-color:violet; border-color:violet" ng-mouseover="copyHoverIn()" ng-mouseout="copyHoverOut()" ng-click="showDestination=true; scroll(); destinationFade={opacity:0.5}">
+	    <span class="glyphicon glyphicon-file"></span>
+	    </button>
+	</div>
+	<div class="dropdown operation-move">
+	    <button class="btn btn-primary dropdown-toggle" id="box-move" type="button" data-toggle="dropdown" style="background-color:violet; border-color:violet" ng-mouseover="moveHoverIn()" ng-mouseout="moveHoverOut()" ng-click="showDestination=true; scroll(); destinationFade={opacity:0.5}">
+	    <span class="glyphicon glyphicon-transfer"></span>
+	    </button>
+	</div>
+	<div class="dropdown operation-delete">
+	    <button class="btn btn-primary dropdown-toggle" id="box-delete" type="button" data-toggle="dropdown" style="background-color:violet; border-color:violet" ng-mouseover="deleteHoverIn()" ng-mouseout="deleteHoverOut()">
+	    <span class="glyphicon glyphicon-trash"></span>
+	    </button>
+	</div>
+	<div class="dropdown operation-select">
+	    <button class="btn btn-primary dropdown-toggle" id="box-select" type="button" data-toggle="dropdown" style="background-color:violet; border-color:violet" ng-mouseover="selectHoverIn()" ng-mouseout="selectHoverOut()"ng-click="selectAllBox()" >
+	    <span class="glyphicon glyphicon-check"></span>
+	    </button>
+	</div>
+	<div class="dropdown operation-unselect">
+	    <button class="btn btn-primary dropdown-toggle" id="box-unselect" type="button" data-toggle="dropdown" style="background-color:violet; border-color:violet" ng-mouseover="unselectHoverIn()" ng-mouseout="unselectHoverOut()" ng-click="selectNoneBox()">
+	    <span class="glyphicon glyphicon-unchecked"></span>
+	    </button>
+	</div>
 </div>
 
 <div ng-show="showlocal"class="container" id="local-display" ng-style="destinationFade">
 	
-	<div class="dropdown" id="file-operation">
+	<!-- <div class="dropdown" id="file-operation">
 	    <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" style="background-color:red; border-color:red" >
 	    	Operation
 	    	<span class="caret"></span>
@@ -134,7 +237,7 @@
 	      <li ng-click="selectAllLocal()"><a href="#">Select All</a></li>
 	      <li ng-click="selectNoneLocal()"><a href="#">Unselect All</a></li>
 	    </ul>
-	</div>
+	</div> -->
 
 	<div class="btn btn-primary" id="directoryLocal" ng--click="outofLocalFolder()"><span class="glyphicon glyphicon-triangle-left">&nbsp;</span>{{curDirLocal}}</div>
 	<ul ng-repeat="x in localFile" class="nav navbar-nav">
@@ -145,6 +248,42 @@
 			<div class="folder-name" style="color:red">{{x.name}}</div>
 		</li>
 	</ul>
+
+	<div class="dropdown operation-create">
+	    <button class="btn btn-primary dropdown-toggle" id="local-create" type="button" data-toggle="dropdown" style="background-color:red; border-color:red" ng-mouseover="createHoverIn()" ng-mouseout="createHoverOut()">
+	    <span class="glyphicon glyphicon-folder-open"></span>
+	    </button>
+	</div>
+	<div class="dropdown operation-rename">
+	    <button class="btn btn-primary dropdown-toggle" id="local-rename" type="button" data-toggle="dropdown" style="background-color:red; border-color:red" ng-mouseover="renameHoverIn()" ng-mouseout="renameHoverOut()">
+	    <span class="glyphicon glyphicon-pencil"></span>
+	    </button>
+	</div>
+	<div class="dropdown operation-copy">
+	    <button class="btn btn-primary dropdown-toggle" id="local-copy" type="button" data-toggle="dropdown" style="background-color:red; border-color:red" ng-mouseover="copyHoverIn()" ng-mouseout="copyHoverOut()" ng-click="showDestination=true; scroll(); destinationFade={opacity:0.5}">
+	    <span class="glyphicon glyphicon-file"></span>
+	    </button>
+	</div>
+	<div class="dropdown operation-move">
+	    <button class="btn btn-primary dropdown-toggle" id="local-move" type="button" data-toggle="dropdown" style="background-color:red; border-color:red" ng-mouseover="moveHoverIn()" ng-mouseout="moveHoverOut()" ng-click="showDestination=true; scroll(); destinationFade={opacity:0.5}">
+	    <span class="glyphicon glyphicon-transfer"></span>
+	    </button>
+	</div>
+	<div class="dropdown operation-delete">
+	    <button class="btn btn-primary dropdown-toggle" id="local-delete" type="button" data-toggle="dropdown" style="background-color:red; border-color:red" ng-mouseover="deleteHoverIn()" ng-mouseout="deleteHoverOut()">
+	    <span class="glyphicon glyphicon-trash"></span>
+	    </button>
+	</div>
+	<div class="dropdown operation-select">
+	    <button class="btn btn-primary dropdown-toggle" id="local-select" type="button" data-toggle="dropdown" style="background-color:red; border-color:red" ng-mouseover="selectHoverIn()" ng-mouseout="selectHoverOut()" ng-click="selectAllLocal()">
+	    <span class="glyphicon glyphicon-check"></span>
+	    </button>
+	</div>
+	<div class="dropdown operation-unselect">
+	    <button class="btn btn-primary dropdown-toggle" id="local-unselect" type="button" data-toggle="dropdown" style="background-color:red; border-color:red" ng-mouseover="unselectHoverIn()" ng-mouseout="unselectHoverOut()" ng-click="selectNoneLocal()">
+	    <span class="glyphicon glyphicon-unchecked"></span>
+	    </button>
+	</div>
 </div>
 
 <div ng-show="showDestination" class="container" >
@@ -161,7 +300,7 @@
 
 <div ng-show="showDestgoogle"class="container" id="google-display">
 	
-	<div class="dropdown" id="file-operation">
+<!-- 	<div class="dropdown" id="file-operation">
 	    <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" style="background-color:green; border-color:green" >
 	    	Operation
 	    	<span class="caret"></span>
@@ -173,7 +312,7 @@
 	      <li ng-click="selectAllDestGoogle()"><a href="#">Select All</a></li>
 	      <li ng-click="selectNoneDestGoogle()"><a href="#">Unselect All</a></li>
 	    </ul>
-	</div>
+	</div> -->
 
 	<div class="btn btn-primary" id="directoryDestGoogle" ng--click="outofGoogleDestFolder()"><span class="glyphicon glyphicon-triangle-left">&nbsp;</span>{{curDestDirGoogle}}</div>
 	<ul ng-repeat="x in googleDestFile" class="nav navbar-nav">
@@ -184,11 +323,32 @@
 			<div class="folder-name" style="color:green">{{x.name}}</div>
 		</li>
 	</ul>
+
+	<div class="dropdown operation-confirm">
+	    <button class="btn btn-primary dropdown-toggle" id="google-confirm" type="button" data-toggle="dropdown" style="background-color:green; border-color:green" ng-mouseover="confirmHoverIn()" ng-mouseout="confirmHoverOut()">
+	    <span class="glyphicon glyphicon-thumbs-up"></span>
+	    </button>
+	</div>
+	<div class="dropdown operation-cancel">
+	    <button class="btn btn-primary dropdown-toggle" id="google-cancel" type="button" data-toggle="dropdown" style="background-color:green; border-color:green" ng-mouseover="cancelHoverIn()" ng-mouseout="cancelHoverOut()" ng-click="scrollBack(); destinationFade={opacity:1}">
+	    <span class="glyphicon glyphicon-thumbs-down"></span>
+	    </button>
+	</div>
+	<div class="dropdown operation-selectDest">
+	    <button class="btn btn-primary dropdown-toggle" id="google-selectDest" type="button" data-toggle="dropdown" style="background-color:green; border-color:green" ng-mouseover="selectDestHoverIn()" ng-mouseout="selectDestHoverOut()" ng-click="selectAllDestGoogle()">
+	    <span class="glyphicon glyphicon-check"></span>
+	    </button>
+	</div>
+	<div class="dropdown operation-unselectDest">
+	    <button class="btn btn-primary dropdown-toggle" id="google-unselectDest" type="button" data-toggle="dropdown" style="background-color:green; border-color:green" ng-mouseover="unselectDestHoverIn()" ng-mouseout="unselectDestHoverOut()" ng-click="selectNoneDestGoogle()">
+	    <span class="glyphicon glyphicon-unchecked"></span>
+	    </button>
+	</div>
 </div>
 
 <div ng-show="showDestdropbox" class="container" id="dropbox-display">
 	
-	<div class="dropdown" id="file-operation">
+<!-- 	<div class="dropdown" id="file-operation">
 	    <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" style="background-color:blue; border-color:blue" >
 	    	Operation
 	    	<span class="caret"></span>
@@ -200,7 +360,7 @@
 	      <li ng-click="selectAllDestDropbox()"><a href="#">Select All</a></li>
 	      <li ng-click="selectNoneDestDropbox()"><a href="#">Unselect All</a></li>
 	    </ul>
-	</div>
+	</div> -->
 
 	<div class="btn btn-primary" id="directoryDestDropbox" ng--click="outofDropboxDestFolder()"><span class="glyphicon glyphicon-triangle-left">&nbsp;</span>{{curDestDirDropbox}}</div>
 	<ul ng-repeat="x in dropboxDestFile" class="nav navbar-nav">
@@ -211,11 +371,32 @@
 			<div class="folder-name" style="color:blue">{{x.name}}</div>
 		</li>
 	</ul>
+
+	<div class="dropdown operation-confirm">
+	    <button class="btn btn-primary dropdown-toggle" id="dropbox-confirm" type="button" data-toggle="dropdown" style="background-color:blue; border-color:blue" ng-mouseover="confirmHoverIn()" ng-mouseout="confirmHoverOut()">
+	    <span class="glyphicon glyphicon-thumbs-up"></span>
+	    </button>
+	</div>
+	<div class="dropdown operation-cancel">
+	    <button class="btn btn-primary dropdown-toggle" id="dropbox-cancel" type="button" data-toggle="dropdown" style="background-color:blue; border-color:blue" ng-mouseover="cancelHoverIn()" ng-mouseout="cancelHoverOut()" ng-click="scrollBack(); destinationFade={opacity:1}">
+	    <span class="glyphicon glyphicon-thumbs-down"></span>
+	    </button>
+	</div>
+	<div class="dropdown operation-selectDest">
+	    <button class="btn btn-primary dropdown-toggle" id="dropbox-selectDest" type="button" data-toggle="dropdown" style="background-color:blue; border-color:blue" ng-mouseover="selectDestHoverIn()" ng-mouseout="selectDestHoverOut()" ng-click="selectAllDestDropbox()">
+	    <span class="glyphicon glyphicon-check"></span>
+	    </button>
+	</div>
+	<div class="dropdown operation-unselectDest">
+	    <button class="btn btn-primary dropdown-toggle" id="dropbox-unselectDest" type="button" data-toggle="dropdown" style="background-color:blue; border-color:blue" ng-mouseover="unselectDestHoverIn()" ng-mouseout="unselectDestHoverOut()" ng-click="selectNoneDestDropbox()">
+	    <span class="glyphicon glyphicon-unchecked"></span>
+	    </button>
+	</div>
 </div>
 
 <div ng-show="showDestbox"class="container" id="box-display">
 	
-	<div class="dropdown" id="file-operation">
+	<!-- <div class="dropdown" id="file-operation">
 	    <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" style="background-color:violet; border-color:violet" >
 	    	Operation
 	    	<span class="caret"></span>
@@ -227,7 +408,7 @@
 	      <li ng-click="selectAllDestBox()"><a href="#">Select All</a></li>
 	      <li ng-click="selectNoneDestBox()"><a href="#">Unselect All</a></li>
 	    </ul>
-	</div>
+	</div> -->
 
 	<div class="btn btn-primary" id="directoryDestBox" ng--click="outofBoxDestFolder()"><span class="glyphicon glyphicon-triangle-left">&nbsp;</span>{{curDestDirBox}}</div>
 	<ul ng-repeat="x in boxDestFile" class="nav navbar-nav">
@@ -238,11 +419,32 @@
 			<div class="folder-name" style="color:violet">{{x.name}}</div>
 		</li>
 	</ul>
+
+	<div class="dropdown operation-confirm">
+	    <button class="btn btn-primary dropdown-toggle" id="box-confirm" type="button" data-toggle="dropdown" style="background-color:violet; border-color:violet" ng-mouseover="confirmHoverIn()" ng-mouseout="confirmHoverOut()">
+	    <span class="glyphicon glyphicon-thumbs-up"></span>
+	    </button>
+	</div>
+	<div class="dropdown operation-cancel">
+	    <button class="btn btn-primary dropdown-toggle" id="box-cancel" type="button" data-toggle="dropdown" style="background-color:violet; border-color:violet" ng-mouseover="cancelHoverIn()" ng-mouseout="cancelHoverOut()" ng-click="scrollBack(); destinationFade={opacity:1}">
+	    <span class="glyphicon glyphicon-thumbs-down"></span>
+	    </button>
+	</div>
+	<div class="dropdown operation-selectDest">
+	    <button class="btn btn-primary dropdown-toggle" id="box-selectDest" type="button" data-toggle="dropdown" style="background-color:violet; border-color:violet" ng-mouseover="selectDestHoverIn()" ng-mouseout="selectDestHoverOut()" ng-click="selectAllDestBox()">
+	    <span class="glyphicon glyphicon-check"></span>
+	    </button>
+	</div>
+	<div class="dropdown operation-unselectDest">
+	    <button class="btn btn-primary dropdown-toggle" id="box-unselectDest" type="button" data-toggle="dropdown" style="background-color:violet; border-color:violet" ng-mouseover="unselectDestHoverIn()" ng-mouseout="unselectDestHoverOut()" ng-click="selectNoneDestBox()">
+	    <span class="glyphicon glyphicon-unchecked"></span>
+	    </button>
+	</div>
 </div>
 
 <div ng-show="showDestlocal"class="container" id="local-display">
 	
-	<div class="dropdown" id="file-operation">
+<!-- 	<div class="dropdown" id="file-operation">
 	    <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" style="background-color:red; border-color:red" >
 	    	Operation
 	    	<span class="caret"></span>
@@ -254,7 +456,7 @@
 	      <li ng-click="selectAllDestLocal()"><a href="#">Select All</a></li>
 	      <li ng-click="selectNoneDestLocal()"><a href="#">Unselect All</a></li>
 	    </ul>
-	</div>
+	</div> -->
 
 	<div class="btn btn-primary" id="directoryDestLocal" ng--click="outofLocalDestFolder()"><span class="glyphicon glyphicon-triangle-left">&nbsp;</span>{{curDestDirLocal}}</div>
 	<ul ng-repeat="x in localDestFile" class="nav navbar-nav">
@@ -265,4 +467,25 @@
 			<div class="folder-name" style="color:red">{{x.name}}</div>
 		</li>
 	</ul>
+
+	<div class="dropdown operation-confirm">
+	    <button class="btn btn-primary dropdown-toggle" id="local-confirm" type="button" data-toggle="dropdown" style="background-color:red; border-color:red" ng-mouseover="confirmHoverIn()" ng-mouseout="confirmHoverOut()">
+	    <span class="glyphicon glyphicon-thumbs-up"></span>
+	    </button>
+	</div>
+	<div class="dropdown operation-cancel">
+	    <button class="btn btn-primary dropdown-toggle" id="local-cancel" type="button" data-toggle="dropdown" style="background-color:red; border-color:red" ng-mouseover="cancelHoverIn()" ng-mouseout="cancelHoverOut()" ng-click="scrollBack(); destinationFade={opacity:1}">
+	    <span class="glyphicon glyphicon-thumbs-down"></span>
+	    </button>
+	</div>
+	<div class="dropdown operation-selectDest">
+	    <button class="btn btn-primary dropdown-toggle" id="local-selectDest" type="button" data-toggle="dropdown" style="background-color:red; border-color:red" ng-mouseover="selectDestHoverIn()" ng-mouseout="selectDestHoverOut()" ng-click="selectAllDestLocal()">
+	    <span class="glyphicon glyphicon-check"></span>
+	    </button>
+	</div>
+	<div class="dropdown operation-unselectDest">
+	    <button class="btn btn-primary dropdown-toggle" id="local-unselectDest" type="button" data-toggle="dropdown" style="background-color:red; border-color:red" ng-mouseover="unselectDestHoverIn()" ng-mouseout="unselectDestHoverOut()" ng-click="selectNoneDestLocal()">
+	    <span class="glyphicon glyphicon-unchecked"></span>
+	    </button>
+	</div>
 </div>

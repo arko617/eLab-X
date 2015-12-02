@@ -226,8 +226,58 @@ li{
   background-color: red;
 }
 
-#file-operation{
-  margin-left: 1030px;
+.operation-create{
+  margin-left: 1145px;
+  margin-top: -32px;
+}
+
+.operation-rename{
+  margin-left: 1145px;
+  margin-top: 10px;
+}
+
+.operation-copy{
+  margin-left: 1145px;
+  margin-top: 10px;
+}
+
+.operation-move{
+  margin-left: 1145px;
+  margin-top: 10px;
+}
+
+.operation-delete{
+  margin-left: 1145px;
+  margin-top: 10px;
+}
+
+.operation-select{
+  margin-left: 1145px;
+  margin-top: 170px;
+}
+
+.operation-unselect{
+  margin-left: 1145px;
+  margin-top: 10px;
+}
+
+.operation-confirm{
+  margin-left: 1145px;
+  margin-top: -32px;
+}
+
+.operation-cancel{
+  margin-left: 1145px;
+  margin-top: 10px;
+}
+
+.operation-selectDest{
+  margin-left: 1145px;
+  margin-top: 300px;
+}
+
+.operation-unselectDest{
+  margin-left: 1145px;
   margin-top: 10px;
 }
 
@@ -239,7 +289,7 @@ li{
 }
 
 #directoryGoogle{
-  margin-top: -57px;
+  margin-top: 15px;
   height: 34px;
   width: 100%;
   background-color: black;
@@ -249,7 +299,7 @@ li{
 }
 
 #directoryDropbox{
-  margin-top: -57px;
+  margin-top: 15px;
   height: 34px;
   width: 100%;
   background-color: black;
@@ -259,7 +309,7 @@ li{
 }
 
 #directoryBox{
-  margin-top: -57px;
+  margin-top: 15px;
   height: 34px;
   width: 100%;
   background-color: black;
@@ -269,7 +319,7 @@ li{
 }
 
 #directoryLocal{
-  margin-top: -57px;
+  margin-top: 15px;
   height: 34px;
   width: 100%;
   background-color: black;
@@ -279,7 +329,7 @@ li{
 }
 
 #directoryDestGoogle{
-  margin-top: -57px;
+  margin-top: 15px;
   height: 34px;
   width: 100%;
   background-color: black;
@@ -289,7 +339,7 @@ li{
 }
 
 #directoryDestDropbox{
-  margin-top: -57px;
+  margin-top: 15px;
   height: 34px;
   width: 100%;
   background-color: black;
@@ -299,7 +349,7 @@ li{
 }
 
 #directoryDestBox{
-  margin-top: -57px;
+  margin-top: 15px;
   height: 34px;
   width: 100%;
   background-color: black;
@@ -309,7 +359,7 @@ li{
 }
 
 #directoryDestLocal{
-  margin-top: -57px;
+  margin-top: 15px;
   height: 34px;
   width: 100%;
   background-color: black;
