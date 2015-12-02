@@ -121,6 +121,31 @@ dbp.remove = function(filePath,callback){
 	})
 }
 
+// upload a data file to dropbox
+// data: String, ArrayBuffer, ArrayBufferView, Blob, File, Buffer
+dbp.upload = function(destination,data,options,callback){
+	this.api.writeFile(destination, data, options, function(error, resp){
+		if (error){
+			console.log('Fail to upload a data file to dropbox', error)
+			return
+		}
+		console.log('Uploaded a data file to dropbox!', resp)
+		callback && callback()
+	})
+}
+
+//Create a directory
+dbp.mkdir = function(path, callback){
+	this.api.mkdir(path,function(error,resp){
+		if (error){
+			console.log('fail to create a folder in dropbox', error)
+			return
+		}
+		console.log('Created a folder in dropbox', resp)
+		callback && callback()
+	})
+}
+
 // ---------------------------------- Function to do copy and move across cloud storages	
 
 // move/copy a single file into drive from dropbox.
@@ -135,7 +160,7 @@ dbp.aFileToGDrive = function(path,fileName,destinationFolderId, gClient, isCopy,
 		var blob = null;	// the data blob
 		var xhr = new XMLHttpRequest(); 
 		xhr.open("GET", url.url); 
-		xhr.responseType = "blob";//force the HTTP response, response-type header to be blob
+		xhr.responseType = "ArrayBuffer";//force the HTTP response, response-type header to be blob
 		xhr.onload = function(){
 			//Get the data blob
 			blob = xhr.response;	//xhr.response is now a blob object
@@ -153,7 +178,6 @@ dbp.aFileToGDrive = function(path,fileName,destinationFolderId, gClient, isCopy,
 			})
 		}
 		xhr.send();
-
 	})
 
 }

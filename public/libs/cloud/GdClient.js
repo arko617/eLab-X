@@ -25,7 +25,11 @@ gdp.getAccountInfo = function(callback) {
 
   // resp = {name, rootFolerId, quotaBytesTotal, quotaBytesused}
   request.execute(function(resp) {
-  	callback && callback(resp)
+  	if (!resp.error){
+  		callback && callback(resp)
+  	}else{
+  		console.log('Error: get google drive account info', resp)
+  	}
   });
 }
 
@@ -35,7 +39,12 @@ gdp.getItemMeta = function(fileId,callback){
 		'fileId': fileId
 	});
 	request.execute(function(resp) {
-		callback(resp);
+		if (!resp.error){
+			callback(resp);
+		}else{
+			console.log('Error: get google a file meta data', resp)
+		}
+
 	});
 }
 
@@ -130,6 +139,24 @@ gdp.insertFileIntoFolder = function(folderId, fileId, callback) {
 	});
 }
 
+// Create a folder
+gdp.createFolder = function(destFolderId,title,callback){
+	var parents = [{id:destFolderId}]
+	var request = this.api.files.insert({
+		'parents': parents,
+		'title':title,
+		'mimeType':"application/vnd.google-apps.folder",
+	});
+	request.execute(function(resp){
+		if (resp.error){
+			console.log('Fail to create folder in google drive')
+			return
+		}
+		console.log('Successfully Created a folder', resp)
+	})
+
+}
+
 // create a google drive file. 1. create 2. Insert to the destination
 gdp.createGFile = function(folderId,title,mimeType,callback){
 	var that = this // to maintain the object itself
@@ -220,8 +247,103 @@ gdp.upload = function(destFolderId, datablob,callback){
 	};
 }
 
+// ---------------------------------- Function to do copy and move across cloud storages	
 
+// move or copy a file from google drive to dropbox
+gdp.aFileToDropbox = function(fileId, dboxClient, destination, options, isCopy, callback){
+	var downloadUrl;
+	var that = this
 
+	this.getItemMeta(fileId,function(file){
+		//only non-google-drive created file have downloadURL, i.e. your uploaded files each has a webContentLink
+		//If the document is created in Google, it has exportLinks
+		//If it is a folder, it cannot be downloaded
+		if (file.downloadUrl) {	
+			downloadUrl = file.downloadUrl
+		}else if (file['exportLinks']){
+			var exportLinks = file['exportLinks'];
+			for (var property in exportLinks) {				
+				//TODO: 122715. ask user what format they want the google files to be. From now on, let's omit that first
+				if (exportLinks.hasOwnProperty(property)) {
+					switch (property){
+					case "application/pdf":
+						downloadUrl = exportLinks[property]
+						break;
+					case "application/rtf":
+						downloadUrl = exportLinks[property]
+						break;
+					case "application/vnd.oasis.opendocument.text":
+						downloadUrl = exportLinks[property]
+						break;
+					case "application/vnd.openxmlformats-officedocument.wordprocessingml.document":
+						downloadUrl = exportLinks[property]
+						break;
+					case "text/html":
+						downloadUrl = exportLinks[property]
+						break;
+					case "text/plain":
+						downloadUrl = exportLinks[property]
+						break;
+					case "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet":
+						downloadUrl = exportLinks[property]
+						break;
+					case "application/x-vnd.oasis.opendocument.spreadsheet":
+						downloadUrl = exportLinks[property]
+						break;
+					case "application/vnd.openxmlformats-officedocument.presentationml.presentation":
+						downloadUrl = exportLinks[property]
+						break;
+					case "image/png":
+						downloadUrl = exportLinks[property]
+						break;
+					case "image/jpeg":
+						downloadUrl = exportLinks[property]
+						break;
+					case "image/svg+xml":
+						downloadUrl = exportLinks[property]
+						break;
+					}
+				}
+			}
+		}else{
+			url+="Sorry, this cannot be downloaded";
+		};
+
+		// Got the url; then create data object and upload to dropbox
+		// ref:http://qnimate.com/javascript-create-file-object-from-url/
+		var blob = null;	// the data blob
+		var xhr = new XMLHttpRequest(); 
+		var accessToken = gapi.auth.getToken().access_token;	//Get the access token and use it for allowing download in google drive
+
+		xhr.open("GET", downloadUrl); 
+		xhr.setRequestHeader('Authorization', 'Bearer ' + accessToken);
+		xhr.responseType = "blob";//force the HTTP response, response-type header to be 
+
+		xhr.onload = function(){
+			//Get the data blob
+			blob = xhr.response;	//xhr.response is now a blob object
+			blob.name = file.title;	//set the data name
+			blob.type = 'text/plain';	//122815: useless cause this is read-only in blob setting....
+			console.log('===',downloadUrl)
+			console.log('[[]]',blob)
+
+			dataFullPath = "{0}{1}".f(destination,file.title)	//we need to give the fullpath, including the file name
+
+			dboxClient.upload(dataFullPath,blob,options,function(resp){
+
+				if (!isCopy){
+					that.deleteItem(fileId,function(){
+						console.log('It is a move option from dropbox to google drive--> Deleted the original file')
+						callback && callback()
+					})
+				}
+
+			})
+		}
+		xhr.send();
+	})
+
+}
 
 
 

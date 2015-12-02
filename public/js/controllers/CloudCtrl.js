@@ -103,11 +103,13 @@ function gDriveTests(){
 		//console.log(gdClient)
 		var rootFolderId = '0AN9TACL_6_flUk9PVA'
 
+		
 		// receive all file and folder from root 
 		gdClient.retrieveChildrenFiles(rootFolderId,false,false,function(files){
 			console.log('----gDrive TEST:retreive files from google drive:', files)
 		})
 
+		/*
 		// get a file meta
 		gdClient.getItemMeta(rootFolderId,function(meta){
 			console.log('----gDrive TEST: get root folder meta data',meta)
@@ -125,16 +127,34 @@ function gDriveTests(){
 				console.log('----gDrive TEST: remove an item {0}'.f(result))
 			})
 		})
+		*/
 
-		//NEED TO TEST COPY FEATURE
-		//Copy a google doc
-		folderId = rootFolderId
-		title = 'Testing'
-		mimeType = 'application/vnd.google-apps.document'
+		// Create a Folder in a destination id
+		// projects 
+		/*title = 'testFolder'
+		destFolderId = "0B99TACL_6_flMmYxN2YyMjRTMGs"
+		console.log('-------TEST: create a folder in google drive')
+		gdClient.createFolder(destFolderId,title,function(){
 
-		gdClient.copy(folderId, title, function(resp,result) {
-			console.log('------gDrive TEST: Copy a google item', result)
 		})
+		*/
+
+		// Copy/move a file from google drive to dropbox
+		// 112215: more complicated to do this cause there are manay different data type in google drive and the way to download them is a bit different
+		// File "TobeRemoved.txt" in google drive: "0B99TACL_6_flODJOdThkcnJOM2c"
+		// File "xxx.exe" in google drive: 0B99TACL_6_flYlZKZGVuNVZJVTA
+		// File "xxxx.pdf" "0B99TACL_6_flYW9XTGhVUTJuZFU"
+		// A google doc "15tyK4ZMCK4s3giD6OtxdQPdcOwXkBJBxBiEv0ewAHw4"
+		/*fileId = "15tyK4ZMCK4s3giD6OtxdQPdcOwXkBJBxBiEv0ewAHw4"
+		console.log('----TEST: copying/moving a file from google drive to dropbox')
+		destination = '/' // destination of the file
+		options = {noOverwrite: true}
+		isCopy = true
+
+		gdClient.aFileToDropbox(fileId, dbClient, destination, options, isCopy, function(){
+
+		})
+		*/
 }
 
 /**
@@ -173,6 +193,17 @@ function dropboxTests(){
 		})
 		*/
 
+		// upload something to the file
+		/*
+		destination = '/testDb.txt'
+		options = {noOverwrite: true}
+		data = 'dddd'
+		dbClient.upload(destination,data,options,function(){
+			console.log('----Dropbox test: upload an item')
+		})
+		*/
+
+		/*
 		// upload a file to a google drive destination from dropbox
 		// TEST: elab's folder in gDrive: "0B99TACL_6_flb2EwbnhiLUVNdEE"
 		path = '/'
@@ -185,7 +216,13 @@ function dropboxTests(){
 		console.log('Moving/Copying a file from dropbox to gooogle drive.......')
 		dbClient.aFileToGDrive(path,fileName,destFolderId, gClient, isCopy, function(){
 		})
+		*/
 
+		// Create a folder
+		destFolderId = '/testing/testings/'
+		dbClient.mkdir(destFolderId,function(resp){
+			console.log('------dropbox TEST: Create a folder!',resp)
+		})
 }
 
 
