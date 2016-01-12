@@ -143,7 +143,15 @@ li{
   border-style: solid;
   border-width: 8px;
   background-color: black;
-  margin-left: -15px;
+  margin-left: -10px;
+}
+
+#google-display-destination{
+  height: 500px;
+  border-color: green;
+  border-style: solid;
+  border-width: 8px;
+  background-color: black;
 }
 
 #dropbox-display{
@@ -152,7 +160,15 @@ li{
   border-style: solid;
   border-width: 8px;
   background-color: black;
-  margin-left: -15px;
+  margin-left: -10px;
+}
+
+#dropbox-display-destination{
+  height: 500px;
+  border-color: blue;
+  border-style: solid;
+  border-width: 8px;
+  background-color: black;
 }
 
 #box-display{
@@ -161,7 +177,15 @@ li{
   border-style: solid;
   border-width: 8px;
   background-color: black;
-  margin-left: -15px;
+  margin-left: -10px;
+}
+
+#box-display-destination{
+  height: 500px;
+  border-color: violet;
+  border-style: solid;
+  border-width: 8px;
+  background-color: black;
 }
 
 #local-display{
@@ -170,12 +194,20 @@ li{
   border-style: solid;
   border-width: 8px;
   background-color: black;
-  margin-left: -15px;
+  margin-left: -10px;
+}
+
+#local-display-destination{
+  height: 500px;
+  border-color: red;
+  border-style: solid;
+  border-width: 8px;
+  background-color: black;
 }
 
 .folder-name{
   margin-top: 5px;
-  margin-left: 75px;
+  margin-left: 63px;
   height: 10px;
   width: 100px;
   text-align: center;
@@ -184,7 +216,7 @@ li{
 
 .folder-size-green{
   margin-top: 30px;
-  margin-left: 75px;
+  margin-left: 63px;
   height: 100px;
   width: 100px;
 }
@@ -195,7 +227,7 @@ li{
 
 .folder-size-blue{
   margin-top: 30px;
-  margin-left: 75px;
+  margin-left: 63px;
   height: 100px;
   width: 100px;
 }
@@ -206,7 +238,7 @@ li{
 
 .folder-size-violet{
   margin-top: 30px;
-  margin-left: 75px;
+  margin-left: 63px;
   height: 100px;
   width: 100px;
 }
@@ -217,7 +249,7 @@ li{
 
 .folder-size-red{
   margin-top: 30px;
-  margin-left: 75px;
+  margin-left: 63px;
   height: 100px;
   width: 100px;
 }
@@ -227,58 +259,53 @@ li{
 }
 
 .operation-create{
-  margin-left: 1145px;
-  margin-top: -32px;
+  margin-left: 1049.5px;
+  margin-top: -44.5px;
 }
 
 .operation-rename{
-  margin-left: 1145px;
-  margin-top: 10px;
+  margin-left: 1049.5px;
+  margin-top: 5px;
 }
 
 .operation-copy{
-  margin-left: 1145px;
-  margin-top: 10px;
+  margin-left: 1049.5px;
+  margin-top: 5px;
 }
 
 .operation-move{
-  margin-left: 1145px;
-  margin-top: 10px;
+  margin-left: 1049.5px;
+  margin-top: 5px;
 }
 
 .operation-delete{
-  margin-left: 1145px;
-  margin-top: 10px;
+  margin-left: 1049.5px;
+  margin-top: 5px;
 }
 
 .operation-select{
-  margin-left: 1145px;
-  margin-top: 170px;
+  margin-left: 1049.5px;
+  margin-top: 5px;
 }
 
 .operation-unselect{
-  margin-left: 1145px;
-  margin-top: 10px;
+  margin-left: 1049.5px;
+  margin-top: 5px;
 }
 
 .operation-confirm{
-  margin-left: 1145px;
-  margin-top: -32px;
-}
-
-.operation-cancel{
-  margin-left: 1145px;
-  margin-top: 10px;
+  margin-left: 1049.5px;
+  margin-top: -44.5px;
 }
 
 .operation-selectDest{
-  margin-left: 1145px;
-  margin-top: 300px;
+  margin-left: 1049.5px;
+  margin-top: 5px;
 }
 
 .operation-unselectDest{
-  margin-left: 1145px;
-  margin-top: 10px;
+  margin-left: 1049.5px;
+  margin-top: 5px;
 }
 
 .checkbox-size{
@@ -290,8 +317,9 @@ li{
 
 #directoryGoogle{
   margin-top: 15px;
+  margin-right: 100px;
   height: 34px;
-  width: 100%;
+  width: 92%;
   background-color: black;
   border-color: green;
   color: green;
@@ -300,8 +328,9 @@ li{
 
 #directoryDropbox{
   margin-top: 15px;
+  margin-right: 100px;
   height: 34px;
-  width: 100%;
+  width: 92%;
   background-color: black;
   border-color: blue;
   color: blue;
@@ -310,8 +339,9 @@ li{
 
 #directoryBox{
   margin-top: 15px;
+  margin-right: 100px;
   height: 34px;
-  width: 100%;
+  width: 92%;
   background-color: black;
   border-color: violet;
   color: violet;
@@ -320,8 +350,9 @@ li{
 
 #directoryLocal{
   margin-top: 15px;
+  margin-right: 100px;
   height: 34px;
-  width: 100%;
+  width: 92%;
   background-color: black;
   border-color: red;
   color: red;
@@ -330,8 +361,9 @@ li{
 
 #directoryDestGoogle{
   margin-top: 15px;
+  margin-right: 100px;
   height: 34px;
-  width: 100%;
+  width: 92%;
   background-color: black;
   border-color: green;
   color: green;
@@ -340,8 +372,9 @@ li{
 
 #directoryDestDropbox{
   margin-top: 15px;
+  margin-right: 100px;
   height: 34px;
-  width: 100%;
+  width: 92%;
   background-color: black;
   border-color: blue;
   color: blue;
@@ -350,8 +383,9 @@ li{
 
 #directoryDestBox{
   margin-top: 15px;
+  margin-right: 100px;
   height: 34px;
-  width: 100%;
+  width: 92%;
   background-color: black;
   border-color: violet;
   color: violet;
@@ -360,8 +394,9 @@ li{
 
 #directoryDestLocal{
   margin-top: 15px;
+  margin-right: 100px;
   height: 34px;
-  width: 100%;
+  width: 92%;
   background-color: black;
   border-color: red;
   color: red;
@@ -371,4 +406,24 @@ li{
 .panel{
   background-color: yellow;
   height: 1000px;
+}
+
+.modal-dialog {
+  width: 1200px;
+}
+
+.action{
+  height: 63.5px;
+  width: 85px;
+}
+
+.glyphicon-size {
+  font-size: 20px;
+}
+
+.verticalLine {
+  border-left: solid;
+  height: 265px;
+  margin-left: 1051px;
+  margin-top: 7px;
 }

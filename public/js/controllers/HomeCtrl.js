@@ -1,5 +1,10 @@
 angular.module('HomeCtrl', []).controller('HomeController', ['$scope', '$window', '$timeout', function($scope, $window, $timeout) {
 
+	$scope.showModal = false;
+    $scope.toggleModal = function(){
+        $scope.showModal = !$scope.showModal;
+    };
+
 	var empty = [];
 
 	var gFile = [{name: 'Workspace', folder: "../img/checkbox.png"}, 
@@ -36,10 +41,10 @@ angular.module('HomeCtrl', []).controller('HomeController', ['$scope', '$window'
 	}
 
 	$scope.createHoverOut = function(){
-		angular.element(document.getElementById("google-create").innerHTML = "<span class='glyphicon glyphicon-folder-open'></span>");
-		angular.element(document.getElementById("dropbox-create").innerHTML = "<span class='glyphicon glyphicon-folder-open'></span>");
-		angular.element(document.getElementById("box-create").innerHTML = "<span class='glyphicon glyphicon-folder-open'></span>");
-		angular.element(document.getElementById("local-create").innerHTML = "<span class='glyphicon glyphicon-folder-open'></span>");
+		angular.element(document.getElementById("google-create").innerHTML = "<span class='glyphicon glyphicon-size glyphicon-folder-open'></span>");
+		angular.element(document.getElementById("dropbox-create").innerHTML = "<span class='glyphicon glyphicon-size glyphicon-folder-open'></span>");
+		angular.element(document.getElementById("box-create").innerHTML = "<span class='glyphicon glyphicon-size glyphicon-folder-open'></span>");
+		angular.element(document.getElementById("local-create").innerHTML = "<span class='glyphicon glyphicon-size glyphicon-folder-open'></span>");
 	}
 
 	$scope.renameHoverIn = function(){
@@ -50,10 +55,10 @@ angular.module('HomeCtrl', []).controller('HomeController', ['$scope', '$window'
 	}
 
 	$scope.renameHoverOut = function(){
-		angular.element(document.getElementById("google-rename").innerHTML = "<span class='glyphicon glyphicon-pencil'></span>");
-		angular.element(document.getElementById("dropbox-rename").innerHTML = "<span class='glyphicon glyphicon-pencil'></span>");
-		angular.element(document.getElementById("box-rename").innerHTML = "<span class='glyphicon glyphicon-pencil'></span>");
-		angular.element(document.getElementById("local-rename").innerHTML = "<span class='glyphicon glyphicon-pencil'></span>");
+		angular.element(document.getElementById("google-rename").innerHTML = "<span class='glyphicon glyphicon-size glyphicon-pencil'></span>");
+		angular.element(document.getElementById("dropbox-rename").innerHTML = "<span class='glyphicon glyphicon-size glyphicon-pencil'></span>");
+		angular.element(document.getElementById("box-rename").innerHTML = "<span class='glyphicon glyphicon-size glyphicon-pencil'></span>");
+		angular.element(document.getElementById("local-rename").innerHTML = "<span class='glyphicon glyphicon-size glyphicon-pencil'></span>");
 	}
 
 	$scope.copyHoverIn = function(){
@@ -64,10 +69,10 @@ angular.module('HomeCtrl', []).controller('HomeController', ['$scope', '$window'
 	}
 
 	$scope.copyHoverOut = function(){
-		angular.element(document.getElementById("google-copy").innerHTML = "<span class='glyphicon glyphicon-file'></span>");
-		angular.element(document.getElementById("dropbox-copy").innerHTML = "<span class='glyphicon glyphicon-file'></span>");
-		angular.element(document.getElementById("box-copy").innerHTML = "<span class='glyphicon glyphicon-file'></span>");
-		angular.element(document.getElementById("local-copy").innerHTML = "<span class='glyphicon glyphicon-file'></span>");
+		angular.element(document.getElementById("google-copy").innerHTML = "<span class='glyphicon glyphicon-size glyphicon-file'></span>");
+		angular.element(document.getElementById("dropbox-copy").innerHTML = "<span class='glyphicon glyphicon-size glyphicon-file'></span>");
+		angular.element(document.getElementById("box-copy").innerHTML = "<span class='glyphicon glyphicon-size glyphicon-file'></span>");
+		angular.element(document.getElementById("local-copy").innerHTML = "<span class='glyphicon glyphicon-size glyphicon-file'></span>");
 	}
 
 	$scope.moveHoverIn = function(){
@@ -78,10 +83,10 @@ angular.module('HomeCtrl', []).controller('HomeController', ['$scope', '$window'
 	}
 
 	$scope.moveHoverOut = function(){
-		angular.element(document.getElementById("google-move").innerHTML = "<span class='glyphicon glyphicon-transfer'></span>");
-		angular.element(document.getElementById("dropbox-move").innerHTML = "<span class='glyphicon glyphicon-transfer'></span>");
-		angular.element(document.getElementById("box-move").innerHTML = "<span class='glyphicon glyphicon-transfer'></span>");
-		angular.element(document.getElementById("local-move").innerHTML = "<span class='glyphicon glyphicon-transfer'></span>");
+		angular.element(document.getElementById("google-move").innerHTML = "<span class='glyphicon glyphicon-size glyphicon-transfer'></span>");
+		angular.element(document.getElementById("dropbox-move").innerHTML = "<span class='glyphicon glyphicon-size glyphicon-transfer'></span>");
+		angular.element(document.getElementById("box-move").innerHTML = "<span class='glyphicon glyphicon-size glyphicon-transfer'></span>");
+		angular.element(document.getElementById("local-move").innerHTML = "<span class='glyphicon glyphicon-size glyphicon-transfer'></span>");
 	}
 
 	$scope.deleteHoverIn = function(){
@@ -92,10 +97,10 @@ angular.module('HomeCtrl', []).controller('HomeController', ['$scope', '$window'
 	}
 
 	$scope.deleteHoverOut = function(){
-		angular.element(document.getElementById("google-delete").innerHTML = "<span class='glyphicon glyphicon-trash'></span>");
-		angular.element(document.getElementById("dropbox-delete").innerHTML = "<span class='glyphicon glyphicon-trash'></span>");
-		angular.element(document.getElementById("box-delete").innerHTML = "<span class='glyphicon glyphicon-trash'></span>");
-		angular.element(document.getElementById("local-delete").innerHTML = "<span class='glyphicon glyphicon-trash'></span>");
+		angular.element(document.getElementById("google-delete").innerHTML = "<span class='glyphicon glyphicon-size glyphicon-trash'></span>");
+		angular.element(document.getElementById("dropbox-delete").innerHTML = "<span class='glyphicon glyphicon-size glyphicon-trash'></span>");
+		angular.element(document.getElementById("box-delete").innerHTML = "<span class='glyphicon glyphicon-size glyphicon-trash'></span>");
+		angular.element(document.getElementById("local-delete").innerHTML = "<span class='glyphicon glyphicon-size glyphicon-trash'></span>");
 	}
 
 	$scope.selectHoverIn = function(){
@@ -106,10 +111,10 @@ angular.module('HomeCtrl', []).controller('HomeController', ['$scope', '$window'
 	}
 
 	$scope.selectHoverOut = function(){
-		angular.element(document.getElementById("google-select").innerHTML = "<span class='glyphicon glyphicon-check'></span>");
-		angular.element(document.getElementById("dropbox-select").innerHTML = "<span class='glyphicon glyphicon-check'></span>");
-		angular.element(document.getElementById("box-select").innerHTML = "<span class='glyphicon glyphicon-check'></span>");
-		angular.element(document.getElementById("local-select").innerHTML = "<span class='glyphicon glyphicon-check'></span>");
+		angular.element(document.getElementById("google-select").innerHTML = "<span class='glyphicon glyphicon-size glyphicon-check'></span>");
+		angular.element(document.getElementById("dropbox-select").innerHTML = "<span class='glyphicon glyphicon-size glyphicon-check'></span>");
+		angular.element(document.getElementById("box-select").innerHTML = "<span class='glyphicon glyphicon-size glyphicon-check'></span>");
+		angular.element(document.getElementById("local-select").innerHTML = "<span class='glyphicon glyphicon-size glyphicon-check'></span>");
 	}
 
 	$scope.unselectHoverIn = function(){
@@ -120,10 +125,10 @@ angular.module('HomeCtrl', []).controller('HomeController', ['$scope', '$window'
 	}
 
 	$scope.unselectHoverOut = function(){
-		angular.element(document.getElementById("google-unselect").innerHTML = "<span class='glyphicon glyphicon-unchecked'></span>");
-		angular.element(document.getElementById("dropbox-unselect").innerHTML = "<span class='glyphicon glyphicon-unchecked'></span>");
-		angular.element(document.getElementById("box-unselect").innerHTML = "<span class='glyphicon glyphicon-unchecked'></span>");
-		angular.element(document.getElementById("local-unselect").innerHTML = "<span class='glyphicon glyphicon-unchecked'></span>");
+		angular.element(document.getElementById("google-unselect").innerHTML = "<span class='glyphicon glyphicon-size glyphicon-unchecked'></span>");
+		angular.element(document.getElementById("dropbox-unselect").innerHTML = "<span class='glyphicon glyphicon-size glyphicon-unchecked'></span>");
+		angular.element(document.getElementById("box-unselect").innerHTML = "<span class='glyphicon glyphicon-size glyphicon-unchecked'></span>");
+		angular.element(document.getElementById("local-unselect").innerHTML = "<span class='glyphicon glyphicon-size glyphicon-unchecked'></span>");
 	}
 
 	$scope.confirmHoverIn = function(){
@@ -134,24 +139,10 @@ angular.module('HomeCtrl', []).controller('HomeController', ['$scope', '$window'
 	}
 
 	$scope.confirmHoverOut = function(){
-		angular.element(document.getElementById("google-confirm").innerHTML = "<span class='glyphicon glyphicon-thumbs-up'></span>");
-		angular.element(document.getElementById("dropbox-confirm").innerHTML = "<span class='glyphicon glyphicon-thumbs-up'></span>");
-		angular.element(document.getElementById("box-confirm").innerHTML = "<span class='glyphicon glyphicon-thumbs-up'></span>");
-		angular.element(document.getElementById("local-confirm").innerHTML = "<span class='glyphicon glyphicon-thumbs-up'></span>");
-	}
-
-	$scope.cancelHoverIn = function(){
-		angular.element(document.getElementById("google-cancel").innerHTML = "Cancel");
-		angular.element(document.getElementById("dropbox-cancel").innerHTML = "Cancel");
-		angular.element(document.getElementById("box-cancel").innerHTML = "Cancel");
-		angular.element(document.getElementById("local-cancel").innerHTML = "Cancel");
-	}
-
-	$scope.cancelHoverOut = function(){
-		angular.element(document.getElementById("google-cancel").innerHTML = "<span class='glyphicon glyphicon-thumbs-down'></span>");
-		angular.element(document.getElementById("dropbox-cancel").innerHTML = "<span class='glyphicon glyphicon-thumbs-down'></span>");
-		angular.element(document.getElementById("box-cancel").innerHTML = "<span class='glyphicon glyphicon-thumbs-down'></span>");
-		angular.element(document.getElementById("local-cancel").innerHTML = "<span class='glyphicon glyphicon-thumbs-down'></span>");
+		angular.element(document.getElementById("google-confirm").innerHTML = "<span class='glyphicon glyphicon-size glyphicon-thumbs-up'></span>");
+		angular.element(document.getElementById("dropbox-confirm").innerHTML = "<span class='glyphicon glyphicon-size glyphicon-thumbs-up'></span>");
+		angular.element(document.getElementById("box-confirm").innerHTML = "<span class='glyphicon glyphicon-size glyphicon-thumbs-up'></span>");
+		angular.element(document.getElementById("local-confirm").innerHTML = "<span class='glyphicon glyphicon-size glyphicon-thumbs-up'></span>");
 	}
 
 	$scope.selectDestHoverIn = function(){
@@ -162,10 +153,10 @@ angular.module('HomeCtrl', []).controller('HomeController', ['$scope', '$window'
 	}
 
 	$scope.selectDestHoverOut = function(){
-		angular.element(document.getElementById("google-selectDest").innerHTML = "<span class='glyphicon glyphicon-check'></span>");
-		angular.element(document.getElementById("dropbox-selectDest").innerHTML = "<span class='glyphicon glyphicon-check'></span>");
-		angular.element(document.getElementById("box-selectDest").innerHTML = "<span class='glyphicon glyphicon-check'></span>");
-		angular.element(document.getElementById("local-selectDest").innerHTML = "<span class='glyphicon glyphicon-check'></span>");
+		angular.element(document.getElementById("google-selectDest").innerHTML = "<span class='glyphicon glyphicon-size glyphicon-check'></span>");
+		angular.element(document.getElementById("dropbox-selectDest").innerHTML = "<span class='glyphicon glyphicon-size glyphicon-check'></span>");
+		angular.element(document.getElementById("box-selectDest").innerHTML = "<span class='glyphicon glyphicon-size glyphicon-check'></span>");
+		angular.element(document.getElementById("local-selectDest").innerHTML = "<span class='glyphicon glyphicon-size glyphicon-check'></span>");
 	}
 
 	$scope.unselectDestHoverIn = function(){
@@ -176,10 +167,10 @@ angular.module('HomeCtrl', []).controller('HomeController', ['$scope', '$window'
 	}
 
 	$scope.unselectDestHoverOut = function(){
-		angular.element(document.getElementById("google-unselectDest").innerHTML = "<span class='glyphicon glyphicon-unchecked'></span>");
-		angular.element(document.getElementById("dropbox-unselectDest").innerHTML = "<span class='glyphicon glyphicon-unchecked'></span>");
-		angular.element(document.getElementById("box-unselectDest").innerHTML = "<span class='glyphicon glyphicon-unchecked'></span>");
-		angular.element(document.getElementById("local-unselectDest").innerHTML = "<span class='glyphicon glyphicon-unchecked'></span>");
+		angular.element(document.getElementById("google-unselectDest").innerHTML = "<span class='glyphicon glyphicon-size glyphicon-unchecked'></span>");
+		angular.element(document.getElementById("dropbox-unselectDest").innerHTML = "<span class='glyphicon glyphicon-size glyphicon-unchecked'></span>");
+		angular.element(document.getElementById("box-unselectDest").innerHTML = "<span class='glyphicon glyphicon-size glyphicon-unchecked'></span>");
+		angular.element(document.getElementById("local-unselectDest").innerHTML = "<span class='glyphicon glyphicon-size glyphicon-unchecked'></span>");
 	}
 
 	$scope.googleFile = JSON.parse(JSON.stringify(gFile));
@@ -255,69 +246,69 @@ angular.module('HomeCtrl', []).controller('HomeController', ['$scope', '$window'
 		}
 	}
 
-	var i;
+	// var i;
 
-	var scroll_1 = function(){
-		if(i > 1025)
-			return;
+	// var scroll_1 = function(){
+	// 	if(i > 1025)
+	// 		return;
 
-		else
-			window.scrollTo(0, i+=10);
+	// 	else
+	// 		window.scrollTo(0, i+=10);
 
-		$timeout(scroll_2, 1);
-	}
+	// 	$timeout(scroll_2, 1);
+	// }
 
-	var scroll_2 = function(){
-		if(i > 1025)
-			return;
+	// var scroll_2 = function(){
+	// 	if(i > 1025)
+	// 		return;
 
-		else
-			window.scrollTo(0, i+=10);
+	// 	else
+	// 		window.scrollTo(0, i+=10);
 
-		$timeout(scroll_1, 1);
-	}
+	// 	$timeout(scroll_1, 1);
+	// }
 
-	$scope.scroll = function(){
-		i = window.pageYOffset;
-		$timeout(scroll_1, 1);
-	}
+	// $scope.scroll = function(){
+	// 	i = window.pageYOffset;
+	// 	$timeout(scroll_1, 1);
+	// }
 
-	var scrolling_1 = function(){
-		if(i < 185){
-			$scope.showDestgoogle=false;
-			$scope.showDestdropbox=false;
-			$scope.showDestbox=false;
-			$scope.showDestlocal= false;
-			$scope.showDestination=false;
-			return;
-		}
+	// var scrolling_1 = function(){
+	// 	if(i < 185){
+	// 		$scope.showDestgoogle=false;
+	// 		$scope.showDestdropbox=false;
+	// 		$scope.showDestbox=false;
+	// 		$scope.showDestlocal= false;
+	// 		$scope.showDestination=false;
+	// 		return;
+	// 	}
 
-		else
-			window.scrollTo(0, i-=10);
+	// 	else
+	// 		window.scrollTo(0, i-=10);
 
-		$timeout(scrolling_2, 1);
-	}
+	// 	$timeout(scrolling_2, 1);
+	// }
 
-	var scrolling_2 = function(){
-		if(i < 185){
-			$scope.showDestgoogle=false;
-			$scope.showDestdropbox=false;
-			$scope.showDestbox=false;
-			$scope.showDestlocal= false;
-			$scope.showDestination=false;
-			return;
-		}
+	// var scrolling_2 = function(){
+	// 	if(i < 185){
+	// 		$scope.showDestgoogle=false;
+	// 		$scope.showDestdropbox=false;
+	// 		$scope.showDestbox=false;
+	// 		$scope.showDestlocal= false;
+	// 		$scope.showDestination=false;
+	// 		return;
+	// 	}
 
-		else
-			window.scrollTo(0, i-=10);
+	// 	else
+	// 		window.scrollTo(0, i-=10);
 
-		$timeout(scrolling_1, 1);
-	}
+	// 	$timeout(scrolling_1, 1);
+	// }
 
-	$scope.scrollBack = function(){
-		i = window.pageYOffset;
-		$timeout(scrolling_1, 1);
-	}
+	// $scope.scrollBack = function(){
+	// 	i = window.pageYOffset;
+	// 	$timeout(scrolling_1, 1);
+	// }
 
 	$scope.folderSelect = 0;
 
@@ -570,4 +561,44 @@ angular.module('HomeCtrl', []).controller('HomeController', ['$scope', '$window'
 	$scope.testDropbox = function(){
 		dropboxTests()
 	};
-}]);
+}])
+.directive('modal', function () {
+    return {
+      template: '<div class="modal fade">' + 
+          '<div class="modal-dialog">' + 
+            '<div class="modal-content">' + 
+              '<div class="modal-header">' + 
+                '<center><h4 class="modal-title">{{ title }}</h4></center>' + 
+              '</div>' + 
+              '<div class="modal-body" ng-transclude></div>' + 
+            '</div>' + 
+          '</div>' + 
+        '</div>',
+      restrict: 'E',
+      transclude: true,
+      replace:true,
+      scope:true,
+      link: function postLink(scope, element, attrs) {
+        scope.title = attrs.title;
+
+        scope.$watch(attrs.visible, function(value){
+          if(value == true)
+            $(element).modal('show');
+          else
+            $(element).modal('hide');
+        });
+
+        $(element).on('shown.bs.modal', function(){
+          scope.$apply(function(){
+            scope.$parent[attrs.visible] = true;
+          });
+        });
+
+        $(element).on('hidden.bs.modal', function(){
+          scope.$apply(function(){
+            scope.$parent[attrs.visible] = false;
+          });
+        });
+      }
+    };
+  });
