@@ -8,11 +8,17 @@
 <html>
 <body onload="myFunction()">
 
-<input type="file" id="myFile" multiple size="50" onchange="myFunction()">
+<form action="upload.php" method="post" enctpye="multipart/form-data">
+    <input type="file" id="myFile" multiple size="50" onchange="myFunction()">
+    <input type="submit" value="Upload Image" name="submit">
+</form>
+
+
+<p><strong>Tip:</strong> Use the Control or the Shift key to select multiple files.</p>
 
 <p id="demo"></p>
     
-<script>
+ <script>
 function myFunction(){
     var x = document.getElementById("myFile");
     var txt = "";
@@ -47,8 +53,6 @@ function myFunction(){
     document.getElementById("demo").innerHTML = txt;
 }
 </script>
-
-<p><strong>Tip:</strong> Use the Control or the Shift key to select multiple files.</p>
 
 </body>
 </html>
