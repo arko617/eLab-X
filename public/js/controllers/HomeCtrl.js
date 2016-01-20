@@ -5,6 +5,11 @@ angular.module('HomeCtrl', []).controller('HomeController', ['$scope', '$window'
         $scope.showModal = !$scope.showModal;
     };
 
+    $scope.deleteModal = false;
+    $scope.toggleDeleteModal = function(){
+        $scope.deleteModal = !$scope.deleteModal;
+    };
+
 	var empty = [];
 
 	var gFile = [{name: 'Workspace', folder: "../img/checkbox.png"}, 
