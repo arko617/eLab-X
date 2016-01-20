@@ -7,6 +7,7 @@
 
 body {
   padding: 0;
+  background-image: url("../img/background.png");
 }
 
 /* Everything but the jumbotron gets side spacing for mobile first views */
@@ -260,7 +261,7 @@ li{
 
 .operation-create{
   margin-left: 1049.5px;
-  margin-top: -44.5px;
+  margin-top: -475.5px;
 }
 
 .operation-rename{
@@ -295,12 +296,17 @@ li{
 
 .operation-confirm{
   margin-left: 1049.5px;
-  margin-top: -44.5px;
+  margin-top: -475.5px;
+}
+
+.operation-cancel{
+  margin-left: 1049.5px;
+  margin-top: 5px;
 }
 
 .operation-selectDest{
   margin-left: 1049.5px;
-  margin-top: 5px;
+  margin-top: 7px;
 }
 
 .operation-unselectDest{
@@ -423,7 +429,7 @@ li{
 
 .verticalLine {
   border-left: solid;
-  height: 265px;
+  height: 198px;
   margin-left: 1051px;
   margin-top: 7px;
 }

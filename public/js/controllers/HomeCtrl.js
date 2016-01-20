@@ -28,7 +28,24 @@ angular.module('HomeCtrl', []).controller('HomeController', ['$scope', '$window'
 						{name: 'F', folder: "../img/checkbox.png"},
 						{name: 'G', folder: "../img/checkbox.png"},
 						{name: 'H', folder: "../img/checkbox.png"},
-						{name: 'I', folder: "../img/checkbox.png"}];
+						{name: 'I', folder: "../img/checkbox.png"},
+						{name: 'J', folder: "../img/checkbox.png"},
+						{name: 'K', folder: "../img/checkbox.png"},
+						{name: 'L', folder: "../img/checkbox.png"},
+						{name: 'M', folder: "../img/checkbox.png"},
+						{name: 'N', folder: "../img/checkbox.png"},
+						{name: 'O', folder: "../img/checkbox.png"},
+						{name: 'P', folder: "../img/checkbox.png"},
+						{name: 'Q', folder: "../img/checkbox.png"},
+						{name: 'R', folder: "../img/checkbox.png"},
+						{name: 'S', folder: "../img/checkbox.png"},
+						{name: 'T', folder: "../img/checkbox.png"},
+						{name: 'U', folder: "../img/checkbox.png"},
+						{name: 'V', folder: "../img/checkbox.png"},
+						{name: 'W', folder: "../img/checkbox.png"},
+						{name: 'X', folder: "../img/checkbox.png"},
+						{name: 'Y', folder: "../img/checkbox.png"},
+						{name: 'Z', folder: "../img/checkbox.png"}];
 
 
 	//-----------Source-----------//
@@ -143,6 +160,20 @@ angular.module('HomeCtrl', []).controller('HomeController', ['$scope', '$window'
 		angular.element(document.getElementById("dropbox-confirm").innerHTML = "<span class='glyphicon glyphicon-size glyphicon-thumbs-up'></span>");
 		angular.element(document.getElementById("box-confirm").innerHTML = "<span class='glyphicon glyphicon-size glyphicon-thumbs-up'></span>");
 		angular.element(document.getElementById("local-confirm").innerHTML = "<span class='glyphicon glyphicon-size glyphicon-thumbs-up'></span>");
+	}
+
+	$scope.cancelHoverIn = function(){
+		angular.element(document.getElementById("google-cancel").innerHTML = "Cancel");
+		angular.element(document.getElementById("dropbox-cancel").innerHTML = "Cancel");
+		angular.element(document.getElementById("box-cancel").innerHTML = "Cancel");
+		angular.element(document.getElementById("local-cancel").innerHTML = "Cancel");
+	}
+
+	$scope.cancelHoverOut = function(){
+		angular.element(document.getElementById("google-cancel").innerHTML = "<span class='glyphicon glyphicon-size glyphicon-thumbs-down'></span>");
+		angular.element(document.getElementById("dropbox-cancel").innerHTML = "<span class='glyphicon glyphicon-size glyphicon-thumbs-down'></span>");
+		angular.element(document.getElementById("box-cancel").innerHTML = "<span class='glyphicon glyphicon-size glyphicon-thumbs-down'></span>");
+		angular.element(document.getElementById("local-cancel").innerHTML = "<span class='glyphicon glyphicon-size glyphicon-thumbs-down'></span>");
 	}
 
 	$scope.selectDestHoverIn = function(){
