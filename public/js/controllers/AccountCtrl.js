@@ -37,5 +37,5 @@ angular.module('AccountCtrl', []).controller('AccountController', function($scop
 	    document.getElementById("demo").innerHTML = $scope.txt;
 	}
 
-	$scope.grabFiles = myFunction();
+	var grabFiles = myFunction();
 });
