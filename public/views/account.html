@@ -3,3 +3,26 @@
 
 	<p>{{ tagline }}</p>
 </div>
+
+<!DOCTYPE html>
+<html>
+<body onload="myFunction()">
+
+<form action="upload.php" method="post" enctpye="multipart/form-data">
+    <input type="file" id="myFile" multiple size="50" onchange="">
+    <input type="submit" value="Upload Image" name="submit">
+</form>
+
+{{ grabFile }}
+
+<!-- Save As button -->
+<form action="upload.php" method="post" enctpye="multipart/form-data">
+    <input type="submit" value="Save As" name="submit"><!-- <a href="data:application/xml;charset=utf-8,your code here" download="filename.html">Save As</a> -->
+</form>
+
+<p><strong>Tip:</strong> Use the Control or the Shift key to select multiple files.</p>
+
+<p id="demo"></p>
+
+</body>
+</html>
