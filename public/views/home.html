@@ -53,7 +53,7 @@
 	    </button>
 	</div>
 	<div class="dropdown operation-delete">
-	    <button class="btn btn-primary dropdown-toggle action" id="google-delete" type="button" data-toggle="dropdown" style="background-color:green; border-color:green" ng-mouseover="deleteHoverIn()" ng-mouseout="deleteHoverOut()">
+	    <button class="btn btn-primary dropdown-toggle action" id="google-delete" type="button" data-toggle="dropdown" style="background-color:green; border-color:green" ng-mouseover="deleteHoverIn()" ng-mouseout="deleteHoverOut()" ng-click="toggleDeleteModal()">
 	    <span class="glyphicon glyphicon-size glyphicon-trash"></span>
 	    </button>
 	</div>
@@ -106,7 +106,7 @@
 	    </button>
 	</div>
 	<div class="dropdown operation-delete">
-	    <button class="btn btn-primary dropdown-toggle action" id="dropbox-delete" type="button" data-toggle="dropdown" style="background-color:blue; border-color:blue" ng-mouseover="deleteHoverIn()" ng-mouseout="deleteHoverOut()">
+	    <button class="btn btn-primary dropdown-toggle action" id="dropbox-delete" type="button" data-toggle="dropdown" style="background-color:blue; border-color:blue" ng-mouseover="deleteHoverIn()" ng-mouseout="deleteHoverOut()" ng-click="toggleDeleteModal()">
 	    <span class="glyphicon glyphicon-size glyphicon-trash"></span>
 	    </button>
 	</div>
@@ -157,7 +157,7 @@
 	    </button>
 	</div>
 	<div class="dropdown operation-delete">
-	    <button class="btn btn-primary dropdown-toggle action" id="box-delete" type="button" data-toggle="dropdown" style="background-color:violet; border-color:violet" ng-mouseover="deleteHoverIn()" ng-mouseout="deleteHoverOut()">
+	    <button class="btn btn-primary dropdown-toggle action" id="box-delete" type="button" data-toggle="dropdown" style="background-color:violet; border-color:violet" ng-mouseover="deleteHoverIn()" ng-mouseout="deleteHoverOut()" ng-click="toggleDeleteModal()">
 	    <span class="glyphicon glyphicon-size glyphicon-trash"></span>
 	    </button>
 	</div>
@@ -208,7 +208,7 @@
 	    </button>
 	</div>
 	<div class="dropdown operation-delete">
-	    <button class="btn btn-primary dropdown-toggle action" id="local-delete" type="button" data-toggle="dropdown" style="background-color:red; border-color:red" ng-mouseover="deleteHoverIn()" ng-mouseout="deleteHoverOut()">
+	    <button class="btn btn-primary dropdown-toggle action" id="local-delete" type="button" data-toggle="dropdown" style="background-color:red; border-color:red" ng-mouseover="deleteHoverIn()" ng-mouseout="deleteHoverOut()" ng-click="toggleDeleteModal()">
 	    <span class="glyphicon glyphicon-size glyphicon-trash"></span>
 	    </button>
 	</div>
@@ -351,9 +351,10 @@
 	</div>
 </div>
 
-<div ng-show="showDestlocal"class="container" id="local-display-destination">
+<!-- <div ng-show="showDestlocal"class="container" id="local-display-destination">
 
-	<div class="btn btn-primary" id="directoryDestLocal" ng--click="outofLocalDestFolder()"><span class="glyphicon glyphicon-triangle-left">&nbsp;</span>{{curDestDirLocal}}</div>
+	<div class="btn btn-primary" id="directoryDestLocal" ng--click="outofLocalDestFolder()">
+	<span class="glyphicon glyphicon-triangle-left">&nbsp;</span>{{curDestDirLocal}}</div>
 	<div style="height:88%; width:92%; overflow-y:scroll; margin-top:5px">	
 		<ul ng-repeat="x in localDestFile" class="nav navbar-nav">
 			<li>
@@ -386,5 +387,8 @@
 	    <span class="glyphicon glyphicon-size glyphicon-unchecked"></span>
 	    </button>
 	</div>
-</div>
+</div> -->
+</modal>
+
+<modal title="Are You Sure?" visible="deleteModal">
 </modal>
