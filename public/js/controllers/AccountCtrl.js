@@ -7,7 +7,9 @@ angular.module('AccountCtrl', []).controller('AccountController', function($scop
 	console.log('A testing on the AccountCtrl for dropbox api', dropboxAPIKey);
 	console.log('A testing on the AccountCtrl for google drive api', CLIENT_ID);
 
-	function myFunction(){
+
+
+	$scope.myFunction = function() {
 	    $scope.x = document.getElementById("myFile");
 	    $scope.txt = "";
 
@@ -36,6 +38,4 @@ angular.module('AccountCtrl', []).controller('AccountController', function($scop
 	    }
 	    document.getElementById("demo").innerHTML = $scope.txt;
 	}
-
-	var grabFiles = myFunction();
 });
