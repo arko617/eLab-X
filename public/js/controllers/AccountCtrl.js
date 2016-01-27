@@ -23,10 +23,10 @@ angular.module('AccountCtrl', []).controller('AccountController', function($scop
 	                var file = x.files[i];
 	                dataBuffer.push(i);
 	                alert(dataBuffer[i]);	//Recognizes this shit!
-	                if ('name' in $scope.file) {
+	                if ('name' in file) {
 	                    txt += "name: " + file.name + "<br>";
 	                }
-	                if ('size' in $scope.file) {
+	                if ('size' in file) {
 	                    txt += "size: " + file.size + " bytes <br>";
 	                }
 	            }
