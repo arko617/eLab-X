@@ -14,9 +14,7 @@ angular.module('AccountCtrl', []).controller('AccountController', function($scop
 	// 	alert($scope.arr[i]); 
 	// }
 
-	$scope.myFunction = function() {
-		alert("FUCK")
-
+	var myFunction = function() {
 	    var x = document.getElementById("myFile");
 	    var txt = "";
 
@@ -28,7 +26,7 @@ angular.module('AccountCtrl', []).controller('AccountController', function($scop
 	                txt += "<br><strong>" + (i+1) + ". file</strong><br>";
 	                var file = x.files[i];
 	                dataBuffer.push(i);
-	                alert(dataBuffer[i]);
+	                alert(dataBuffer[i]);	//Recognizes this shit!
 	                if ('name' in $scope.file) {
 	                    txt += "name: " + file.name + "<br>";
 	                }
