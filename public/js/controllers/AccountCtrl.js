@@ -10,11 +10,7 @@ angular.module('AccountCtrl', []).controller('AccountController', function($scop
 
 	var dataBuffer = []	//Array to store the data that is to be uploaded
 
-	// for(var i = 0; i < 3; i++) {
-	// 	alert($scope.arr[i]); 
-	// }
-
-	var myFunction = function() {
+	var parseFiles = function() {
 	    var x = document.getElementById("myFile");
 	    var txt = "";
 
