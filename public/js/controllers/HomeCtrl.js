@@ -227,6 +227,11 @@ angular.module('HomeCtrl', []).controller('HomeController', ['$scope', '$window'
 			alert("NOT A FOLDER");
 			return;
 		}
+
+		if(f.children.length === 0){
+			alert("FOLDER IS EMPTY");
+			return;
+		}
 		
 		for(var x = 0; x < f.children.length; x++){
 			if(f.children[x].directory){
@@ -508,8 +513,44 @@ angular.module('HomeCtrl', []).controller('HomeController', ['$scope', '$window'
 	$scope.curDestDirGoogle = "/Home";
 
 	$scope.intoGoogleDestFolder = function(f){
+
+		if(!f.directory){
+			alert("NOT A FOLDER");
+			return;
+		}
+
+		if(f.children.length === 0){
+			alert("FOLDER IS EMPTY");
+			return;
+		}
+		
+		for(var x = 0; x < f.children.length; x++){
+			if(f.children[x].directory){
+				gdClient.retrieveChildrenFiles(f.children[x].id,false,false,function(files, fileId){
+					var cur = -1;
+					for(var i = 0; i < f.children.length; i++){
+						if(f.children[i].id === fileId){
+							cur = i;
+							break;
+						}
+					}
+					console.log("ELAB: ", files);
+					for(var i = 0; i < files.length; i++){
+						if(files[i].mimeType === "application/vnd.google-apps.folder")
+							f.children[cur].children.push({id: files[i].id, name: files[i].title, folder: "../img/checkbox.png", directory: true, children: [], parent: []});
+							
+						else
+							f.children[cur].children.push({id: files[i].id, name: files[i].title, folder: "../img/checkbox.png", directory: false, parent: []});
+					}
+
+					f.children[cur].children[0].parent = f.children.slice();
+					console.log("F CHILDREN: ", f.children[cur].children);
+				});	
+			}
+		}
+
 		$scope.curDestDirGoogle += "/" + f.name;
-		$scope.googleDestFile = empty;
+		$scope.googleDestFile = f.children;
 	}
 
 	$scope.outofGoogleDestFolder = function(){
@@ -518,7 +559,7 @@ angular.module('HomeCtrl', []).controller('HomeController', ['$scope', '$window'
 				$scope.curDestDirGoogle = $scope.curDestDirGoogle.slice(0, -1);
 
 			$scope.curDestDirGoogle = $scope.curDestDirGoogle.slice(0, -1);
-			$scope.googleDestFile = gFile.slice();
+			$scope.googleDestFile = $scope.googleDestFile[0].parent;
 		}
 	}
 
