@@ -208,7 +208,7 @@ li{
 
 .folder-name{
   margin-top: 5px;
-  margin-left: 63px;
+  margin-left: 57px;
   height: 10px;
   width: 100px;
   text-align: center;
@@ -217,7 +217,7 @@ li{
 
 .folder-size-green{
   margin-top: 30px;
-  margin-left: 63px;
+  margin-left: 57px;
   height: 100px;
   width: 100px;
 }
@@ -228,7 +228,7 @@ li{
 
 .folder-size-blue{
   margin-top: 30px;
-  margin-left: 63px;
+  margin-left: 57px;
   height: 100px;
   width: 100px;
 }
@@ -239,7 +239,7 @@ li{
 
 .folder-size-violet{
   margin-top: 30px;
-  margin-left: 63px;
+  margin-left: 57px;
   height: 100px;
   width: 100px;
 }
@@ -250,7 +250,7 @@ li{
 
 .folder-size-red{
   margin-top: 30px;
-  margin-left: 63px;
+  margin-left: 57px;
   height: 100px;
   width: 100px;
 }
@@ -430,6 +430,13 @@ li{
 .verticalLine {
   border-left: solid;
   height: 198px;
+  margin-left: 1051px;
+  margin-top: 7px;
+}
+
+.verticalLineLocal {
+  border-left: solid;
+  height: 200px;
   margin-left: 1051px;
   margin-top: 7px;
 }

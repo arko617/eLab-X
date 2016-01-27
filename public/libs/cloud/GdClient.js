@@ -78,7 +78,7 @@ gdp.retrieveChildrenFiles = function(folderId, query, mimeType, callback){
 				});
 				retrievePageOfFiles(request, result);
 			} else {
-				return callback(result);
+				return callback(result, folderId);
 			};
 		});
 	}

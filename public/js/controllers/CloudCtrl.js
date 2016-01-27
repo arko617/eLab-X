@@ -72,9 +72,54 @@ function handleAuthResult(authResult) {
 		gapi.client.load('drive', 'v2', function(){
 			//assign the drive api
 			gdClient = new GdClient(gapi.client.drive)
+			
+			var googleFileDisplay = function(){
+				gdClient.getAccountInfo(function(account){
+					gdClient.retrieveChildrenFiles(account.rootFolderId,false,false,function(files){
+						console.log("ALL FILES: ", files);
+						for(var i = 0; i < files.length; i++){
+							if(files[i].mimeType === "application/vnd.google-apps.folder")
+								gFile.push({id: files[i].id, name: files[i].title, folder: "../img/checkbox.png", directory: true, children: []});
+
+							else
+								gFile.push({id: files[i].id, name: files[i].title, folder: "../img/checkbox.png", directory: false});
+						}
+						console.log("GFILE: ", gFile);
+
+						for(var x = 0; x < gFile.length; x++){
+							if(gFile[x].directory){
+								gdClient.retrieveChildrenFiles(gFile[x].id,false,false,function(files, fileId){
+									var cur = -1;
+									for(var i = 0; i < gFile.length; i++){
+										if(gFile[i].id === fileId){
+											cur = i;
+											break;
+										}
+									}
+
+									for(var i = 0; i < files.length; i++){
+										if(files[i].mimeType === "application/vnd.google-apps.folder")
+											gFile[cur].children.push({id: files[i].id, name: files[i].title, folder: "../img/checkbox.png", directory: true, children: [], parent: []});
+											
+										else
+											gFile[cur].children.push({id: files[i].id, name: files[i].title, folder: "../img/checkbox.png", directory: false, parent: []});
+									}
+
+									gFile[cur].children[0].parent = gFile.slice();
+									console.log("GFILE CHILDREN: ", gFile[cur].children);
+								});	
+							}
+						}	
+					});
+				});
+			};
+
+			googleFileDisplay();
+
+			
 
 			gdClient.getAccountInfo(function(account){
-				console.log('Hello gDrive user:',account.name)
+				console.log('handleGoogleClientLoad gDrive user:',account.name)
 				console.log('THe root folderId is:', account.rootFolderId)
 				
 				// jump into drive test
