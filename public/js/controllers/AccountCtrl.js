@@ -6,36 +6,38 @@ angular.module('AccountCtrl', []).controller('AccountController', function($scop
 	// But, you if access out the module function in other controllers, you cannot use it.
 	console.log('A testing on the AccountCtrl for dropbox api', dropboxAPIKey);
 	console.log('A testing on the AccountCtrl for google drive api', CLIENT_ID);
+});
 
-	function myFunction(){
-	    $scope.x = document.getElementById("myFile");
-	    $scope.txt = "";
+	var dataBuffer = []	//Array to store the data that is to be uploaded
 
-	    if ('files' in $scope.x) {
-	        if ($scope.x.files.length == 0) {
-	            $scope.txt = "Select one or more files.";
+	var parseFiles = function() {
+	    var x = document.getElementById("myFile");
+	    var txt = "";
+
+	    if ('files' in x) {
+	        if (x.files.length == 0) {
+	            txt = "Select one or more files.";
 	        } else {
-	            for ($scope.i = 0; $scope.i < $scope.x.files.length; $scope.i++) {
-	                $scope.txt += "<br><strong>" + ($scope.i+1) + ". file</strong><br>";
-	                $scope.file = $x.files[$i];
+	            for (var i = 0; i < x.files.length; i++) {
+	                txt += "<br><strong>" + (i+1) + ". file</strong><br>";
+	                var file = x.files[i];
+	                dataBuffer.push(i);
+	                alert(dataBuffer[i]);	//Recognizes this shit!
 	                if ('name' in $scope.file) {
-	                    $scope.txt += "name: " + $scope.file.name + "<br>";
+	                    txt += "name: " + file.name + "<br>";
 	                }
 	                if ('size' in $scope.file) {
-	                    $scope.txt += "size: " + $scope.file.size + " bytes <br>";
+	                    txt += "size: " + file.size + " bytes <br>";
 	                }
 	            }
 	        }
 	    } else {
-	        if ($scope.x.value == "") {
-	            $scope.txt += "Select one or more files.";
+	        if (x.value == "") {
+	            txt += "Select one or more files.";
 	        } else {
-	            $scope.txt += "The files property is not supported by your browser!";
-	            $scope.txt  += "<br>The path of the selected file: " + $scope.x.value; // If the browser does not support the files property, it will return the path of the selected file instead. 
+	            txt += "The files property is not supported by your browser!";
+	            txt  += "<br>The path of the selected file: " + x.value; // If the browser does not support the files property, it will return the path of the selected file instead. 
 	        }
 	    }
-	    document.getElementById("demo").innerHTML = $scope.txt;
+	    document.getElementById("demo").innerHTML = txt;
 	}
-
-	$scope.grabFiles = myFunction();
-});
