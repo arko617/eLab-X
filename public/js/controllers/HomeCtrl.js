@@ -1,45 +1,42 @@
 var empty = [];
 
-// var gFile = [{name: 'Workspace', folder: "../img/checkbox.png"}, 
-// 					{name: 'Random', folder: "../img/checkbox.png"},
-// 					{name: 'Project', folder: "../img/checkbox.png"}];
 var gFile = [];
 
-var dFile = [{name: 'Resume', folder: "../img/checkbox.png"}];
+var dFile = [{name: 'Resume', folder: "../img/checkbox.png", folderDest: "../img/checkbox.png"}];
 
-var bFile = [{name: 'eLab', folder: "../img/checkbox.png"},
-					{name: 'Physics', folder: "../img/checkbox.png"},
-					{name: 'English', folder: "../img/checkbox.png"},
-					{name: 'Lab', folder: "../img/checkbox.png"},
-					{name: 'Math', folder: "../img/checkbox.png"},
-					{name: 'Science', folder: "../img/checkbox.png"}];
+var bFile = [{name: 'eLab', folder: "../img/checkbox.png", folderDest: "../img/checkbox.png"},
+					{name: 'Physics', folder: "../img/checkbox.png", folderDest: "../img/checkbox.png"},
+					{name: 'English', folder: "../img/checkbox.png", folderDest: "../img/checkbox.png"},
+					{name: 'Lab', folder: "../img/checkbox.png", folderDest: "../img/checkbox.png"},
+					{name: 'Math', folder: "../img/checkbox.png", folderDest: "../img/checkbox.png"},
+					{name: 'Science', folder: "../img/checkbox.png", folderDest: "../img/checkbox.png"}];
 
-var lFile = [{name: 'A', folder: "../img/checkbox.png"},
-					{name: 'B', folder: "../img/checkbox.png"},
-					{name: 'C', folder: "../img/checkbox.png"},
-					{name: 'D', folder: "../img/checkbox.png"},
-					{name: 'E', folder: "../img/checkbox.png"},
-					{name: 'F', folder: "../img/checkbox.png"},
-					{name: 'G', folder: "../img/checkbox.png"},
-					{name: 'H', folder: "../img/checkbox.png"},
-					{name: 'I', folder: "../img/checkbox.png"},
-					{name: 'J', folder: "../img/checkbox.png"},
-					{name: 'K', folder: "../img/checkbox.png"},
-					{name: 'L', folder: "../img/checkbox.png"},
-					{name: 'M', folder: "../img/checkbox.png"},
-					{name: 'N', folder: "../img/checkbox.png"},
-					{name: 'O', folder: "../img/checkbox.png"},
-					{name: 'P', folder: "../img/checkbox.png"},
-					{name: 'Q', folder: "../img/checkbox.png"},
-					{name: 'R', folder: "../img/checkbox.png"},
-					{name: 'S', folder: "../img/checkbox.png"},
-					{name: 'T', folder: "../img/checkbox.png"},
-					{name: 'U', folder: "../img/checkbox.png"},
-					{name: 'V', folder: "../img/checkbox.png"},
-					{name: 'W', folder: "../img/checkbox.png"},
-					{name: 'X', folder: "../img/checkbox.png"},
-					{name: 'Y', folder: "../img/checkbox.png"},
-					{name: 'Z', folder: "../img/checkbox.png"}];
+var lFile = [{name: 'A', folder: "../img/checkbox.png", folderDest: "../img/checkbox.png"},
+					{name: 'B', folder: "../img/checkbox.png", folderDest: "../img/checkbox.png"},
+					{name: 'C', folder: "../img/checkbox.png", folderDest: "../img/checkbox.png"},
+					{name: 'D', folder: "../img/checkbox.png", folderDest: "../img/checkbox.png"},
+					{name: 'E', folder: "../img/checkbox.png", folderDest: "../img/checkbox.png"},
+					{name: 'F', folder: "../img/checkbox.png", folderDest: "../img/checkbox.png"},
+					{name: 'G', folder: "../img/checkbox.png", folderDest: "../img/checkbox.png"},
+					{name: 'H', folder: "../img/checkbox.png", folderDest: "../img/checkbox.png"},
+					{name: 'I', folder: "../img/checkbox.png", folderDest: "../img/checkbox.png"},
+					{name: 'J', folder: "../img/checkbox.png", folderDest: "../img/checkbox.png"},
+					{name: 'K', folder: "../img/checkbox.png", folderDest: "../img/checkbox.png"},
+					{name: 'L', folder: "../img/checkbox.png", folderDest: "../img/checkbox.png"},
+					{name: 'M', folder: "../img/checkbox.png", folderDest: "../img/checkbox.png"},
+					{name: 'N', folder: "../img/checkbox.png", folderDest: "../img/checkbox.png"},
+					{name: 'O', folder: "../img/checkbox.png", folderDest: "../img/checkbox.png"},
+					{name: 'P', folder: "../img/checkbox.png", folderDest: "../img/checkbox.png"},
+					{name: 'Q', folder: "../img/checkbox.png", folderDest: "../img/checkbox.png"},
+					{name: 'R', folder: "../img/checkbox.png", folderDest: "../img/checkbox.png"},
+					{name: 'S', folder: "../img/checkbox.png", folderDest: "../img/checkbox.png"},
+					{name: 'T', folder: "../img/checkbox.png", folderDest: "../img/checkbox.png"},
+					{name: 'U', folder: "../img/checkbox.png", folderDest: "../img/checkbox.png"},
+					{name: 'V', folder: "../img/checkbox.png", folderDest: "../img/checkbox.png"},
+					{name: 'W', folder: "../img/checkbox.png", folderDest: "../img/checkbox.png"},
+					{name: 'X', folder: "../img/checkbox.png", folderDest: "../img/checkbox.png"},
+					{name: 'Y', folder: "../img/checkbox.png", folderDest: "../img/checkbox.png"},
+					{name: 'Z', folder: "../img/checkbox.png", folderDest: "../img/checkbox.png"}];
 
 
 angular.module('HomeCtrl', []).controller('HomeController', ['$scope', '$window', '$timeout', function($scope, $window, $timeout) {
@@ -210,26 +207,29 @@ angular.module('HomeCtrl', []).controller('HomeController', ['$scope', '$window'
 		angular.element(document.getElementById("local-unselectDest").innerHTML = "<span class='glyphicon glyphicon-size glyphicon-unchecked'></span>");
 	}
 
-	// $scope.googleFile = JSON.parse(JSON.stringify(gFile));
-	// $scope.dropboxFile = JSON.parse(JSON.stringify(dFile));
-	// $scope.boxFile = JSON.parse(JSON.stringify(bFile));
-	// $scope.localFile = JSON.parse(JSON.stringify(lFile));
+	$scope.temp_parent = [];
 
 	$scope.googleFile = gFile;
 	$scope.dropboxFile = dFile;
 	$scope.boxFile = bFile;
 	$scope.localFile = lFile;
 
-	$scope.curDirGoogle = "/Home";
+	$scope.curDirGoogle = "/";
 
 	$scope.intoGoogleFolder = function(f){
-		if(!f.directory){
-			alert("NOT A FOLDER");
+		if(!f.directory)
 			return;
-		}
 
 		if(f.children.length === 0){
-			alert("FOLDER IS EMPTY");
+			$scope.temp_parent = f.sibling;
+
+			if($scope.curDirGoogle === "/")
+				$scope.curDirGoogle += f.name;
+
+			else
+				$scope.curDirGoogle += "/" + f.name;
+
+			$scope.googleFile = empty;
 			return;
 		}
 		
@@ -246,281 +246,361 @@ angular.module('HomeCtrl', []).controller('HomeController', ['$scope', '$window'
 					console.log("ELAB: ", files);
 					for(var i = 0; i < files.length; i++){
 						if(files[i].mimeType === "application/vnd.google-apps.folder")
-							f.children[cur].children.push({id: files[i].id, name: files[i].title, folder: "../img/checkbox.png", directory: true, children: [], parent: []});
+							f.children[cur].children.push({id: files[i].id, name: files[i].title, folder: "../img/checkbox.png", folder_image: "../img/folder.png", folderDest: "../img/checkbox.png", select: false, selectDest: false, directory: true, children: [], parent: f.children, sibling: f.children[cur].children});
 							
 						else
-							f.children[cur].children.push({id: files[i].id, name: files[i].title, folder: "../img/checkbox.png", directory: false, parent: []});
+							f.children[cur].children.push({id: files[i].id, name: files[i].title, folder: "../img/checkbox.png", folder_image: "../img/file.png", folderDest: "../img/checkbox.png", select: false, selectDest: false, directory: false, parent: f.children});
 					}
 
-					f.children[cur].children[0].parent = f.children.slice();
+					// f.children[cur].children[0].parent = f.children.slice();
 					console.log("F CHILDREN: ", f.children[cur].children);
 				});	
 			}
 		}
 
-		$scope.curDirGoogle += "/" + f.name;
+		if($scope.curDirGoogle === "/")
+			$scope.curDirGoogle += f.name;
+
+		else
+			$scope.curDirGoogle += "/" + f.name;
+
 		$scope.googleFile = f.children;
 	}
 
 	$scope.outofGoogleFolder = function(){
-		if($scope.curDirGoogle !== "/Home"){
+		if($scope.curDirGoogle !== "/"){
 			while($scope.curDirGoogle[$scope.curDirGoogle.length-1] !== '/')
 				$scope.curDirGoogle = $scope.curDirGoogle.slice(0, -1);
 
 			$scope.curDirGoogle = $scope.curDirGoogle.slice(0, -1);
-			$scope.googleFile = $scope.googleFile[0].parent;
+
+			if($scope.googleFile === empty){
+				$scope.googleFile = $scope.temp_parent;
+				$scope.temp_parent = [];
+			}
+
+			else
+				$scope.googleFile = $scope.googleFile[0].parent;
 		}
+
+
+		if($scope.curDirGoogle === "")
+			$scope.curDirGoogle = "/";
 	}
 
-	$scope.curDirDropbox = "/Home";
+	$scope.curDirDropbox = "/";
 
 	$scope.intoDropboxFolder = function(f){
-		$scope.curDirDropbox += "/" + f.name;
+		if($scope.curDirDropbox === "/")
+			$scope.curDirDropbox += f.name;
+
+		else
+			$scope.curDirDropbox += "/" + f.name;
+
 		$scope.dropboxFile = empty;
 	}
 
 	$scope.outofDropboxFolder = function(){
-		if($scope.curDirDropbox !== "/Home"){
+		if($scope.curDirDropbox !== "/"){
 			while($scope.curDirDropbox[$scope.curDirDropbox.length-1] !== '/')
 				$scope.curDirDropbox = $scope.curDirDropbox.slice(0, -1);
 
 			$scope.curDirDropbox = $scope.curDirDropbox.slice(0, -1);
-			$scope.dropboxFile = dFile.slice();
+			$scope.dropboxFile = dFile;
 		}
+
+		if($scope.curDirDropbox === "")
+			$scope.curDirDropbox = "/";
 	}
 
-	$scope.curDirBox = "/Home";
+	$scope.curDirBox = "/";
 
 	$scope.intoBoxFolder = function(f){
-		$scope.curDirBox += "/" + f.name;
+		if($scope.curDirBox === "/")
+			$scope.curDirBox += f.name;
+
+		else
+			$scope.curDirBox += "/" + f.name;
+
 		$scope.boxFile = empty;
 	}
 
 	$scope.outofBoxFolder = function(){
-		if($scope.curDirBox !== "/Home"){
+		if($scope.curDirBox !== "/"){
 			while($scope.curDirBox[$scope.curDirBox.length-1] !== '/')
 				$scope.curDirBox = $scope.curDirBox.slice(0, -1);
 
 			$scope.curDirBox = $scope.curDirBox.slice(0, -1);
-			$scope.boxFile = bFile.slice();
+			$scope.boxFile = bFile;
 		}
+
+		if($scope.curDirBox === "")
+			$scope.curDirBox = "/";
 	}
 
-	$scope.curDirLocal = "/Home";
+	$scope.curDirLocal = "/";
 
 	$scope.intoLocalFolder = function(f){
-		$scope.curDirLocal += "/" + f.name;
+		if($scope.curDirLocal === "/")
+			$scope.curDirLocal += f.name;
+
+		else
+			$scope.curDirLocal += "/" + f.name;
+
 		$scope.localFile = empty;
 	}
 
 	$scope.outofLocalFolder = function(){
-		if($scope.curDirLocal !== "/Home"){
+		if($scope.curDirLocal !== "/"){
 			while($scope.curDirLocal[$scope.curDirLocal.length-1] !== '/')
 				$scope.curDirLocal = $scope.curDirLocal.slice(0, -1);
 
 			$scope.curDirLocal = $scope.curDirLocal.slice(0, -1);
-			$scope.localFile = lFile.slice();
+			$scope.localFile = lFile;
 		}
+
+		if($scope.curDirLocal === "")
+			$scope.curDirLocal = "/";
 	}
 
-	// var i;
+	$scope.folderSelectGoogle = 0;
+	$scope.folderSelectDropbox = 0;
+	$scope.folderSelectBox = 0;
+	$scope.folderSelectLocal = 0;
 
-	// var scroll_1 = function(){
-	// 	if(i > 1025)
-	// 		return;
-
-	// 	else
-	// 		window.scrollTo(0, i+=10);
-
-	// 	$timeout(scroll_2, 1);
-	// }
-
-	// var scroll_2 = function(){
-	// 	if(i > 1025)
-	// 		return;
-
-	// 	else
-	// 		window.scrollTo(0, i+=10);
-
-	// 	$timeout(scroll_1, 1);
-	// }
-
-	// $scope.scroll = function(){
-	// 	i = window.pageYOffset;
-	// 	$timeout(scroll_1, 1);
-	// }
-
-	// var scrolling_1 = function(){
-	// 	if(i < 185){
-	// 		$scope.showDestgoogle=false;
-	// 		$scope.showDestdropbox=false;
-	// 		$scope.showDestbox=false;
-	// 		$scope.showDestlocal= false;
-	// 		$scope.showDestination=false;
-	// 		return;
-	// 	}
-
-	// 	else
-	// 		window.scrollTo(0, i-=10);
-
-	// 	$timeout(scrolling_2, 1);
-	// }
-
-	// var scrolling_2 = function(){
-	// 	if(i < 185){
-	// 		$scope.showDestgoogle=false;
-	// 		$scope.showDestdropbox=false;
-	// 		$scope.showDestbox=false;
-	// 		$scope.showDestlocal= false;
-	// 		$scope.showDestination=false;
-	// 		return;
-	// 	}
-
-	// 	else
-	// 		window.scrollTo(0, i-=10);
-
-	// 	$timeout(scrolling_1, 1);
-	// }
-
-	// $scope.scrollBack = function(){
-	// 	i = window.pageYOffset;
-	// 	$timeout(scrolling_1, 1);
-	// }
-
-	$scope.folderSelect = 0;
-
-	$scope.create = "";
-	$scope.rename = "disabled";
-	$scope.del = "disabled";
-	$scope.transfer = "disabled";
-	$scope.selectNone = "disabled";
-
-	$scope.folderSelection = function(){
-		if($scope.folderSelect === 0){
-			$scope.create = "";
-			$scope.rename = "disabled";
-			$scope.del = "disabled";
-			$scope.transfer = "disabled";
-			$scope.selectNone = "disabled";
+	$scope.folderSelectionGoogle = function(){
+		if($scope.folderSelectGoogle === 0){
+			angular.element(document.getElementById("google-copy").disabled = true);
+			angular.element(document.getElementById("google-move").disabled = true);
+			angular.element(document.getElementById("google-rename").disabled = true);
+			angular.element(document.getElementById("google-delete").disabled = true);
 		}
 
-		if($scope.folderSelect === 1){
-			$scope.create = "disabled";
-			$scope.rename = "";
-			$scope.del = "";
-			$scope.transfer = "";
-			$scope.selectNone = "";
+		else if($scope.folderSelectGoogle === 1){
+			angular.element(document.getElementById("google-copy").disabled = false);
+			angular.element(document.getElementById("google-move").disabled = false);
+			angular.element(document.getElementById("google-rename").disabled = false);
+			angular.element(document.getElementById("google-delete").disabled = false);
 		}
 
-		if($scope.folderSelect > 1){
-			$scope.create = "disabled";
-			$scope.rename = "disabled";
-			$scope.del = "";
-			$scope.transfer = "";
-			$scope.selectNone = "";
+		else{
+			angular.element(document.getElementById("google-copy").disabled = true);
+			angular.element(document.getElementById("google-move").disabled = true);
+			angular.element(document.getElementById("google-rename").disabled = true);
+			angular.element(document.getElementById("google-delete").disabled = false);
 		}
 	};
 
-	$scope.toggleFolder = function(x){
-		if(x.folder === "../img/checkbox.png"){
-			x.folder = "../img/checked_checkbox.png";
-			$scope.folderSelect++;
-		}
-		else{
-			x.folder = "../img/checkbox.png";
-			$scope.folderSelect--;
+	$scope.folderSelectionDropbox = function(){
+		if($scope.folderSelectDropbox === 0){
+			angular.element(document.getElementById("dropbox-copy").disabled = true);
+			angular.element(document.getElementById("dropbox-move").disabled = true);
+			angular.element(document.getElementById("dropbox-rename").disabled = true);
+			angular.element(document.getElementById("dropbox-delete").disabled = true);
 		}
 
-		$scope.folderSelection();
+		else if($scope.folderSelectDropbox === 1){
+			angular.element(document.getElementById("dropbox-copy").disabled = false);
+			angular.element(document.getElementById("dropbox-move").disabled = false);
+			angular.element(document.getElementById("dropbox-rename").disabled = false);
+			angular.element(document.getElementById("dropbox-delete").disabled = false);
+		}
+
+		else{
+			angular.element(document.getElementById("dropbox-copy").disabled = true);
+			angular.element(document.getElementById("dropbox-move").disabled = true);
+			angular.element(document.getElementById("dropbox-rename").disabled = true);
+			angular.element(document.getElementById("dropbox-delete").disabled = false);
+		}
+	};
+
+	$scope.folderSelectionBox = function(){
+		if($scope.folderSelectBox === 0){
+			angular.element(document.getElementById("box-copy").disabled = true);
+			angular.element(document.getElementById("box-move").disabled = true);
+			angular.element(document.getElementById("box-rename").disabled = true);
+			angular.element(document.getElementById("box-delete").disabled = true);
+		}
+
+		else if($scope.folderSelectBox === 1){
+			angular.element(document.getElementById("box-copy").disabled = false);
+			angular.element(document.getElementById("box-move").disabled = false);
+			angular.element(document.getElementById("box-rename").disabled = false);
+			angular.element(document.getElementById("box-delete").disabled = false);
+		}
+
+		else{
+			angular.element(document.getElementById("box-copy").disabled = true);
+			angular.element(document.getElementById("box-move").disabled = true);
+			angular.element(document.getElementById("box-rename").disabled = true);
+			angular.element(document.getElementById("box-delete").disabled = false);
+		}
+	};
+
+	$scope.folderSelectionLocal = function(){
+		if($scope.folderSelectLocal === 0)
+			angular.element(document.getElementById("local-copy").disabled = true);
+
+		else if($scope.folderSelectLocal === 1)
+			angular.element(document.getElementById("local-copy").disabled = false);
+
+		else
+			angular.element(document.getElementById("local-copy").disabled = true);
+	};
+
+	$scope.toggleFolder = function(x, storage){
+		console.log(storage);
+		if(x.folder === "../img/checkbox.png"){
+			x.folder = "../img/checked_checkbox.png";
+
+			if(storage === "g"){
+				$scope.folderSelectGoogle++;
+				$scope.folderSelectionGoogle();
+				return;
+			}
+				
+			if(storage === "d"){
+				$scope.folderSelectDropbox++;
+				$scope.folderSelectionDropbox();
+				return;
+			}
+
+			if(storage === "b"){
+				$scope.folderSelectBox++;
+				$scope.folderSelectionBox();
+				return;
+			}
+
+			if(storage === "l"){
+				$scope.folderSelectLocal++;
+				$scope.folderSelectionLocal();
+				return;
+			}
+		}
+
+		else{
+			x.folder = "../img/checkbox.png";
+			
+			if(storage === "g"){
+				$scope.folderSelectGoogle--;
+				$scope.folderSelectionGoogle();
+				return;
+			}
+				
+			if(storage === "d"){
+				$scope.folderSelectDropbox--;
+				$scope.folderSelectionDropbox();
+				return;
+			}
+
+			if(storage === "b"){
+				$scope.folderSelectBox--;
+				$scope.folderSelectionBox();
+				return;
+			}
+
+			if(storage === "l"){
+				$scope.folderSelectLocal--;
+				$scope.folderSelectionLocal();
+				return;
+			}
+		}
 	};
 
 	$scope.selectAllGoogle = function(){
 		for(var i = 0; i < $scope.googleFile.length; i++){
 			$scope.googleFile[i].folder = "../img/checked_checkbox.png";
-			$scope.folderSelect++;
+			$scope.folderSelectGoogle++;
 		}
 
-		$scope.folderSelection();
+		$scope.folderSelectionGoogle();
 	};
 
 	$scope.selectNoneGoogle = function(){
 		for(var i = 0; i < $scope.googleFile.length; i++)
 			$scope.googleFile[i].folder = "../img/checkbox.png";			
 
-		$scope.folderSelect = 0;
-		$scope.folderSelection();
+		$scope.folderSelectGoogle = 0;
+		$scope.folderSelectionGoogle();
 	};
 
 	$scope.selectAllDropbox = function(){
 		for(var i = 0; i < $scope.dropboxFile.length; i++){
 			$scope.dropboxFile[i].folder = "../img/checked_checkbox.png";
-			$scope.folderSelect++;
+			$scope.folderSelectDropbox++;
 		}
 
-		$scope.folderSelection();
+		$scope.folderSelectionDropbox();
 	};
 
 	$scope.selectNoneDropbox = function(){
 		for(var i = 0; i < $scope.dropboxFile.length; i++)
 			$scope.dropboxFile[i].folder = "../img/checkbox.png";
 
-		$scope.folderSelect = 0;
-		$scope.folderSelection();
+		$scope.folderSelectDropbox = 0;
+		$scope.folderSelectionDropbox();
 	};
 
 	$scope.selectAllBox = function(){
 		for(var i = 0; i < $scope.boxFile.length; i++){
 			$scope.boxFile[i].folder = "../img/checked_checkbox.png";
-			$scope.folderSelect++;
+			$scope.folderSelectBox++;
 		}
 
-		$scope.folderSelection();
+		$scope.folderSelectionBox();
 	};
 
 	$scope.selectNoneBox = function(){
 		for(var i = 0; i < $scope.boxFile.length; i++)
 			$scope.boxFile[i].folder = "../img/checkbox.png";
 
-		$scope.folderSelect = 0;
-		$scope.folderSelection();
+		$scope.folderSelectBox = 0;
+		$scope.folderSelectionBox();
 	};
 
 	$scope.selectAllLocal = function(){
 		for(var i = 0; i < $scope.localFile.length; i++){
 			$scope.localFile[i].folder = "../img/checked_checkbox.png";
-			$scope.folderSelect++;
+			$scope.folderSelectLocal++;
 		}
 
-		$scope.folderSelection();
+		$scope.folderSelectionLocal();
 	};
 
 	$scope.selectNoneLocal = function(){
 		for(var i = 0; i < $scope.localFile.length; i++)
 			$scope.localFile[i].folder = "../img/checkbox.png";
 
-		$scope.folderSelect = 0;
-		$scope.folderSelection();
+		$scope.folderSelectLocal = 0;
+		$scope.folderSelectionLocal();
 	};
 
 
 	//-----------Destination-----------//
+
+	$scope.temp_parentDest = [];
 
 	$scope.googleDestFile = gFile;
 	$scope.dropboxDestFile = dFile;
 	$scope.boxDestFile = bFile;
 	$scope.localDestFile = lFile;
 
-	$scope.curDestDirGoogle = "/Home";
+	$scope.curDestDirGoogle = "/";
 
 	$scope.intoGoogleDestFolder = function(f){
-
-		if(!f.directory){
-			alert("NOT A FOLDER");
+		if(!f.directory)
 			return;
-		}
 
 		if(f.children.length === 0){
-			alert("FOLDER IS EMPTY");
+			$scope.temp_parentDest = f.sibling;
+
+			if($scope.curDestDirGoogle === "/")
+				$scope.curDestDirGoogle += f.name;
+
+			else
+				$scope.curDestDirGoogle += "/" + f.name;
+
+			$scope.googleDestFile = empty;
 			return;
 		}
 		
@@ -537,134 +617,309 @@ angular.module('HomeCtrl', []).controller('HomeController', ['$scope', '$window'
 					console.log("ELAB: ", files);
 					for(var i = 0; i < files.length; i++){
 						if(files[i].mimeType === "application/vnd.google-apps.folder")
-							f.children[cur].children.push({id: files[i].id, name: files[i].title, folder: "../img/checkbox.png", directory: true, children: [], parent: []});
+							f.children[cur].children.push({id: files[i].id, name: files[i].title, folder: "../img/checkbox.png", folderDest: "../img/checkbox.png", folder_image: "../img/folder.png", select: false, selectDest: false, directory: true, children: [], parent: f.children, sibling: f.children[cur].children});
 							
 						else
-							f.children[cur].children.push({id: files[i].id, name: files[i].title, folder: "../img/checkbox.png", directory: false, parent: []});
+							f.children[cur].children.push({id: files[i].id, name: files[i].title, folder: "../img/checkbox.png", folderDest: "../img/checkbox.png", folder_image: "../img/file.png", select: false, selectDest: false, directory: false, parent: f.children});
 					}
 
-					f.children[cur].children[0].parent = f.children.slice();
+					// f.children[cur].children[0].parent = f.children.slice();
 					console.log("F CHILDREN: ", f.children[cur].children);
 				});	
 			}
 		}
 
-		$scope.curDestDirGoogle += "/" + f.name;
+		if($scope.curDestDirGoogle === "/")
+			$scope.curDestDirGoogle += f.name;
+
+		else
+			$scope.curDestDirGoogle += "/" + f.name;
+
 		$scope.googleDestFile = f.children;
 	}
 
 	$scope.outofGoogleDestFolder = function(){
-		if($scope.curDestDirGoogle !== "/Home"){
+		if($scope.curDestDirGoogle !== "/"){
 			while($scope.curDestDirGoogle[$scope.curDestDirGoogle.length-1] !== '/')
 				$scope.curDestDirGoogle = $scope.curDestDirGoogle.slice(0, -1);
 
 			$scope.curDestDirGoogle = $scope.curDestDirGoogle.slice(0, -1);
-			$scope.googleDestFile = $scope.googleDestFile[0].parent;
+
+			if($scope.googleDestFile === empty){
+				$scope.googleDestFile = $scope.temp_parentDest;
+				$scope.temp_parentDest = [];
+			}
+
+			else
+				$scope.googleDestFile = $scope.googleDestFile[0].parent;
 		}
+
+
+		if($scope.curDestDirGoogle === "")
+			$scope.curDestDirGoogle = "/";
 	}
 
-	$scope.curDestDirDropbox = "/Home";
+	$scope.curDestDirDropbox = "/";
 
 	$scope.intoDropboxDestFolder = function(f){
-		$scope.curDestDirDropbox += "/" + f.name;
+		if($scope.curDestDirDropbox === "/")
+			$scope.curDestDirDropbox += f.name;
+
+		else
+			$scope.curDestDirDropbox += "/" + f.name;
+
 		$scope.dropboxDestFile = empty;
 	}
 
 	$scope.outofDropboxDestFolder = function(){
-		if($scope.curDestDirDropbox !== "/Home"){
+		if($scope.curDestDirDropbox !== "/"){
 			while($scope.curDestDirDropbox[$scope.curDestDirDropbox.length-1] !== '/')
 				$scope.curDestDirDropbox = $scope.curDestDirDropbox.slice(0, -1);
 
 			$scope.curDestDirDropbox = $scope.curDestDirDropbox.slice(0, -1);
 			$scope.dropboxDestFile = dFile.slice();
 		}
+
+		if($scope.curDestDirDropbox === "")
+			$scope.curDestDirDropbox = "/";
 	}
 
-	$scope.curDestDirBox = "/Home";
+	$scope.curDestDirBox = "/";
 
 	$scope.intoBoxDestFolder = function(f){
-		$scope.curDestDirBox += "/" + f.name;
+		if($scope.curDestDirBox === "/")
+			$scope.curDestDirBox += f.name;
+
+		else
+			$scope.curDestDirBox += "/" + f.name;
+
 		$scope.boxDestFile = empty;
 	}
 
 	$scope.outofBoxDestFolder = function(){
-		if($scope.curDestDirBox !== "/Home"){
+		if($scope.curDestDirBox !== "/"){
 			while($scope.curDestDirBox[$scope.curDestDirBox.length-1] !== '/')
 				$scope.curDestDirBox = $scope.curDestDirBox.slice(0, -1);
 
 			$scope.curDestDirBox = $scope.curDestDirBox.slice(0, -1);
 			$scope.boxDestFile = bFile.slice();
 		}
+
+		if($scope.curDestDirBox === "")
+			$scope.curDestDirBox = "/";
 	}
 
-	$scope.curDestDirLocal = "/Home";
+	$scope.curDestDirLocal = "/";
 
 	$scope.intoLocalDestFolder = function(f){
-		$scope.curDestDirLocal += "/" + f.name;
+		if($scope.curDestDirLocal === "/")
+			$scope.curDestDirLocal += f.name;
+
+		else
+			$scope.curDestDirLocal += "/" + f.name;
+
 		$scope.locaDestFile = empty;
 	}
 
 	$scope.outofLocalDestFolder = function(){
-		if($scope.curDestDirLocal !== "/Home"){
+		if($scope.curDestDirLocal !== "/"){
 			while($scope.curDestDirLocal[$scope.curDestDirLocal.length-1] !== '/')
 				$scope.curDestDirLocal = $scope.curDestDirLocal.slice(0, -1);
 
 			$scope.curDestDirLocal = $scope.curDestDirLocal.slice(0, -1);
 			$scope.localDestFile = lFile.slice();
 		}
+
+		if($scope.curDestDirLocal === "")
+			$scope.curDestDirLocal = "/";
 	}
 
-	$scope.toggleDestFolder = function(x){
-		if(x.folder === "../img/checkbox.png")
-			x.folder = "../img/checked_checkbox.png";
-		
+
+	$scope.folderSelectDestGoogle = 0;
+	$scope.folderSelectDestDropbox = 0;
+	$scope.folderSelectDestBox = 0;
+	$scope.folderSelectDestLocal = 0;
+
+	$scope.folderSelectionDestGoogle = function(){
+		if($scope.folderSelectDestGoogle === 0){
+			angular.element(document.getElementById("google-confirm").disabled = true);
+		}
+
+		else if($scope.folderSelectDestGoogle === 1){
+			angular.element(document.getElementById("google-confirm").disabled = false);
+		}
+
+		else{
+			angular.element(document.getElementById("google-confirm").disabled = false);
+		}
+	};
+
+	$scope.folderSelectionDestDropbox = function(){
+		if($scope.folderSelectDestDropbox === 0){
+			angular.element(document.getElementById("dropbox-confirm").disabled = true);
+		}
+
+		else if($scope.folderSelectDestDropbox === 1){
+			angular.element(document.getElementById("dropbox-confirm").disabled = false);
+		}
+
+		else{
+		angular.element(document.getElementById("dropbox-confirm").disabled = false);
+		}
+	};
+
+	$scope.folderSelectionDestBox = function(){
+		if($scope.folderSelectDestBox === 0){
+			angular.element(document.getElementById("box-confirm").disabled = true);
+		}
+
+		else if($scope.folderSelectDestBox === 1){
+			angular.element(document.getElementById("box-confirm").disabled = false);
+		}
+
+		else{
+			angular.element(document.getElementById("box-confirm").disabled = false);v
+		}
+	};
+
+	$scope.folderSelectionDestLocal = function(){
+		if($scope.folderSelectDestLocal === 0)
+			angular.element(document.getElementById("local-confirm").disabled = true);
+
+		else if($scope.folderSelectDestLocal === 1)
+			angular.element(document.getElementById("local-confirm").disabled = false);
+
 		else
-			x.folder = "../img/checkbox.png";
+			angular.element(document.getElementById("local-confirm").disabled = false);
+	};
+
+	$scope.toggleDestFolder = function(x, storage){
+		console.log(storage);
+		if(x.folderDest === "../img/checkbox.png"){
+			x.folderDest = "../img/checked_checkbox.png";
+
+			if(storage === "g"){
+				$scope.folderSelectDestGoogle++;
+				$scope.folderSelectionDestGoogle();
+				return;
+			}
+				
+			if(storage === "d"){
+				$scope.folderSelectDestDropbox++;
+				$scope.folderSelectionDestDropbox();
+				return;
+			}
+
+			if(storage === "b"){
+				$scope.folderSelectDestBox++;
+				$scope.folderSelectionDestBox();
+				return;
+			}
+
+			if(storage === "l"){
+				$scope.folderSelectDestLocal++;
+				$scope.folderSelectionDestLocal();
+				return;
+			}
+		}
+
+		else{
+			x.folderDest = "../img/checkbox.png";
+			
+			if(storage === "g"){
+				$scope.folderSelectDestGoogle--;
+				$scope.folderSelectionDestGoogle();
+				return;
+			}
+				
+			if(storage === "d"){
+				$scope.folderSelectDestDropbox--;
+				$scope.folderSelectionDestDropbox();
+				return;
+			}
+
+			if(storage === "b"){
+				$scope.folderSelectDestBox--;
+				$scope.folderSelectionDestBox();
+				return;
+			}
+
+			if(storage === "l"){
+				$scope.folderSelectDestLocal--;
+				$scope.folderSelectionDestLocal();
+				return;
+			}
+		}
 	};
 
 	$scope.selectAllDestGoogle = function(){
-		for(var i = 0; i < $scope.googleFile.length; i++){
-			$scope.googleDestFile[i].folder = "../img/checked_checkbox.png";
+		for(var i = 0; i < $scope.googleDestFile.length; i++){
+			$scope.googleDestFile[i].folderDest = "../img/checked_checkbox.png";
+			$scope.folderSelectDestGoogle++;
 		}
+
+		$scope.folderSelectionDestGoogle();
 	};
 
 	$scope.selectNoneDestGoogle = function(){
-		for(var i = 0; i < $scope.googleFile.length; i++)
-			$scope.googleDestFile[i].folder = "../img/checkbox.png";			
+		for(var i = 0; i < $scope.googleDestFile.length; i++)
+			$scope.googleDestFile[i].folderDest = "../img/checkbox.png";			
+
+		$scope.folderSelectDestGoogle = 0;
+		$scope.folderSelectionDestGoogle();
 	};
 
 	$scope.selectAllDestDropbox = function(){
-		for(var i = 0; i < $scope.dropboxFile.length; i++){
-			$scope.dropboxDestFile[i].folder = "../img/checked_checkbox.png";
+		for(var i = 0; i < $scope.dropboxDestFile.length; i++){
+			$scope.dropboxDestFile[i].folderDest = "../img/checked_checkbox.png";
+			$scope.folderSelectDestDropbox++;
 		}
+
+		$scope.folderSelectionDestDropbox();
 	};
 
 	$scope.selectNoneDestDropbox = function(){
-		for(var i = 0; i < $scope.dropboxFile.length; i++)
-			$scope.dropboxDestFile[i].folder = "../img/checkbox.png";
+		for(var i = 0; i < $scope.dropboxDestFile.length; i++)
+			$scope.dropboxDestFile[i].folderDest = "../img/checkbox.png";
+
+		$scope.folderSelectDestDropbox = 0;
+		$scope.folderSelectionDestDropbox();
 	};
 
 	$scope.selectAllDestBox = function(){
-		for(var i = 0; i < $scope.boxFile.length; i++){
-			$scope.boxDestFile[i].folder = "../img/checked_checkbox.png";
+		for(var i = 0; i < $scope.boxDestFile.length; i++){
+			$scope.boxDestFile[i].folderDest = "../img/checked_checkbox.png";
+			$scope.folderSelectDestBox++;
 		}
+
+		$scope.folderSelectionDestBox();
 	};
 
 	$scope.selectNoneDestBox = function(){
-		for(var i = 0; i < $scope.boxFile.length; i++)
-			$scope.boxDestFile[i].folder = "../img/checkbox.png";
+		for(var i = 0; i < $scope.boxDestFile.length; i++)
+			$scope.boxDestFile[i].folderDest = "../img/checkbox.png";
+
+		$scope.folderSelectDestBox = 0;
+		$scope.folderSelectionDestBox();
 	};
 
 	$scope.selectAllDestLocal = function(){
-		for(var i = 0; i < $scope.localFile.length; i++){
-			$scope.localDestFile[i].folder = "../img/checked_checkbox.png";
+		for(var i = 0; i < $scope.localDestFile.length; i++){
+			$scope.localDestFile[i].folderDest = "../img/checked_checkbox.png";
+			$scope.folderSelectDestLocal++;
 		}
+
+		$scope.folderSelectionDestLocal();
 	};
 
 	$scope.selectNoneDestLocal = function(){
-		for(var i = 0; i < $scope.localFile.length; i++)
-			$scope.localDestFile[i].folder = "../img/checkbox.png";
+		for(var i = 0; i < $scope.localDestFile.length; i++)
+			$scope.localDestFile[i].folderDest = "../img/checkbox.png";
+
+		$scope.folderSelectDestLocal = 0;
+		$scope.folderSelectionDestLocal();
 	};
+
 
 	// -------------------- johnny: for APIs testing
 	$scope.testGDrive = function(){

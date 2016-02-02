@@ -79,10 +79,10 @@ function handleAuthResult(authResult) {
 						console.log("ALL FILES: ", files);
 						for(var i = 0; i < files.length; i++){
 							if(files[i].mimeType === "application/vnd.google-apps.folder")
-								gFile.push({id: files[i].id, name: files[i].title, folder: "../img/checkbox.png", directory: true, children: []});
+								gFile.push({id: files[i].id, name: files[i].title, folder: "../img/checkbox.png", folder_image: "../img/folder.png", folderDest: "../img/checkbox.png", select: false, selectDest: false, directory: true, children: [], sibling: gFile});
 
 							else
-								gFile.push({id: files[i].id, name: files[i].title, folder: "../img/checkbox.png", directory: false});
+								gFile.push({id: files[i].id, name: files[i].title, folder: "../img/checkbox.png", folder_image: "../img/file.png", folderDest: "../img/checkbox.png", select: false, selectDest: false, directory: false});
 						}
 						console.log("GFILE: ", gFile);
 
@@ -99,13 +99,13 @@ function handleAuthResult(authResult) {
 
 									for(var i = 0; i < files.length; i++){
 										if(files[i].mimeType === "application/vnd.google-apps.folder")
-											gFile[cur].children.push({id: files[i].id, name: files[i].title, folder: "../img/checkbox.png", directory: true, children: [], parent: []});
+											gFile[cur].children.push({id: files[i].id, name: files[i].title, folder: "../img/checkbox.png", folderDest: "../img/checkbox.png", folder_image: "../img/folder.png", select: false, selectDest: false, directory: true, children: [], parent: gFile, sibling: gFile[cur].children});
 											
 										else
-											gFile[cur].children.push({id: files[i].id, name: files[i].title, folder: "../img/checkbox.png", directory: false, parent: []});
+											gFile[cur].children.push({id: files[i].id, name: files[i].title, folder: "../img/checkbox.png", folderDest: "../img/checkbox.png", folder_image: "../img/file.png", select: false, selectDest: false, directory: false, parent: gFile});
 									}
 
-									gFile[cur].children[0].parent = gFile.slice();
+									// gFile[cur].children[0].parent = gFile.slice();
 									console.log("GFILE CHILDREN: ", gFile[cur].children);
 								});	
 							}

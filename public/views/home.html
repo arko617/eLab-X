@@ -24,8 +24,8 @@
 	<div style="height:88%; width:92%; overflow-y:scroll; margin-top:5px">
 		<ul ng-repeat="x in googleFile" class="nav navbar-nav">
 			<li>
-				<img class="folder-size-green" ng-src="../img/folder.png" ng-dblclick="intoGoogleFolder(x)">
-				<img class="checkbox-size" ng-src="{{x.folder}}" ng-click="toggleFolder(x)">
+				<img class="folder-size-green" ng-src="{{x.folder_image}}" ng-dblclick="intoGoogleFolder(x)">
+				<img class="checkbox-size" ng-src="{{x.folder}}" ng-click="toggleFolder(x, 'g')">
 				<br/>
 				<div class="folder-name" style="color:green">{{x.name}}</div>
 			</li>
@@ -38,22 +38,22 @@
 	    </button>
 	</div>
 	<div class="dropdown operation-copy">
-	    <button class="btn btn-primary dropdown-toggle action" id="google-copy" type="button" data-toggle="dropdown" style="background-color:green; border-color:green" ng-mouseover="copyHoverIn()" ng-mouseout="copyHoverOut()" ng-click="toggleModal()">
+	    <button class="btn btn-primary dropdown-toggle action" id="google-copy" type="button" data-toggle="dropdown" style="background-color:green; border-color:green" ng-mouseover="copyHoverIn()" ng-mouseout="copyHoverOut()" ng-click="toggleModal()" disabled>
 	    <span class="glyphicon glyphicon-size glyphicon-file"></span>
 	    </button>
 	</div>
 	<div class="dropdown operation-move">
-	    <button class="btn btn-primary dropdown-toggle action" id="google-move" type="button" data-toggle="dropdown" style="background-color:green; border-color:green" ng-mouseover="moveHoverIn()" ng-mouseout="moveHoverOut()" ng-click="toggleModal()">
+	    <button class="btn btn-primary dropdown-toggle action" id="google-move" type="button" data-toggle="dropdown" style="background-color:green; border-color:green" ng-mouseover="moveHoverIn()" ng-mouseout="moveHoverOut()" ng-click="toggleModal()" disabled>
 	    <span class="glyphicon glyphicon-size glyphicon-transfer"></span>
 	    </button>
 	</div>
 	<div class="dropdown operation-rename">
-	    <button class="btn btn-primary dropdown-toggle action" id="google-rename" type="button" data-toggle="dropdown" style="background-color:green; border-color:green" ng-mouseover="renameHoverIn()" ng-mouseout="renameHoverOut()">
+	    <button class="btn btn-primary dropdown-toggle action" id="google-rename" type="button" data-toggle="dropdown" style="background-color:green; border-color:green" ng-mouseover="renameHoverIn()" ng-mouseout="renameHoverOut()" disabled>
 	    <span class="glyphicon glyphicon-size glyphicon-pencil"></span>
 	    </button>
 	</div>
 	<div class="dropdown operation-delete">
-	    <button class="btn btn-primary dropdown-toggle action" id="google-delete" type="button" data-toggle="dropdown" style="background-color:green; border-color:green" ng-mouseover="deleteHoverIn()" ng-mouseout="deleteHoverOut()" ng-click="toggleDeleteModal()">
+	    <button class="btn btn-primary dropdown-toggle action" id="google-delete" type="button" data-toggle="dropdown" style="background-color:green; border-color:green" ng-mouseover="deleteHoverIn()" ng-mouseout="deleteHoverOut()" ng-click="toggleDeleteModal()" disabled>
 	    <span class="glyphicon glyphicon-size glyphicon-trash"></span>
 	    </button>
 	</div>
@@ -78,7 +78,7 @@
 		<ul ng-repeat="x in dropboxFile" class="nav navbar-nav">
 			<li>
 				<img class="folder-size-blue" ng-src="../img/folder.png" ng-dblclick="intoDropboxFolder(x)">
-				<img class="checkbox-size" ng-src="{{x.folder}}" ng-click="toggleFolder(x)">
+				<img class="checkbox-size" ng-src="{{x.folder}}" ng-click="toggleFolder(x, 'd')">
 				<br/>
 				<div class="folder-name" style="color:blue">{{x.name}}</div>
 			</li>
@@ -91,22 +91,22 @@
 	    </button>
 	</div>
 	<div class="dropdown operation-copy">
-	    <button class="btn btn-primary dropdown-toggle action" id="dropbox-copy" type="button" data-toggle="dropdown" style="background-color:blue; border-color:blue" ng-mouseover="copyHoverIn()" ng-mouseout="copyHoverOut()" ng-click="toggleModal()">
+	    <button class="btn btn-primary dropdown-toggle action" id="dropbox-copy" type="button" data-toggle="dropdown" style="background-color:blue; border-color:blue" ng-mouseover="copyHoverIn()" ng-mouseout="copyHoverOut()" ng-click="toggleModal()" disabled>
 	    <span class="glyphicon glyphicon-size glyphicon-file"></span>
 	    </button>
 	</div>
 	<div class="dropdown operation-move">
-	    <button class="btn btn-primary dropdown-toggle action" id="dropbox-move" type="button" data-toggle="dropdown" style="background-color:blue; border-color:blue" ng-mouseover="moveHoverIn()" ng-mouseout="moveHoverOut()" ng-click="toggleModal()">
+	    <button class="btn btn-primary dropdown-toggle action" id="dropbox-move" type="button" data-toggle="dropdown" style="background-color:blue; border-color:blue" ng-mouseover="moveHoverIn()" ng-mouseout="moveHoverOut()" ng-click="toggleModal()" disabled>
 	    <span class="glyphicon glyphicon-size glyphicon-transfer"></span>
 	    </button>
 	</div>
 	<div class="dropdown operation-rename">
-	    <button class="btn btn-primary dropdown-toggle action" id="dropbox-rename" type="button" data-toggle="dropdown" style="background-color:blue; border-color:blue" ng-mouseover="renameHoverIn()" ng-mouseout="renameHoverOut()">
+	    <button class="btn btn-primary dropdown-toggle action" id="dropbox-rename" type="button" data-toggle="dropdown" style="background-color:blue; border-color:blue" ng-mouseover="renameHoverIn()" ng-mouseout="renameHoverOut()" disabled>
 	    <span class="glyphicon glyphicon-size glyphicon-pencil"></span>
 	    </button>
 	</div>
 	<div class="dropdown operation-delete">
-	    <button class="btn btn-primary dropdown-toggle action" id="dropbox-delete" type="button" data-toggle="dropdown" style="background-color:blue; border-color:blue" ng-mouseover="deleteHoverIn()" ng-mouseout="deleteHoverOut()" ng-click="toggleDeleteModal()">
+	    <button class="btn btn-primary dropdown-toggle action" id="dropbox-delete" type="button" data-toggle="dropdown" style="background-color:blue; border-color:blue" ng-mouseover="deleteHoverIn()" ng-mouseout="deleteHoverOut()" ng-click="toggleDeleteModal()" disabled>
 	    <span class="glyphicon glyphicon-size glyphicon-trash"></span>
 	    </button>
 	</div>
@@ -129,7 +129,7 @@
 		<ul ng-repeat="x in boxFile" class="nav navbar-nav">
 			<li>
 				<img class="folder-size-violet" ng-src="../img/folder.png" ng-dblclick="intoBoxFolder(x)">
-				<img class="checkbox-size" ng-src="{{x.folder}}" ng-click="toggleFolder(x)">
+				<img class="checkbox-size" ng-src="{{x.folder}}" ng-click="toggleFolder(x, 'b')">
 				<br/>
 				<div class="folder-name" style="color:violet">{{x.name}}</div>
 			</li>
@@ -142,22 +142,22 @@
 	    </button>
 	</div>
 	<div class="dropdown operation-copy">
-	    <button class="btn btn-primary dropdown-toggle action" id="box-copy" type="button" data-toggle="dropdown" style="background-color:violet; border-color:violet" ng-mouseover="copyHoverIn()" ng-mouseout="copyHoverOut()" ng-click="toggleModal()">
+	    <button class="btn btn-primary dropdown-toggle action" id="box-copy" type="button" data-toggle="dropdown" style="background-color:violet; border-color:violet" ng-mouseover="copyHoverIn()" ng-mouseout="copyHoverOut()" ng-click="toggleModal()" disabled>
 	    <span class="glyphicon glyphicon-size glyphicon-file"></span>
 	    </button>
 	</div>
 	<div class="dropdown operation-move">
-	    <button class="btn btn-primary dropdown-toggle action" id="box-move" type="button" data-toggle="dropdown" style="background-color:violet; border-color:violet" ng-mouseover="moveHoverIn()" ng-mouseout="moveHoverOut()" ng-click="toggleModal()">
+	    <button class="btn btn-primary dropdown-toggle action" id="box-move" type="button" data-toggle="dropdown" style="background-color:violet; border-color:violet" ng-mouseover="moveHoverIn()" ng-mouseout="moveHoverOut()" ng-click="toggleModal()" disabled>
 	    <span class="glyphicon glyphicon-size glyphicon-transfer"></span>
 	    </button>
 	</div>
 	<div class="dropdown operation-rename">
-	    <button class="btn btn-primary dropdown-toggle action" id="box-rename" type="button" data-toggle="dropdown" style="background-color:violet; border-color:violet" ng-mouseover="renameHoverIn()" ng-mouseout="renameHoverOut()">
+	    <button class="btn btn-primary dropdown-toggle action" id="box-rename" type="button" data-toggle="dropdown" style="background-color:violet; border-color:violet" ng-mouseover="renameHoverIn()" ng-mouseout="renameHoverOut()" disabled>
 	    <span class="glyphicon glyphicon-size glyphicon-pencil"></span>
 	    </button>
 	</div>
 	<div class="dropdown operation-delete">
-	    <button class="btn btn-primary dropdown-toggle action" id="box-delete" type="button" data-toggle="dropdown" style="background-color:violet; border-color:violet" ng-mouseover="deleteHoverIn()" ng-mouseout="deleteHoverOut()" ng-click="toggleDeleteModal()">
+	    <button class="btn btn-primary dropdown-toggle action" id="box-delete" type="button" data-toggle="dropdown" style="background-color:violet; border-color:violet" ng-mouseover="deleteHoverIn()" ng-mouseout="deleteHoverOut()" ng-click="toggleDeleteModal()" disabled>
 	    <span class="glyphicon glyphicon-size glyphicon-trash"></span>
 	    </button>
 	</div>
@@ -180,7 +180,7 @@
 		<ul ng-repeat="x in localFile" class="nav navbar-nav">
 			<li>
 				<img class="folder-size-red" ng-src="../img/folder.png" ng-dblclick="intoLocalFolder(x)">
-				<img class="checkbox-size" ng-src="{{x.folder}}" ng-click="toggleFolder(x)">
+				<img class="checkbox-size" ng-src="{{x.folder}}" ng-click="toggleFolder(x, 'l')">
 				<br/>
 				<div class="folder-name" style="color:red">{{x.name}}</div>
 			</li>
@@ -193,7 +193,7 @@
 	    </button>
 	</div>
 	<div class="dropdown operation-copy">
-	    <button class="btn btn-primary dropdown-toggle action" id="local-copy" type="button" data-toggle="dropdown" style="background-color:red; border-color:red" ng-mouseover="copyHoverIn()" ng-mouseout="copyHoverOut()" ng-click="toggleModal()">
+	    <button class="btn btn-primary dropdown-toggle action" id="local-copy" type="button" data-toggle="dropdown" style="background-color:red; border-color:red" ng-mouseover="copyHoverIn()" ng-mouseout="copyHoverOut()" ng-click="toggleModal()" disabled>
 	    <span class="glyphicon glyphicon-size glyphicon-file"></span>
 	    </button>
 	</div>
@@ -232,8 +232,8 @@
 	<div style="height:88%; width:92%; overflow-y:scroll; margin-top:5px">
 		<ul ng-repeat="x in googleDestFile" class="nav navbar-nav">
 			<li>
-				<img class="folder-size-green" ng-src="../img/folder.png" ng-dblclick="intoGoogleDestFolder(x)">
-				<img class="checkbox-size" ng-src="{{x.folder}}" ng-click="toggleDestFolder(x)">
+				<img class="folder-size-green" ng-src="{{x.folder_image}}" ng-dblclick="intoGoogleDestFolder(x)">
+				<img class="checkbox-size" ng-src="{{x.folderDest}}" ng-click="toggleDestFolder(x, 'g')">
 				<br/>
 				<div class="folder-name" style="color:green">{{x.name}}</div>
 			</li>
@@ -241,7 +241,7 @@
 	</div>
 
 	<div class="dropdown operation-confirm">
-	    <button class="btn btn-primary dropdown-toggle action" id="google-confirm" type="button" data-toggle="dropdown" style="background-color:green; border-color:green" ng-mouseover="confirmHoverIn()" ng-mouseout="confirmHoverOut()">
+	    <button class="btn btn-primary dropdown-toggle action" id="google-confirm" type="button" data-toggle="dropdown" style="background-color:green; border-color:green" ng-mouseover="confirmHoverIn()" ng-mouseout="confirmHoverOut()" disabled>
 	    <span class="glyphicon glyphicon-size glyphicon-thumbs-up"></span>
 	    </button>
 	</div>
@@ -270,7 +270,7 @@
 		<ul ng-repeat="x in dropboxDestFile" class="nav navbar-nav">
 			<li>
 				<img class="folder-size-blue" ng-src="../img/folder.png" ng-dblclick="intoDropboxDestFolder(x)">
-				<img class="checkbox-size" ng-src="{{x.folder}}" ng-click="toggleDestFolder(x)">
+				<img class="checkbox-size" ng-src="{{x.folderDest}}" ng-click="toggleDestFolder(x, 'd')">
 				<br/>
 				<div class="folder-name" style="color:blue">{{x.name}}</div>
 			</li>
@@ -278,7 +278,7 @@
 	</div>
 
 	<div class="dropdown operation-confirm">
-	    <button class="btn btn-primary dropdown-toggle action" id="dropbox-confirm" type="button" data-toggle="dropdown" style="background-color:blue; border-color:blue" ng-mouseover="confirmHoverIn()" ng-mouseout="confirmHoverOut()">
+	    <button class="btn btn-primary dropdown-toggle action" id="dropbox-confirm" type="button" data-toggle="dropdown" style="background-color:blue; border-color:blue" ng-mouseover="confirmHoverIn()" ng-mouseout="confirmHoverOut()" disabled>
 	    <span class="glyphicon glyphicon-size glyphicon-thumbs-up"></span>
 	    </button>
 	</div>
@@ -307,7 +307,7 @@
 		<ul ng-repeat="x in boxDestFile" class="nav navbar-nav">
 			<li>
 				<img class="folder-size-violet" ng-src="../img/folder.png" ng-dblclick="intoBoxDestFolder(x)">
-				<img class="checkbox-size" ng-src="{{x.folder}}" ng-click="toggleDestFolder(x)">
+				<img class="checkbox-size" ng-src="{{x.folderDest}}" ng-click="toggleDestFolder(x, 'b')">
 				<br/>
 				<div class="folder-name" style="color:violet">{{x.name}}</div>
 			</li>
@@ -315,7 +315,7 @@
 	</div>
 
 	<div class="dropdown operation-confirm">
-	    <button class="btn btn-primary dropdown-toggle action" id="box-confirm" type="button" data-toggle="dropdown" style="background-color:violet; border-color:violet" ng-mouseover="confirmHoverIn()" ng-mouseout="confirmHoverOut()">
+	    <button class="btn btn-primary dropdown-toggle action" id="box-confirm" type="button" data-toggle="dropdown" style="background-color:violet; border-color:violet" ng-mouseover="confirmHoverIn()" ng-mouseout="confirmHoverOut()" disabled>
 	    <span class="glyphicon glyphicon-size glyphicon-thumbs-up"></span>
 	    </button>
 	</div>
