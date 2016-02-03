@@ -2,41 +2,41 @@ var empty = [];
 
 var gFile = [];
 
-var dFile = [{name: 'Resume', folder: "../img/checkbox.png", folderDest: "../img/checkbox.png"}];
+var dFile = [{name: 'Resume', size:"0 MB", folder: "../img/checkbox.png", folderDest: "../img/checkbox.png"}];
 
-var bFile = [{name: 'eLab', folder: "../img/checkbox.png", folderDest: "../img/checkbox.png"},
-					{name: 'Physics', folder: "../img/checkbox.png", folderDest: "../img/checkbox.png"},
-					{name: 'English', folder: "../img/checkbox.png", folderDest: "../img/checkbox.png"},
-					{name: 'Lab', folder: "../img/checkbox.png", folderDest: "../img/checkbox.png"},
-					{name: 'Math', folder: "../img/checkbox.png", folderDest: "../img/checkbox.png"},
-					{name: 'Science', folder: "../img/checkbox.png", folderDest: "../img/checkbox.png"}];
+var bFile = [{name: 'eLab', size:"0 MB", folder: "../img/checkbox.png", folderDest: "../img/checkbox.png"},
+					{name: 'Physics', size:"0 MB", folder: "../img/checkbox.png", folderDest: "../img/checkbox.png"},
+					{name: 'English', size:"0 MB", folder: "../img/checkbox.png", folderDest: "../img/checkbox.png"},
+					{name: 'Lab', size:"0 MB", folder: "../img/checkbox.png", folderDest: "../img/checkbox.png"},
+					{name: 'Math', size:"0 MB", folder: "../img/checkbox.png", folderDest: "../img/checkbox.png"},
+					{name: 'Science', size:"0 MB", folder: "../img/checkbox.png", folderDest: "../img/checkbox.png"}];
 
 var lFile = [{name: 'A', folder: "../img/checkbox.png", folderDest: "../img/checkbox.png"},
-					{name: 'B', folder: "../img/checkbox.png", folderDest: "../img/checkbox.png"},
-					{name: 'C', folder: "../img/checkbox.png", folderDest: "../img/checkbox.png"},
-					{name: 'D', folder: "../img/checkbox.png", folderDest: "../img/checkbox.png"},
-					{name: 'E', folder: "../img/checkbox.png", folderDest: "../img/checkbox.png"},
-					{name: 'F', folder: "../img/checkbox.png", folderDest: "../img/checkbox.png"},
-					{name: 'G', folder: "../img/checkbox.png", folderDest: "../img/checkbox.png"},
-					{name: 'H', folder: "../img/checkbox.png", folderDest: "../img/checkbox.png"},
-					{name: 'I', folder: "../img/checkbox.png", folderDest: "../img/checkbox.png"},
-					{name: 'J', folder: "../img/checkbox.png", folderDest: "../img/checkbox.png"},
-					{name: 'K', folder: "../img/checkbox.png", folderDest: "../img/checkbox.png"},
-					{name: 'L', folder: "../img/checkbox.png", folderDest: "../img/checkbox.png"},
-					{name: 'M', folder: "../img/checkbox.png", folderDest: "../img/checkbox.png"},
-					{name: 'N', folder: "../img/checkbox.png", folderDest: "../img/checkbox.png"},
-					{name: 'O', folder: "../img/checkbox.png", folderDest: "../img/checkbox.png"},
-					{name: 'P', folder: "../img/checkbox.png", folderDest: "../img/checkbox.png"},
-					{name: 'Q', folder: "../img/checkbox.png", folderDest: "../img/checkbox.png"},
-					{name: 'R', folder: "../img/checkbox.png", folderDest: "../img/checkbox.png"},
-					{name: 'S', folder: "../img/checkbox.png", folderDest: "../img/checkbox.png"},
-					{name: 'T', folder: "../img/checkbox.png", folderDest: "../img/checkbox.png"},
-					{name: 'U', folder: "../img/checkbox.png", folderDest: "../img/checkbox.png"},
-					{name: 'V', folder: "../img/checkbox.png", folderDest: "../img/checkbox.png"},
-					{name: 'W', folder: "../img/checkbox.png", folderDest: "../img/checkbox.png"},
-					{name: 'X', folder: "../img/checkbox.png", folderDest: "../img/checkbox.png"},
-					{name: 'Y', folder: "../img/checkbox.png", folderDest: "../img/checkbox.png"},
-					{name: 'Z', folder: "../img/checkbox.png", folderDest: "../img/checkbox.png"}];
+					{name: 'B', size:"0 MB", folder: "../img/checkbox.png", folderDest: "../img/checkbox.png"},
+					{name: 'C', size:"0 MB", folder: "../img/checkbox.png", folderDest: "../img/checkbox.png"},
+					{name: 'D', size:"0 MB", folder: "../img/checkbox.png", folderDest: "../img/checkbox.png"},
+					{name: 'E', size:"0 MB", folder: "../img/checkbox.png", folderDest: "../img/checkbox.png"},
+					{name: 'F', size:"0 MB", folder: "../img/checkbox.png", folderDest: "../img/checkbox.png"},
+					{name: 'G', size:"0 MB", folder: "../img/checkbox.png", folderDest: "../img/checkbox.png"},
+					{name: 'H', size:"0 MB", folder: "../img/checkbox.png", folderDest: "../img/checkbox.png"},
+					{name: 'I', size:"0 MB", folder: "../img/checkbox.png", folderDest: "../img/checkbox.png"},
+					{name: 'J', size:"0 MB", folder: "../img/checkbox.png", folderDest: "../img/checkbox.png"},
+					{name: 'K', size:"0 MB", folder: "../img/checkbox.png", folderDest: "../img/checkbox.png"},
+					{name: 'L', size:"0 MB", folder: "../img/checkbox.png", folderDest: "../img/checkbox.png"},
+					{name: 'M', size:"0 MB", folder: "../img/checkbox.png", folderDest: "../img/checkbox.png"},
+					{name: 'N', size:"0 MB", folder: "../img/checkbox.png", folderDest: "../img/checkbox.png"},
+					{name: 'O', size:"0 MB", folder: "../img/checkbox.png", folderDest: "../img/checkbox.png"},
+					{name: 'P', size:"0 MB", folder: "../img/checkbox.png", folderDest: "../img/checkbox.png"},
+					{name: 'Q', size:"0 MB", folder: "../img/checkbox.png", folderDest: "../img/checkbox.png"},
+					{name: 'R', size:"0 MB", folder: "../img/checkbox.png", folderDest: "../img/checkbox.png"},
+					{name: 'S', size:"0 MB", folder: "../img/checkbox.png", folderDest: "../img/checkbox.png"},
+					{name: 'T', size:"0 MB", folder: "../img/checkbox.png", folderDest: "../img/checkbox.png"},
+					{name: 'U', size:"0 MB", folder: "../img/checkbox.png", folderDest: "../img/checkbox.png"},
+					{name: 'V', size:"0 MB", folder: "../img/checkbox.png", folderDest: "../img/checkbox.png"},
+					{name: 'W', size:"0 MB", folder: "../img/checkbox.png", folderDest: "../img/checkbox.png"},
+					{name: 'X', size:"0 MB", folder: "../img/checkbox.png", folderDest: "../img/checkbox.png"},
+					{name: 'Y', size:"0 MB", folder: "../img/checkbox.png", folderDest: "../img/checkbox.png"},
+					{name: 'Z', size:"0 MB", folder: "../img/checkbox.png", folderDest: "../img/checkbox.png"}];
 
 
 angular.module('HomeCtrl', []).controller('HomeController', ['$scope', '$window', '$timeout', function($scope, $window, $timeout) {
@@ -245,11 +245,18 @@ angular.module('HomeCtrl', []).controller('HomeController', ['$scope', '$window'
 					}
 					console.log("ELAB: ", files);
 					for(var i = 0; i < files.length; i++){
-						if(files[i].mimeType === "application/vnd.google-apps.folder")
-							f.children[cur].children.push({id: files[i].id, name: files[i].title, folder: "../img/checkbox.png", folder_image: "../img/folder.png", folderDest: "../img/checkbox.png", select: false, selectDest: false, directory: true, children: [], parent: f.children, sibling: f.children[cur].children});
+						if(files[i].mimeType === "application/vnd.google-apps.folder"){
+							f.children[cur].children.push({id: files[i].id, name: files[i].title, size: Math.ceil(files[i].fileSize /= 1000000) || "N/A", folder: "../img/checkbox.png", folder_image: "../img/folder.png", folderDest: "../img/checkbox.png", select: false, selectDest: false, directory: true, children: [], parent: f.children, sibling: f.children[cur].children});
+						
+							if(files[i].fileSize)
+								f.children[cur].children[f.children[cur].children.length-1].size += " MB";
+						}
 							
-						else
-							f.children[cur].children.push({id: files[i].id, name: files[i].title, folder: "../img/checkbox.png", folder_image: "../img/file.png", folderDest: "../img/checkbox.png", select: false, selectDest: false, directory: false, parent: f.children});
+						else{
+							f.children[cur].children.push({id: files[i].id, name: files[i].title, size: Math.ceil(files[i].fileSize /= 1000000) || "N/A", folder: "../img/checkbox.png", folder_image: "../img/file.png", folderDest: "../img/checkbox.png", select: false, selectDest: false, directory: false, parent: f.children});
+							if(files[i].fileSize)
+								f.children[cur].children[f.children[cur].children.length-1].size += " MB";
+						}
 					}
 
 					// f.children[cur].children[0].parent = f.children.slice();
@@ -616,11 +623,18 @@ angular.module('HomeCtrl', []).controller('HomeController', ['$scope', '$window'
 					}
 					console.log("ELAB: ", files);
 					for(var i = 0; i < files.length; i++){
-						if(files[i].mimeType === "application/vnd.google-apps.folder")
-							f.children[cur].children.push({id: files[i].id, name: files[i].title, folder: "../img/checkbox.png", folderDest: "../img/checkbox.png", folder_image: "../img/folder.png", select: false, selectDest: false, directory: true, children: [], parent: f.children, sibling: f.children[cur].children});
+						if(files[i].mimeType === "application/vnd.google-apps.folder"){
+							f.children[cur].children.push({id: files[i].id, name: files[i].title, size: Math.ceil(files[i].fileSize /= 1000000) || "N/A", folder: "../img/checkbox.png", folder_image: "../img/folder.png", folderDest: "../img/checkbox.png", select: false, selectDest: false, directory: true, children: [], parent: f.children, sibling: f.children[cur].children});
+						
+							if(files[i].fileSize)
+								f.children[cur].children[f.children[cur].children.length-1].size += " MB";
+						}
 							
-						else
-							f.children[cur].children.push({id: files[i].id, name: files[i].title, folder: "../img/checkbox.png", folderDest: "../img/checkbox.png", folder_image: "../img/file.png", select: false, selectDest: false, directory: false, parent: f.children});
+						else{
+							f.children[cur].children.push({id: files[i].id, name: files[i].title, size: Math.ceil(files[i].fileSize /= 1000000) || "N/A", folder: "../img/checkbox.png", folder_image: "../img/file.png", folderDest: "../img/checkbox.png", select: false, selectDest: false, directory: false, parent: f.children});
+							if(files[i].fileSize)
+								f.children[cur].children[f.children[cur].children.length-1].size += " MB";
+						}
 					}
 
 					// f.children[cur].children[0].parent = f.children.slice();
@@ -741,56 +755,56 @@ angular.module('HomeCtrl', []).controller('HomeController', ['$scope', '$window'
 	$scope.folderSelectDestLocal = 0;
 
 	$scope.folderSelectionDestGoogle = function(){
-		if($scope.folderSelectDestGoogle === 0){
-			angular.element(document.getElementById("google-confirm").disabled = true);
-		}
+		// if($scope.folderSelectDestGoogle === 0){
+		// 	angular.element(document.getElementById("google-confirm").disabled = true);
+		// }
 
-		else if($scope.folderSelectDestGoogle === 1){
-			angular.element(document.getElementById("google-confirm").disabled = false);
-		}
+		// else if($scope.folderSelectDestGoogle === 1){
+		// 	angular.element(document.getElementById("google-confirm").disabled = false);
+		// }
 
-		else{
-			angular.element(document.getElementById("google-confirm").disabled = false);
-		}
+		// else{
+		// 	angular.element(document.getElementById("google-confirm").disabled = false);
+		// }
 	};
 
 	$scope.folderSelectionDestDropbox = function(){
-		if($scope.folderSelectDestDropbox === 0){
-			angular.element(document.getElementById("dropbox-confirm").disabled = true);
-		}
+		// if($scope.folderSelectDestDropbox === 0){
+		// 	angular.element(document.getElementById("dropbox-confirm").disabled = true);
+		// }
 
-		else if($scope.folderSelectDestDropbox === 1){
-			angular.element(document.getElementById("dropbox-confirm").disabled = false);
-		}
+		// else if($scope.folderSelectDestDropbox === 1){
+		// 	angular.element(document.getElementById("dropbox-confirm").disabled = false);
+		// }
 
-		else{
-		angular.element(document.getElementById("dropbox-confirm").disabled = false);
-		}
+		// else{
+		// angular.element(document.getElementById("dropbox-confirm").disabled = false);
+		// }
 	};
 
 	$scope.folderSelectionDestBox = function(){
-		if($scope.folderSelectDestBox === 0){
-			angular.element(document.getElementById("box-confirm").disabled = true);
-		}
+		// if($scope.folderSelectDestBox === 0){
+		// 	angular.element(document.getElementById("box-confirm").disabled = true);
+		// }
 
-		else if($scope.folderSelectDestBox === 1){
-			angular.element(document.getElementById("box-confirm").disabled = false);
-		}
+		// else if($scope.folderSelectDestBox === 1){
+		// 	angular.element(document.getElementById("box-confirm").disabled = false);
+		// }
 
-		else{
-			angular.element(document.getElementById("box-confirm").disabled = false);v
-		}
+		// else{
+		// 	angular.element(document.getElementById("box-confirm").disabled = false);v
+		// }
 	};
 
 	$scope.folderSelectionDestLocal = function(){
-		if($scope.folderSelectDestLocal === 0)
-			angular.element(document.getElementById("local-confirm").disabled = true);
+		// if($scope.folderSelectDestLocal === 0)
+		// 	angular.element(document.getElementById("local-confirm").disabled = true);
 
-		else if($scope.folderSelectDestLocal === 1)
-			angular.element(document.getElementById("local-confirm").disabled = false);
+		// else if($scope.folderSelectDestLocal === 1)
+		// 	angular.element(document.getElementById("local-confirm").disabled = false);
 
-		else
-			angular.element(document.getElementById("local-confirm").disabled = false);
+		// else
+		// 	angular.element(document.getElementById("local-confirm").disabled = false);
 	};
 
 	$scope.toggleDestFolder = function(x, storage){
@@ -969,4 +983,18 @@ angular.module('HomeCtrl', []).controller('HomeController', ['$scope', '$window'
         });
       }
     };
-  });
+  })
+.directive('tooltip', function(){
+    return {
+        restrict: 'A',
+        link: function(scope, element, attrs){
+            $(element).hover(function(){
+                // on mouseenter
+                $(element).tooltip('show');
+            }, function(){
+                // on mouseleave
+                $(element).tooltip('hide');
+            });
+        }
+    };
+});

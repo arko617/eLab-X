@@ -25,7 +25,7 @@
 		<ul ng-repeat="x in googleFile" class="nav navbar-nav">
 			<li>
 				<img class="folder-size-green" ng-src="{{x.folder_image}}" ng-dblclick="intoGoogleFolder(x)">
-				<img class="checkbox-size" ng-src="{{x.folder}}" ng-click="toggleFolder(x, 'g')">
+				<img title="{{x.size}}" data-toggle="tooltip" data-placement="top" class="checkbox-size" ng-src="{{x.folder}}" ng-click="toggleFolder(x, 'g')" tooltip>
 				<br/>
 				<div class="folder-name" style="color:green">{{x.name}}</div>
 			</li>
@@ -78,7 +78,7 @@
 		<ul ng-repeat="x in dropboxFile" class="nav navbar-nav">
 			<li>
 				<img class="folder-size-blue" ng-src="../img/folder.png" ng-dblclick="intoDropboxFolder(x)">
-				<img class="checkbox-size" ng-src="{{x.folder}}" ng-click="toggleFolder(x, 'd')">
+				<img title="{{x.size}}" data-toggle="tooltip" data-placement="top" class="checkbox-size" ng-src="{{x.folder}}" ng-click="toggleFolder(x, 'd')" tooltip>
 				<br/>
 				<div class="folder-name" style="color:blue">{{x.name}}</div>
 			</li>
@@ -129,7 +129,7 @@
 		<ul ng-repeat="x in boxFile" class="nav navbar-nav">
 			<li>
 				<img class="folder-size-violet" ng-src="../img/folder.png" ng-dblclick="intoBoxFolder(x)">
-				<img class="checkbox-size" ng-src="{{x.folder}}" ng-click="toggleFolder(x, 'b')">
+				<img title="{{x.size}}" data-toggle="tooltip" data-placement="top" class="checkbox-size" ng-src="{{x.folder}}" ng-click="toggleFolder(x, 'b')" tooltip>
 				<br/>
 				<div class="folder-name" style="color:violet">{{x.name}}</div>
 			</li>
@@ -180,7 +180,7 @@
 		<ul ng-repeat="x in localFile" class="nav navbar-nav">
 			<li>
 				<img class="folder-size-red" ng-src="../img/folder.png" ng-dblclick="intoLocalFolder(x)">
-				<img class="checkbox-size" ng-src="{{x.folder}}" ng-click="toggleFolder(x, 'l')">
+				<img title="{{x.size}}" data-toggle="tooltip" data-placement="top" class="checkbox-size" ng-src="{{x.folder}}" ng-click="toggleFolder(x, 'l')" tooltip>
 				<br/>
 				<div class="folder-name" style="color:red">{{x.name}}</div>
 			</li>
@@ -233,7 +233,7 @@
 		<ul ng-repeat="x in googleDestFile" class="nav navbar-nav">
 			<li>
 				<img class="folder-size-green" ng-src="{{x.folder_image}}" ng-dblclick="intoGoogleDestFolder(x)">
-				<img class="checkbox-size" ng-src="{{x.folderDest}}" ng-click="toggleDestFolder(x, 'g')">
+				<img title="{{x.size}}" data-toggle="tooltip" data-placement="top" class="checkbox-size" ng-src="{{x.folderDest}}" ng-click="toggleDestFolder(x, 'g')" tooltip>
 				<br/>
 				<div class="folder-name" style="color:green">{{x.name}}</div>
 			</li>
@@ -241,7 +241,7 @@
 	</div>
 
 	<div class="dropdown operation-confirm">
-	    <button class="btn btn-primary dropdown-toggle action" id="google-confirm" type="button" data-toggle="dropdown" style="background-color:green; border-color:green" ng-mouseover="confirmHoverIn()" ng-mouseout="confirmHoverOut()" disabled>
+	    <button class="btn btn-primary dropdown-toggle action" id="google-confirm" type="button" data-toggle="dropdown" style="background-color:green; border-color:green" ng-mouseover="confirmHoverIn()" ng-mouseout="confirmHoverOut()">
 	    <span class="glyphicon glyphicon-size glyphicon-thumbs-up"></span>
 	    </button>
 	</div>
@@ -270,7 +270,7 @@
 		<ul ng-repeat="x in dropboxDestFile" class="nav navbar-nav">
 			<li>
 				<img class="folder-size-blue" ng-src="../img/folder.png" ng-dblclick="intoDropboxDestFolder(x)">
-				<img class="checkbox-size" ng-src="{{x.folderDest}}" ng-click="toggleDestFolder(x, 'd')">
+				<img title="{{x.size}}" data-toggle="tooltip" data-placement="top" class="checkbox-size" ng-src="{{x.folderDest}}" ng-click="toggleDestFolder(x, 'd')" tooltip>
 				<br/>
 				<div class="folder-name" style="color:blue">{{x.name}}</div>
 			</li>
@@ -278,7 +278,7 @@
 	</div>
 
 	<div class="dropdown operation-confirm">
-	    <button class="btn btn-primary dropdown-toggle action" id="dropbox-confirm" type="button" data-toggle="dropdown" style="background-color:blue; border-color:blue" ng-mouseover="confirmHoverIn()" ng-mouseout="confirmHoverOut()" disabled>
+	    <button class="btn btn-primary dropdown-toggle action" id="dropbox-confirm" type="button" data-toggle="dropdown" style="background-color:blue; border-color:blue" ng-mouseover="confirmHoverIn()" ng-mouseout="confirmHoverOut()">
 	    <span class="glyphicon glyphicon-size glyphicon-thumbs-up"></span>
 	    </button>
 	</div>
@@ -307,7 +307,7 @@
 		<ul ng-repeat="x in boxDestFile" class="nav navbar-nav">
 			<li>
 				<img class="folder-size-violet" ng-src="../img/folder.png" ng-dblclick="intoBoxDestFolder(x)">
-				<img class="checkbox-size" ng-src="{{x.folderDest}}" ng-click="toggleDestFolder(x, 'b')">
+				<img title="{{x.size}}" data-toggle="tooltip" data-placement="top" class="checkbox-size" ng-src="{{x.folderDest}}" ng-click="toggleDestFolder(x, 'b')" tooltip>
 				<br/>
 				<div class="folder-name" style="color:violet">{{x.name}}</div>
 			</li>
@@ -315,7 +315,7 @@
 	</div>
 
 	<div class="dropdown operation-confirm">
-	    <button class="btn btn-primary dropdown-toggle action" id="box-confirm" type="button" data-toggle="dropdown" style="background-color:violet; border-color:violet" ng-mouseover="confirmHoverIn()" ng-mouseout="confirmHoverOut()" disabled>
+	    <button class="btn btn-primary dropdown-toggle action" id="box-confirm" type="button" data-toggle="dropdown" style="background-color:violet; border-color:violet" ng-mouseover="confirmHoverIn()" ng-mouseout="confirmHoverOut()">
 	    <span class="glyphicon glyphicon-size glyphicon-thumbs-up"></span>
 	    </button>
 	</div>

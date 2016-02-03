@@ -440,3 +440,13 @@ li{
   margin-left: 1051px;
   margin-top: 7px;
 }
+
+.tooltip.top .tooltip-inner {
+  background-color: #00004d;
+  color: #FFFFFF;
+}
+
+.tooltip.top .tooltip-arrow {
+  border-top-color: #00004d;
+  color: #FFFFFF;
+}
