@@ -51,7 +51,43 @@ angular.module('HomeCtrl', []).controller('HomeController', ['$scope', '$window'
         $scope.deleteModal = !$scope.deleteModal;
     };
 
+    $scope.pickModal = false;
+    $scope.togglePickModal = function(){
+        $scope.pickModal = !$scope.pickModal;
+    };
+
 	//-----------Source-----------//
+
+	$scope.dropZone = angular.element(document.getElementById('drop-zone'));
+
+    $scope.startUpload = function(files) {
+        console.log("LOCAL FILE: ",files)
+        var i = 0;
+        while(files[i] !== "")
+    }
+
+    $scope.uploadForm = function() {
+        var uploadFiles = angular.element(document.getElementById('js-upload-files').files);
+        $scope.startUpload(uploadFiles);
+    }
+
+    $scope.dropZone.ondrop = function(e) {
+        e.preventDefault();
+        this.className = 'upload-drop-zone';
+
+        $scope.startUpload(e.dataTransfer.files)
+    }
+
+    $scope.dropZone.ondragover = function() {
+        this.className = 'upload-drop-zone drop';
+        return false;
+    }
+
+    $scope.dropZone.ondragleave = function() {
+        this.className = 'upload-drop-zone';
+        return false;
+    }
+
 
 	$scope.createHoverIn = function(){
 		angular.element(document.getElementById("google-create").innerHTML = "Create");
@@ -369,13 +405,6 @@ angular.module('HomeCtrl', []).controller('HomeController', ['$scope', '$window'
 		if($scope.curDirLocal === "")
 			$scope.curDirLocal = "/";
 	}
-
-	//This is going to be the upload function for local 
-	$scope.uploadIntoLocalFolder = function() {
-		parseFiles();
-		alert("Parse File");
-	}
-	// 
 
 	$scope.folderSelectGoogle = 0;
 	$scope.folderSelectDropbox = 0;
@@ -955,6 +984,46 @@ angular.module('HomeCtrl', []).controller('HomeController', ['$scope', '$window'
     return {
       template: '<div class="modal fade">' + 
           '<div class="modal-dialog">' + 
+            '<div class="modal-content">' + 
+              '<div class="modal-header">' + 
+                '<center><h4 class="modal-title">{{ title }}</h4></center>' + 
+              '</div>' + 
+              '<div class="modal-body" ng-transclude></div>' + 
+            '</div>' + 
+          '</div>' + 
+        '</div>',
+      restrict: 'E',
+      transclude: true,
+      replace:true,
+      scope:true,
+      link: function postLink(scope, element, attrs) {
+        scope.title = attrs.title;
+
+        scope.$watch(attrs.visible, function(value){
+          if(value == true)
+            $(element).modal('show');
+          else
+            $(element).modal('hide');
+        });
+
+        $(element).on('shown.bs.modal', function(){
+          scope.$apply(function(){
+            scope.$parent[attrs.visible] = true;
+          });
+        });
+
+        $(element).on('hidden.bs.modal', function(){
+          scope.$apply(function(){
+            scope.$parent[attrs.visible] = false;
+          });
+        });
+      }
+    };
+  })
+.directive('mod', function () {
+    return {
+      template: '<div class="modal fade">' + 
+          '<div style="width:40%" class="modal-dialog">' + 
             '<div class="modal-content">' + 
               '<div class="modal-header">' + 
                 '<center><h4 class="modal-title">{{ title }}</h4></center>' + 

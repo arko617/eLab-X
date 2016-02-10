@@ -188,7 +188,7 @@
 	</div>
 
 	<div class="dropdown operation-create">
-	    <button class="btn btn-primary dropdown-toggle action" id="local-create" type="button" data-toggle="dropdown" style="background-color:red; border-color:red" ng-mouseover="createHoverIn()" ng-mouseout="createHoverOut()" ng-click="uploadIntoLocalFolder()">
+	    <button class="btn btn-primary dropdown-toggle action" id="local-create" type="button" data-toggle="dropdown" style="background-color:red; border-color:red" ng-mouseover="createHoverIn()" ng-mouseout="createHoverOut()" ng-click="togglePickModal()">
 	    <span class="glyphicon glyphicon-size glyphicon-download-alt"></span>
 	    </button>
 	</div>
@@ -376,5 +376,22 @@
 </div> -->
 </modal>
 
-<modal title="Are You Sure?" visible="deleteModal">
-</modal>
+<mod title="Are You Sure?" visible="deleteModal">
+</mod>
+
+<mod title="Select files from your computer" visible="pickModal">
+	<center>
+        <div class="form-inline">
+        <div class="form-group">
+            <input type="file" name="files[]" id="js-upload-files" multiple>
+        </div>
+        </div>
+        <br>
+        <!-- Drop Zone -->
+        <h4>Or drag and drop files below</h4>
+        <div class="upload-drop-zone" id="drop-zone">
+        	Just drag and drop files here
+        </div>
+        <button type="submit" class="btn btn-sm btn-primary" id="js-upload-submit" ng-click="uploadForm()">Upload Files</button>
+    </center>
+</mod>

@@ -78,6 +78,7 @@ function handleAuthResult(authResult) {
 					gdClient.retrieveChildrenFiles(account.rootFolderId,false,false,function(files){
 						console.log("ALL FILES: ", files);
 						for(var i = 0; i < files.length; i++){
+							console.log("FILESIZE: ", files[i].size);
 							if(files[i].mimeType === "application/vnd.google-apps.folder"){
 								gFile.push({id: files[i].id, name: files[i].title, size: Math.ceil(files[i].fileSize /= 1000000) || "N/A", folder: "../img/checkbox.png", folder_image: "../img/folder.png", folderDest: "../img/checkbox.png", select: false, selectDest: false, directory: true, children: [], sibling: gFile});
 								
