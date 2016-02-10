@@ -62,8 +62,8 @@ angular.module('HomeCtrl', []).controller('HomeController', ['$scope', '$window'
 
     $scope.startUpload = function(files) {
         console.log("LOCAL FILE: ",files)
-        var i = 0;
-        while(files[i] !== "")
+        // var i = 0;
+        // while(files[i] !== "")
     }
 
     $scope.uploadForm = function() {
