@@ -4,14 +4,40 @@
 	<p>{{ tagline }}</p>
 </div>
 
+<script>
+	// var selectedFile = document.getElementById('input').files[0];
+
+	// var selectedFile = $('#input').get(0).files[0];
+
+
+	function updateSize() {
+	  var nBytes = 0,
+	      oFiles = document.getElementById("uploadInput").files,
+	      nFiles = oFiles.length;
+	  for (var nFileId = 0; nFileId < nFiles; nFileId++) {
+	    nBytes += oFiles[nFileId].size;
+	  }
+	  var sOutput = nBytes + " bytes";
+	  // optional code for multiples approximation
+	  for (var aMultiples = ["KiB", "MiB", "GiB", "TiB", "PiB", "EiB", "ZiB", "YiB"], nMultiple = 0, nApprox = nBytes / 1024; nApprox > 1; nApprox /= 1024, nMultiple++) {
+	    sOutput = nApprox.toFixed(3) + " " + aMultiples[nMultiple] + " (" + nBytes + " bytes)";
+	  }
+	  // end of optional code
+	  document.getElementById("fileNum").innerHTML = nFiles;
+	  document.getElementById("fileSize").innerHTML = sOutput;
+	}
+</script>
+
 <!DOCTYPE html>
 <html>
-<!-- <body onload="parseFiles()">
- -->
-<form action="upload.php" method="post" enctpye="multipart/form-data">
-    <input type="file" id="myFile" multiple size="50" onchange="parseFiles()">
-    <input type="submit" value="Upload Image" name="submit">
+<!-- <input type="file" id="input"> -->
+
+<body onload="updateSize();">
+<form name="uploadForm">
+<p><input id="uploadInput" type="file" name="myFiles" onchange="updateSize();" multiple> selected files: <span id="fileNum">0</span>; total size: <span id="fileSize">0</span></p>
+<p><input type="submit" value="Send file"></p>
 </form>
+
 
 <p><strong>Tip:</strong> Use the Control or the Shift key to select multiple files.</p>
 
