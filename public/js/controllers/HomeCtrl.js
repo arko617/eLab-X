@@ -370,6 +370,13 @@ angular.module('HomeCtrl', []).controller('HomeController', ['$scope', '$window'
 			$scope.curDirLocal = "/";
 	}
 
+	//This is going to be the upload function for local 
+	$scope.uploadIntoLocalFolder = function() {
+		//parseFile();
+		alert("Parse File");
+	}
+	// 
+
 	$scope.folderSelectGoogle = 0;
 	$scope.folderSelectDropbox = 0;
 	$scope.folderSelectBox = 0;
