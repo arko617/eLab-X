@@ -11,7 +11,6 @@ angular.module('AccountCtrl', []).controller('AccountController', function($scop
 	var dataBuffer = []	//Array to store the data that is to be uploaded
 
 	var parseFiles = function() {
-		alert("Enter parseFiles")
 	    var x = document.getElementById("myFile");
 	    var txt = "";
 
