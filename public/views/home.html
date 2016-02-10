@@ -33,7 +33,7 @@
 	</div>
 
 	<div class="dropdown operation-create">
-	    <button class="btn btn-primary dropdown-toggle action" id="google-create" type="button" data-toggle="dropdown" style="background-color:green; border-color:green" ng-mouseover="createHoverIn()" ng-mouseout="createHoverOut()">
+	    <button class="btn btn-primary dropdown-toggle action" id="google-create" type="button" data-toggle="dropdown" style="background-color:green; border-color:green" ng-mouseover="createHoverIn()" ng-mouseout="createHoverOut()" ng-click="toggleCreateModal()">
 	    <span class="glyphicon glyphicon-size glyphicon-folder-open"></span>
 	    </button>
 	</div>
@@ -48,7 +48,7 @@
 	    </button>
 	</div>
 	<div class="dropdown operation-rename">
-	    <button class="btn btn-primary dropdown-toggle action" id="google-rename" type="button" data-toggle="dropdown" style="background-color:green; border-color:green" ng-mouseover="renameHoverIn()" ng-mouseout="renameHoverOut()" disabled>
+	    <button class="btn btn-primary dropdown-toggle action" id="google-rename" type="button" data-toggle="dropdown" style="background-color:green; border-color:green" ng-mouseover="renameHoverIn()" ng-mouseout="renameHoverOut()" ng-click="toggleRenameModal()" disabled>
 	    <span class="glyphicon glyphicon-size glyphicon-pencil"></span>
 	    </button>
 	</div>
@@ -381,6 +381,29 @@
 <center>
 <h4>Press The Delete Button To Confirm...<h4><br>
 <button style="width:100px; height:50px; font-size:15px" class="btn btn-sm btn-primary" ng-click="deleteGooglePerform()" data-dismiss="modal" aria-hidden="true">Delete</button>
+<div style="width:10px; display:inline-block"></div>
+<button style="width:100px; height:50px; font-size:15px" class="btn btn-sm btn-primary" data-dismiss="modal" aria-hidden="true">Cancel</button>
+</center>
+</mod>
+
+<mod title="Create New Folder" visible="createModal">
+<button style="margin-top:-60px" type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+<center>
+<h4>Type The Folder Name...<h4><br>
+<input style="width:70%" type="text" name="folderName" id="google-folder-create" value="New Folder"><br><br><br>
+<button style="width:100px; height:50px; font-size:15px" class="btn btn-sm btn-primary" ng-click="createGooglePerform()" data-dismiss="modal" aria-hidden="true">Confirm</button>
+<div style="width:10px; display:inline-block"></div>
+<button style="width:100px; height:50px; font-size:15px" class="btn btn-sm btn-primary" data-dismiss="modal" aria-hidden="true">Cancel</button>
+</center>
+</mod>
+
+<mod title="Rename Folder" visible="renameModal">
+<button style="margin-top:-60px" type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+<center>
+<h4>Type The New File or Folder Name...<h4><br>
+<img src="{{selectOne}}" style="width:100px;height:100px;"><br>
+<input style="width:70%" type="text" name="newName" id="google-folder-rename" value="{{renameSelect}}"><br><br><br>
+<button style="width:100px; height:50px; font-size:15px" class="btn btn-sm btn-primary" ng-click="renameGooglePerform()" data-dismiss="modal" aria-hidden="true">Confirm</button>
 <div style="width:10px; display:inline-block"></div>
 <button style="width:100px; height:50px; font-size:15px" class="btn btn-sm btn-primary" data-dismiss="modal" aria-hidden="true">Cancel</button>
 </center>
