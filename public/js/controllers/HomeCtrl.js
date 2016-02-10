@@ -1,6 +1,7 @@
 var empty = [];
 
 var gFile = [];
+var gFileSelect = {};
 
 var dFile = [{name: 'Resume', size:"0 MB", folder: "../img/checkbox.png", folderDest: "../img/checkbox.png"}];
 
@@ -11,33 +12,7 @@ var bFile = [{name: 'eLab', size:"0 MB", folder: "../img/checkbox.png", folderDe
 					{name: 'Math', size:"0 MB", folder: "../img/checkbox.png", folderDest: "../img/checkbox.png"},
 					{name: 'Science', size:"0 MB", folder: "../img/checkbox.png", folderDest: "../img/checkbox.png"}];
 
-var lFile = [{name: 'A', folder: "../img/checkbox.png", folderDest: "../img/checkbox.png"},
-					{name: 'B', size:"0 MB", folder: "../img/checkbox.png", folderDest: "../img/checkbox.png"},
-					{name: 'C', size:"0 MB", folder: "../img/checkbox.png", folderDest: "../img/checkbox.png"},
-					{name: 'D', size:"0 MB", folder: "../img/checkbox.png", folderDest: "../img/checkbox.png"},
-					{name: 'E', size:"0 MB", folder: "../img/checkbox.png", folderDest: "../img/checkbox.png"},
-					{name: 'F', size:"0 MB", folder: "../img/checkbox.png", folderDest: "../img/checkbox.png"},
-					{name: 'G', size:"0 MB", folder: "../img/checkbox.png", folderDest: "../img/checkbox.png"},
-					{name: 'H', size:"0 MB", folder: "../img/checkbox.png", folderDest: "../img/checkbox.png"},
-					{name: 'I', size:"0 MB", folder: "../img/checkbox.png", folderDest: "../img/checkbox.png"},
-					{name: 'J', size:"0 MB", folder: "../img/checkbox.png", folderDest: "../img/checkbox.png"},
-					{name: 'K', size:"0 MB", folder: "../img/checkbox.png", folderDest: "../img/checkbox.png"},
-					{name: 'L', size:"0 MB", folder: "../img/checkbox.png", folderDest: "../img/checkbox.png"},
-					{name: 'M', size:"0 MB", folder: "../img/checkbox.png", folderDest: "../img/checkbox.png"},
-					{name: 'N', size:"0 MB", folder: "../img/checkbox.png", folderDest: "../img/checkbox.png"},
-					{name: 'O', size:"0 MB", folder: "../img/checkbox.png", folderDest: "../img/checkbox.png"},
-					{name: 'P', size:"0 MB", folder: "../img/checkbox.png", folderDest: "../img/checkbox.png"},
-					{name: 'Q', size:"0 MB", folder: "../img/checkbox.png", folderDest: "../img/checkbox.png"},
-					{name: 'R', size:"0 MB", folder: "../img/checkbox.png", folderDest: "../img/checkbox.png"},
-					{name: 'S', size:"0 MB", folder: "../img/checkbox.png", folderDest: "../img/checkbox.png"},
-					{name: 'T', size:"0 MB", folder: "../img/checkbox.png", folderDest: "../img/checkbox.png"},
-					{name: 'U', size:"0 MB", folder: "../img/checkbox.png", folderDest: "../img/checkbox.png"},
-					{name: 'V', size:"0 MB", folder: "../img/checkbox.png", folderDest: "../img/checkbox.png"},
-					{name: 'W', size:"0 MB", folder: "../img/checkbox.png", folderDest: "../img/checkbox.png"},
-					{name: 'X', size:"0 MB", folder: "../img/checkbox.png", folderDest: "../img/checkbox.png"},
-					{name: 'Y', size:"0 MB", folder: "../img/checkbox.png", folderDest: "../img/checkbox.png"},
-					{name: 'Z', size:"0 MB", folder: "../img/checkbox.png", folderDest: "../img/checkbox.png"}];
-
+var lFile = [];
 
 angular.module('HomeCtrl', []).controller('HomeController', ['$scope', '$window', '$timeout', function($scope, $window, $timeout) {
 
@@ -56,14 +31,34 @@ angular.module('HomeCtrl', []).controller('HomeController', ['$scope', '$window'
         $scope.pickModal = !$scope.pickModal;
     };
 
+    //-----------Delete Operation----------//
+
+    $scope.deleteGooglePerform = function(){
+
+    	var x = Object.keys(gFileSelect).length;
+    	for(var i in gFileSelect){
+    		gdClient.deleteItem(i, function(){
+    			x--
+    			if(x === 0){
+    				gFileSelect = {};
+    				window.location = window.location.href;
+    			}
+    		});
+    	}
+    }
+
 	//-----------Source-----------//
 
 	$scope.dropZone = angular.element(document.getElementById('drop-zone'));
 
     $scope.startUpload = function(files) {
         console.log("LOCAL FILE: ",files)
-        // var i = 0;
-        // while(files[i] !== "")
+        for(var i = 0; i < files.length; i++){
+			lFile.push({id: files[i].name, name: files[i].name, size: Math.ceil(files[i].size /= 1000000) || "N/A", folder: "../img/checkbox.png", folder_image: "../img/file.png", folderDest: "../img/checkbox.png", select: false, selectDest: false, directory: false});
+			console.log(lFile);				
+			if(files[i].size)
+				lFile[lFile.length-1].size += " MB";
+        }
     }
 
     $scope.uploadForm = function() {
@@ -383,29 +378,6 @@ angular.module('HomeCtrl', []).controller('HomeController', ['$scope', '$window'
 
 	$scope.curDirLocal = "/";
 
-	$scope.intoLocalFolder = function(f){
-		if($scope.curDirLocal === "/")
-			$scope.curDirLocal += f.name;
-
-		else
-			$scope.curDirLocal += "/" + f.name;
-
-		$scope.localFile = empty;
-	}
-
-	$scope.outofLocalFolder = function(){
-		if($scope.curDirLocal !== "/"){
-			while($scope.curDirLocal[$scope.curDirLocal.length-1] !== '/')
-				$scope.curDirLocal = $scope.curDirLocal.slice(0, -1);
-
-			$scope.curDirLocal = $scope.curDirLocal.slice(0, -1);
-			$scope.localFile = lFile;
-		}
-
-		if($scope.curDirLocal === "")
-			$scope.curDirLocal = "/";
-	}
-
 	$scope.folderSelectGoogle = 0;
 	$scope.folderSelectDropbox = 0;
 	$scope.folderSelectBox = 0;
@@ -497,6 +469,7 @@ angular.module('HomeCtrl', []).controller('HomeController', ['$scope', '$window'
 			x.folder = "../img/checked_checkbox.png";
 
 			if(storage === "g"){
+				gFileSelect[x.id] = 0;
 				$scope.folderSelectGoogle++;
 				$scope.folderSelectionGoogle();
 				return;
@@ -525,6 +498,7 @@ angular.module('HomeCtrl', []).controller('HomeController', ['$scope', '$window'
 			x.folder = "../img/checkbox.png";
 			
 			if(storage === "g"){
+				delete gFileSelect[x.id];
 				$scope.folderSelectGoogle--;
 				$scope.folderSelectionGoogle();
 				return;
@@ -553,6 +527,7 @@ angular.module('HomeCtrl', []).controller('HomeController', ['$scope', '$window'
 	$scope.selectAllGoogle = function(){
 		for(var i = 0; i < $scope.googleFile.length; i++){
 			$scope.googleFile[i].folder = "../img/checked_checkbox.png";
+			gFileSelect[$scope.googleFile[i].id] = 0;
 			$scope.folderSelectGoogle++;
 		}
 
@@ -560,8 +535,10 @@ angular.module('HomeCtrl', []).controller('HomeController', ['$scope', '$window'
 	};
 
 	$scope.selectNoneGoogle = function(){
-		for(var i = 0; i < $scope.googleFile.length; i++)
-			$scope.googleFile[i].folder = "../img/checkbox.png";			
+		for(var i = 0; i < $scope.googleFile.length; i++){
+			$scope.googleFile[i].folder = "../img/checkbox.png";
+			delete gFileSelect[$scope.googleFile[i].id];
+		}
 
 		$scope.folderSelectGoogle = 0;
 		$scope.folderSelectionGoogle();
@@ -762,6 +739,9 @@ angular.module('HomeCtrl', []).controller('HomeController', ['$scope', '$window'
 	$scope.curDestDirLocal = "/";
 
 	$scope.intoLocalDestFolder = function(f){
+		if(!f.directory)
+			return;
+
 		if($scope.curDestDirLocal === "/")
 			$scope.curDestDirLocal += f.name;
 
