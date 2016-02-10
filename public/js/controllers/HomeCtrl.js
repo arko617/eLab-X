@@ -1,7 +1,8 @@
+var rootCreate = ['0AN9TACL_6_flUk9PVA'];
+
 var empty = [];
 
 var gFile = [];
-var gFileSelect = {};
 
 var dFile = [{name: 'Resume', size:"0 MB", folder: "../img/checkbox.png", folderDest: "../img/checkbox.png"}];
 
@@ -21,6 +22,16 @@ angular.module('HomeCtrl', []).controller('HomeController', ['$scope', '$window'
         $scope.showModal = !$scope.showModal;
     };
 
+    $scope.createModal = false;
+    $scope.toggleCreateModal = function(){
+        $scope.createModal = !$scope.createModal;
+    };
+
+    $scope.renameModal = false;
+    $scope.toggleRenameModal = function(){
+        $scope.renameModal = !$scope.renameModal;
+    };
+
     $scope.deleteModal = false;
     $scope.toggleDeleteModal = function(){
         $scope.deleteModal = !$scope.deleteModal;
@@ -31,16 +42,37 @@ angular.module('HomeCtrl', []).controller('HomeController', ['$scope', '$window'
         $scope.pickModal = !$scope.pickModal;
     };
 
+    $scope.gFileSelect = {};
+    $scope.selectOne = "../img/folder.png";
+    $scope.renameSelect = "";
+
+    //-----------Create Operation----------//
+
+    $scope.createGooglePerform = function(){
+    	var title = angular.element(document.getElementById("google-folder-create").value).selector;
+    	gdClient.createGFile(rootCreate[rootCreate.length-1],title,"application/vnd.google-apps.folder",function(resp, folder){
+    		console.log(folder.id);
+    		window.location = window.location.href;
+    	});
+    }
+
+
+    //-----------Rename Operation----------//
+
+    $scope.renameGooglePerform = function(){
+    	
+    }
+
     //-----------Delete Operation----------//
 
     $scope.deleteGooglePerform = function(){
 
-    	var x = Object.keys(gFileSelect).length;
-    	for(var i in gFileSelect){
+    	var x = Object.keys($scope.gFileSelect).length;
+    	for(var i in $scope.gFileSelect){
     		gdClient.deleteItem(i, function(){
-    			x--
+    			x--;
     			if(x === 0){
-    				gFileSelect = {};
+    				$scope.gFileSelect = {};
     				window.location = window.location.href;
     			}
     		});
@@ -261,6 +293,7 @@ angular.module('HomeCtrl', []).controller('HomeController', ['$scope', '$window'
 				$scope.curDirGoogle += "/" + f.name;
 
 			$scope.googleFile = empty;
+			rootCreate.push(f.id);
 			return;
 		}
 		
@@ -303,6 +336,7 @@ angular.module('HomeCtrl', []).controller('HomeController', ['$scope', '$window'
 			$scope.curDirGoogle += "/" + f.name;
 
 		$scope.googleFile = f.children;
+		rootCreate.push(f.id);
 	}
 
 	$scope.outofGoogleFolder = function(){
@@ -321,6 +355,7 @@ angular.module('HomeCtrl', []).controller('HomeController', ['$scope', '$window'
 				$scope.googleFile = $scope.googleFile[0].parent;
 		}
 
+		rootCreate.pop();
 
 		if($scope.curDirGoogle === "")
 			$scope.curDirGoogle = "/";
@@ -469,9 +504,11 @@ angular.module('HomeCtrl', []).controller('HomeController', ['$scope', '$window'
 			x.folder = "../img/checked_checkbox.png";
 
 			if(storage === "g"){
-				gFileSelect[x.id] = 0;
+				$scope.gFileSelect[x.id] = [x.name, x.folder_image];
 				$scope.folderSelectGoogle++;
 				$scope.folderSelectionGoogle();
+				$scope.renameSelect = $scope.gFileSelect[Object.keys($scope.gFileSelect)[0]][0];
+				$scope.selectOne = $scope.gFileSelect[Object.keys($scope.gFileSelect)[0]][1];
 				return;
 			}
 				
@@ -498,9 +535,11 @@ angular.module('HomeCtrl', []).controller('HomeController', ['$scope', '$window'
 			x.folder = "../img/checkbox.png";
 			
 			if(storage === "g"){
-				delete gFileSelect[x.id];
+				delete $scope.gFileSelect[x.id];
 				$scope.folderSelectGoogle--;
 				$scope.folderSelectionGoogle();
+				$scope.renameSelect = $scope.gFileSelect[Object.keys($scope.gFileSelect)[0]][0];
+				$scope.selectOne = $scope.gFileSelect[Object.keys($scope.gFileSelect)[0]][1];
 				return;
 			}
 				
@@ -527,19 +566,23 @@ angular.module('HomeCtrl', []).controller('HomeController', ['$scope', '$window'
 	$scope.selectAllGoogle = function(){
 		for(var i = 0; i < $scope.googleFile.length; i++){
 			$scope.googleFile[i].folder = "../img/checked_checkbox.png";
-			gFileSelect[$scope.googleFile[i].id] = 0;
+			$scope.gFileSelect[$scope.googleFile[i].id] = [$scope.googleFile[i].name, $scope.googleFile[i].folder_image];
 			$scope.folderSelectGoogle++;
 		}
 
+		$scope.renameSelect = $scope.gFileSelect[Object.keys($scope.gFileSelect)[0]][0];
+		$scope.selectOne = $scope.gFileSelect[Object.keys($scope.gFileSelect)[0]][1];
 		$scope.folderSelectionGoogle();
 	};
 
 	$scope.selectNoneGoogle = function(){
 		for(var i = 0; i < $scope.googleFile.length; i++){
 			$scope.googleFile[i].folder = "../img/checkbox.png";
-			delete gFileSelect[$scope.googleFile[i].id];
+			delete $scope.gFileSelect[$scope.googleFile[i].id];
 		}
 
+		$scope.renameSelect = $scope.gFileSelect[Object.keys($scope.gFileSelect)[0]][0] || "";
+		$scope.selectOne = $scope.gFileSelect[Object.keys($scope.gFileSelect)[0]][1] || "../img/folder.png";
 		$scope.folderSelectGoogle = 0;
 		$scope.folderSelectionGoogle();
 	};
