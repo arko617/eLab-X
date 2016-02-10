@@ -372,7 +372,7 @@ angular.module('HomeCtrl', []).controller('HomeController', ['$scope', '$window'
 
 	//This is going to be the upload function for local 
 	$scope.uploadIntoLocalFolder = function() {
-		//parseFile();
+		parseFiles();
 		alert("Parse File");
 	}
 	// 
