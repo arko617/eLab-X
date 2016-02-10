@@ -391,7 +391,7 @@
 	<center>
         <div class="form-inline">
         <div class="form-group">
-            <input type="file" name="files[]" id="js-upload-files" multiple>
+            <input type="file" style="margin: 0 auto; width: 80%;" name="files[]" id="js-upload-files" multiple>
         </div>
         </div>
         <br>
@@ -400,7 +400,7 @@
         <div class="upload-drop-zone" id="drop-zone">
         	Just drag and drop files here
         </div>
-        <button type="submit" style="width:110px; height:50px; font-size:15px" class="btn btn-sm btn-primary" id="js-upload-submit" ng-click="uploadForm()">Upload Files</button>
+        <button type="submit" style="width:110px; height:50px; font-size:15px" class="btn btn-sm btn-primary" id="js-upload-submit" ng-click="uploadForm()" data-dismiss="modal" aria-hidden="true">Upload Files</button>
         <div style="width:15px; display:inline-block"></div>
 		<button style="width:100px; height:50px; font-size:15px" class="btn btn-sm btn-primary" data-dismiss="modal" aria-hidden="true">Cancel</button>
     </center>
