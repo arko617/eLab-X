@@ -208,7 +208,7 @@ li{
 
 .folder-name{
   margin-top: 5px;
-  margin-left: 63px;
+  margin-left: 57px;
   height: 10px;
   width: 100px;
   text-align: center;
@@ -217,7 +217,7 @@ li{
 
 .folder-size-green{
   margin-top: 30px;
-  margin-left: 63px;
+  margin-left: 57px;
   height: 100px;
   width: 100px;
 }
@@ -228,7 +228,7 @@ li{
 
 .folder-size-blue{
   margin-top: 30px;
-  margin-left: 63px;
+  margin-left: 57px;
   height: 100px;
   width: 100px;
 }
@@ -239,7 +239,7 @@ li{
 
 .folder-size-violet{
   margin-top: 30px;
-  margin-left: 63px;
+  margin-left: 57px;
   height: 100px;
   width: 100px;
 }
@@ -250,7 +250,7 @@ li{
 
 .folder-size-red{
   margin-top: 30px;
-  margin-left: 63px;
+  margin-left: 57px;
   height: 100px;
   width: 100px;
 }
@@ -316,7 +316,7 @@ li{
 
 .checkbox-size{
   margin-top: 65px;
-  margin-left: -40px;
+  margin-left: -41px;
   height: 25px;
   width: 25px;
 }
@@ -432,4 +432,41 @@ li{
   height: 198px;
   margin-left: 1051px;
   margin-top: 7px;
+}
+
+.verticalLineLocal {
+  border-left: solid;
+  height: 200px;
+  margin-left: 1051px;
+  margin-top: 7px;
+}
+
+.tooltip.top .tooltip-inner {
+  background-color: #00004d;
+  color: #FFFFFF;
+}
+
+.tooltip.top .tooltip-arrow {
+  border-top-color: #00004d;
+  color: #FFFFFF;
+}
+
+/* layout.css Style */
+.upload-drop-zone {
+  height: 200px;
+  border-width: 2px;
+  margin-bottom: 20px;
+}
+
+/* skin.css Style*/
+.upload-drop-zone {
+  color: #ccc;
+  border-style: dashed;
+  border-color: #ccc;
+  line-height: 200px;
+  text-align: center
+}
+.upload-drop-zone.drop {
+  color: #222;
+  border-color: #222;
 }
