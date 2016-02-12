@@ -235,7 +235,7 @@ function dropboxTests(){
 		//--------------------------- Dropbox
 		console.log('Test Dropbox......')
 
-		/*
+		
 		// Load a directory content
 		dbClient.readDirContent('/Apps',function(result){
 			console.log('----dropbox TEST: read a directory', result)
@@ -247,6 +247,14 @@ function dropboxTests(){
 			console.log('----dropbox TEST: read a file content', result)
 		})
 
+		// rename
+		filePath = '/testing/b.pdf';
+		newFilePath = '/testing/d.pdf';
+		dbClient.rename(filePath, newFilePath, function(resp){
+			console.log('----dropbox TEST: rename',resp)
+		})
+
+		/*
 		// Create download link for an item
 		filePath = 'gitignore.txt'
 		options = {download:true} // download link instead of preview
@@ -288,11 +296,13 @@ function dropboxTests(){
 		})
 		*/
 
+		/*
 		// Create a folder
 		destFolderId = '/testing/testings/'
 		dbClient.mkdir(destFolderId,function(resp){
 			console.log('------dropbox TEST: Create a folder!',resp)
 		})
+		*/
 }
 
 

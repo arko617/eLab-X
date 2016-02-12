@@ -56,6 +56,18 @@ dbp.readAFile = function(filePath, callback){
 		});
 }
 
+// Read a file content
+dbp.rename = function(filePath, newFilePath, callback){
+	this.api.move(filePath, newFilePath, function(error, resp) {
+		  if (error) {
+		  	console.log('Fail to rename the file in dropbox',error)
+		    return;  // Something went wrong.
+		  }
+
+		  callback && callback(resp);
+		});
+}
+
 // Make a download link
 dbp.getDownloadLink = function(filePath, options, callback){
 	this.api.makeUrl(filePath, options, function(error, url) {
