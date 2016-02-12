@@ -89,7 +89,22 @@ angular.module('HomeCtrl', []).controller('HomeController', ['$scope', '$window'
         for(var i = 0; i < x; i++){
         	lFile.pop();
         }
-        
+
+        /*
+        //----------
+        // 02/11/16 for johnny testing
+        for(var i = 0; i < files.length; i++){
+        	fileData = files[i];
+        	var reader = new FileReader();
+			reader.readAsBinaryString(fileData);
+			var base64Data = btoa(reader.result);
+			console.log('READER....',base64Data)
+			console.log('DONE reader')
+        }
+        */
+
+        // continue
+
         for(var i = 0; i < files.length; i++){
 			lFile.push({original: files[i], id: files[i].name, name: files[i].name, size: Math.ceil(files[i].size /= 1000000) || "N/A", folder: "../img/checkbox.png", folder_image: "../img/file.png", folderDest: "../img/checkbox.png", select: false, selectDest: false, directory: false});
 			console.log(lFile);				
