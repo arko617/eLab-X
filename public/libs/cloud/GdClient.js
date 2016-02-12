@@ -154,7 +154,23 @@ gdp.createFolder = function(destFolderId,title,callback){
 		}
 		console.log('Successfully Created a folder', resp)
 	})
+}
 
+// rename
+gdp.rename = function(fileId, newTitle,callback) {
+	var body = {'title': newTitle};
+	var request = this.api.files.patch({
+		'fileId': fileId,
+		'resource': body
+	});
+	request.execute(function(resp) {
+		if (!resp.error){
+			console.log("Rename fileId:{0} to {1}".f(fileId,newTitle));
+			callback && callback(resp);
+		}else{
+			callback && callback(resp);
+		}
+	});
 }
 
 // create a google drive file. 1. create 2. Insert to the destination

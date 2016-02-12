@@ -171,6 +171,13 @@ function gDriveTests(){
 			console.log('----gDrive TEST:retreive files from google drive:', files)
 		})
 
+		// Rename
+		fileID = "0B99TACL_6_flYW9XTGhVUTJuZFU"
+		newTitle = 'mii.pdf'
+		gdClient.rename(fileID, newTitle,function(file){
+			console.log('----gDrive TEST:rename:', file)
+		})
+
 		/*
 		// get a file meta
 		gdClient.getItemMeta(rootFolderId,function(meta){
@@ -201,6 +208,7 @@ function gDriveTests(){
 		})
 		*/
 
+		/*
 		// Copy/move a file from google drive to dropbox
 		// 112215: more complicated to do this cause there are manay different data type in google drive and the way to download them is a bit different
 		// File "TobeRemoved.txt" in google drive: "0B99TACL_6_flODJOdThkcnJOM2c"
@@ -212,10 +220,10 @@ function gDriveTests(){
 		destination = '/' // destination of the file
 		options = {noOverwrite: true}
 		isCopy = true
-
 		gdClient.aFileToDropbox(fileId, dbClient, destination, options, isCopy, function(){
 
 		})
+		*/
 		
 }
 
