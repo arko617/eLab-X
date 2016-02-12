@@ -79,12 +79,16 @@ angular.module('HomeCtrl', []).controller('HomeController', ['$scope', '$window'
     	}
     }
 
-	//-----------Source-----------//
+    //-----------Local Upload------------//
 
-	$scope.dropZone = angular.element(document.getElementById('drop-zone'));
+    $scope.dropZone = angular.element(document.getElementById('drop-zone'));
 
     $scope.startUpload = function(files) {
-        console.log("LOCAL FILE: ",files)
+        console.log("LOCAL FILE: ",files);
+        for(var i = 0; i <= lFile.length; i++){
+        	lFile.pop();
+        }
+
         for(var i = 0; i < files.length; i++){
 			lFile.push({id: files[i].name, name: files[i].name, size: Math.ceil(files[i].size /= 1000000) || "N/A", folder: "../img/checkbox.png", folder_image: "../img/file.png", folderDest: "../img/checkbox.png", select: false, selectDest: false, directory: false});
 			console.log(lFile);				
@@ -115,6 +119,7 @@ angular.module('HomeCtrl', []).controller('HomeController', ['$scope', '$window'
         return false;
     }
 
+	//-----------Source-----------//
 
 	$scope.createHoverIn = function(){
 		angular.element(document.getElementById("google-create").innerHTML = "Create");
