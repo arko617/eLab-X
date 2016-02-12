@@ -80,14 +80,14 @@ function handleAuthResult(authResult) {
 						for(var i = 0; i < files.length; i++){
 							console.log("FILESIZE: ", files[i].size);
 							if(files[i].mimeType === "application/vnd.google-apps.folder"){
-								gFile.push({id: files[i].id, name: files[i].title, size: Math.ceil(files[i].fileSize /= 1000000) || "N/A", folder: "../img/checkbox.png", folder_image: "../img/folder.png", folderDest: "../img/checkbox.png", select: false, selectDest: false, directory: true, children: [], sibling: gFile});
+								gFile.push({original: files[i], id: files[i].id, name: files[i].title, size: Math.ceil(files[i].fileSize /= 1000000) || "N/A", folder: "../img/checkbox.png", folder_image: "../img/folder.png", folderDest: "../img/checkbox.png", select: false, selectDest: false, directory: true, children: [], sibling: gFile});
 								
 								if(files[i].fileSize)
 									gFile[gFile.length-1].size += " MB";
 							}
 
 							else{
-								gFile.push({id: files[i].id, name: files[i].title, size: Math.ceil(files[i].fileSize /= 1000000) || "N/A", folder: "../img/checkbox.png", folder_image: "../img/file.png", folderDest: "../img/checkbox.png", select: false, selectDest: false, directory: false});
+								gFile.push({original: files[i], id: files[i].id, name: files[i].title, size: Math.ceil(files[i].fileSize /= 1000000) || "N/A", folder: "../img/checkbox.png", folder_image: "../img/file.png", folderDest: "../img/checkbox.png", select: false, selectDest: false, directory: false});
 							
 								if(files[i].fileSize)
 									gFile[gFile.length-1].size += " MB";
@@ -108,14 +108,14 @@ function handleAuthResult(authResult) {
 
 									for(var i = 0; i < files.length; i++){
 										if(files[i].mimeType === "application/vnd.google-apps.folder"){
-											gFile[cur].children.push({id: files[i].id, name: files[i].title, size: Math.ceil(files[i].fileSize /= 1000000) || "N/A", folder: "../img/checkbox.png", folderDest: "../img/checkbox.png", folder_image: "../img/folder.png", select: false, selectDest: false, directory: true, children: [], parent: gFile, sibling: gFile[cur].children});
+											gFile[cur].children.push({original: files[i], id: files[i].id, name: files[i].title, size: Math.ceil(files[i].fileSize /= 1000000) || "N/A", folder: "../img/checkbox.png", folderDest: "../img/checkbox.png", folder_image: "../img/folder.png", select: false, selectDest: false, directory: true, children: [], parent: gFile, sibling: gFile[cur].children});
 										
 											if(files[i].fileSize)
 												gFile[cur].children[gFile[cur].children.length-1].size += " MB";
 										}
 											
 										else{
-											gFile[cur].children.push({id: files[i].id, name: files[i].title, size: Math.ceil(files[i].fileSize /= 1000000) || "N/A", folder: "../img/checkbox.png", folderDest: "../img/checkbox.png", folder_image: "../img/file.png", select: false, selectDest: false, directory: false, parent: gFile});
+											gFile[cur].children.push({original: files[i], id: files[i].id, name: files[i].title, size: Math.ceil(files[i].fileSize /= 1000000) || "N/A", folder: "../img/checkbox.png", folderDest: "../img/checkbox.png", folder_image: "../img/file.png", select: false, selectDest: false, directory: false, parent: gFile});
 										
 											if(files[i].fileSize)
 												gFile[cur].children[gFile[cur].children.length-1].size += " MB";
