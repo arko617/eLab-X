@@ -80,14 +80,14 @@ function handleAuthResult(authResult) {
 						for(var i = 0; i < files.length; i++){
 							console.log("FILESIZE: ", files[i].size);
 							if(files[i].mimeType === "application/vnd.google-apps.folder"){
-								gFile.push({id: files[i].id, name: files[i].title, size: Math.ceil(files[i].fileSize /= 1000000) || "N/A", folder: "../img/checkbox.png", folder_image: "../img/folder.png", folderDest: "../img/checkbox.png", select: false, selectDest: false, directory: true, children: [], sibling: gFile});
+								gFile.push({original: files[i], id: files[i].id, name: files[i].title, size: Math.ceil(files[i].fileSize /= 1000000) || "N/A", folder: "../img/checkbox.png", folder_image: "../img/folder.png", folderDest: "../img/checkbox.png", select: false, selectDest: false, directory: true, children: [], sibling: gFile});
 								
 								if(files[i].fileSize)
 									gFile[gFile.length-1].size += " MB";
 							}
 
 							else{
-								gFile.push({id: files[i].id, name: files[i].title, size: Math.ceil(files[i].fileSize /= 1000000) || "N/A", folder: "../img/checkbox.png", folder_image: "../img/file.png", folderDest: "../img/checkbox.png", select: false, selectDest: false, directory: false});
+								gFile.push({original: files[i], id: files[i].id, name: files[i].title, size: Math.ceil(files[i].fileSize /= 1000000) || "N/A", folder: "../img/checkbox.png", folder_image: "../img/file.png", folderDest: "../img/checkbox.png", select: false, selectDest: false, directory: false});
 							
 								if(files[i].fileSize)
 									gFile[gFile.length-1].size += " MB";
@@ -108,14 +108,14 @@ function handleAuthResult(authResult) {
 
 									for(var i = 0; i < files.length; i++){
 										if(files[i].mimeType === "application/vnd.google-apps.folder"){
-											gFile[cur].children.push({id: files[i].id, name: files[i].title, size: Math.ceil(files[i].fileSize /= 1000000) || "N/A", folder: "../img/checkbox.png", folderDest: "../img/checkbox.png", folder_image: "../img/folder.png", select: false, selectDest: false, directory: true, children: [], parent: gFile, sibling: gFile[cur].children});
+											gFile[cur].children.push({original: files[i], id: files[i].id, name: files[i].title, size: Math.ceil(files[i].fileSize /= 1000000) || "N/A", folder: "../img/checkbox.png", folderDest: "../img/checkbox.png", folder_image: "../img/folder.png", select: false, selectDest: false, directory: true, children: [], parent: gFile, sibling: gFile[cur].children});
 										
 											if(files[i].fileSize)
 												gFile[cur].children[gFile[cur].children.length-1].size += " MB";
 										}
 											
 										else{
-											gFile[cur].children.push({id: files[i].id, name: files[i].title, size: Math.ceil(files[i].fileSize /= 1000000) || "N/A", folder: "../img/checkbox.png", folderDest: "../img/checkbox.png", folder_image: "../img/file.png", select: false, selectDest: false, directory: false, parent: gFile});
+											gFile[cur].children.push({original: files[i], id: files[i].id, name: files[i].title, size: Math.ceil(files[i].fileSize /= 1000000) || "N/A", folder: "../img/checkbox.png", folderDest: "../img/checkbox.png", folder_image: "../img/file.png", select: false, selectDest: false, directory: false, parent: gFile});
 										
 											if(files[i].fileSize)
 												gFile[cur].children[gFile[cur].children.length-1].size += " MB";
@@ -171,6 +171,13 @@ function gDriveTests(){
 			console.log('----gDrive TEST:retreive files from google drive:', files)
 		})
 
+		// Rename
+		fileID = "0B99TACL_6_flYW9XTGhVUTJuZFU"
+		newTitle = 'mii.pdf'
+		gdClient.rename(fileID, newTitle,function(file){
+			console.log('----gDrive TEST:rename:', file)
+		})
+
 		/*
 		// get a file meta
 		gdClient.getItemMeta(rootFolderId,function(meta){
@@ -201,22 +208,23 @@ function gDriveTests(){
 		})
 		*/
 
+		/*
 		// Copy/move a file from google drive to dropbox
 		// 112215: more complicated to do this cause there are manay different data type in google drive and the way to download them is a bit different
 		// File "TobeRemoved.txt" in google drive: "0B99TACL_6_flODJOdThkcnJOM2c"
 		// File "xxx.exe" in google drive: 0B99TACL_6_flYlZKZGVuNVZJVTA
 		// File "xxxx.pdf" "0B99TACL_6_flYW9XTGhVUTJuZFU"
 		// A google doc "15tyK4ZMCK4s3giD6OtxdQPdcOwXkBJBxBiEv0ewAHw4"
-		/*fileId = "15tyK4ZMCK4s3giD6OtxdQPdcOwXkBJBxBiEv0ewAHw4"
+		fileId = "0B99TACL_6_flODJOdThkcnJOM2c"
 		console.log('----TEST: copying/moving a file from google drive to dropbox')
 		destination = '/' // destination of the file
 		options = {noOverwrite: true}
 		isCopy = true
-
 		gdClient.aFileToDropbox(fileId, dbClient, destination, options, isCopy, function(){
 
 		})
 		*/
+		
 }
 
 /**
@@ -227,7 +235,7 @@ function dropboxTests(){
 		//--------------------------- Dropbox
 		console.log('Test Dropbox......')
 
-		/*
+		
 		// Load a directory content
 		dbClient.readDirContent('/Apps',function(result){
 			console.log('----dropbox TEST: read a directory', result)
@@ -239,6 +247,14 @@ function dropboxTests(){
 			console.log('----dropbox TEST: read a file content', result)
 		})
 
+		// rename
+		filePath = '/testing/b.pdf';
+		newFilePath = '/testing/d.pdf';
+		dbClient.rename(filePath, newFilePath, function(resp){
+			console.log('----dropbox TEST: rename',resp)
+		})
+
+		/*
 		// Create download link for an item
 		filePath = 'gitignore.txt'
 		options = {download:true} // download link instead of preview
@@ -280,11 +296,13 @@ function dropboxTests(){
 		})
 		*/
 
+		/*
 		// Create a folder
 		destFolderId = '/testing/testings/'
 		dbClient.mkdir(destFolderId,function(resp){
 			console.log('------dropbox TEST: Create a folder!',resp)
 		})
+		*/
 }
 
 

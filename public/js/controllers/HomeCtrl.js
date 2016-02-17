@@ -79,18 +79,40 @@ angular.module('HomeCtrl', []).controller('HomeController', ['$scope', '$window'
     	}
     }
 
-	//-----------Source-----------//
+    //-----------Local Upload------------//
 
-	$scope.dropZone = angular.element(document.getElementById('drop-zone'));
+    $scope.dropZone = angular.element(document.getElementById('drop-zone'));
 
     $scope.startUpload = function(files) {
-        console.log("LOCAL FILE: ",files)
+        console.log("LOCAL FILE: ",files);
+        var x = lFile.length;
+        for(var i = 0; i < x; i++){
+        	lFile.pop();
+        }
+
+        /*
+        //----------
+        // 02/11/16 for johnny testing
         for(var i = 0; i < files.length; i++){
-			lFile.push({id: files[i].name, name: files[i].name, size: Math.ceil(files[i].size /= 1000000) || "N/A", folder: "../img/checkbox.png", folder_image: "../img/file.png", folderDest: "../img/checkbox.png", select: false, selectDest: false, directory: false});
+        	fileData = files[i];
+        	var reader = new FileReader();
+			reader.readAsBinaryString(fileData);
+			var base64Data = btoa(reader.result);
+			console.log('READER....',base64Data)
+			console.log('DONE reader')
+        }
+        */
+
+        // continue
+
+        for(var i = 0; i < files.length; i++){
+			lFile.push({original: files[i], id: files[i].name, name: files[i].name, size: Math.ceil(files[i].size /= 1000000) || "N/A", folder: "../img/checkbox.png", folder_image: "../img/file.png", folderDest: "../img/checkbox.png", select: false, selectDest: false, directory: false});
 			console.log(lFile);				
 			if(files[i].size)
 				lFile[lFile.length-1].size += " MB";
         }
+        
+        angular.element(document.getElementById('js-upload-files').value = "");
     }
 
     $scope.uploadForm = function() {
@@ -115,6 +137,7 @@ angular.module('HomeCtrl', []).controller('HomeController', ['$scope', '$window'
         return false;
     }
 
+	//-----------Source-----------//
 
 	$scope.createHoverIn = function(){
 		angular.element(document.getElementById("google-create").innerHTML = "Create");
@@ -310,14 +333,14 @@ angular.module('HomeCtrl', []).controller('HomeController', ['$scope', '$window'
 					console.log("ELAB: ", files);
 					for(var i = 0; i < files.length; i++){
 						if(files[i].mimeType === "application/vnd.google-apps.folder"){
-							f.children[cur].children.push({id: files[i].id, name: files[i].title, size: Math.ceil(files[i].fileSize /= 1000000) || "N/A", folder: "../img/checkbox.png", folder_image: "../img/folder.png", folderDest: "../img/checkbox.png", select: false, selectDest: false, directory: true, children: [], parent: f.children, sibling: f.children[cur].children});
+							f.children[cur].children.push({original: files[i], id: files[i].id, name: files[i].title, size: Math.ceil(files[i].fileSize /= 1000000) || "N/A", folder: "../img/checkbox.png", folder_image: "../img/folder.png", folderDest: "../img/checkbox.png", select: false, selectDest: false, directory: true, children: [], parent: f.children, sibling: f.children[cur].children});
 						
 							if(files[i].fileSize)
 								f.children[cur].children[f.children[cur].children.length-1].size += " MB";
 						}
 							
 						else{
-							f.children[cur].children.push({id: files[i].id, name: files[i].title, size: Math.ceil(files[i].fileSize /= 1000000) || "N/A", folder: "../img/checkbox.png", folder_image: "../img/file.png", folderDest: "../img/checkbox.png", select: false, selectDest: false, directory: false, parent: f.children});
+							f.children[cur].children.push({original: files[i], id: files[i].id, name: files[i].title, size: Math.ceil(files[i].fileSize /= 1000000) || "N/A", folder: "../img/checkbox.png", folder_image: "../img/file.png", folderDest: "../img/checkbox.png", select: false, selectDest: false, directory: false, parent: f.children});
 							if(files[i].fileSize)
 								f.children[cur].children[f.children[cur].children.length-1].size += " MB";
 						}

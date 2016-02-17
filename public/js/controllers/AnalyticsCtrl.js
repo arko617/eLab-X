@@ -1,4 +1,4 @@
-angular.module('ManageCtrl', []).controller('ManageController', function($scope) {
+angular.module('AnalyticsCtrl', []).controller('AnalyticsController', function($scope) {
 
 	$scope.tagline = 'The is for cloud';
 	$scope.test = 'Matthews test';

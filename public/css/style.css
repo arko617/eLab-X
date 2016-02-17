@@ -7,7 +7,10 @@
 
 body {
   padding: 0;
+  /*
   background-image: url("../img/background.png");
+  */
+  background: #fff;
 }
 
 /* Everything but the jumbotron gets side spacing for mobile first views */
@@ -470,3 +473,22 @@ li{
   color: #222;
   border-color: #222;
 }
+
+/* ================================================= */
+/* 02/11/16 Johnny's edit style */
+
+.navbar-style{
+  /*http://tympanus.net/codrops/2011/12/08/25-examples-of-perfect-color-combinations-in-web-design/*/
+  /*background-color: #0099CC;*/
+}
+
+.mainMain{
+  min-height: 200px;
+}
+
+/*http://clrs.cc/*/
+.elabLogo{
+  background-color: #001f3f;
+}
+
+
