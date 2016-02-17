@@ -804,6 +804,7 @@ angular.module('HomeCtrl', []).controller('HomeController', ['$scope', '$window'
 
 	$scope.curDestDirLocal = "/";
 
+
 	$scope.intoLocalDestFolder = function(f){
 		if(!f.directory)
 			return;
@@ -878,6 +879,7 @@ angular.module('HomeCtrl', []).controller('HomeController', ['$scope', '$window'
 		// }
 	};
 
+// WORK ON THIS SHIT MATT
 	$scope.folderSelectionDestLocal = function(){
 		// if($scope.folderSelectDestLocal === 0)
 		// 	angular.element(document.getElementById("local-confirm").disabled = true);
@@ -888,6 +890,8 @@ angular.module('HomeCtrl', []).controller('HomeController', ['$scope', '$window'
 		// else
 		// 	angular.element(document.getElementById("local-confirm").disabled = false);
 	};
+
+	// WOKR ON THIS SHIT MATT
 
 	$scope.toggleDestFolder = function(x, storage){
 		console.log(storage);
