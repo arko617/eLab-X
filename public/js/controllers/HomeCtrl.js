@@ -16,6 +16,7 @@ var bFile = [{name: 'eLab', size:"0 MB", folder: "../img/checkbox.png", folderDe
 var lFile = [];
 
 angular.module('HomeCtrl', []).controller('HomeController', ['$scope', '$window', '$timeout', function($scope, $window, $timeout) {
+	$scope.showgoogle = true;
 
 	$scope.showModal = false;
     $scope.toggleModal = function(){
@@ -43,7 +44,7 @@ angular.module('HomeCtrl', []).controller('HomeController', ['$scope', '$window'
     };
 
     $scope.gFileSelect = {};
-    $scope.selectOne = "../img/folder.png";
+    $scope.selectOne = {folder_image: "../img/folder.png"};
     $scope.renameSelect = "";
 
     //-----------Create Operation----------//
@@ -60,7 +61,10 @@ angular.module('HomeCtrl', []).controller('HomeController', ['$scope', '$window'
     //-----------Rename Operation----------//
 
     $scope.renameGooglePerform = function(){
-    	
+    	gdClient.rename($scope.selectOne.id, document.getElementById("google-folder-rename").value,function(file){
+			console.log(file);
+    		window.location = window.location.href;
+		});
     }
 
     //-----------Delete Operation----------//
@@ -71,10 +75,17 @@ angular.module('HomeCtrl', []).controller('HomeController', ['$scope', '$window'
     	for(var i in $scope.gFileSelect){
     		gdClient.deleteItem(i, function(){
     			x--;
-    			if(x === 0){
-    				$scope.gFileSelect = {};
-    				window.location = window.location.href;
-    			}
+    			// for(var j = 0; j < $scope.gFileSelect[i].sibling.length; j++){
+    			// 	if($scope.gFileSelect[i].sibling[j].id === i){
+    			// 		delete $scope.gFileSelect[i].sibling[j];
+    			// 		delete $scope.gFileSelect[i];
+    			// 		break;
+    			// 	}
+    			// }
+	    		if(x === 0){
+	    			$scope.gFileSelect = {}
+	    			window.location = window.location.href;
+	    		}
     		});
     	}
     }
@@ -333,14 +344,14 @@ angular.module('HomeCtrl', []).controller('HomeController', ['$scope', '$window'
 					console.log("ELAB: ", files);
 					for(var i = 0; i < files.length; i++){
 						if(files[i].mimeType === "application/vnd.google-apps.folder"){
-							f.children[cur].children.push({original: files[i], id: files[i].id, name: files[i].title, size: Math.ceil(files[i].fileSize /= 1000000) || "N/A", folder: "../img/checkbox.png", folder_image: "../img/folder.png", folderDest: "../img/checkbox.png", select: false, selectDest: false, directory: true, children: [], parent: f.children, sibling: f.children[cur].children});
+							f.children[cur].children.push({original: files[i], id: files[i].id, name: files[i].title, size: files[i].modifiedDate.split("T")[0] + "\n" + (Math.ceil(files[i].fileSize /= 1000000) || "N/A"), folder: "../img/checkbox.png", folder_image: "../img/folder.png", folderDest: "../img/checkbox.png", select: false, selectDest: false, directory: true, children: [], parent: f.children, sibling: f.children[cur].children});
 						
 							if(files[i].fileSize)
 								f.children[cur].children[f.children[cur].children.length-1].size += " MB";
 						}
 							
 						else{
-							f.children[cur].children.push({original: files[i], id: files[i].id, name: files[i].title, size: Math.ceil(files[i].fileSize /= 1000000) || "N/A", folder: "../img/checkbox.png", folder_image: "../img/file.png", folderDest: "../img/checkbox.png", select: false, selectDest: false, directory: false, parent: f.children});
+							f.children[cur].children.push({original: files[i], id: files[i].id, name: files[i].title, size: files[i].modifiedDate.split("T")[0] + "\n" + (Math.ceil(files[i].fileSize /= 1000000) || "N/A"), folder: "../img/checkbox.png", folder_image: "../img/file.png", folderDest: "../img/checkbox.png", select: false, selectDest: false, directory: false, parent: f.children});
 							if(files[i].fileSize)
 								f.children[cur].children[f.children[cur].children.length-1].size += " MB";
 						}
@@ -527,11 +538,11 @@ angular.module('HomeCtrl', []).controller('HomeController', ['$scope', '$window'
 			x.folder = "../img/checked_checkbox.png";
 
 			if(storage === "g"){
-				$scope.gFileSelect[x.id] = [x.name, x.folder_image];
+				$scope.gFileSelect[x.id] = x;
 				$scope.folderSelectGoogle++;
 				$scope.folderSelectionGoogle();
-				$scope.renameSelect = $scope.gFileSelect[Object.keys($scope.gFileSelect)[0]][0];
-				$scope.selectOne = $scope.gFileSelect[Object.keys($scope.gFileSelect)[0]][1];
+				$scope.renameSelect = $scope.gFileSelect[Object.keys($scope.gFileSelect)[0]].name;
+				$scope.selectOne = $scope.gFileSelect[Object.keys($scope.gFileSelect)[0]];
 				return;
 			}
 				
@@ -561,8 +572,8 @@ angular.module('HomeCtrl', []).controller('HomeController', ['$scope', '$window'
 				delete $scope.gFileSelect[x.id];
 				$scope.folderSelectGoogle--;
 				$scope.folderSelectionGoogle();
-				$scope.renameSelect = $scope.gFileSelect[Object.keys($scope.gFileSelect)[0]][0];
-				$scope.selectOne = $scope.gFileSelect[Object.keys($scope.gFileSelect)[0]][1];
+				$scope.renameSelect = $scope.gFileSelect[Object.keys($scope.gFileSelect)[0]].name;
+				$scope.selectOne = $scope.gFileSelect[Object.keys($scope.gFileSelect)[0]];
 				return;
 			}
 				
@@ -589,12 +600,12 @@ angular.module('HomeCtrl', []).controller('HomeController', ['$scope', '$window'
 	$scope.selectAllGoogle = function(){
 		for(var i = 0; i < $scope.googleFile.length; i++){
 			$scope.googleFile[i].folder = "../img/checked_checkbox.png";
-			$scope.gFileSelect[$scope.googleFile[i].id] = [$scope.googleFile[i].name, $scope.googleFile[i].folder_image];
+			$scope.gFileSelect[$scope.googleFile[i].id] = $scope.googleFile[i];
 			$scope.folderSelectGoogle++;
 		}
 
-		$scope.renameSelect = $scope.gFileSelect[Object.keys($scope.gFileSelect)[0]][0];
-		$scope.selectOne = $scope.gFileSelect[Object.keys($scope.gFileSelect)[0]][1];
+		$scope.renameSelect = $scope.gFileSelect[Object.keys($scope.gFileSelect)[0]].name;
+		$scope.selectOne = $scope.gFileSelect[Object.keys($scope.gFileSelect)[0]];
 		$scope.folderSelectionGoogle();
 	};
 
@@ -604,8 +615,8 @@ angular.module('HomeCtrl', []).controller('HomeController', ['$scope', '$window'
 			delete $scope.gFileSelect[$scope.googleFile[i].id];
 		}
 
-		$scope.renameSelect = $scope.gFileSelect[Object.keys($scope.gFileSelect)[0]][0] || "";
-		$scope.selectOne = $scope.gFileSelect[Object.keys($scope.gFileSelect)[0]][1] || "../img/folder.png";
+		$scope.renameSelect = $scope.gFileSelect[Object.keys($scope.gFileSelect)[0]].name || "";
+		$scope.selectOne = $scope.gFileSelect[Object.keys($scope.gFileSelect)[0]] || {folder_image: "../img/folder.png"};
 		$scope.folderSelectGoogle = 0;
 		$scope.folderSelectionGoogle();
 	};

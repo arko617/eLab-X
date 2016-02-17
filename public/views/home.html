@@ -22,7 +22,7 @@
 
 	<div class="btn btn-primary" id="directoryGoogle" ng--click="outofGoogleFolder()"><span class="glyphicon glyphicon-triangle-left">&nbsp;</span>{{curDirGoogle}}</div>
 	<div style="height:88%; width:92%; overflow-y:scroll; margin-top:5px">
-		<ul ng-repeat="x in googleFile" class="nav navbar-nav">
+		<ul id="googleRepeat" ng-repeat="x in googleFile" class="nav navbar-nav">
 			<li>
 				<img class="folder-size-green" ng-src="{{x.folder_image}}" ng-dblclick="intoGoogleFolder(x)">
 				<img title="{{x.size}}" data-toggle="tooltip" data-placement="top" class="checkbox-size" ng-src="{{x.folder}}" ng-click="toggleFolder(x, 'g')" tooltip>
@@ -376,10 +376,12 @@
 </div> -->
 </modal>
 
-<mod title="Are You Sure?" visible="deleteModal">
+<mod title="Are You Sure You Want To Delete...?" visible="deleteModal">
 <button style="margin-top:-60px" type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 <center>
-<h4>Press The Delete Button To Confirm...<h4><br>
+<img src="{{selectOne.folder_image}}" style="width:100px;height:100px;">
+<h4>{{renameSelect}}</h4><br>
+<h5>Press The Delete Button To Confirm...</h5>
 <button style="width:100px; height:50px; font-size:15px" class="btn btn-sm btn-primary" ng-click="deleteGooglePerform()" data-dismiss="modal" aria-hidden="true">Delete</button>
 <div style="width:10px; display:inline-block"></div>
 <button style="width:100px; height:50px; font-size:15px" class="btn btn-sm btn-primary" data-dismiss="modal" aria-hidden="true">Cancel</button>
@@ -401,7 +403,7 @@
 <button style="margin-top:-60px" type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 <center>
 <h4>Type The New File or Folder Name...<h4><br>
-<img src="{{selectOne}}" style="width:100px;height:100px;"><br>
+<img src="{{selectOne.folder_image}}" style="width:100px;height:100px;"><br>
 <input style="width:70%" type="text" name="newName" id="google-folder-rename" value="{{renameSelect}}"><br><br><br>
 <button style="width:100px; height:50px; font-size:15px" class="btn btn-sm btn-primary" ng-click="renameGooglePerform()" data-dismiss="modal" aria-hidden="true">Confirm</button>
 <div style="width:10px; display:inline-block"></div>
