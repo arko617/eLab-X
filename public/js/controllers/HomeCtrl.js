@@ -56,11 +56,26 @@ angular.module('HomeCtrl', []).controller('HomeController', ['$scope', '$window'
     	});
     }
 
+    $scope.createDropboxPerform = function() {
+
+    }
+
+    $scope.createBoxPerform = function() {
+
+    }
 
     //-----------Rename Operation----------//
 
     $scope.renameGooglePerform = function(){
     	
+    }
+
+    $scope.renameDropboxPerform = function() {
+
+    }
+
+    $scope.renameBoxPerform = function() {
+
     }
 
     //-----------Delete Operation----------//
@@ -77,6 +92,14 @@ angular.module('HomeCtrl', []).controller('HomeController', ['$scope', '$window'
     			}
     		});
     	}
+    }
+
+    $scope.deleteDropboxPerform = function() {
+
+    }
+
+    $scope.deleteBoxPerform = function() {
+    	
     }
 
     //-----------Local Upload------------//
