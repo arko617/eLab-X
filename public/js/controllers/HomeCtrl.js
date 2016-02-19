@@ -67,7 +67,7 @@ angular.module('HomeCtrl', []).controller('HomeController', ['$scope', '$window'
     }
 
     $scope.createBoxPerform = function() {
-    	alert("createDropboxPerform called");
+    	alert("createBoxPerform called");
     }
 
     //-----------Rename Operation----------//
