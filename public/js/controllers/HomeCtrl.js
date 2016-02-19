@@ -57,7 +57,7 @@ angular.module('HomeCtrl', []).controller('HomeController', ['$scope', '$window'
     }
 
     $scope.createDropboxPerform = function() {
-
+    	var title = angular.element(document.getElementById("").value).selector;
     }
 
     $scope.createBoxPerform = function() {
@@ -99,7 +99,7 @@ angular.module('HomeCtrl', []).controller('HomeController', ['$scope', '$window'
     }
 
     $scope.deleteBoxPerform = function() {
-    	
+
     }
 
     //-----------Local Upload------------//
