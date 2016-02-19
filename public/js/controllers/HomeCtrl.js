@@ -59,11 +59,13 @@ angular.module('HomeCtrl', []).controller('HomeController', ['$scope', '$window'
 
     $scope.createDropboxPerform = function() {
     	alert("createDropboxPerform called");
-    	var title = angular.element(document.getElementById("dropbox-create").value).selector;
-    	gdClient.createGFile(rootCreate[rootCreate.length-1],title,"application/vnd.google-apps.folder",function(resp, folder){
-    		console.log(folder.id);
-    		window.location = window.location.href;
-    	});
+    
+    	//UNSTABLE
+    	// var title = angular.element(document.getElementById("dropbox-create").value).selector;
+    	// DbClient.mkdir(rootCreate[rootCreate.length-1],title,"application/vnd.dropbox.folder",function(resp, folder){
+    	// 	console.log(folder.id);
+    	// 	window.location = window.location.href;
+    	// });
     }
 
     $scope.createBoxPerform = function() {
