@@ -85,8 +85,9 @@
 		</ul>
 	</div>
 
+<!-- Dropbox -->
 	<div class="dropdown operation-create">
-	    <button class="btn btn-primary dropdown-toggle action" id="dropbox-create" type="button" data-toggle="dropdown" style="background-color:blue; border-color:blue" ng-mouseover="createHoverIn()" ng-mouseout="createHoverOut()">
+	    <button class="btn btn-primary dropdown-toggle action" id="dropbox-create" type="button" data-toggle="dropdown" style="background-color:blue; border-color:blue" ng-mouseover="createHoverIn()" ng-mouseout="createHoverOut()" ng-click="createDropboxPerform()">
 	    <span class="glyphicon glyphicon-size glyphicon-folder-open"></span>
 	    </button>
 	</div>
@@ -121,7 +122,9 @@
 	    </button>
 	</div>
 </div>
+<!-- End of Dropbox -->
 
+<!-- Box -->
 <div ng-show="showbox"class="container" id="box-display">
 
 	<div class="btn btn-primary" id="directoryBox" ng--click="outofBoxFolder()"><span class="glyphicon glyphicon-triangle-left">&nbsp;</span>{{curDirBox}}</div>
@@ -172,7 +175,9 @@
 	    </button>
 	</div>
 </div>
+<!-- End of Box -->
 
+<!-- Local -->
 <div ng-show="showlocal"class="container" id="local-display">
 
 	<div class="btn btn-primary" id="directoryLocal" ng--click="outofLocalFolder()"><span class="glyphicon glyphicon-triangle-left">&nbsp;</span>{{curDirLocal}}</div>
@@ -209,7 +214,7 @@
 	    </button>
 	</div>
 </div>
-
+<!-- End of Local -->
 
 <!-- Destination Popup -->
 
@@ -380,6 +385,7 @@
 
 </modal>
 
+<!-- Google Drive -->
 <mod title="Are You Sure You Want to Delete {{x.gFileSelect}}?" visible="deleteModal">
 <button style="margin-top:-60px" type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 <center>
@@ -412,6 +418,7 @@
 <button style="width:100px; height:50px; font-size:15px" class="btn btn-sm btn-primary" data-dismiss="modal" aria-hidden="true">Cancel</button>
 </center>
 </mod>
+<!-- End of Google Drive -->
 
 <mod title="Select files from your computer" visible="pickModal">
 <button style="margin-top:-60px" type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>

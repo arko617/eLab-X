@@ -57,25 +57,30 @@ angular.module('HomeCtrl', []).controller('HomeController', ['$scope', '$window'
     }
 
     $scope.createDropboxPerform = function() {
-    	var title = angular.element(document.getElementById("").value).selector;
+    	alert("createDropboxPerform called");
+    	var title = angular.element(document.getElementById("dropbox-create").value).selector;
+    	gdClient.createGFile(rootCreate[rootCreate.length-1],title,"application/vnd.google-apps.folder",function(resp, folder){
+    		console.log(folder.id);
+    		window.location = window.location.href;
+    	});
     }
 
     $scope.createBoxPerform = function() {
-
+    	alert("createDropboxPerform called");
     }
 
     //-----------Rename Operation----------//
 
     $scope.renameGooglePerform = function(){
-    	
+    	alert("renameGooglePerform called");
     }
 
     $scope.renameDropboxPerform = function() {
-
+    	alert("renameDropboxPerform called");
     }
 
     $scope.renameBoxPerform = function() {
-
+    	alert("renameBoxPerform called");
     }
 
     //-----------Delete Operation----------//
@@ -95,11 +100,11 @@ angular.module('HomeCtrl', []).controller('HomeController', ['$scope', '$window'
     }
 
     $scope.deleteDropboxPerform = function() {
-
+    	alert("deleteDropboxPerform called");
     }
 
     $scope.deleteBoxPerform = function() {
-
+    	alert("deleteBoxPerform called");
     }
 
     //-----------Local Upload------------//
