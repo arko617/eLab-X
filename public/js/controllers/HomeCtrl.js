@@ -57,6 +57,18 @@ angular.module('HomeCtrl', []).controller('HomeController', ['$scope', '$window'
     	});
     }
 
+    $scope.createDropboxPerform = function() {
+    	alert("createDropboxPerform called");
+    	var title = angular.element(document.getElementById("dropbox-create").value).selector;
+    	gdClient.createGFile(rootCreate[rootCreate.length-1],title,"application/vnd.google-apps.folder",function(resp, folder){
+    		console.log(folder.id);
+    		window.location = window.location.href;
+    	});
+    }
+
+    $scope.createBoxPerform = function() {
+    	alert("createDropboxPerform called");
+    }
 
     //-----------Rename Operation----------//
 
@@ -65,6 +77,16 @@ angular.module('HomeCtrl', []).controller('HomeController', ['$scope', '$window'
 			console.log(file);
     		window.location = window.location.href;
 		});
+
+    	alert("renameGooglePerform called");
+    }
+
+    $scope.renameDropboxPerform = function() {
+    	alert("renameDropboxPerform called");
+    }
+
+    $scope.renameBoxPerform = function() {
+    	alert("renameBoxPerform called");
     }
 
     //-----------Delete Operation----------//
@@ -88,6 +110,14 @@ angular.module('HomeCtrl', []).controller('HomeController', ['$scope', '$window'
 	    		}
     		});
     	}
+    }
+
+    $scope.deleteDropboxPerform = function() {
+    	alert("deleteDropboxPerform called");
+    }
+
+    $scope.deleteBoxPerform = function() {
+    	alert("deleteBoxPerform called");
     }
 
     //-----------Local Upload------------//
@@ -815,6 +845,7 @@ angular.module('HomeCtrl', []).controller('HomeController', ['$scope', '$window'
 
 	$scope.curDestDirLocal = "/";
 
+
 	$scope.intoLocalDestFolder = function(f){
 		if(!f.directory)
 			return;
@@ -889,6 +920,7 @@ angular.module('HomeCtrl', []).controller('HomeController', ['$scope', '$window'
 		// }
 	};
 
+// WORK ON THIS SHIT MATT
 	$scope.folderSelectionDestLocal = function(){
 		// if($scope.folderSelectDestLocal === 0)
 		// 	angular.element(document.getElementById("local-confirm").disabled = true);
@@ -899,6 +931,8 @@ angular.module('HomeCtrl', []).controller('HomeController', ['$scope', '$window'
 		// else
 		// 	angular.element(document.getElementById("local-confirm").disabled = false);
 	};
+
+	// WOKR ON THIS SHIT MATT
 
 	$scope.toggleDestFolder = function(x, storage){
 		console.log(storage);
