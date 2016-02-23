@@ -86,11 +86,25 @@
 	</div>
 
 <!-- Dropbox -->
+<!-- 	<mod title="Create New Folder" visible="createModal">
+		<button style="margin-top:60px" type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+		<center>
+			<h4>Type The Folder Name...<h4><br>
+			<input style="width:70%" type="text" name="folderName" id="dropbox-create" value="New Folder"><br><br><br>
+			<button style="width:100px; height:50px; font-size:15px" class="btn btn-sm btn-primary" ng-click="createDropboxPerform()" data-dismiss="modal" aria-hidden="true">Confirm</button>
+			<div style="width:10px; display:inline-block"></div>
+			<button style="width:100px; height:50px; font-size:15px" class="btn btn-sm btn-primary" data-dismiss="modal" aria-hidden="true">Cancel</button>
+		</center>
+	</mod> -->
+
+<!--  -->
 	<div class="dropdown operation-create">
-	    <button class="btn btn-primary dropdown-toggle action" id="dropbox-create" type="button" data-toggle="dropdown" style="background-color:blue; border-color:blue" ng-mouseover="createHoverIn()" ng-mouseout="createHoverOut()" ng-click="createDropboxPerform()">
+	    <button class="btn btn-primary dropdown-toggle action" id="dropbox-create" type="button" data-toggle="dropdown" style="background-color:blue; border-color:blue" ng-mouseover="createHoverIn()" ng-mouseout="createHoverOut()" ng-click="toggleCreateModal()">
 	    <span class="glyphicon glyphicon-size glyphicon-folder-open"></span>
 	    </button>
 	</div>
+<!--  -->
+
 	<div class="dropdown operation-copy">
 	    <button class="btn btn-primary dropdown-toggle action" id="dropbox-copy" type="button" data-toggle="dropdown" style="background-color:blue; border-color:blue" ng-mouseover="copyHoverIn()" ng-mouseout="copyHoverOut()" ng-click="toggleModal()" disabled>
 	    <span class="glyphicon glyphicon-size glyphicon-file"></span>
