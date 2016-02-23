@@ -58,12 +58,15 @@ angular.module('HomeCtrl', []).controller('HomeController', ['$scope', '$window'
     }
 
     $scope.createDropboxPerform = function() {
-    	alert("createDropboxPerform called");
     
-    	var title = angular.element(document.getElementById("dropbox-create").value).selector;
-    	dbClient.mkdir(rootCreate[rootCreate.length-1], function(resp, folder) {
-    		console.log(folder.id);
-    		window.location = window.location.href;
+    	var title = angular.element(document.getElementById("dropbox-newFolderName").value).selector;
+
+    	var dbCurrentRoot = '' // obtain somewhere
+    	var completePath = dbCurrentRoot + title
+
+    	dbClient.mkdir(completePath, function(resp, folder) {
+    		console.log(folder);
+    		//window.location = window.location.href;
     	});
     }
 
