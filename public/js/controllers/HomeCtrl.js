@@ -346,6 +346,8 @@ angular.module('HomeCtrl', []).controller('HomeController', ['$scope', '$window'
 	$scope.curDirGoogle = "/";
 
 	$scope.intoGoogleFolder = function(f){
+		alert("CHRISTINE")
+
 		if(!f.directory)
 			return;
 
