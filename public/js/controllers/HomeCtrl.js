@@ -34,11 +34,13 @@ angular.module('HomeCtrl', []).controller('HomeController', ['$scope', '$window'
     $scope.createModal = false;
     $scope.toggleCreateModal = function(){
         $scope.createModal = !$scope.createModal;
+        angular.element(document.getElementById("google-create-refresh-input").innerHTML = "<input style='width:70%' type='text' name='folderName' id='google-folder-create' value='New Folder'><br><br><br>");   
     };
 
     $scope.renameModal = false;
     $scope.toggleRenameModal = function(){
         $scope.renameModal = !$scope.renameModal;
+        angular.element(document.getElementById("google-rename-refresh-input").innerHTML = "<input style='width:70%' type='text' name='newName' id='google-folder-rename' value=" + $scope.renameSelect + "><br><br><br>");   
     };
 
     $scope.deleteModal = false;
@@ -1037,7 +1039,7 @@ angular.module('HomeCtrl', []).controller('HomeController', ['$scope', '$window'
 		}
 		
 		for(var x = 0; x < f.children.length; x++){
-			if(f.children[x].directory){
+			if(f.children[x].directory && f.children[x].children.length === 0){
 				gdClient.retrieveChildrenFiles(f.children[x].id,false,false,function(files, fileId){
 					var cur = -1;
 					for(var i = 0; i < f.children.length; i++){

@@ -415,7 +415,9 @@
 <center>
 <h4>Type The Folder Name...<h4><br>
 <img src="../img/folder.png" style="width:100px;height:100px;"><br>
-<input style="width:70%" type="text" name="folderName" id="google-folder-create" value="New Folder"><br><br><br>
+<div id="google-create-refresh-input">
+	<input style="width:70%" type="text" name="folderName" id="google-folder-create" value="New Folder"><br><br><br>
+</div>
 <button style="width:100px; height:50px; font-size:15px" class="btn btn-sm btn-primary" ng-click="createGooglePerform()" data-dismiss="modal" aria-hidden="true">Confirm</button>
 <div style="width:10px; display:inline-block"></div>
 <button style="width:100px; height:50px; font-size:15px" class="btn btn-sm btn-primary" data-dismiss="modal" aria-hidden="true">Cancel</button>
@@ -427,7 +429,9 @@
 <center>
 <h4>Type The New File or Folder Name...<h4><br>
 <img src="{{selectOne.folder_image}}" style="width:100px;height:100px;"><br>
-<input style="width:70%" type="text" name="newName" id="google-folder-rename" value="{{renameSelect}}"><br><br><br>
+<div id="google-rename-refresh-input">
+	<input style="width:70%" type="text" name="newName" id="google-folder-rename" value="{{renameSelect}}"><br><br><br>
+</div>
 <button style="width:100px; height:50px; font-size:15px" class="btn btn-sm btn-primary" ng-click="renameGooglePerform()" data-dismiss="modal" aria-hidden="true">Confirm</button>
 <div style="width:10px; display:inline-block"></div>
 <button style="width:100px; height:50px; font-size:15px" class="btn btn-sm btn-primary" data-dismiss="modal" aria-hidden="true">Cancel</button>
@@ -456,7 +460,7 @@
 </mod>
 
 <!-- Dropbox -->
-<mod title="Create New Folder" visible="createModal">
+<!-- <mod title="Create New Folder" visible="createModal">
 	<button style="margin-top:60px" type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 	<center>
 		<h4>Type The Folder Name...<h4><br>
@@ -465,6 +469,6 @@
 		<div style="width:10px; display:inline-block"></div>
 		<button style="width:100px; height:50px; font-size:15px" class="btn btn-sm btn-primary" data-dismiss="modal" aria-hidden="true">Cancel</button>
 	</center>
-</mod>
+</mod> -->
 <!-- End of Dropbox -->
 
