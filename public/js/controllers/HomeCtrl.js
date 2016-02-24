@@ -1011,6 +1011,17 @@ angular.module('HomeCtrl', []).controller('HomeController', ['$scope', '$window'
 	////////////////////////---------DESTINATION----------/////////////////////
 	///////////////////////////////////////////////////////////////////////////
 
+	$scope.uploadLocalToGoogle = function(){
+		for(var i = 0; i < lFile.length; i++){
+			gdClient.upload(rootCreate[0], lFile[i].original,function(response){
+				console.log(response);
+				if(i === lFile.length-1)
+					$scope.toggleModal();
+					window.location = window.location.href;
+			});
+		}
+	};
+
 
 	$scope.temp_parentDest = [];
 
