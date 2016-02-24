@@ -72,6 +72,22 @@ angular.module('HomeCtrl', []).controller('HomeController', ['$scope', '$window'
     	alert("createBoxPerform called");
     }
 
+    //-----------Copy Operation------------//
+    $scope.copyLocalPerform = function(blob) {
+    	alert("TEST");
+
+    	// var title = angular.element(document.getElementById("google-folder-create").value).selector;
+    	// gdClient.createGFile(rootCreate[rootCreate.length-1],title,"application/vnd.google-apps.folder",function(resp, folder){
+    	// 	console.log(folder.id);
+    	// 	window.location = window.location.href;
+    	// });
+
+    	//
+    	gdClient.upload(rootCreate[rootCreate.length-1], blob, function(resp, folder) {
+    		console.log(folder.id);
+    	});
+    }
+
     //-----------Rename Operation----------//
 
     $scope.renameGooglePerform = function(){
