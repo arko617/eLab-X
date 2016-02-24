@@ -51,10 +51,14 @@ angular.module('HomeCtrl', []).controller('HomeController', ['$scope', '$window'
         if(!isEmpty($scope.gFileUnselect)){
 			angular.element(document.getElementById("google-folder-delete").innerHTML = "<img src='../img/folder.png' style='width:100px;height:100px;'><h4>You have at least one unselected file/folder inside a selected folder</h4><h4><em>(PLEASE FIX THE ISSUE TO CONTINUE...)</em></h4><br>");
 			angular.element(document.getElementById("google-delete-button").disabled = true);
+		
+			for(var i in $scope.gFileUnselect){
+				if($scope.gFileUnselect[i].mother.id in $scope.gFileSelect)
+					return;
+			}
 		}
 
-
-        else if($scope.fileFlag === 0 && $scope.folderFlag === 1){
+        if($scope.fileFlag === 0 && $scope.folderFlag === 1){
         	angular.element(document.getElementById("google-folder-delete").innerHTML = "<img src='" + $scope.selectOne.folder_image + "' style='width:100px;height:100px;'><h4>" + $scope.renameSelect + "</h4><h4><em>(It may contain additional files and/or folders)</em></h4><br>");
         	angular.element(document.getElementById("google-delete-button").disabled = false);
         }
@@ -113,14 +117,16 @@ angular.module('HomeCtrl', []).controller('HomeController', ['$scope', '$window'
 
     //---Dropbox---//
     $scope.createDropboxPerform = function() {
-    	alert("createDropboxPerform called");
     
-    	//UNSTABLE
-    	// var title = angular.element(document.getElementById("dropbox-create").value).selector;
-    	// DbClient.mkdir(rootCreate[rootCreate.length-1],title,"application/vnd.dropbox.folder",function(resp, folder){
-    	// 	console.log(folder.id);
-    	// 	window.location = window.location.href;
-    	// });
+    	var title = angular.element(document.getElementById("dropbox-newFolderName").value).selector;
+
+    	var dbCurrentRoot = '' // obtain somewhere
+    	var completePath = dbCurrentRoot + title
+
+    	dbClient.mkdir(completePath, function(resp, folder) {
+    		console.log(folder);
+    		//window.location = window.location.href;
+    	});
     }
 
     //---Box---//
@@ -417,6 +423,12 @@ angular.module('HomeCtrl', []).controller('HomeController', ['$scope', '$window'
 							angular.element(document.getElementById("google-select").disabled = false);
 							angular.element(document.getElementById("google-unselect").disabled = false);
 						}
+
+						for(var i = 0; i < $scope.gDirSelect[$scope.gDirSelect.length-1].children.length; i++){
+							$scope.gDirSelect[$scope.gDirSelect.length-1].children[i].folder = "../img/checkbox.png";
+							$scope.gDirSelect[$scope.gDirSelect.length-1].children[i].select = false;
+						}
+
 						return;
 					}
 				}
@@ -448,11 +460,54 @@ angular.module('HomeCtrl', []).controller('HomeController', ['$scope', '$window'
 	$scope.curDirDropbox = "/";
 
 	$scope.intoDropboxFolder = function(f){
-		if($scope.curDirDropbox === "/")
-			$scope.curDirDropbox += f.name;
+		if(!f.directory) 
+			return;
 
-		else
-			$scope.curDirDropbox += "/" + f.name;
+		if(f.children.length === 0) {
+			$scope.temp_parent = f.sibling;
+
+			if($scope.curDirDropbox === "/")
+				$scope.curDirDropbox += f.name;
+
+			else
+				$scope.curDirDropbox += "/" + f.name;
+
+			$scope.dropboxFile = empty;
+			rootCreate.push(f.id);
+			return;
+		}
+
+		// for(var x = 0; x < f.children.length; x++){
+		// 	if(f.children[x].directory){
+		// 		dbClient.retrieveChildrenFiles(f.children[x].id,false,false,function(files, fileId){
+		// 			var cur = -1;
+		// 			for(var i = 0; i < f.children.length; i++){
+		// 				if(f.children[i].id === fileId){
+		// 					cur = i;
+		// 					break;
+		// 				}
+		// 			}
+		// 			console.log("ELAB: ", files);
+		// 			for(var i = 0; i < files.length; i++){
+		// 				if(files[i].mimeType === "application/vnd.google-apps.folder"){
+		// 					f.children[cur].children.push({original: files[i], id: files[i].id, name: files[i].title, size: files[i].modifiedDate.split("T")[0] + "\n" + (Math.ceil(files[i].fileSize /= 1000000) || "N/A"), folder: "../img/checkbox.png", folder_image: "../img/folder.png", folderDest: "../img/checkbox.png", select: false, selectDest: false, directory: true, children: [], parent: f.children, sibling: f.children[cur].children});
+						
+		// 					if(files[i].fileSize)
+		// 						f.children[cur].children[f.children[cur].children.length-1].size += " MB";
+		// 				}
+							
+		// 				else{
+		// 					f.children[cur].children.push({original: files[i], id: files[i].id, name: files[i].title, size: files[i].modifiedDate.split("T")[0] + "\n" + (Math.ceil(files[i].fileSize /= 1000000) || "N/A"), folder: "../img/checkbox.png", folder_image: "../img/file.png", folderDest: "../img/checkbox.png", select: false, selectDest: false, directory: false, parent: f.children});
+		// 					if(files[i].fileSize)
+		// 						f.children[cur].children[f.children[cur].children.length-1].size += " MB";
+		// 				}
+		// 			}
+
+		// 			// f.children[cur].children[0].parent = f.children.slice();
+		// 			console.log("F CHILDREN: ", f.children[cur].children);
+		// 		});	
+		// 	}
+		// }
 
 		$scope.dropboxFile = empty;
 	}
