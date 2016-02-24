@@ -165,7 +165,7 @@
 	    </button>
 	</div>
 	<div class="dropdown operation-select">
-	    <button class="btn btn-primary dropdown-toggle action" id="box-select" type="button" data-toggle="dropdown" style="background-color:violet; border-color:violet" ng-mouseover="selectHoverIn()" ng-mouseout="selectHoverOut()"ng-click="selectAllBox()" >
+	    <button class="btn btn-primary dropdown-toggle action" id="box-select" type="button" data-toggle="dropdown" style="background-color:violet; border-color:violet" ng-mouseover="selectHoverIn()" ng-mouseout="selectHoverOut()" ng-click="selectAllBox()" >
 	    <span class="glyphicon glyphicon-size glyphicon-check"></span>
 	    </button>
 	</div>
@@ -385,14 +385,12 @@
 
 </modal>
 <!-- Google Drive -->
-<mod title="Are You Sure You Want to Delete {{x.gFileSelect}}?" visible="deleteModal">
+<mod title="Are You Sure You Want to Delete...?" visible="deleteModal">
 <button style="margin-top:-60px" type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 <center>
-<!-- <img src="{{selectOne.folder_image}}" style="width:100px;height:100px;">
-<h4>{{renameSelect}}</h4><br>
-<h5>Press The Delete Button To Confirm...</h5> -->
-<h4>Press The Delete Button To Confirm...</h4><br>
-<button style="width:100px; height:50px; font-size:15px" class="btn btn-sm btn-primary" ng-click="deleteGooglePerform()" data-dismiss="modal" aria-hidden="true">Delete</button>
+<div id="google-folder-delete"></div>
+<h5>Press The Delete Button To Confirm...</h5><br>
+<button id="google-delete-button" style="width:100px; height:50px; font-size:15px" class="btn btn-sm btn-primary" ng-click="deleteGooglePerform()" data-dismiss="modal" aria-hidden="true">Delete</button>
 <div style="width:10px; display:inline-block"></div>
 <button style="width:100px; height:50px; font-size:15px" class="btn btn-sm btn-primary" data-dismiss="modal" aria-hidden="true">Cancel</button>
 </center>
@@ -402,6 +400,7 @@
 <button style="margin-top:-60px" type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 <center>
 <h4>Type The Folder Name...<h4><br>
+<img src="../img/folder.png" style="width:100px;height:100px;"><br>
 <input style="width:70%" type="text" name="folderName" id="google-folder-create" value="New Folder"><br><br><br>
 <button style="width:100px; height:50px; font-size:15px" class="btn btn-sm btn-primary" ng-click="createGooglePerform()" data-dismiss="modal" aria-hidden="true">Confirm</button>
 <div style="width:10px; display:inline-block"></div>

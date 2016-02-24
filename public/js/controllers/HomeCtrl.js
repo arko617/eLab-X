@@ -4,9 +4,9 @@ var empty = [];
 
 var gFile = [];
 
-var dFile = [{name: 'Resume', size:"0 MB", folder: "../img/checkbox.png", folderDest: "../img/checkbox.png"}];
+var bFile = [{name: 'Resume', size:"0 MB", folder: "../img/checkbox.png", folderDest: "../img/checkbox.png"}];
 
-var bFile = [{name: 'eLab', size:"0 MB", folder: "../img/checkbox.png", folderDest: "../img/checkbox.png"},
+var dFile = [{name: 'eLab', size:"0 MB", folder: "../img/checkbox.png", folderDest: "../img/checkbox.png"},
 					{name: 'Physics', size:"0 MB", folder: "../img/checkbox.png", folderDest: "../img/checkbox.png"},
 					{name: 'English', size:"0 MB", folder: "../img/checkbox.png", folderDest: "../img/checkbox.png"},
 					{name: 'Lab', size:"0 MB", folder: "../img/checkbox.png", folderDest: "../img/checkbox.png"},
@@ -14,6 +14,14 @@ var bFile = [{name: 'eLab', size:"0 MB", folder: "../img/checkbox.png", folderDe
 					{name: 'Science', size:"0 MB", folder: "../img/checkbox.png", folderDest: "../img/checkbox.png"}];
 
 var lFile = [];
+
+var isEmpty = function(obj) {
+    for(var key in obj) {
+	    if(obj.hasOwnProperty(key))
+    	    return false;
+    }
+    return true;
+}
 
 angular.module('HomeCtrl', []).controller('HomeController', ['$scope', '$window', '$timeout', function($scope, $window, $timeout) {
 	$scope.showgoogle = true;
@@ -36,19 +44,65 @@ angular.module('HomeCtrl', []).controller('HomeController', ['$scope', '$window'
     $scope.deleteModal = false;
     $scope.toggleDeleteModal = function(){
         $scope.deleteModal = !$scope.deleteModal;
+
+        console.log("FILE-FLAG", $scope.fileFlag);
+        console.log("FOLDER-FLAG", $scope.folderFlag);
+
+        if(!isEmpty($scope.gFileUnselect)){
+			angular.element(document.getElementById("google-folder-delete").innerHTML = "<img src='../img/folder.png' style='width:100px;height:100px;'><h4>You have at least one unselected file/folder inside a selected folder</h4><h4><em>(PLEASE FIX THE ISSUE TO CONTINUE...)</em></h4><br>");
+			angular.element(document.getElementById("google-delete-button").disabled = true);
+		}
+
+
+        else if($scope.fileFlag === 0 && $scope.folderFlag === 1){
+        	angular.element(document.getElementById("google-folder-delete").innerHTML = "<img src='" + $scope.selectOne.folder_image + "' style='width:100px;height:100px;'><h4>" + $scope.renameSelect + "</h4><h4><em>(It may contain additional files and/or folders)</em></h4><br>");
+        	angular.element(document.getElementById("google-delete-button").disabled = false);
+        }
+
+        else if($scope.fileFlag === 1 && $scope.folderFlag === 0){
+        	angular.element(document.getElementById("google-folder-delete").innerHTML = "<img src='" + $scope.selectOne.folder_image + "' style='width:100px;height:100px;'><h4>" + $scope.renameSelect + "</h4><br>");
+        	angular.element(document.getElementById("google-delete-button").disabled = false);
+        }
+
+        else if($scope.fileFlag > 1 && $scope.folderFlag === 0){
+        	angular.element(document.getElementById("google-folder-delete").innerHTML = "<img src='../img/file.png' style='width:100px;height:100px;'><h4>All The Selected Files</h4><br>");
+        	angular.element(document.getElementById("google-delete-button").disabled = false);
+        }
+
+        else if($scope.fileFlag === 0 && $scope.folderFlag > 1){
+        	angular.element(document.getElementById("google-folder-delete").innerHTML = "<img src='../img/folder.png' style='width:100px;height:100px;'><h4>All The Selected Folders</h4><h4><em>(Some of them may contain additional files and/or folders)</em></h4><br>");
+        	angular.element(document.getElementById("google-delete-button").disabled = false);
+        }
+
+        else{
+        	angular.element(document.getElementById("google-folder-delete").innerHTML = "<img src='../img/folder.png' style='width:100px;height:100px;'><h4 style='display:inline-block'>&nbsp;.&nbsp;.&nbsp;.&nbsp;</h4><img src='../img/file.png' style='width:100px;height:100px;'><h4>All The Selected Files and Folders</h4><h4><em>(Some of the folders may contain additional files and/or folders)</em></h4><br>");
+        	angular.element(document.getElementById("google-delete-button").disabled = false);
+        }
     };
 
     $scope.pickModal = false;
     $scope.togglePickModal = function(){
         $scope.pickModal = !$scope.pickModal;
-    };
+    }
+
+    //-----------FILE TRACKING----------//
 
     $scope.gFileSelect = {};
+    $scope.gFileUnselect = {};
+    $scope.gDirSelect = [];
+    $scope.gDirUnselect = [];
+
+    $scope.checkLvl = false;
+    $scope.level = 0;
+
     $scope.selectOne = {folder_image: "../img/folder.png"};
     $scope.renameSelect = "";
 
-    //-----------Create Operation----------//
 
+
+    //-----------CREATE OPERATION----------//
+
+    //---Google---//
     $scope.createGooglePerform = function(){
     	var title = angular.element(document.getElementById("google-folder-create").value).selector;
     	gdClient.createGFile(rootCreate[rootCreate.length-1],title,"application/vnd.google-apps.folder",function(resp, folder){
@@ -57,6 +111,7 @@ angular.module('HomeCtrl', []).controller('HomeController', ['$scope', '$window'
     	});
     }
 
+    //---Dropbox---//
     $scope.createDropboxPerform = function() {
     	alert("createDropboxPerform called");
     
@@ -68,12 +123,16 @@ angular.module('HomeCtrl', []).controller('HomeController', ['$scope', '$window'
     	// });
     }
 
+    //---Box---//
     $scope.createBoxPerform = function() {
     	alert("createBoxPerform called");
     }
 
-    //-----------Rename Operation----------//
 
+
+    //-----------RENAME OPERATION----------//
+
+    //---Google---//
     $scope.renameGooglePerform = function(){
     	gdClient.rename($scope.selectOne.id, document.getElementById("google-folder-rename").value,function(file){
 			console.log(file);
@@ -83,16 +142,21 @@ angular.module('HomeCtrl', []).controller('HomeController', ['$scope', '$window'
     	alert("renameGooglePerform called");
     }
 
+    //---Dropbox---//
     $scope.renameDropboxPerform = function() {
     	alert("renameDropboxPerform called");
     }
 
+    //---Box---//
     $scope.renameBoxPerform = function() {
     	alert("renameBoxPerform called");
     }
 
-    //-----------Delete Operation----------//
 
+
+    //-----------DELETE OPERATION----------//
+
+    //---Google---//
     $scope.deleteGooglePerform = function(){
 
     	var x = Object.keys($scope.gFileSelect).length;
@@ -114,15 +178,19 @@ angular.module('HomeCtrl', []).controller('HomeController', ['$scope', '$window'
     	}
     }
 
+    //---Dropbox---//
     $scope.deleteDropboxPerform = function() {
     	alert("deleteDropboxPerform called");
     }
 
+    //---Box---//
     $scope.deleteBoxPerform = function() {
     	alert("deleteBoxPerform called");
     }
 
-    //-----------Local Upload------------//
+
+
+    //-----------LOCAL UPLOAD FILES------------//
 
     $scope.dropZone = angular.element(document.getElementById('drop-zone'));
 
@@ -180,162 +248,15 @@ angular.module('HomeCtrl', []).controller('HomeController', ['$scope', '$window'
         return false;
     }
 
-	//-----------Source-----------//
 
-	$scope.createHoverIn = function(){
-		angular.element(document.getElementById("google-create").innerHTML = "Create");
-		angular.element(document.getElementById("dropbox-create").innerHTML = "Create");
-		angular.element(document.getElementById("box-create").innerHTML = "Create");
-		angular.element(document.getElementById("local-create").innerHTML = "Pick");
-	}
 
-	$scope.createHoverOut = function(){
-		angular.element(document.getElementById("google-create").innerHTML = "<span class='glyphicon glyphicon-size glyphicon-folder-open'></span>");
-		angular.element(document.getElementById("dropbox-create").innerHTML = "<span class='glyphicon glyphicon-size glyphicon-folder-open'></span>");
-		angular.element(document.getElementById("box-create").innerHTML = "<span class='glyphicon glyphicon-size glyphicon-folder-open'></span>");
-		angular.element(document.getElementById("local-create").innerHTML = "<span class='glyphicon glyphicon-size glyphicon-download-alt'></span>");
-	}
 
-	$scope.renameHoverIn = function(){
-		angular.element(document.getElementById("google-rename").innerHTML = "Rename");
-		angular.element(document.getElementById("dropbox-rename").innerHTML = "Rename");
-		angular.element(document.getElementById("box-rename").innerHTML = "Rename");
-		angular.element(document.getElementById("local-rename").innerHTML = "Rename");
-	}
+    //////////////////////////////////////////////////////////////////////
+	////////////////////////---------SOURCE----------/////////////////////
+	//////////////////////////////////////////////////////////////////////
 
-	$scope.renameHoverOut = function(){
-		angular.element(document.getElementById("google-rename").innerHTML = "<span class='glyphicon glyphicon-size glyphicon-pencil'></span>");
-		angular.element(document.getElementById("dropbox-rename").innerHTML = "<span class='glyphicon glyphicon-size glyphicon-pencil'></span>");
-		angular.element(document.getElementById("box-rename").innerHTML = "<span class='glyphicon glyphicon-size glyphicon-pencil'></span>");
-		angular.element(document.getElementById("local-rename").innerHTML = "<span class='glyphicon glyphicon-size glyphicon-pencil'></span>");
-	}
 
-	$scope.copyHoverIn = function(){
-		angular.element(document.getElementById("google-copy").innerHTML = "Copy");
-		angular.element(document.getElementById("dropbox-copy").innerHTML = "Copy");
-		angular.element(document.getElementById("box-copy").innerHTML = "Copy");
-		angular.element(document.getElementById("local-copy").innerHTML = "Copy");
-	}
-
-	$scope.copyHoverOut = function(){
-		angular.element(document.getElementById("google-copy").innerHTML = "<span class='glyphicon glyphicon-size glyphicon-file'></span>");
-		angular.element(document.getElementById("dropbox-copy").innerHTML = "<span class='glyphicon glyphicon-size glyphicon-file'></span>");
-		angular.element(document.getElementById("box-copy").innerHTML = "<span class='glyphicon glyphicon-size glyphicon-file'></span>");
-		angular.element(document.getElementById("local-copy").innerHTML = "<span class='glyphicon glyphicon-size glyphicon-file'></span>");
-	}
-
-	$scope.moveHoverIn = function(){
-		angular.element(document.getElementById("google-move").innerHTML = "Move");
-		angular.element(document.getElementById("dropbox-move").innerHTML = "Move");
-		angular.element(document.getElementById("box-move").innerHTML = "Move");
-		angular.element(document.getElementById("local-move").innerHTML = "Move");
-	}
-
-	$scope.moveHoverOut = function(){
-		angular.element(document.getElementById("google-move").innerHTML = "<span class='glyphicon glyphicon-size glyphicon-transfer'></span>");
-		angular.element(document.getElementById("dropbox-move").innerHTML = "<span class='glyphicon glyphicon-size glyphicon-transfer'></span>");
-		angular.element(document.getElementById("box-move").innerHTML = "<span class='glyphicon glyphicon-size glyphicon-transfer'></span>");
-		angular.element(document.getElementById("local-move").innerHTML = "<span class='glyphicon glyphicon-size glyphicon-transfer'></span>");
-	}
-
-	$scope.deleteHoverIn = function(){
-		angular.element(document.getElementById("google-delete").innerHTML = "Delete");
-		angular.element(document.getElementById("dropbox-delete").innerHTML = "Delete");
-		angular.element(document.getElementById("box-delete").innerHTML = "Delete");
-		angular.element(document.getElementById("local-delete").innerHTML = "Delete");
-	}
-
-	$scope.deleteHoverOut = function(){
-		angular.element(document.getElementById("google-delete").innerHTML = "<span class='glyphicon glyphicon-size glyphicon-trash'></span>");
-		angular.element(document.getElementById("dropbox-delete").innerHTML = "<span class='glyphicon glyphicon-size glyphicon-trash'></span>");
-		angular.element(document.getElementById("box-delete").innerHTML = "<span class='glyphicon glyphicon-size glyphicon-trash'></span>");
-		angular.element(document.getElementById("local-delete").innerHTML = "<span class='glyphicon glyphicon-size glyphicon-trash'></span>");
-	}
-
-	$scope.selectHoverIn = function(){
-		angular.element(document.getElementById("google-select").innerHTML = "<span>Select<br>All</span>");
-		angular.element(document.getElementById("dropbox-select").innerHTML = "<span>Select<br>All</span>");
-		angular.element(document.getElementById("box-select").innerHTML = "<span>Select<br>All</span>");
-		angular.element(document.getElementById("local-select").innerHTML = "<span>Select<br>All</span>");
-	}
-
-	$scope.selectHoverOut = function(){
-		angular.element(document.getElementById("google-select").innerHTML = "<span class='glyphicon glyphicon-size glyphicon-check'></span>");
-		angular.element(document.getElementById("dropbox-select").innerHTML = "<span class='glyphicon glyphicon-size glyphicon-check'></span>");
-		angular.element(document.getElementById("box-select").innerHTML = "<span class='glyphicon glyphicon-size glyphicon-check'></span>");
-		angular.element(document.getElementById("local-select").innerHTML = "<span class='glyphicon glyphicon-size glyphicon-check'></span>");
-	}
-
-	$scope.unselectHoverIn = function(){
-		angular.element(document.getElementById("google-unselect").innerHTML = "<span>Unselect<br>All</span>");
-		angular.element(document.getElementById("dropbox-unselect").innerHTML = "<span>Unselect<br>All</span>");
-		angular.element(document.getElementById("box-unselect").innerHTML = "<span>Unselect<br>All</span>");
-		angular.element(document.getElementById("local-unselect").innerHTML = "<span>Unselect<br>All</span>");
-	}
-
-	$scope.unselectHoverOut = function(){
-		angular.element(document.getElementById("google-unselect").innerHTML = "<span class='glyphicon glyphicon-size glyphicon-unchecked'></span>");
-		angular.element(document.getElementById("dropbox-unselect").innerHTML = "<span class='glyphicon glyphicon-size glyphicon-unchecked'></span>");
-		angular.element(document.getElementById("box-unselect").innerHTML = "<span class='glyphicon glyphicon-size glyphicon-unchecked'></span>");
-		angular.element(document.getElementById("local-unselect").innerHTML = "<span class='glyphicon glyphicon-size glyphicon-unchecked'></span>");
-	}
-
-	$scope.confirmHoverIn = function(){
-		angular.element(document.getElementById("google-confirm").innerHTML = "Confirm");
-		angular.element(document.getElementById("dropbox-confirm").innerHTML = "Confirm");
-		angular.element(document.getElementById("box-confirm").innerHTML = "Confirm");
-		angular.element(document.getElementById("local-confirm").innerHTML = "Confirm");
-	}
-
-	$scope.confirmHoverOut = function(){
-		angular.element(document.getElementById("google-confirm").innerHTML = "<span class='glyphicon glyphicon-size glyphicon-thumbs-up'></span>");
-		angular.element(document.getElementById("dropbox-confirm").innerHTML = "<span class='glyphicon glyphicon-size glyphicon-thumbs-up'></span>");
-		angular.element(document.getElementById("box-confirm").innerHTML = "<span class='glyphicon glyphicon-size glyphicon-thumbs-up'></span>");
-		angular.element(document.getElementById("local-confirm").innerHTML = "<span class='glyphicon glyphicon-size glyphicon-thumbs-up'></span>");
-	}
-
-	$scope.cancelHoverIn = function(){
-		angular.element(document.getElementById("google-cancel").innerHTML = "Cancel");
-		angular.element(document.getElementById("dropbox-cancel").innerHTML = "Cancel");
-		angular.element(document.getElementById("box-cancel").innerHTML = "Cancel");
-		angular.element(document.getElementById("local-cancel").innerHTML = "Cancel");
-	}
-
-	$scope.cancelHoverOut = function(){
-		angular.element(document.getElementById("google-cancel").innerHTML = "<span class='glyphicon glyphicon-size glyphicon-thumbs-down'></span>");
-		angular.element(document.getElementById("dropbox-cancel").innerHTML = "<span class='glyphicon glyphicon-size glyphicon-thumbs-down'></span>");
-		angular.element(document.getElementById("box-cancel").innerHTML = "<span class='glyphicon glyphicon-size glyphicon-thumbs-down'></span>");
-		angular.element(document.getElementById("local-cancel").innerHTML = "<span class='glyphicon glyphicon-size glyphicon-thumbs-down'></span>");
-	}
-
-	$scope.selectDestHoverIn = function(){
-		angular.element(document.getElementById("google-selectDest").innerHTML = "<span>Select<br>All</span>");
-		angular.element(document.getElementById("dropbox-selectDest").innerHTML = "<span>Select<br>All</span>");
-		angular.element(document.getElementById("box-selectDest").innerHTML = "<span>Select<br>All</span>");
-		angular.element(document.getElementById("local-selectDest").innerHTML = "<span>Select<br>All</span>");
-	}
-
-	$scope.selectDestHoverOut = function(){
-		angular.element(document.getElementById("google-selectDest").innerHTML = "<span class='glyphicon glyphicon-size glyphicon-check'></span>");
-		angular.element(document.getElementById("dropbox-selectDest").innerHTML = "<span class='glyphicon glyphicon-size glyphicon-check'></span>");
-		angular.element(document.getElementById("box-selectDest").innerHTML = "<span class='glyphicon glyphicon-size glyphicon-check'></span>");
-		angular.element(document.getElementById("local-selectDest").innerHTML = "<span class='glyphicon glyphicon-size glyphicon-check'></span>");
-	}
-
-	$scope.unselectDestHoverIn = function(){
-		angular.element(document.getElementById("google-unselectDest").innerHTML = "<span>Unselect<br>All</span>");
-		angular.element(document.getElementById("dropbox-unselectDest").innerHTML = "<span>Unselect<br>All</span>");
-		angular.element(document.getElementById("box-unselectDest").innerHTML = "<span>Unselect<br>All</span>");
-		angular.element(document.getElementById("local-unselectDest").innerHTML = "<span>Unselect<br>All</span>");
-	}
-
-	$scope.unselectDestHoverOut = function(){
-		angular.element(document.getElementById("google-unselectDest").innerHTML = "<span class='glyphicon glyphicon-size glyphicon-unchecked'></span>");
-		angular.element(document.getElementById("dropbox-unselectDest").innerHTML = "<span class='glyphicon glyphicon-size glyphicon-unchecked'></span>");
-		angular.element(document.getElementById("box-unselectDest").innerHTML = "<span class='glyphicon glyphicon-size glyphicon-unchecked'></span>");
-		angular.element(document.getElementById("local-unselectDest").innerHTML = "<span class='glyphicon glyphicon-size glyphicon-unchecked'></span>");
-	}
-
+	//All Files
 	$scope.temp_parent = [];
 
 	$scope.googleFile = gFile;
@@ -343,6 +264,11 @@ angular.module('HomeCtrl', []).controller('HomeController', ['$scope', '$window'
 	$scope.boxFile = bFile;
 	$scope.localFile = lFile;
 
+
+
+	//--------------INTO AND OUT OF DIRECTORY-----------//
+
+	//---Google---//	
 	$scope.curDirGoogle = "/";
 
 	$scope.intoGoogleFolder = function(f){
@@ -360,11 +286,23 @@ angular.module('HomeCtrl', []).controller('HomeController', ['$scope', '$window'
 
 			$scope.googleFile = empty;
 			rootCreate.push(f.id);
+
+			if(f.select){
+				$scope.gDirSelect.push(f);		
+				angular.element(document.getElementById("google-create").disabled = true);
+				angular.element(document.getElementById("google-copy").disabled = true);
+				angular.element(document.getElementById("google-move").disabled = true);
+				angular.element(document.getElementById("google-rename").disabled = true);
+				angular.element(document.getElementById("google-delete").disabled = true);
+				angular.element(document.getElementById("google-select").disabled = true);
+				angular.element(document.getElementById("google-unselect").disabled = true);
+			}
+
 			return;
 		}
 		
 		for(var x = 0; x < f.children.length; x++){
-			if(f.children[x].directory){
+			if(f.children[x].directory && f.children[x].children.length === 0){
 				gdClient.retrieveChildrenFiles(f.children[x].id,false,false,function(files, fileId){
 					var cur = -1;
 					for(var i = 0; i < f.children.length; i++){
@@ -376,14 +314,14 @@ angular.module('HomeCtrl', []).controller('HomeController', ['$scope', '$window'
 					console.log("ELAB: ", files);
 					for(var i = 0; i < files.length; i++){
 						if(files[i].mimeType === "application/vnd.google-apps.folder"){
-							f.children[cur].children.push({original: files[i], id: files[i].id, name: files[i].title, size: files[i].modifiedDate.split("T")[0] + "\n" + (Math.ceil(files[i].fileSize /= 1000000) || "N/A"), folder: "../img/checkbox.png", folder_image: "../img/folder.png", folderDest: "../img/checkbox.png", select: false, selectDest: false, directory: true, children: [], parent: f.children, sibling: f.children[cur].children});
+							f.children[cur].children.push({original: files[i], id: files[i].id, name: files[i].title, size: files[i].modifiedDate.split("T")[0] + "\n" + (Math.ceil(files[i].fileSize /= 1000000) || "N/A"), folder: "../img/checkbox.png", folder_image: "../img/folder.png", folderDest: "../img/checkbox.png", select: false, selectDest: false, directory: true, children: [], parent: f.children, sibling: f.children[cur].children, mother: f.children[cur]});
 						
 							if(files[i].fileSize)
 								f.children[cur].children[f.children[cur].children.length-1].size += " MB";
 						}
 							
 						else{
-							f.children[cur].children.push({original: files[i], id: files[i].id, name: files[i].title, size: files[i].modifiedDate.split("T")[0] + "\n" + (Math.ceil(files[i].fileSize /= 1000000) || "N/A"), folder: "../img/checkbox.png", folder_image: "../img/file.png", folderDest: "../img/checkbox.png", select: false, selectDest: false, directory: false, parent: f.children});
+							f.children[cur].children.push({original: files[i], id: files[i].id, name: files[i].title, size: files[i].modifiedDate.split("T")[0] + "\n" + (Math.ceil(files[i].fileSize /= 1000000) || "N/A"), folder: "../img/checkbox.png", folder_image: "../img/file.png", folderDest: "../img/checkbox.png", select: false, selectDest: false, directory: false, parent: f.children, mother: f.children[cur]});
 							if(files[i].fileSize)
 								f.children[cur].children[f.children[cur].children.length-1].size += " MB";
 						}
@@ -403,6 +341,41 @@ angular.module('HomeCtrl', []).controller('HomeController', ['$scope', '$window'
 
 		$scope.googleFile = f.children;
 		rootCreate.push(f.id);
+
+		if($scope.checkLvl)
+			$scope.level++;
+
+		if(f.select){
+			var exists = false;
+			for(var i = 0; i < $scope.gDirSelect.length; i++){
+				if($scope.gDirSelect[i] === f)
+					exists = true;
+			}
+
+			if(!exists)
+				$scope.gDirSelect.push(f);
+		
+			for(var i = 0; i < f.children.length; i++){
+				f.children[i].folder = "../img/checked_checkbox.png";
+				f.children[i].select = true;
+
+				if(f.children[i].id in $scope.gFileUnselect){
+					f.children[i].folder = "../img/checkbox.png";
+					f.children[i].select = false;
+				}
+			}
+				
+			angular.element(document.getElementById("google-create").disabled = true);
+			angular.element(document.getElementById("google-copy").disabled = true);
+			angular.element(document.getElementById("google-move").disabled = true);
+			angular.element(document.getElementById("google-rename").disabled = true);
+			angular.element(document.getElementById("google-delete").disabled = true);
+			angular.element(document.getElementById("google-select").disabled = true);
+			angular.element(document.getElementById("google-unselect").disabled = true);
+			console.log($scope.level);
+		}
+
+		console.log("DIR-SELECT", $scope.gDirSelect);
 	}
 
 	$scope.outofGoogleFolder = function(){
@@ -425,8 +398,53 @@ angular.module('HomeCtrl', []).controller('HomeController', ['$scope', '$window'
 
 		if($scope.curDirGoogle === "")
 			$scope.curDirGoogle = "/";
+
+		if($scope.checkLvl && $scope.level !== 0)
+			$scope.level--;
+
+		console.log($scope.level);
+
+		if($scope.gDirUnselect.length > 0){
+			for(var i = 0; i < $scope.gDirSelect[$scope.gDirSelect.length-1].children.length; i++){
+				for(var j = 0; j < $scope.gDirUnselect.length; j++){
+					if($scope.gDirSelect[$scope.gDirSelect.length-1].children[i] === $scope.gDirUnselect[j]){
+						console.log("DIR-SELECT", $scope.gDirSelect);
+						console.log("DIR-UNSELECT", $scope.gDirUnselect);
+						console.log("FILE-UNSELECT", $scope.gFileUnselect);
+
+						if($scope.checkLvl && $scope.level === 0){
+							$scope.folderSelectionGoogle();
+							angular.element(document.getElementById("google-select").disabled = false);
+							angular.element(document.getElementById("google-unselect").disabled = false);
+						}
+						return;
+					}
+				}
+			}
+		}
+
+		if($scope.gDirSelect.length > 0){
+
+			for(var i = 0; i < $scope.gDirSelect[$scope.gDirSelect.length-1].children.length; i++){
+				$scope.gDirSelect[$scope.gDirSelect.length-1].children[i].folder = "../img/checkbox.png";
+				$scope.gDirSelect[$scope.gDirSelect.length-1].children[i].select = false;
+			}
+	
+			$scope.gDirSelect.pop();
+
+			if($scope.gDirSelect.length === 0 || ($scope.checkLvl && $scope.level === 0)){
+				$scope.folderSelectionGoogle();
+				angular.element(document.getElementById("google-select").disabled = false);
+				angular.element(document.getElementById("google-unselect").disabled = false);
+			}
+		
+			console.log("DIR-SELECT", $scope.gDirSelect);
+
+		}
 	}
 
+
+	//---Dropbox---//
 	$scope.curDirDropbox = "/";
 
 	$scope.intoDropboxFolder = function(f){
@@ -452,6 +470,8 @@ angular.module('HomeCtrl', []).controller('HomeController', ['$scope', '$window'
 			$scope.curDirDropbox = "/";
 	}
 
+
+	//---Box---//
 	$scope.curDirBox = "/";
 
 	$scope.intoBoxFolder = function(f){
@@ -477,104 +497,164 @@ angular.module('HomeCtrl', []).controller('HomeController', ['$scope', '$window'
 			$scope.curDirBox = "/";
 	}
 
-	$scope.curDirLocal = "/";
+
+
+	//-----------BUTTON TOOGLE----------//
+
+	//---Create or Pick---//
+	$scope.createHoverIn = function(){
+		angular.element(document.getElementById("google-create").innerHTML = "Create");
+		angular.element(document.getElementById("dropbox-create").innerHTML = "Create");
+		angular.element(document.getElementById("box-create").innerHTML = "Create");
+		angular.element(document.getElementById("local-create").innerHTML = "Pick");
+	}
+
+	$scope.createHoverOut = function(){
+		angular.element(document.getElementById("google-create").innerHTML = "<span class='glyphicon glyphicon-size glyphicon-folder-open'></span>");
+		angular.element(document.getElementById("dropbox-create").innerHTML = "<span class='glyphicon glyphicon-size glyphicon-folder-open'></span>");
+		angular.element(document.getElementById("box-create").innerHTML = "<span class='glyphicon glyphicon-size glyphicon-folder-open'></span>");
+		angular.element(document.getElementById("local-create").innerHTML = "<span class='glyphicon glyphicon-size glyphicon-download-alt'></span>");
+	}
+
+	//---Rename---//
+	$scope.renameHoverIn = function(){
+		angular.element(document.getElementById("google-rename").innerHTML = "Rename");
+		angular.element(document.getElementById("dropbox-rename").innerHTML = "Rename");
+		angular.element(document.getElementById("box-rename").innerHTML = "Rename");
+	}
+
+	$scope.renameHoverOut = function(){
+		angular.element(document.getElementById("google-rename").innerHTML = "<span class='glyphicon glyphicon-size glyphicon-pencil'></span>");
+		angular.element(document.getElementById("dropbox-rename").innerHTML = "<span class='glyphicon glyphicon-size glyphicon-pencil'></span>");
+		angular.element(document.getElementById("box-rename").innerHTML = "<span class='glyphicon glyphicon-size glyphicon-pencil'></span>");
+	}
+
+	//---Copy---//
+	$scope.copyHoverIn = function(){
+		angular.element(document.getElementById("google-copy").innerHTML = "Copy");
+		angular.element(document.getElementById("dropbox-copy").innerHTML = "Copy");
+		angular.element(document.getElementById("box-copy").innerHTML = "Copy");
+		angular.element(document.getElementById("local-copy").innerHTML = "Copy");
+	}
+
+	$scope.copyHoverOut = function(){
+		angular.element(document.getElementById("google-copy").innerHTML = "<span class='glyphicon glyphicon-size glyphicon-file'></span>");
+		angular.element(document.getElementById("dropbox-copy").innerHTML = "<span class='glyphicon glyphicon-size glyphicon-file'></span>");
+		angular.element(document.getElementById("box-copy").innerHTML = "<span class='glyphicon glyphicon-size glyphicon-file'></span>");
+		angular.element(document.getElementById("local-copy").innerHTML = "<span class='glyphicon glyphicon-size glyphicon-file'></span>");
+	}
+
+	//---Move---//
+	$scope.moveHoverIn = function(){
+		angular.element(document.getElementById("google-move").innerHTML = "Move");
+		angular.element(document.getElementById("dropbox-move").innerHTML = "Move");
+		angular.element(document.getElementById("box-move").innerHTML = "Move");
+	}
+
+	$scope.moveHoverOut = function(){
+		angular.element(document.getElementById("google-move").innerHTML = "<span class='glyphicon glyphicon-size glyphicon-transfer'></span>");
+		angular.element(document.getElementById("dropbox-move").innerHTML = "<span class='glyphicon glyphicon-size glyphicon-transfer'></span>");
+		angular.element(document.getElementById("box-move").innerHTML = "<span class='glyphicon glyphicon-size glyphicon-transfer'></span>");
+	}
+
+	//---Delete---//
+	$scope.deleteHoverIn = function(){
+		angular.element(document.getElementById("google-delete").innerHTML = "Delete");
+		angular.element(document.getElementById("dropbox-delete").innerHTML = "Delete");
+		angular.element(document.getElementById("box-delete").innerHTML = "Delete");
+	}
+
+	$scope.deleteHoverOut = function(){
+		angular.element(document.getElementById("google-delete").innerHTML = "<span class='glyphicon glyphicon-size glyphicon-trash'></span>");
+		angular.element(document.getElementById("dropbox-delete").innerHTML = "<span class='glyphicon glyphicon-size glyphicon-trash'></span>");
+		angular.element(document.getElementById("box-delete").innerHTML = "<span class='glyphicon glyphicon-size glyphicon-trash'></span>");
+	}
+
+	//---Select---//
+	$scope.selectHoverIn = function(){
+		angular.element(document.getElementById("google-select").innerHTML = "<span>Select<br>All</span>");
+		angular.element(document.getElementById("dropbox-select").innerHTML = "<span>Select<br>All</span>");
+		angular.element(document.getElementById("box-select").innerHTML = "<span>Select<br>All</span>");
+		angular.element(document.getElementById("local-select").innerHTML = "<span>Select<br>All</span>");
+	}
+
+	$scope.selectHoverOut = function(){
+		angular.element(document.getElementById("google-select").innerHTML = "<span class='glyphicon glyphicon-size glyphicon-check'></span>");
+		angular.element(document.getElementById("dropbox-select").innerHTML = "<span class='glyphicon glyphicon-size glyphicon-check'></span>");
+		angular.element(document.getElementById("box-select").innerHTML = "<span class='glyphicon glyphicon-size glyphicon-check'></span>");
+		angular.element(document.getElementById("local-select").innerHTML = "<span class='glyphicon glyphicon-size glyphicon-check'></span>");
+	}
+
+	//---Unselect---//
+	$scope.unselectHoverIn = function(){
+		angular.element(document.getElementById("google-unselect").innerHTML = "<span>Unselect<br>All</span>");
+		angular.element(document.getElementById("dropbox-unselect").innerHTML = "<span>Unselect<br>All</span>");
+		angular.element(document.getElementById("box-unselect").innerHTML = "<span>Unselect<br>All</span>");
+		angular.element(document.getElementById("local-unselect").innerHTML = "<span>Unselect<br>All</span>");
+	}
+
+	$scope.unselectHoverOut = function(){
+		angular.element(document.getElementById("google-unselect").innerHTML = "<span class='glyphicon glyphicon-size glyphicon-unchecked'></span>");
+		angular.element(document.getElementById("dropbox-unselect").innerHTML = "<span class='glyphicon glyphicon-size glyphicon-unchecked'></span>");
+		angular.element(document.getElementById("box-unselect").innerHTML = "<span class='glyphicon glyphicon-size glyphicon-unchecked'></span>");
+		angular.element(document.getElementById("local-unselect").innerHTML = "<span class='glyphicon glyphicon-size glyphicon-unchecked'></span>");
+	}
+
+
+
+
+	//////////////////-------TRACKING FOLDER SELECTION-------//////////////////
 
 	$scope.folderSelectGoogle = 0;
 	$scope.folderSelectDropbox = 0;
 	$scope.folderSelectBox = 0;
 	$scope.folderSelectLocal = 0;
 
-	$scope.folderSelectionGoogle = function(){
-		if($scope.folderSelectGoogle === 0){
-			angular.element(document.getElementById("google-copy").disabled = true);
-			angular.element(document.getElementById("google-move").disabled = true);
-			angular.element(document.getElementById("google-rename").disabled = true);
-			angular.element(document.getElementById("google-delete").disabled = true);
-		}
+	$scope.fileFlag = 0;
+	$scope.folderFlag = 0;
+	$scope.deleteFlag = 0;
 
-		else if($scope.folderSelectGoogle === 1){
-			angular.element(document.getElementById("google-copy").disabled = false);
-			angular.element(document.getElementById("google-move").disabled = false);
-			angular.element(document.getElementById("google-rename").disabled = false);
-			angular.element(document.getElementById("google-delete").disabled = false);
-		}
-
-		else{
-			angular.element(document.getElementById("google-copy").disabled = true);
-			angular.element(document.getElementById("google-move").disabled = true);
-			angular.element(document.getElementById("google-rename").disabled = true);
-			angular.element(document.getElementById("google-delete").disabled = false);
-		}
-	};
-
-	$scope.folderSelectionDropbox = function(){
-		if($scope.folderSelectDropbox === 0){
-			angular.element(document.getElementById("dropbox-copy").disabled = true);
-			angular.element(document.getElementById("dropbox-move").disabled = true);
-			angular.element(document.getElementById("dropbox-rename").disabled = true);
-			angular.element(document.getElementById("dropbox-delete").disabled = true);
-		}
-
-		else if($scope.folderSelectDropbox === 1){
-			angular.element(document.getElementById("dropbox-copy").disabled = false);
-			angular.element(document.getElementById("dropbox-move").disabled = false);
-			angular.element(document.getElementById("dropbox-rename").disabled = false);
-			angular.element(document.getElementById("dropbox-delete").disabled = false);
-		}
-
-		else{
-			angular.element(document.getElementById("dropbox-copy").disabled = true);
-			angular.element(document.getElementById("dropbox-move").disabled = true);
-			angular.element(document.getElementById("dropbox-rename").disabled = true);
-			angular.element(document.getElementById("dropbox-delete").disabled = false);
-		}
-	};
-
-	$scope.folderSelectionBox = function(){
-		if($scope.folderSelectBox === 0){
-			angular.element(document.getElementById("box-copy").disabled = true);
-			angular.element(document.getElementById("box-move").disabled = true);
-			angular.element(document.getElementById("box-rename").disabled = true);
-			angular.element(document.getElementById("box-delete").disabled = true);
-		}
-
-		else if($scope.folderSelectBox === 1){
-			angular.element(document.getElementById("box-copy").disabled = false);
-			angular.element(document.getElementById("box-move").disabled = false);
-			angular.element(document.getElementById("box-rename").disabled = false);
-			angular.element(document.getElementById("box-delete").disabled = false);
-		}
-
-		else{
-			angular.element(document.getElementById("box-copy").disabled = true);
-			angular.element(document.getElementById("box-move").disabled = true);
-			angular.element(document.getElementById("box-rename").disabled = true);
-			angular.element(document.getElementById("box-delete").disabled = false);
-		}
-	};
-
-	$scope.folderSelectionLocal = function(){
-		if($scope.folderSelectLocal === 0)
-			angular.element(document.getElementById("local-copy").disabled = true);
-
-		else if($scope.folderSelectLocal === 1)
-			angular.element(document.getElementById("local-copy").disabled = false);
-
-		else
-			angular.element(document.getElementById("local-copy").disabled = true);
-	};
-
+	//---Check or Uncheck Folder---//
 	$scope.toggleFolder = function(x, storage){
-		console.log(storage);
+		
 		if(x.folder === "../img/checkbox.png"){
 			x.folder = "../img/checked_checkbox.png";
 
 			if(storage === "g"){
+
+				if(x.id in $scope.gFileUnselect){
+					delete $scope.gFileUnselect[x.id];
+					x.select = true;
+					$scope.deleteFlag--;
+
+					if(isEmpty($scope.gFileUnselect)){
+						$scope.checkLvl = false;
+						$scope.level = 0;
+					}
+
+					for(var i = 0; i < $scope.gDirUnselect.length; i++){
+						if($scope.gDirUnselect[i] === x)
+							$scope.gDirUnselect.splice(i, 1);
+
+						console.log("DIR-UNSELECT", $scope.gDirUnselect);
+					}
+
+					return;
+				}
+
 				$scope.gFileSelect[x.id] = x;
+				x.select = true;
 				$scope.folderSelectGoogle++;
-				$scope.folderSelectionGoogle();
+
+				if(x.directory)
+					$scope.folderFlag++;
+
+				else
+					$scope.fileFlag++;
+
 				$scope.renameSelect = $scope.gFileSelect[Object.keys($scope.gFileSelect)[0]].name;
 				$scope.selectOne = $scope.gFileSelect[Object.keys($scope.gFileSelect)[0]];
+				$scope.folderSelectionGoogle();
 				return;
 			}
 				
@@ -601,11 +681,54 @@ angular.module('HomeCtrl', []).controller('HomeController', ['$scope', '$window'
 			x.folder = "../img/checkbox.png";
 			
 			if(storage === "g"){
+
+				for(var i = 0; i < $scope.gDirSelect.length; i++){
+					if(x.mother === $scope.gDirSelect[i]){
+						if(x.directory)
+							$scope.gDirUnselect.push(x);
+
+						$scope.gFileUnselect[x.id] = x;
+						x.select = false;
+						$scope.deleteFlag++;
+
+						$scope.checkLvl = true;
+
+						var recurseLvl = function(obj){
+							if("mother" in obj){
+								$scope.level++;
+								recurseLvl(obj.mother);
+							}
+						}
+
+						$scope.level = 0;
+						recurseLvl(x);
+
+						console.log($scope.level);
+						return;
+					}
+				}
+
 				delete $scope.gFileSelect[x.id];
+				x.select = false;
 				$scope.folderSelectGoogle--;
+
+				if(x.directory)
+					$scope.folderFlag--;
+
+				else
+					$scope.fileFlag--;
+
+				if($scope.folderSelectGoogle === 0){
+					$scope.selectOne = {folder_image: "../img/folder.png"};
+   					$scope.renameSelect = "";
+				}
+
+				else{
+					$scope.renameSelect = $scope.gFileSelect[Object.keys($scope.gFileSelect)[0]].name;
+					$scope.selectOne = $scope.gFileSelect[Object.keys($scope.gFileSelect)[0]];
+				}
+
 				$scope.folderSelectionGoogle();
-				$scope.renameSelect = $scope.gFileSelect[Object.keys($scope.gFileSelect)[0]].name;
-				$scope.selectOne = $scope.gFileSelect[Object.keys($scope.gFileSelect)[0]];
 				return;
 			}
 				
@@ -629,11 +752,26 @@ angular.module('HomeCtrl', []).controller('HomeController', ['$scope', '$window'
 		}
 	};
 
+
+	//--------------SELECT ALL & UNSELECT ALL-----------//
+
+	//---Google---//
 	$scope.selectAllGoogle = function(){
+		$scope.folderSelectGoogle = 0;
+		$scope.fileFlag = 0;
+		$scope.folderFlag = 0;
+
 		for(var i = 0; i < $scope.googleFile.length; i++){
 			$scope.googleFile[i].folder = "../img/checked_checkbox.png";
+			$scope.googleFile[i].select = true;
 			$scope.gFileSelect[$scope.googleFile[i].id] = $scope.googleFile[i];
 			$scope.folderSelectGoogle++;
+
+			if($scope.googleFile[i].directory)
+				$scope.folderFlag++;
+
+			else
+				$scope.fileFlag++;
 		}
 
 		$scope.renameSelect = $scope.gFileSelect[Object.keys($scope.gFileSelect)[0]].name;
@@ -644,15 +782,20 @@ angular.module('HomeCtrl', []).controller('HomeController', ['$scope', '$window'
 	$scope.selectNoneGoogle = function(){
 		for(var i = 0; i < $scope.googleFile.length; i++){
 			$scope.googleFile[i].folder = "../img/checkbox.png";
+			$scope.googleFile[i].select = false;
 			delete $scope.gFileSelect[$scope.googleFile[i].id];
 		}
 
-		$scope.renameSelect = $scope.gFileSelect[Object.keys($scope.gFileSelect)[0]].name || "";
-		$scope.selectOne = $scope.gFileSelect[Object.keys($scope.gFileSelect)[0]] || {folder_image: "../img/folder.png"};
+		$scope.renameSelect = "";
+		$scope.selectOne = {folder_image: "../img/folder.png"};
 		$scope.folderSelectGoogle = 0;
+		$scope.fileFlag = 0;
+		$scope.folderFlag = 0;
 		$scope.folderSelectionGoogle();
 	};
 
+
+	//---Dropbox--//
 	$scope.selectAllDropbox = function(){
 		for(var i = 0; i < $scope.dropboxFile.length; i++){
 			$scope.dropboxFile[i].folder = "../img/checked_checkbox.png";
@@ -670,7 +813,9 @@ angular.module('HomeCtrl', []).controller('HomeController', ['$scope', '$window'
 		$scope.folderSelectionDropbox();
 	};
 
-	$scope.selectAllBox = function(){
+
+	//---Box---//
+	$scope.selectllBox = function(){
 		for(var i = 0; i < $scope.boxFile.length; i++){
 			$scope.boxFile[i].folder = "../img/checked_checkbox.png";
 			$scope.folderSelectBox++;
@@ -687,6 +832,8 @@ angular.module('HomeCtrl', []).controller('HomeController', ['$scope', '$window'
 		$scope.folderSelectionBox();
 	};
 
+
+	//---Local---//
 	$scope.selectAllLocal = function(){
 		for(var i = 0; i < $scope.localFile.length; i++){
 			$scope.localFile[i].folder = "../img/checked_checkbox.png";
@@ -705,7 +852,108 @@ angular.module('HomeCtrl', []).controller('HomeController', ['$scope', '$window'
 	};
 
 
-	//-----------Destination-----------//
+	//--------------BUTTON DISABLING-----------//
+
+	//---Google---//
+	$scope.folderSelectionGoogle = function(){
+		if($scope.folderSelectGoogle === 0){
+			angular.element(document.getElementById("google-create").disabled = false);
+			angular.element(document.getElementById("google-copy").disabled = true);
+			angular.element(document.getElementById("google-move").disabled = true);
+			angular.element(document.getElementById("google-rename").disabled = true);
+			angular.element(document.getElementById("google-delete").disabled = true);
+		}
+
+		else if($scope.folderSelectGoogle === 1){
+			angular.element(document.getElementById("google-create").disabled = true);
+			angular.element(document.getElementById("google-copy").disabled = false);
+			angular.element(document.getElementById("google-move").disabled = false);
+			angular.element(document.getElementById("google-rename").disabled = false);
+			angular.element(document.getElementById("google-delete").disabled = false);
+		}
+
+		else{
+			angular.element(document.getElementById("google-create").disabled = true);
+			angular.element(document.getElementById("google-copy").disabled = true);
+			angular.element(document.getElementById("google-move").disabled = true);
+			angular.element(document.getElementById("google-rename").disabled = true);
+			angular.element(document.getElementById("google-delete").disabled = false);
+		}
+	};
+
+	//---Dropbox---//
+	$scope.folderSelectionDropbox = function(){
+		if($scope.folderSelectDropbox === 0){
+			angular.element(document.getElementById("dropbox-create").disabled = false);
+			angular.element(document.getElementById("dropbox-copy").disabled = true);
+			angular.element(document.getElementById("dropbox-move").disabled = true);
+			angular.element(document.getElementById("dropbox-rename").disabled = true);
+			angular.element(document.getElementById("dropbox-delete").disabled = true);
+		}
+
+		else if($scope.folderSelectDropbox === 1){
+			angular.element(document.getElementById("dropbox-create").disabled = true);
+			angular.element(document.getElementById("dropbox-copy").disabled = false);
+			angular.element(document.getElementById("dropbox-move").disabled = false);
+			angular.element(document.getElementById("dropbox-rename").disabled = false);
+			angular.element(document.getElementById("dropbox-delete").disabled = false);
+		}
+
+		else{
+			angular.element(document.getElementById("dropbox-create").disabled = true);
+			angular.element(document.getElementById("dropbox-copy").disabled = true);
+			angular.element(document.getElementById("dropbox-move").disabled = true);
+			angular.element(document.getElementById("dropbox-rename").disabled = true);
+			angular.element(document.getElementById("dropbox-delete").disabled = false);
+		}
+	};
+
+	//---Box---//
+	$scope.folderSelectionBox = function(){
+		if($scope.folderSelectBox === 0){
+			angular.element(document.getElementById("box-create").disabled = false);
+			angular.element(document.getElementById("box-copy").disabled = true);
+			angular.element(document.getElementById("box-move").disabled = true);
+			angular.element(document.getElementById("box-rename").disabled = true);
+			angular.element(document.getElementById("box-delete").disabled = true);
+		}
+
+		else if($scope.folderSelectBox === 1){
+			angular.element(document.getElementById("box-create").disabled = true);
+			angular.element(document.getElementById("box-copy").disabled = false);
+			angular.element(document.getElementById("box-move").disabled = false);
+			angular.element(document.getElementById("box-rename").disabled = false);
+			angular.element(document.getElementById("box-delete").disabled = false);
+		}
+
+		else{
+			angular.element(document.getElementById("box-create").disabled = true);
+			angular.element(document.getElementById("box-copy").disabled = true);
+			angular.element(document.getElementById("box-move").disabled = true);
+			angular.element(document.getElementById("box-rename").disabled = true);
+			angular.element(document.getElementById("box-delete").disabled = false);
+		}
+	};
+
+	//---Local---//
+	$scope.folderSelectionLocal = function(){
+		if($scope.folderSelectLocal === 0)
+			angular.element(document.getElementById("local-copy").disabled = true);
+
+		else if($scope.folderSelectLocal === 1)
+			angular.element(document.getElementById("local-copy").disabled = false);
+
+		else
+			angular.element(document.getElementById("local-copy").disabled = true);
+	};
+
+	
+
+
+	///////////////////////////////////////////////////////////////////////////
+	////////////////////////---------DESTINATION----------/////////////////////
+	///////////////////////////////////////////////////////////////////////////
+
 
 	$scope.temp_parentDest = [];
 
@@ -746,14 +994,14 @@ angular.module('HomeCtrl', []).controller('HomeController', ['$scope', '$window'
 					console.log("ELAB: ", files);
 					for(var i = 0; i < files.length; i++){
 						if(files[i].mimeType === "application/vnd.google-apps.folder"){
-							f.children[cur].children.push({id: files[i].id, name: files[i].title, size: Math.ceil(files[i].fileSize /= 1000000) || "N/A", folder: "../img/checkbox.png", folder_image: "../img/folder.png", folderDest: "../img/checkbox.png", select: false, selectDest: false, directory: true, children: [], parent: f.children, sibling: f.children[cur].children});
+							f.children[cur].children.push({id: files[i].id, name: files[i].title, size: Math.ceil(files[i].fileSize /= 1000000) || "N/A", folder: "../img/checkbox.png", folder_image: "../img/folder.png", folderDest: "../img/checkbox.png", select: false, selectDest: false, directory: true, children: [], parent: f.children, sibling: f.children[cur].children, mother: f.children[cur]});
 						
 							if(files[i].fileSize)
 								f.children[cur].children[f.children[cur].children.length-1].size += " MB";
 						}
 							
 						else{
-							f.children[cur].children.push({id: files[i].id, name: files[i].title, size: Math.ceil(files[i].fileSize /= 1000000) || "N/A", folder: "../img/checkbox.png", folder_image: "../img/file.png", folderDest: "../img/checkbox.png", select: false, selectDest: false, directory: false, parent: f.children});
+							f.children[cur].children.push({id: files[i].id, name: files[i].title, size: Math.ceil(files[i].fileSize /= 1000000) || "N/A", folder: "../img/checkbox.png", folder_image: "../img/file.png", folderDest: "../img/checkbox.png", select: false, selectDest: false, directory: false, parent: f.children, mother: f.children[cur]});
 							if(files[i].fileSize)
 								f.children[cur].children[f.children[cur].children.length-1].size += " MB";
 						}
@@ -1064,14 +1312,76 @@ angular.module('HomeCtrl', []).controller('HomeController', ['$scope', '$window'
 	};
 
 
-	// -------------------- johnny: for APIs testing
-	$scope.testGDrive = function(){
-		gDriveTests()
-	};
+	$scope.confirmHoverIn = function(){
+		angular.element(document.getElementById("google-confirm").innerHTML = "Confirm");
+		angular.element(document.getElementById("dropbox-confirm").innerHTML = "Confirm");
+		angular.element(document.getElementById("box-confirm").innerHTML = "Confirm");
+		angular.element(document.getElementById("local-confirm").innerHTML = "Confirm");
+	}
 
-	$scope.testDropbox = function(){
-		dropboxTests()
-	};
+	$scope.confirmHoverOut = function(){
+		angular.element(document.getElementById("google-confirm").innerHTML = "<span class='glyphicon glyphicon-size glyphicon-thumbs-up'></span>");
+		angular.element(document.getElementById("dropbox-confirm").innerHTML = "<span class='glyphicon glyphicon-size glyphicon-thumbs-up'></span>");
+		angular.element(document.getElementById("box-confirm").innerHTML = "<span class='glyphicon glyphicon-size glyphicon-thumbs-up'></span>");
+		angular.element(document.getElementById("local-confirm").innerHTML = "<span class='glyphicon glyphicon-size glyphicon-thumbs-up'></span>");
+	}
+
+	$scope.cancelHoverIn = function(){
+		angular.element(document.getElementById("google-cancel").innerHTML = "Cancel");
+		angular.element(document.getElementById("dropbox-cancel").innerHTML = "Cancel");
+		angular.element(document.getElementById("box-cancel").innerHTML = "Cancel");
+		angular.element(document.getElementById("local-cancel").innerHTML = "Cancel");
+	}
+
+	$scope.cancelHoverOut = function(){
+		angular.element(document.getElementById("google-cancel").innerHTML = "<span class='glyphicon glyphicon-size glyphicon-thumbs-down'></span>");
+		angular.element(document.getElementById("dropbox-cancel").innerHTML = "<span class='glyphicon glyphicon-size glyphicon-thumbs-down'></span>");
+		angular.element(document.getElementById("box-cancel").innerHTML = "<span class='glyphicon glyphicon-size glyphicon-thumbs-down'></span>");
+		angular.element(document.getElementById("local-cancel").innerHTML = "<span class='glyphicon glyphicon-size glyphicon-thumbs-down'></span>");
+	}
+
+	$scope.selectDestHoverIn = function(){
+		angular.element(document.getElementById("google-selectDest").innerHTML = "<span>Select<br>All</span>");
+		angular.element(document.getElementById("dropbox-selectDest").innerHTML = "<span>Select<br>All</span>");
+		angular.element(document.getElementById("box-selectDest").innerHTML = "<span>Select<br>All</span>");
+		angular.element(document.getElementById("local-selectDest").innerHTML = "<span>Select<br>All</span>");
+	}
+
+	$scope.selectDestHoverOut = function(){
+		angular.element(document.getElementById("google-selectDest").innerHTML = "<span class='glyphicon glyphicon-size glyphicon-check'></span>");
+		angular.element(document.getElementById("dropbox-selectDest").innerHTML = "<span class='glyphicon glyphicon-size glyphicon-check'></span>");
+		angular.element(document.getElementById("box-selectDest").innerHTML = "<span class='glyphicon glyphicon-size glyphicon-check'></span>");
+		angular.element(document.getElementById("local-selectDest").innerHTML = "<span class='glyphicon glyphicon-size glyphicon-check'></span>");
+	}
+
+	$scope.unselectDestHoverIn = function(){
+		angular.element(document.getElementById("google-unselectDest").innerHTML = "<span>Unselect<br>All</span>");
+		angular.element(document.getElementById("dropbox-unselectDest").innerHTML = "<span>Unselect<br>All</span>");
+		angular.element(document.getElementById("box-unselectDest").innerHTML = "<span>Unselect<br>All</span>");
+		angular.element(document.getElementById("local-unselectDest").innerHTML = "<span>Unselect<br>All</span>");
+	}
+
+	$scope.unselectDestHoverOut = function(){
+		angular.element(document.getElementById("google-unselectDest").innerHTML = "<span class='glyphicon glyphicon-size glyphicon-unchecked'></span>");
+		angular.element(document.getElementById("dropbox-unselectDest").innerHTML = "<span class='glyphicon glyphicon-size glyphicon-unchecked'></span>");
+		angular.element(document.getElementById("box-unselectDest").innerHTML = "<span class='glyphicon glyphicon-size glyphicon-unchecked'></span>");
+		angular.element(document.getElementById("local-unselectDest").innerHTML = "<span class='glyphicon glyphicon-size glyphicon-unchecked'></span>");
+	}
+
+
+
+	//--------------------JOHNNY: for APIs testing--------------------//
+																	  //
+	$scope.testGDrive = function(){									  //
+		gDriveTests()												  //
+	};																  //
+																	  //
+	$scope.testDropbox = function(){								  //
+		dropboxTests()												  //
+	};																  //
+																	  //
+	//--------------------JOHNNY: for APIs testing--------------------//
+
 }])
 .directive('modal', function () {
     return {
