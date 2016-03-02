@@ -455,13 +455,14 @@ angular.module('HomeCtrl', []).controller('HomeController', ['$scope', '$window'
 
 	//---Dropbox---//
 	$scope.curDirDropbox = "/";
+	$scope.temp_parentD = [];
 
 	$scope.intoDropboxFolder = function(f){
 		if(!f.directory) 
 			return;
 
 		if(f.children.length === 0) {
-			$scope.temp_parent = f.sibling;
+			$scope.temp_parentD = f.sibling;
 
 			if($scope.curDirDropbox === "/")
 				$scope.curDirDropbox += f.name;
@@ -515,14 +516,20 @@ angular.module('HomeCtrl', []).controller('HomeController', ['$scope', '$window'
 		$scope.dropboxFile = f.children;
 	}
 
-	$scope.temp_parentD = [];
 	$scope.outofDropboxFolder = function(){
 		if($scope.curDirDropbox !== "/"){
 			while($scope.curDirDropbox[$scope.curDirDropbox.length-1] !== '/')
 				$scope.curDirDropbox = $scope.curDirDropbox.slice(0, -1);
 
 			$scope.curDirDropbox = $scope.curDirDropbox.slice(0, -1);
-			$scope.dropboxFile = $scope.dropboxFile[0].parent;
+
+			if($scope.dropboxFile === empty){
+				$scope.dropboxFile = $scope.temp_parentD;
+				$scope.temp_parentD = [];
+			}
+
+			else
+				$scope.dropboxFile = $scope.dropboxFile[0].parent;
 		}
 
 		if($scope.curDirDropbox === "")
