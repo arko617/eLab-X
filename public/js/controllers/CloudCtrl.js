@@ -61,6 +61,37 @@ function checkAuth() {
 	}, handleAuthResult);	//immediate:true-->refresh the token without a popup
 }
 
+var getRootContent = function(file){
+	dbClient.readDirContent('/' + file,function(files){
+		if(files === null)
+			dFile.push({original: file, id: "/" + file, name: file, size: "N/A", folder: "../img/checkbox.png", folder_image: "../img/file.png", folderDest: "../img/checkbox.png", select: false, selectDest: false, directory: false});
+
+		else{
+			dFile.push({original: file, id: "/" + file, name: file, size: "N/A", folder: "../img/checkbox.png", folder_image: "../img/folder.png", folderDest: "../img/checkbox.png", select: false, selectDest: false, directory: true, children: [], sibling: dFile});
+			for(var i = 0; i < files.length; i++)
+				getContent(dFile[dFile.length-1], '/' + file + '/' + files[i], files[i], dFile);
+		}
+					
+		console.log("DFILE: ", file);
+	});
+};
+
+var getContent = function(parent, file, name, p){
+	dbClient.readDirContent(file, function(files){
+		if(files === null)
+			parent.children.push({original: name, id: file, name: name, size: "N/A", folder: "../img/checkbox.png", folder_image: "../img/file.png", folderDest: "../img/checkbox.png", select: false, selectDest: false, directory: false, parent: p});
+
+		else{
+			parent.children.push({original: name, id: file, name: name, size: "N/A", folder: "../img/checkbox.png", folder_image: "../img/folder.png", folderDest: "../img/checkbox.png", select: false, selectDest: false, directory: true, children: [], sibling: parent.children, parent: p});
+			for(var i = 0; i < files.length; i++)
+				getContent(parent.children[parent.children.length-1], file + '/' + files[i], files[i], parent.children);
+			console.log("GOTFILES: ", files);
+		}
+					
+		console.log("DFILE: ", file);
+	});
+};
+
 /**
 * Called when authorization server replies.
 */
@@ -131,13 +162,17 @@ function handleAuthResult(authResult) {
 				});
 			};
 
-			// var dropboxFileDisplay = function(){
-			// 	dbClient.readDirAllContent(cPos,fileList,fileIsFolderList, function(fileList, fileIsFolderList){
-			// 		console.log('----dropbox TEST: obtain all the files and folder in dropbox', fileList, fileIsFolderList)
-			// 	})
-			// }
+			var dropboxFileDisplay = function(){
+				dbClient.readDirContent('/',function(files){
+					for(var i = 0; i < files.length; i++)
+						getRootContent(files[i]);
+
+					console.log("DFILE: ", files);
+				});	
+			};
 
 			googleFileDisplay();
+			dropboxFileDisplay();
 
 			
 

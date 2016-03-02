@@ -77,14 +77,14 @@
 	<div style="height:88%; width:92%; overflow-y:scroll; margin-top:5px">	
 		<ul ng-repeat="x in dropboxFile" class="nav navbar-nav">
 			<li>
-				<img class="folder-size-blue" ng-src="../img/folder.png" ng-dblclick="intoDropboxFolder(x)">
+				<img class="folder-size-blue" ng-src="{{x.folder_image}}" ng-dblclick="intoDropboxFolder(x)">
 				<img title="{{x.size}}" data-toggle="tooltip" data-placement="top" class="checkbox-size" ng-src="{{x.folder}}" ng-click="toggleFolder(x, 'd')" tooltip>
 				<br/>
 				<div class="folder-name" style="color:blue">{{x.name}}</div>
 			</li>
 		</ul>
 	</div>
-
+	
 <!-- Dropbox -->
 <!-- 	<mod title="Create New Folder" visible="createModal">
 		<button style="margin-top:60px" type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
@@ -460,7 +460,7 @@
 </mod>
 
 <!-- Dropbox -->
-<!-- <mod title="Create New Folder" visible="createModal">
+<mod title="Create New Folder" visible="createModal">
 	<button style="margin-top:60px" type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 	<center>
 		<h4>Type The Folder Name...<h4><br>
@@ -469,6 +469,6 @@
 		<div style="width:10px; display:inline-block"></div>
 		<button style="width:100px; height:50px; font-size:15px" class="btn btn-sm btn-primary" data-dismiss="modal" aria-hidden="true">Cancel</button>
 	</center>
-</mod> -->
+</mod>
 <!-- End of Dropbox -->
 

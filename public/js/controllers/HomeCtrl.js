@@ -6,12 +6,7 @@ var gFile = [];
 
 var bFile = [{name: 'Resume', size:"0 MB", folder: "../img/checkbox.png", folderDest: "../img/checkbox.png"}];
 
-var dFile = [{name: 'eLab', size:"0 MB", folder: "../img/checkbox.png", folderDest: "../img/checkbox.png"},
-					{name: 'Physics', size:"0 MB", folder: "../img/checkbox.png", folderDest: "../img/checkbox.png"},
-					{name: 'English', size:"0 MB", folder: "../img/checkbox.png", folderDest: "../img/checkbox.png"},
-					{name: 'Lab', size:"0 MB", folder: "../img/checkbox.png", folderDest: "../img/checkbox.png"},
-					{name: 'Math', size:"0 MB", folder: "../img/checkbox.png", folderDest: "../img/checkbox.png"},
-					{name: 'Science', size:"0 MB", folder: "../img/checkbox.png", folderDest: "../img/checkbox.png"}];
+var dFile = [];
 
 var lFile = [];
 
@@ -511,16 +506,23 @@ angular.module('HomeCtrl', []).controller('HomeController', ['$scope', '$window'
 		// 	}
 		// }
 
-		$scope.dropboxFile = empty;
+		if($scope.curDirDropbox === "/")
+			$scope.curDirDropbox += f.name;
+
+		else
+			$scope.curDirDropbox += "/" + f.name;
+
+		$scope.dropboxFile = f.children;
 	}
 
+	$scope.temp_parentD = [];
 	$scope.outofDropboxFolder = function(){
 		if($scope.curDirDropbox !== "/"){
 			while($scope.curDirDropbox[$scope.curDirDropbox.length-1] !== '/')
 				$scope.curDirDropbox = $scope.curDirDropbox.slice(0, -1);
 
 			$scope.curDirDropbox = $scope.curDirDropbox.slice(0, -1);
-			$scope.dropboxFile = dFile;
+			$scope.dropboxFile = $scope.dropboxFile[0].parent;
 		}
 
 		if($scope.curDirDropbox === "")
