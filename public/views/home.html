@@ -33,7 +33,7 @@
 	</div>
 
 	<div class="dropdown operation-create">
-	    <button class="btn btn-primary dropdown-toggle action" id="google-create" type="button" data-toggle="dropdown" style="background-color:green; border-color:green" ng-mouseover="createHoverIn()" ng-mouseout="createHoverOut()" ng-click="toggleCreateModal()">
+	    <button class="btn btn-primary dropdown-toggle action" id="google-create" type="button" data-toggle="dropdown" style="background-color:green; border-color:green" ng-mouseover="createHoverIn()" ng-mouseout="createHoverOut()" ng-click="toggleCreateModalGoogle()">
 	    <span class="glyphicon glyphicon-size glyphicon-folder-open"></span>
 	    </button>
 	</div>
@@ -48,12 +48,12 @@
 	    </button>
 	</div>
 	<div class="dropdown operation-rename">
-	    <button class="btn btn-primary dropdown-toggle action" id="google-rename" type="button" data-toggle="dropdown" style="background-color:green; border-color:green" ng-mouseover="renameHoverIn()" ng-mouseout="renameHoverOut()" ng-click="toggleRenameModal()" disabled>
+	    <button class="btn btn-primary dropdown-toggle action" id="google-rename" type="button" data-toggle="dropdown" style="background-color:green; border-color:green" ng-mouseover="renameHoverIn()" ng-mouseout="renameHoverOut()" ng-click="toggleRenameModalGoogle()" disabled>
 	    <span class="glyphicon glyphicon-size glyphicon-pencil"></span>
 	    </button>
 	</div>
 	<div class="dropdown operation-delete">
-	    <button class="btn btn-primary dropdown-toggle action" id="google-delete" type="button" data-toggle="dropdown" style="background-color:green; border-color:green" ng-mouseover="deleteHoverIn()" ng-mouseout="deleteHoverOut()" ng-click="toggleDeleteModal()" disabled>
+	    <button class="btn btn-primary dropdown-toggle action" id="google-delete" type="button" data-toggle="dropdown" style="background-color:green; border-color:green" ng-mouseover="deleteHoverIn()" ng-mouseout="deleteHoverOut()" ng-click="toggleDeleteModalGoogle()" disabled>
 	    <span class="glyphicon glyphicon-size glyphicon-trash"></span>
 	    </button>
 	</div>
@@ -99,7 +99,7 @@
 
 <!--  -->
 	<div class="dropdown operation-create">
-	    <button class="btn btn-primary dropdown-toggle action" id="dropbox-create" type="button" data-toggle="dropdown" style="background-color:blue; border-color:blue" ng-mouseover="createHoverIn()" ng-mouseout="createHoverOut()" ng-click="toggleCreateModal()">
+	    <button class="btn btn-primary dropdown-toggle action" id="dropbox-create" type="button" data-toggle="dropdown" style="background-color:blue; border-color:blue" ng-mouseover="createHoverIn()" ng-mouseout="createHoverOut()" ng-click="toggleCreateModalDropbox()">
 	    <span class="glyphicon glyphicon-size glyphicon-folder-open"></span>
 	    </button>
 	</div>
@@ -116,12 +116,12 @@
 	    </button>
 	</div>
 	<div class="dropdown operation-rename">
-	    <button class="btn btn-primary dropdown-toggle action" id="dropbox-rename" type="button" data-toggle="dropdown" style="background-color:blue; border-color:blue" ng-mouseover="renameHoverIn()" ng-mouseout="renameHoverOut()" disabled>
+	    <button class="btn btn-primary dropdown-toggle action" id="dropbox-rename" type="button" data-toggle="dropdown" style="background-color:blue; border-color:blue" ng-mouseover="renameHoverIn()" ng-mouseout="renameHoverOut()" ng-click="toggleRenameModalDropbox()" disabled>
 	    <span class="glyphicon glyphicon-size glyphicon-pencil"></span>
 	    </button>
 	</div>
 	<div class="dropdown operation-delete">
-	    <button class="btn btn-primary dropdown-toggle action" id="dropbox-delete" type="button" data-toggle="dropdown" style="background-color:blue; border-color:blue" ng-mouseover="deleteHoverIn()" ng-mouseout="deleteHoverOut()" ng-click="toggleDeleteModal()" disabled>
+	    <button class="btn btn-primary dropdown-toggle action" id="dropbox-delete" type="button" data-toggle="dropdown" style="background-color:blue; border-color:blue" ng-mouseover="deleteHoverIn()" ng-mouseout="deleteHoverOut()" ng-click="toggleDeleteModalDropbox()" disabled>
 	    <span class="glyphicon glyphicon-size glyphicon-trash"></span>
 	    </button>
 	</div>
@@ -399,7 +399,8 @@
 
 </modal>
 <!-- Google Drive -->
-<mod title="Are You Sure You Want to Delete...?" visible="deleteModal">
+<!-- ---------------------- -->
+<mod title="Are You Sure You Want to Delete...?" visible="deleteModalGoogle">
 <button style="margin-top:-60px" type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 <center>
 <div id="google-folder-delete"></div>
@@ -410,7 +411,7 @@
 </center>
 </mod>
 
-<mod title="Create New Folder" visible="createModal">
+<mod title="Create New Folder" visible="createModalGoogle">
 <button style="margin-top:-60px" type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 <center>
 <h4>Type The Folder Name...<h4><br>
@@ -424,7 +425,7 @@
 </center>
 </mod>
 
-<mod title="Rename Folder" visible="renameModal">
+<mod title="Rename Folder" visible="renameModalGoogle">
 <button style="margin-top:-60px" type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 <center>
 <h4>Type The New File or Folder Name...<h4><br>
@@ -437,6 +438,7 @@
 <button style="width:100px; height:50px; font-size:15px" class="btn btn-sm btn-primary" data-dismiss="modal" aria-hidden="true">Cancel</button>
 </center>
 </mod>
+<!-- ---------------------- -->
 <!-- End of Google Drive -->
 
 <mod title="Select files from your computer" visible="pickModal">
@@ -460,15 +462,45 @@
 </mod>
 
 <!-- Dropbox -->
-<mod title="Create New Folder" visible="createModal">
-	<button style="margin-top:60px" type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+<!-- ---------------------- -->
+<mod title="Are You Sure You Want to Delete...?" visible="deleteModalDropbox">
+	<button style="margin-top:-60px" type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 	<center>
-		<h4>Type The Folder Name...<h4><br>
-		<input style="width:70%" type="text" name="folderName" id="dropbox-newFolderName" value="New Folder"><br><br><br>
-		<button style="width:100px; height:50px; font-size:15px" class="btn btn-sm btn-primary" ng-click="createDropboxPerform()" data-dismiss="modal" aria-hidden="true">Confirm</button>
-		<div style="width:10px; display:inline-block"></div>
-		<button style="width:100px; height:50px; font-size:15px" class="btn btn-sm btn-primary" data-dismiss="modal" aria-hidden="true">Cancel</button>
+	<div id="dropbox-folder-delete"></div>
+	<h5>Press The Delete Button To Confirm...</h5><br>
+	<button id="dropbox-delete-button" style="width:100px; height:50px; font-size:15px" class="btn btn-sm btn-primary" ng-click="deleteDropboxPerform()" data-dismiss="modal" aria-hidden="true">Delete</button>
+	<div style="width:10px; display:inline-block"></div>
+	<button style="width:100px; height:50px; font-size:15px" class="btn btn-sm btn-primary" data-dismiss="modal" aria-hidden="true">Cancel</button>
 	</center>
 </mod>
+
+<mod title="Create New Folder" visible="createModalDropbox">
+	<button style="margin-top:-60px" type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+	<center>
+	<h4>Type The Folder Name...<h4><br>
+	<img src="../img/folder.png" style="width:100px;height:100px;"><br>
+	<div id="dropbox-create-refresh-input">
+		<input style="width:70%" type="text" name="folderName" id="dropbox-folder-create" value="New Folder"><br><br><br>
+	</div>
+	<button style="width:100px; height:50px; font-size:15px" class="btn btn-sm btn-primary" ng-click="createDropboxPerform()" data-dismiss="modal" aria-hidden="true">Confirm</button>
+	<div style="width:10px; display:inline-block"></div>
+	<button style="width:100px; height:50px; font-size:15px" class="btn btn-sm btn-primary" data-dismiss="modal" aria-hidden="true">Cancel</button>
+	</center>
+</mod>
+
+<mod title="Rename Folder" visible="renameModalDropbox">
+	<button style="margin-top:-60px" type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+	<center>
+	<h4>Type The New File or Folder Name...<h4><br>
+	<img src="{{selectOneDB.folder_image}}" style="width:100px;height:100px;"><br>
+	<div id="dropbox-rename-refresh-input">
+		<input style="width:70%" type="text" name="newName" id="dropbox-folder-rename" value="{{renameSelectDB}}"><br><br><br>
+	</div>
+	<button style="width:100px; height:50px; font-size:15px" class="btn btn-sm btn-primary" ng-click="renameDropboxPerform()" data-dismiss="modal" aria-hidden="true">Confirm</button>
+	<div style="width:10px; display:inline-block"></div>
+	<button style="width:100px; height:50px; font-size:15px" class="btn btn-sm btn-primary" data-dismiss="modal" aria-hidden="true">Cancel</button>
+	</center>
+</mod>
+<!-- ---------------------- -->
 <!-- End of Dropbox -->
 

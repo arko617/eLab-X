@@ -26,21 +26,22 @@ angular.module('HomeCtrl', []).controller('HomeController', ['$scope', '$window'
         $scope.showModal = !$scope.showModal;
     };
 
-    $scope.createModal = false;
-    $scope.toggleCreateModal = function(){
-        $scope.createModal = !$scope.createModal;
+    //--------GOOGLE--------//
+    $scope.createModalGoogle = false;
+    $scope.toggleCreateModalGoogle = function(){
+        $scope.createModalGoogle = !$scope.createModalGoogle;
         angular.element(document.getElementById("google-create-refresh-input").innerHTML = "<input style='width:70%' type='text' name='folderName' id='google-folder-create' value='New Folder'><br><br><br>");   
     };
 
-    $scope.renameModal = false;
-    $scope.toggleRenameModal = function(){
-        $scope.renameModal = !$scope.renameModal;
+    $scope.renameModalGoogle = false;
+    $scope.toggleRenameModalGoogle = function(){
+        $scope.renameModalGoogle = !$scope.renameModalGoogle;
         angular.element(document.getElementById("google-rename-refresh-input").innerHTML = "<input style='width:70%' type='text' name='newName' id='google-folder-rename' value=" + $scope.renameSelect + "><br><br><br>");   
     };
 
-    $scope.deleteModal = false;
-    $scope.toggleDeleteModal = function(){
-        $scope.deleteModal = !$scope.deleteModal;
+    $scope.deleteModalGoogle = false;
+    $scope.toggleDeleteModalGoogle = function(){
+        $scope.deleteModalGoogle = !$scope.deleteModalGoogle;
 
         console.log("FILE-FLAG", $scope.fileFlag);
         console.log("FOLDER-FLAG", $scope.folderFlag);
@@ -81,6 +82,64 @@ angular.module('HomeCtrl', []).controller('HomeController', ['$scope', '$window'
         }
     };
 
+
+    //--------DROPBOX--------//
+    $scope.createModalDropbox = false;
+    $scope.toggleCreateModalDropbox = function(){
+        $scope.createModalDropbox = !$scope.createModalDropbox;
+        angular.element(document.getElementById("dropbox-create-refresh-input").innerHTML = "<input style='width:70%' type='text' name='folderName' id='dropbox-folder-create' value='New Folder'><br><br><br>");   
+    };
+
+    $scope.renameModalDropbox = false;
+    $scope.toggleRenameModalDropbox = function(){
+        $scope.renameModalDropbox = !$scope.renameModalDropbox;
+        angular.element(document.getElementById("dropbox-rename-refresh-input").innerHTML = "<input style='width:70%' type='text' name='newName' id='dropbox-folder-rename' value=" + $scope.renameSelectDB + "><br><br><br>");   
+    };
+
+    $scope.deleteModalDropbox = false;
+    $scope.toggleDeleteModalDropbox = function(){
+        $scope.deleteModalDropbox = !$scope.deleteModalDropbox;
+
+        console.log("FILE-FLAG-DB", $scope.fileFlagDB);
+        console.log("FOLDER-FLAG-DB", $scope.folderFlagDB);
+
+        if(!isEmpty($scope.dFileUnselect)){
+			angular.element(document.getElementById("dropbox-folder-delete").innerHTML = "<img src='../img/folder.png' style='width:100px;height:100px;'><h4>You have at least one unselected file/folder inside a selected folder</h4><h4><em>(PLEASE FIX THE ISSUE TO CONTINUE...)</em></h4><br>");
+			angular.element(document.getElementById("dropbox-delete-button").disabled = true);
+		
+			for(var i in $scope.dFileUnselect){
+				if($scope.dFileUnselect[i].mother.id in $scope.dFileSelect)
+					return;
+			}
+		}
+
+        if($scope.fileFlagDB === 0 && $scope.folderFlagDB === 1){
+        	angular.element(document.getElementById("dropbox-folder-delete").innerHTML = "<img src='" + $scope.selectOneDB.folder_image + "' style='width:100px;height:100px;'><h4>" + $scope.renameSelectDB + "</h4><h4><em>(It may contain additional files and/or folders)</em></h4><br>");
+        	angular.element(document.getElementById("dropbox-delete-button").disabled = false);
+        }
+
+        else if($scope.fileFlagDB === 1 && $scope.folderFlagDB === 0){
+        	angular.element(document.getElementById("dropbox-folder-delete").innerHTML = "<img src='" + $scope.selectOneDB.folder_image + "' style='width:100px;height:100px;'><h4>" + $scope.renameSelectDB + "</h4><br>");
+        	angular.element(document.getElementById("dropbox-delete-button").disabled = false);
+        }
+
+        else if($scope.fileFlagDB > 1 && $scope.folderFlagDB === 0){
+        	angular.element(document.getElementById("dropbox-folder-delete").innerHTML = "<img src='../img/file.png' style='width:100px;height:100px;'><h4>All The Selected Files</h4><br>");
+        	angular.element(document.getElementById("dropbox-delete-button").disabled = false);
+        }
+
+        else if($scope.fileFlagDB === 0 && $scope.folderFlagDB > 1){
+        	angular.element(document.getElementById("dropbox-folder-delete").innerHTML = "<img src='../img/folder.png' style='width:100px;height:100px;'><h4>All The Selected Folders</h4><h4><em>(Some of them may contain additional files and/or folders)</em></h4><br>");
+        	angular.element(document.getElementById("dropbox-delete-button").disabled = false);
+        }
+
+        else{
+        	angular.element(document.getElementById("dropbox-folder-delete").innerHTML = "<img src='../img/folder.png' style='width:100px;height:100px;'><h4 style='display:inline-block'>&nbsp;.&nbsp;.&nbsp;.&nbsp;</h4><img src='../img/file.png' style='width:100px;height:100px;'><h4>All The Selected Files and Folders</h4><h4><em>(Some of the folders may contain additional files and/or folders)</em></h4><br>");
+        	angular.element(document.getElementById("dropbox-delete-button").disabled = false);
+        }
+    };
+
+    //--------LOCAL--------//
     $scope.pickModal = false;
     $scope.togglePickModal = function(){
         $scope.pickModal = !$scope.pickModal;
@@ -100,6 +159,18 @@ angular.module('HomeCtrl', []).controller('HomeController', ['$scope', '$window'
     $scope.renameSelect = "";
 
 
+    $scope.dFileSelect = {};
+    $scope.dFileUnselect = {};
+    $scope.dDirSelect = [];
+    $scope.dDirUnselect = [];
+
+    $scope.checkLvlDB = false;
+    $scope.levelDB = 0;
+
+    $scope.selectOneDB = {folder_image: "../img/folder.png"};
+    $scope.renameSelectDB = "";
+
+
 
     //-----------CREATE OPERATION----------//
 
@@ -115,14 +186,14 @@ angular.module('HomeCtrl', []).controller('HomeController', ['$scope', '$window'
     //---Dropbox---//
     $scope.createDropboxPerform = function() {
     
-    	var title = angular.element(document.getElementById("dropbox-newFolderName").value).selector;
+    	var title = angular.element(document.getElementById("dropbox-folder-create").value).selector;
 
     	var dbCurrentRoot = '' // obtain somewhere
     	var completePath = dbCurrentRoot + title
 
     	dbClient.mkdir(completePath, function(resp, folder) {
     		console.log(folder);
-    		//window.location = window.location.href;
+    		window.location = window.location.href;
     	});
     }
 
@@ -261,6 +332,7 @@ angular.module('HomeCtrl', []).controller('HomeController', ['$scope', '$window'
 
 	//All Files
 	$scope.temp_parent = [];
+	$scope.temp_parentDB = [];
 
 	$scope.googleFile = gFile;
 	$scope.dropboxFile = dFile;
@@ -679,6 +751,10 @@ angular.module('HomeCtrl', []).controller('HomeController', ['$scope', '$window'
 	$scope.fileFlag = 0;
 	$scope.folderFlag = 0;
 	$scope.deleteFlag = 0;
+
+	$scope.fileFlagDB = 0;
+	$scope.folderFlagDB = 0;
+	$scope.deleteFlagDB = 0;
 
 	//---Check or Uncheck Folder---//
 	$scope.toggleFolder = function(x, storage){
