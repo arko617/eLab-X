@@ -1031,9 +1031,25 @@ angular.module('HomeCtrl', []).controller('HomeController', ['$scope', '$window'
 		}
 	};
 
+	//GD: function(destFolderId, datablob,callback)
+
+	//Dropbox: function(destination,data,options,callback){
+
 	//Matthew
 	$scope.uploadLocalToDropbox = function() {
 		alert("UPLOAD TO DROPBOX");
+
+		for(var i = 0; i < lFile.length; i++) {
+			dbClient.upload(rootCreate[0], lFile[i].original, null, function(response) {
+				console.log(response);
+				if(i === lFile.length-1) {
+					$scope.toggleModal();
+				}
+				window.location = window.location.href;
+			});
+		}
+
+		alert("RAN TO COMPLETION WITHOUT ERRORS");
 	}
 	//Matthew
 
