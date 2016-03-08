@@ -1031,6 +1031,12 @@ angular.module('HomeCtrl', []).controller('HomeController', ['$scope', '$window'
 		}
 	};
 
+	//Matthew
+	$scope.uploadLocalToDropbox = function() {
+		alert("UPLOAD TO DROPBOX");
+	}
+	//Matthew
+
 
 	$scope.temp_parentDest = [];
 
