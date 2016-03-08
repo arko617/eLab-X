@@ -79,10 +79,10 @@ var getRootContent = function(file){
 var getContent = function(parent, file, name, p){
 	dbClient.readDirContent(file, function(files){
 		if(files === null)
-			parent.children.push({original: name, id: file, name: name, size: "N/A", folder: "../img/checkbox.png", folder_image: "../img/file.png", folderDest: "../img/checkbox.png", select: false, selectDest: false, directory: false, parent: p});
+			parent.children.push({original: name, id: file, name: name, size: "N/A", folder: "../img/checkbox.png", folder_image: "../img/file.png", folderDest: "../img/checkbox.png", select: false, selectDest: false, directory: false, parent: p, mother: parent});
 
 		else{
-			parent.children.push({original: name, id: file, name: name, size: "N/A", folder: "../img/checkbox.png", folder_image: "../img/folder.png", folderDest: "../img/checkbox.png", select: false, selectDest: false, directory: true, children: [], sibling: parent.children, parent: p});
+			parent.children.push({original: name, id: file, name: name, size: "N/A", folder: "../img/checkbox.png", folder_image: "../img/folder.png", folderDest: "../img/checkbox.png", select: false, selectDest: false, directory: true, children: [], sibling: parent.children, parent: p, mother: parent});
 			for(var i = 0; i < files.length; i++)
 				getContent(parent.children[parent.children.length-1], file + '/' + files[i], files[i], parent.children);
 			console.log("GOTFILES: ", files);

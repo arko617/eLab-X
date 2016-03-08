@@ -217,8 +217,16 @@ angular.module('HomeCtrl', []).controller('HomeController', ['$scope', '$window'
     }
 
     //---Dropbox---//
-    $scope.renameDropboxPerform = function() {
-    	alert("renameDropboxPerform called");
+    $scope.renameDropboxPerform = function(){
+    	document.getElementById("dropbox-folder-rename").value
+    	var splitIndex = ($scope.selectOneDB.id).lastIndexOf("/");
+    	var newName = $scope.selectOneDB.id;
+    	newName = newName.substring(0, splitIndex);
+  		
+    	dbClient.rename($scope.selectOneDB.id, newName + "/" + document.getElementById("dropbox-folder-rename").value, function(resp){
+    		console.log(resp);
+    		window.location = window.location.href;
+    	});
     }
 
     //---Box---//
@@ -245,7 +253,7 @@ angular.module('HomeCtrl', []).controller('HomeController', ['$scope', '$window'
     			// 	}
     			// }
 	    		if(x === 0){
-	    			$scope.gFileSelect = {}
+	    			$scope.gFileSelect = {};
 	    			window.location = window.location.href;
 	    		}
     		});
@@ -254,7 +262,16 @@ angular.module('HomeCtrl', []).controller('HomeController', ['$scope', '$window'
 
     //---Dropbox---//
     $scope.deleteDropboxPerform = function() {
-    	alert("deleteDropboxPerform called");
+    	var x = Object.keys($scope.dFileSelect).length;
+    	for(var i in $scope.dFileSelect){
+    		dbClient.remove(i,function(resp){
+    			x--;
+    			if(x === 0){
+	    			$scope.dFileSelect = {};
+	    			window.location = window.location.href;
+	    		}
+    		});
+    	}
     }
 
     //---Box---//
@@ -527,14 +544,13 @@ angular.module('HomeCtrl', []).controller('HomeController', ['$scope', '$window'
 
 	//---Dropbox---//
 	$scope.curDirDropbox = "/";
-	$scope.temp_parentD = [];
 
 	$scope.intoDropboxFolder = function(f){
 		if(!f.directory) 
 			return;
 
 		if(f.children.length === 0) {
-			$scope.temp_parentD = f.sibling;
+			$scope.temp_parentDB = f.sibling;
 
 			if($scope.curDirDropbox === "/")
 				$scope.curDirDropbox += f.name;
@@ -544,40 +560,20 @@ angular.module('HomeCtrl', []).controller('HomeController', ['$scope', '$window'
 
 			$scope.dropboxFile = empty;
 			rootCreate.push(f.id);
+
+			if(f.select){
+				$scope.dDirSelect.push(f);		
+				angular.element(document.getElementById("dropbox-create").disabled = true);
+				angular.element(document.getElementById("dropbox-copy").disabled = true);
+				angular.element(document.getElementById("dropbox-move").disabled = true);
+				angular.element(document.getElementById("dropbox-rename").disabled = true);
+				angular.element(document.getElementById("dropbox-delete").disabled = true);
+				angular.element(document.getElementById("dropbox-select").disabled = true);
+				angular.element(document.getElementById("dropbox-unselect").disabled = true);
+			}
+
 			return;
 		}
-
-		// for(var x = 0; x < f.children.length; x++){
-		// 	if(f.children[x].directory){
-		// 		dbClient.retrieveChildrenFiles(f.children[x].id,false,false,function(files, fileId){
-		// 			var cur = -1;
-		// 			for(var i = 0; i < f.children.length; i++){
-		// 				if(f.children[i].id === fileId){
-		// 					cur = i;
-		// 					break;
-		// 				}
-		// 			}
-		// 			console.log("ELAB: ", files);
-		// 			for(var i = 0; i < files.length; i++){
-		// 				if(files[i].mimeType === "application/vnd.google-apps.folder"){
-		// 					f.children[cur].children.push({original: files[i], id: files[i].id, name: files[i].title, size: files[i].modifiedDate.split("T")[0] + "\n" + (Math.ceil(files[i].fileSize /= 1000000) || "N/A"), folder: "../img/checkbox.png", folder_image: "../img/folder.png", folderDest: "../img/checkbox.png", select: false, selectDest: false, directory: true, children: [], parent: f.children, sibling: f.children[cur].children});
-						
-		// 					if(files[i].fileSize)
-		// 						f.children[cur].children[f.children[cur].children.length-1].size += " MB";
-		// 				}
-							
-		// 				else{
-		// 					f.children[cur].children.push({original: files[i], id: files[i].id, name: files[i].title, size: files[i].modifiedDate.split("T")[0] + "\n" + (Math.ceil(files[i].fileSize /= 1000000) || "N/A"), folder: "../img/checkbox.png", folder_image: "../img/file.png", folderDest: "../img/checkbox.png", select: false, selectDest: false, directory: false, parent: f.children});
-		// 					if(files[i].fileSize)
-		// 						f.children[cur].children[f.children[cur].children.length-1].size += " MB";
-		// 				}
-		// 			}
-
-		// 			// f.children[cur].children[0].parent = f.children.slice();
-		// 			console.log("F CHILDREN: ", f.children[cur].children);
-		// 		});	
-		// 	}
-		// }
 
 		if($scope.curDirDropbox === "/")
 			$scope.curDirDropbox += f.name;
@@ -586,6 +582,42 @@ angular.module('HomeCtrl', []).controller('HomeController', ['$scope', '$window'
 			$scope.curDirDropbox += "/" + f.name;
 
 		$scope.dropboxFile = f.children;
+		rootCreate.push(f.id);
+
+		if($scope.checkLvlDB)
+			$scope.levelDB++;
+
+		if(f.select){
+			var exists = false;
+			for(var i = 0; i < $scope.dDirSelect.length; i++){
+				if($scope.dDirSelect[i] === f)
+					exists = true;
+			}
+
+			if(!exists)
+				$scope.dDirSelect.push(f);
+		
+			for(var i = 0; i < f.children.length; i++){
+				f.children[i].folder = "../img/checked_checkbox.png";
+				f.children[i].select = true;
+
+				if(f.children[i].id in $scope.dFileUnselect){
+					f.children[i].folder = "../img/checkbox.png";
+					f.children[i].select = false;
+				}
+			}
+				
+			angular.element(document.getElementById("dropbox-create").disabled = true);
+			angular.element(document.getElementById("dropbox-copy").disabled = true);
+			angular.element(document.getElementById("dropbox-move").disabled = true);
+			angular.element(document.getElementById("dropbox-rename").disabled = true);
+			angular.element(document.getElementById("dropbox-delete").disabled = true);
+			angular.element(document.getElementById("dropbox-select").disabled = true);
+			angular.element(document.getElementById("dropbox-unselect").disabled = true);
+			console.log($scope.levelDB);
+		}
+
+		console.log("DIR-SELECT-DB", $scope.dDirSelect);
 	}
 
 	$scope.outofDropboxFolder = function(){
@@ -596,8 +628,8 @@ angular.module('HomeCtrl', []).controller('HomeController', ['$scope', '$window'
 			$scope.curDirDropbox = $scope.curDirDropbox.slice(0, -1);
 
 			if($scope.dropboxFile === empty){
-				$scope.dropboxFile = $scope.temp_parentD;
-				$scope.temp_parentD = [];
+				$scope.dropboxFile = $scope.temp_parentDB;
+				$scope.temp_parentDB = [];
 			}
 
 			else
@@ -606,6 +638,55 @@ angular.module('HomeCtrl', []).controller('HomeController', ['$scope', '$window'
 
 		if($scope.curDirDropbox === "")
 			$scope.curDirDropbox = "/";
+
+		if($scope.checkLvlDB && $scope.levelDB !== 0)
+			$scope.levelDB--;
+
+		console.log($scope.levelDB);
+
+		if($scope.dDirUnselect.length > 0){
+			for(var i = 0; i < $scope.dDirSelect[$scope.dDirSelect.length-1].children.length; i++){
+				for(var j = 0; j < $scope.dDirUnselect.length; j++){
+					if($scope.dDirSelect[$scope.dDirSelect.length-1].children[i] === $scope.dDirUnselect[j]){
+						console.log("DIR-SELECT-DB", $scope.dDirSelect);
+						console.log("DIR-UNSELECT-DB", $scope.dDirUnselect);
+						console.log("FILE-UNSELECT-DB", $scope.dFileUnselect);
+
+						if($scope.checkLvlDB && $scope.levelDB === 0){
+							$scope.folderSelectionDropbox();
+							angular.element(document.getElementById("dropbox-select").disabled = false);
+							angular.element(document.getElementById("dropbox-unselect").disabled = false);
+						}
+
+						for(var i = 0; i < $scope.dDirSelect[$scope.dDirSelect.length-1].children.length; i++){
+							$scope.dDirSelect[$scope.dDirSelect.length-1].children[i].folder = "../img/checkbox.png";
+							$scope.dDirSelect[$scope.dDirSelect.length-1].children[i].select = false;
+						}
+
+						return;
+					}
+				}
+			}
+		}
+
+		if($scope.dDirSelect.length > 0){
+
+			for(var i = 0; i < $scope.dDirSelect[$scope.dDirSelect.length-1].children.length; i++){
+				$scope.dDirSelect[$scope.dDirSelect.length-1].children[i].folder = "../img/checkbox.png";
+				$scope.dDirSelect[$scope.dDirSelect.length-1].children[i].select = false;
+			}
+	
+			$scope.dDirSelect.pop();
+
+			if($scope.dDirSelect.length === 0 || ($scope.checkLvlDB && $scope.levelDB === 0)){
+				$scope.folderSelectionDropbox();
+				angular.element(document.getElementById("dropbox-select").disabled = false);
+				angular.element(document.getElementById("dropbox-unselect").disabled = false);
+			}
+		
+			console.log("DIR-SELECT", $scope.dDirSelect);
+
+		}
 	}
 
 
@@ -801,7 +882,39 @@ angular.module('HomeCtrl', []).controller('HomeController', ['$scope', '$window'
 			}
 				
 			if(storage === "d"){
+
+				if(x.id in $scope.dFileUnselect){
+					delete $scope.dFileUnselect[x.id];
+					x.select = true;
+					$scope.deleteFlagDB--;
+
+					if(isEmpty($scope.dFileUnselect)){
+						$scope.checkLvlDB = false;
+						$scope.levelDB = 0;
+					}
+
+					for(var i = 0; i < $scope.dDirUnselect.length; i++){
+						if($scope.dDirUnselect[i] === x)
+							$scope.dDirUnselect.splice(i, 1);
+
+						console.log("DIR-UNSELECT-DB", $scope.dDirUnselect);
+					}
+
+					return;
+				}
+
+				$scope.dFileSelect[x.id] = x;
+				x.select = true;
 				$scope.folderSelectDropbox++;
+
+				if(x.directory)
+					$scope.folderFlagDB++;
+
+				else
+					$scope.fileFlagDB++;
+
+				$scope.renameSelectDB = $scope.dFileSelect[Object.keys($scope.dFileSelect)[0]].name;
+				$scope.selectOneDB = $scope.dFileSelect[Object.keys($scope.dFileSelect)[0]];
 				$scope.folderSelectionDropbox();
 				return;
 			}
@@ -875,7 +988,53 @@ angular.module('HomeCtrl', []).controller('HomeController', ['$scope', '$window'
 			}
 				
 			if(storage === "d"){
+
+				for(var i = 0; i < $scope.dDirSelect.length; i++){
+					if(x.mother === $scope.dDirSelect[i]){
+						if(x.directory)
+							$scope.dDirUnselect.push(x);
+
+						$scope.dFileUnselect[x.id] = x;
+						x.select = false;
+						$scope.deleteFlagDB++;
+
+						$scope.checkLvlDB = true;
+
+						var recurseLvl = function(obj){
+							if("mother" in obj){
+								$scope.levelDB++;
+								recurseLvl(obj.mother);
+							}
+						}
+
+						$scope.levelDB = 0;
+						recurseLvl(x);
+
+						console.log($scope.levelDB);
+						return;
+					}
+				}
+
+				delete $scope.dFileSelect[x.id];
+				x.select = false;
 				$scope.folderSelectDropbox--;
+
+				if(x.directory)
+					$scope.folderFlagDB--;
+
+				else
+					$scope.fileFlagDB--;
+
+				if($scope.folderSelectDropbox === 0){
+					$scope.selectOneDB = {folder_image: "../img/folder.png"};
+   					$scope.renameSelectDB = "";
+				}
+
+				else{
+					$scope.renameSelectDB = $scope.dFileSelect[Object.keys($scope.dFileSelect)[0]].name;
+					$scope.selectOneDB = $scope.dFileSelect[Object.keys($scope.dFileSelect)[0]];
+				}
+
 				$scope.folderSelectionDropbox();
 				return;
 			}
@@ -939,19 +1098,40 @@ angular.module('HomeCtrl', []).controller('HomeController', ['$scope', '$window'
 
 	//---Dropbox--//
 	$scope.selectAllDropbox = function(){
+		$scope.folderSelectDropbox = 0;
+		$scope.fileFlagDB = 0;
+		$scope.folderFlagDB = 0;
+
 		for(var i = 0; i < $scope.dropboxFile.length; i++){
 			$scope.dropboxFile[i].folder = "../img/checked_checkbox.png";
+			$scope.dropboxFile[i].select = true;
+			$scope.dFileSelect[$scope.dropboxFile[i].id] = $scope.dropboxFile[i];
 			$scope.folderSelectDropbox++;
+
+			if($scope.dropboxFile[i].directory)
+				$scope.folderFlagDB++;
+
+			else
+				$scope.fileFlagDB++;
 		}
 
+		$scope.renameSelectDB = $scope.dFileSelect[Object.keys($scope.dFileSelect)[0]].name;
+		$scope.selectOneDB = $scope.dFileSelect[Object.keys($scope.dFileSelect)[0]];
 		$scope.folderSelectionDropbox();
 	};
 
 	$scope.selectNoneDropbox = function(){
-		for(var i = 0; i < $scope.dropboxFile.length; i++)
+		for(var i = 0; i < $scope.dropboxFile.length; i++){
 			$scope.dropboxFile[i].folder = "../img/checkbox.png";
+			$scope.dropboxFile[i].select = false;
+			delete $scope.dFileSelect[$scope.dropboxFile[i].id];
+		}
 
+		$scope.renameSelectDB = "";
+		$scope.selectOneDB = {folder_image: "../img/folder.png"};
 		$scope.folderSelectDropbox = 0;
+		$scope.fileFlagDB = 0;
+		$scope.folderFlagDB = 0;
 		$scope.folderSelectionDropbox();
 	};
 
