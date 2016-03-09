@@ -181,7 +181,7 @@ angular.module('HomeCtrl', []).controller('HomeController', ['$scope', '$window'
     
     	var title = angular.element(document.getElementById("dropbox-folder-create").value).selector;
 
-    	var dbCurrentRoot = '' // obtain somewhere
+    	var dbCurrentRoot = $scope.curDirDropbox + '/' // obtain somewhere
     	var completePath = dbCurrentRoot + title
 
     	dbClient.mkdir(completePath, function(resp, folder) {
