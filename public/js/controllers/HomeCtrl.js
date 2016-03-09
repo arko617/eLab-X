@@ -49,11 +49,7 @@ angular.module('HomeCtrl', []).controller('HomeController', ['$scope', '$window'
         if(!isEmpty($scope.gFileUnselect)){
 			angular.element(document.getElementById("google-folder-delete").innerHTML = "<img src='../img/folder.png' style='width:100px;height:100px;'><h4>You have at least one unselected file/folder inside a selected folder</h4><h4><em>(PLEASE FIX THE ISSUE TO CONTINUE...)</em></h4><br>");
 			angular.element(document.getElementById("google-delete-button").disabled = true);
-		
-			for(var i in $scope.gFileUnselect){
-				if($scope.gFileUnselect[i].mother.id in $scope.gFileSelect)
-					return;
-			}
+			return;
 		}
 
         if($scope.fileFlag === 0 && $scope.folderFlag === 1){
@@ -99,6 +95,7 @@ angular.module('HomeCtrl', []).controller('HomeController', ['$scope', '$window'
     $scope.deleteModalDropbox = false;
     $scope.toggleDeleteModalDropbox = function(){
         $scope.deleteModalDropbox = !$scope.deleteModalDropbox;
+        console.log($scope.dFileUnselect);
 
         console.log("FILE-FLAG-DB", $scope.fileFlagDB);
         console.log("FOLDER-FLAG-DB", $scope.folderFlagDB);
@@ -106,11 +103,7 @@ angular.module('HomeCtrl', []).controller('HomeController', ['$scope', '$window'
         if(!isEmpty($scope.dFileUnselect)){
 			angular.element(document.getElementById("dropbox-folder-delete").innerHTML = "<img src='../img/folder.png' style='width:100px;height:100px;'><h4>You have at least one unselected file/folder inside a selected folder</h4><h4><em>(PLEASE FIX THE ISSUE TO CONTINUE...)</em></h4><br>");
 			angular.element(document.getElementById("dropbox-delete-button").disabled = true);
-		
-			for(var i in $scope.dFileUnselect){
-				if($scope.dFileUnselect[i].mother.id in $scope.dFileSelect)
-					return;
-			}
+			return;
 		}
 
         if($scope.fileFlagDB === 0 && $scope.folderFlagDB === 1){
@@ -1282,7 +1275,7 @@ angular.module('HomeCtrl', []).controller('HomeController', ['$scope', '$window'
 				console.log(response);
 				if(i === lFile.length-1)
 					$scope.toggleModal();
-					window.location = window.location.href;
+				window.location = window.location.href;
 			});
 		}
 	};
@@ -1293,19 +1286,18 @@ angular.module('HomeCtrl', []).controller('HomeController', ['$scope', '$window'
 
 	//Matthew
 	$scope.uploadLocalToDropbox = function() {
-		alert("UPLOAD TO DROPBOX");
+		var filePath = "/"
+		if($scope.curDestDirDropbox !== "/")
+			filePath = $scope.curDestDirDropbox + "/";
 
 		for(var i = 0; i < lFile.length; i++) {
-			dbClient.upload(rootCreate[0], lFile[i].original, null, function(response) {
+			dbClient.upload(filePath + lFile[i].name, lFile[i].original, null, function(response) {
 				console.log(response);
-				if(i === lFile.length-1) {
+				if(i === lFile.length-1)
 					$scope.toggleModal();
-				}
 				window.location = window.location.href;
 			});
 		}
-
-		alert("RAN TO COMPLETION WITHOUT ERRORS");
 	}
 	//Matthew
 
