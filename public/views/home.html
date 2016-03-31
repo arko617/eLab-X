@@ -21,8 +21,8 @@
 <div ng-show="showgoogle" class="container" id="google-display">
 
 	<div class="btn btn-primary" id="directoryGoogle" ng--click="outofGoogleFolder()"><span class="glyphicon glyphicon-triangle-left">&nbsp;</span>{{curDirGoogle}}</div>
-	<div style="height:88%; width:92%; overflow-y:scroll; margin-top:5px">
-		<ul id="googleRepeat" ng-repeat="x in googleFile" class="nav navbar-nav">
+	<div id="googleRepeat" style="height:88%; width:92%; overflow-y:scroll; margin-top:5px">
+		<ul id="{{x.id}}" ng-repeat="x in googleFile" class="nav navbar-nav">
 			<li>
 				<img class="folder-size-green" ng-src="{{x.folder_image}}" ng-dblclick="intoGoogleFolder(x)">
 				<img title="{{x.size}}" data-toggle="tooltip" data-placement="top" class="checkbox-size" ng-src="{{x.folder}}" ng-click="toggleFolder(x, 'g')" tooltip>
@@ -75,7 +75,7 @@
 
 	<div class="btn btn-primary" id="directoryDropbox" ng--click="outofDropboxFolder()"><span class="glyphicon glyphicon-triangle-left">&nbsp;</span>{{curDirDropbox}}</div>
 	<div style="height:88%; width:92%; overflow-y:scroll; margin-top:5px">	
-		<ul ng-repeat="x in dropboxFile" class="nav navbar-nav">
+		<ul id="{{x.id}}" ng-repeat="x in dropboxFile" class="nav navbar-nav">
 			<li>
 				<img class="folder-size-blue" ng-src="{{x.folder_image}}" ng-dblclick="intoDropboxFolder(x)">
 				<img title="{{x.size}}" data-toggle="tooltip" data-placement="top" class="checkbox-size" ng-src="{{x.folder}}" ng-click="toggleFolder(x, 'd')" tooltip>
