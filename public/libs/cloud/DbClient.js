@@ -154,7 +154,7 @@ dbp.mkdir = function(path, callback){
 			return
 		}
 		console.log('Created a folder in dropbox', resp)
-		callback && callback()
+		callback && callback(resp)
 	})
 }
 
