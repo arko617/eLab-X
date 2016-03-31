@@ -262,7 +262,6 @@ gdp.upload = function(destFolderId, datablob,callback){
 		});
 	};
 }
-
 // ---------------------------------- Function to do copy and move across cloud storages	
 
 // move or copy a file from google drive to dropbox
