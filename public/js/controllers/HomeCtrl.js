@@ -184,7 +184,7 @@ angular.module('HomeCtrl', []).controller('HomeController', ['$scope', '$window'
 			if(folder.fileSize)
 				gFile[gFile.length-1].size += " MB";
 			console.log(gFile);
-    		// window.location = window.location.href;
+    		window.location = window.location.href;
     	});
     }
 
@@ -218,7 +218,7 @@ angular.module('HomeCtrl', []).controller('HomeController', ['$scope', '$window'
     		path.shift();
     		path.pop();
     		lookIn(dFile, path, resp);
-    		// window.location = window.location.href;
+    		window.location = window.location.href;
     	});
     }
 
@@ -236,7 +236,7 @@ angular.module('HomeCtrl', []).controller('HomeController', ['$scope', '$window'
     	gdClient.rename($scope.selectOne.id, document.getElementById("google-folder-rename").value,function(file){
 			$scope.selectOne.name = file.title;
 			document.getElementById($scope.selectOne.id).childNodes[1].childNodes[7].innerHTML = file.title;
-    		// window.location = window.location.href;
+    		window.location = window.location.href;
 		});
     }
 
@@ -251,7 +251,7 @@ angular.module('HomeCtrl', []).controller('HomeController', ['$scope', '$window'
     		console.log(resp);
     		$scope.selectOneDB.name = resp.name;
 			document.getElementById($scope.selectOneDB.id).childNodes[1].childNodes[7].innerHTML = resp.name;
-    		// window.location = window.location.href;
+    		window.location = window.location.href;
     	});
     }
 
@@ -291,6 +291,7 @@ angular.module('HomeCtrl', []).controller('HomeController', ['$scope', '$window'
     		var elem = angular.element(document.getElementById(i));
     		console.log(elem);
     		elem.remove();
+    		window.location = window.location.href;
     	});
     }
 
@@ -322,6 +323,7 @@ angular.module('HomeCtrl', []).controller('HomeController', ['$scope', '$window'
     		console.log($scope.dFileSelect);
     		var elem = angular.element(document.getElementById(i));
     		elem.remove();
+    		window.location = window.location.href;
     	});
     }
 
