@@ -140,7 +140,7 @@ angular.module('HomeCtrl', []).controller('HomeController', ['$scope', '$window'
 
     //Matthew
     $scope.toggleDropboxToLocalModal = function() {
-//        $scope.toggleModal();
+        $scope.toggleModal();
         alert("TEST");
     }
     //Matthew
@@ -362,6 +362,8 @@ angular.module('HomeCtrl', []).controller('HomeController', ['$scope', '$window'
 			console.log('DONE reader')
         }
         */
+
+
 
         // continue
 
@@ -1598,6 +1600,7 @@ angular.module('HomeCtrl', []).controller('HomeController', ['$scope', '$window'
 
     $scope.dropboxToLocalDownload = function() {
         alert("Dropbox to local download");
+        $scope.uploadForm();
     };
 
 	$scope.toggleDestFolder = function(x, storage){
