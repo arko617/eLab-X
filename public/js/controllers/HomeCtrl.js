@@ -138,6 +138,13 @@ angular.module('HomeCtrl', []).controller('HomeController', ['$scope', '$window'
         $scope.pickModal = !$scope.pickModal;
     }
 
+    //Matthew
+    $scope.toggleDropboxToLocalModal = function() {
+//        $scope.toggleModal();
+        alert("TEST");
+    }
+    //Matthew
+
     //-----------FILE TRACKING----------//
 
     $scope.gFileSelect = {};
@@ -252,8 +259,6 @@ angular.module('HomeCtrl', []).controller('HomeController', ['$scope', '$window'
     $scope.renameBoxPerform = function() {
     	alert("renameBoxPerform called");
     }
-
-
 
     //-----------DELETE OPERATION----------//
 
@@ -1635,6 +1640,10 @@ angular.module('HomeCtrl', []).controller('HomeController', ['$scope', '$window'
 	};
 
 	// WOKR ON THIS SHIT MATT
+
+    $scope.dropboxToLocalDownload = function() {
+        alert("Dropbox to local download");
+    };
 
 	$scope.toggleDestFolder = function(x, storage){
 		console.log(storage);
