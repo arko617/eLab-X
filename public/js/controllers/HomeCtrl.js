@@ -518,6 +518,7 @@ angular.module('HomeCtrl', []).controller('HomeController', ['$scope', '$window'
 			angular.element(document.getElementById("google-select").disabled = true);
 			angular.element(document.getElementById("google-unselect").disabled = true);
 			console.log($scope.level);
+
 		}
 
 		console.log("DIR-SELECT", $scope.gDirSelect);
@@ -890,6 +891,24 @@ angular.module('HomeCtrl', []).controller('HomeController', ['$scope', '$window'
 	$scope.folderFlagDB = 0;
 	$scope.deleteFlagDB = 0;
 
+	//---Folder Select Clear---//
+	$scope.clearRecursive = function(f){
+		if(f.children){
+			for(var i = 0; i < f.children.length; i++){
+				f.children[i].select = false;
+				f.children[i].folder = "../img/checkbox.png";
+				if(f.children[i].id in $scope.gFileUnselect)
+					delete $scope.gFileUnselect[f.children[i].id];
+				for(var j = 0; j < $scope.gDirUnselect.length; j++){
+					if($scope.gDirUnselect[j].id === f.children[i].id)
+						delete $scope.gDirUnselect[j].id;
+				}
+
+				$scope.clearRecursive(f.children[i]);
+			}
+		}
+	};
+
 	//---Check or Uncheck Folder---//
 	$scope.toggleFolder = function(x, storage){
 		
@@ -916,6 +935,27 @@ angular.module('HomeCtrl', []).controller('HomeController', ['$scope', '$window'
 					}
 
 					return;
+				}
+
+				if(x.directory){
+					for(var i = 0; i < x.children.length; i++){
+						if(x.children[i].id in $scope.gFileSelect){
+							delete $scope.gFileSelect[x.children[i].id];
+							
+							if($scope.folderSelectGoogle !== 0)
+								$scope.folderSelectGoogle--;
+						}
+
+						if(x.children[i].directory){
+							for(var j = 0; j < $scope.gDirSelect.length; j++){
+								if(x.children[i] === $scope.gDirSelect[j])
+									delete $scope.gDirSelect[j];
+							}
+						}
+					}
+
+					console.log(x.children);
+					$scope.folderSelectionGoogle();
 				}
 
 				$scope.gFileSelect[x.id] = x;
@@ -1016,6 +1056,11 @@ angular.module('HomeCtrl', []).controller('HomeController', ['$scope', '$window'
 					}
 				}
 
+				if($scope.gFileSelect[x.id].directory){
+					$scope.clearRecursive(x);
+					console.log(x);
+				}
+				
 				delete $scope.gFileSelect[x.id];
 				x.select = false;
 				$scope.folderSelectGoogle--;
