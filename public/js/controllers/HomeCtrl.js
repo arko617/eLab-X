@@ -340,6 +340,21 @@ angular.module('HomeCtrl', []).controller('HomeController', ['$scope', '$window'
     }
 
 
+    //-----------MOVE/COPY OPERATION----------//
+
+    var googleToDropbox = function(id, num){
+    	gdClient.aFileToDropbox(id, dbClient, "/", "", true, function(){
+    		console.log("EXECUTED");
+    	});
+    };
+
+    $scope.googleToDropboxPerform = function(){
+    	var count = Object.keys($scope.gFileSelect).length;
+    	for(x in $scope.gFileSelect){
+    		googleToDropbox(x, count);
+    	}
+    };
+
 
     //-----------LOCAL UPLOAD FILES------------//
 
@@ -1782,56 +1797,56 @@ angular.module('HomeCtrl', []).controller('HomeController', ['$scope', '$window'
 		angular.element(document.getElementById("google-confirm").innerHTML = "Confirm");
 		angular.element(document.getElementById("dropbox-confirm").innerHTML = "Confirm");
 		angular.element(document.getElementById("box-confirm").innerHTML = "Confirm");
-		angular.element(document.getElementById("local-confirm").innerHTML = "Confirm");
+		
 	}
 
 	$scope.confirmHoverOut = function(){
 		angular.element(document.getElementById("google-confirm").innerHTML = "<span class='glyphicon glyphicon-size glyphicon-thumbs-up'></span>");
 		angular.element(document.getElementById("dropbox-confirm").innerHTML = "<span class='glyphicon glyphicon-size glyphicon-thumbs-up'></span>");
 		angular.element(document.getElementById("box-confirm").innerHTML = "<span class='glyphicon glyphicon-size glyphicon-thumbs-up'></span>");
-		angular.element(document.getElementById("local-confirm").innerHTML = "<span class='glyphicon glyphicon-size glyphicon-thumbs-up'></span>");
+		
 	}
 
 	$scope.cancelHoverIn = function(){
 		angular.element(document.getElementById("google-cancel").innerHTML = "Cancel");
 		angular.element(document.getElementById("dropbox-cancel").innerHTML = "Cancel");
 		angular.element(document.getElementById("box-cancel").innerHTML = "Cancel");
-		angular.element(document.getElementById("local-cancel").innerHTML = "Cancel");
+		
 	}
 
 	$scope.cancelHoverOut = function(){
 		angular.element(document.getElementById("google-cancel").innerHTML = "<span class='glyphicon glyphicon-size glyphicon-thumbs-down'></span>");
 		angular.element(document.getElementById("dropbox-cancel").innerHTML = "<span class='glyphicon glyphicon-size glyphicon-thumbs-down'></span>");
 		angular.element(document.getElementById("box-cancel").innerHTML = "<span class='glyphicon glyphicon-size glyphicon-thumbs-down'></span>");
-		angular.element(document.getElementById("local-cancel").innerHTML = "<span class='glyphicon glyphicon-size glyphicon-thumbs-down'></span>");
+		
 	}
 
 	$scope.selectDestHoverIn = function(){
 		angular.element(document.getElementById("google-selectDest").innerHTML = "<span>Select<br>All</span>");
 		angular.element(document.getElementById("dropbox-selectDest").innerHTML = "<span>Select<br>All</span>");
 		angular.element(document.getElementById("box-selectDest").innerHTML = "<span>Select<br>All</span>");
-		angular.element(document.getElementById("local-selectDest").innerHTML = "<span>Select<br>All</span>");
+		
 	}
 
 	$scope.selectDestHoverOut = function(){
 		angular.element(document.getElementById("google-selectDest").innerHTML = "<span class='glyphicon glyphicon-size glyphicon-check'></span>");
 		angular.element(document.getElementById("dropbox-selectDest").innerHTML = "<span class='glyphicon glyphicon-size glyphicon-check'></span>");
 		angular.element(document.getElementById("box-selectDest").innerHTML = "<span class='glyphicon glyphicon-size glyphicon-check'></span>");
-		angular.element(document.getElementById("local-selectDest").innerHTML = "<span class='glyphicon glyphicon-size glyphicon-check'></span>");
+		
 	}
 
 	$scope.unselectDestHoverIn = function(){
 		angular.element(document.getElementById("google-unselectDest").innerHTML = "<span>Unselect<br>All</span>");
 		angular.element(document.getElementById("dropbox-unselectDest").innerHTML = "<span>Unselect<br>All</span>");
 		angular.element(document.getElementById("box-unselectDest").innerHTML = "<span>Unselect<br>All</span>");
-		angular.element(document.getElementById("local-unselectDest").innerHTML = "<span>Unselect<br>All</span>");
+		
 	}
 
 	$scope.unselectDestHoverOut = function(){
 		angular.element(document.getElementById("google-unselectDest").innerHTML = "<span class='glyphicon glyphicon-size glyphicon-unchecked'></span>");
 		angular.element(document.getElementById("dropbox-unselectDest").innerHTML = "<span class='glyphicon glyphicon-size glyphicon-unchecked'></span>");
 		angular.element(document.getElementById("box-unselectDest").innerHTML = "<span class='glyphicon glyphicon-size glyphicon-unchecked'></span>");
-		angular.element(document.getElementById("local-unselectDest").innerHTML = "<span class='glyphicon glyphicon-size glyphicon-unchecked'></span>");
+		
 	}
 
 

@@ -143,6 +143,7 @@ dbp.upload = function(destination,data,options,callback){
 		}
 		console.log('Uploaded a data file to dropbox!', resp)
 		callback && callback()
+		window.location = window.location.href;
 	})
 }
 
