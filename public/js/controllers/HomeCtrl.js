@@ -342,8 +342,8 @@ angular.module('HomeCtrl', []).controller('HomeController', ['$scope', '$window'
 
     //-----------MOVE/COPY OPERATION----------//
 
-    var googleToDropbox = function(id, num){
-    	gdClient.aFileToDropbox(id, dbClient, "/", "", true, function(){
+    var googleToDropbox = function(id, dest, num){
+    	gdClient.aFileToDropbox(id, dbClient, dest, {noOverwrite: true}, true, function(){
     		console.log("EXECUTED");
     	});
     };
@@ -351,10 +351,30 @@ angular.module('HomeCtrl', []).controller('HomeController', ['$scope', '$window'
     $scope.googleToDropboxPerform = function(){
     	var count = Object.keys($scope.gFileSelect).length;
     	for(x in $scope.gFileSelect){
-    		googleToDropbox(x, count);
+    		if($scope.curDestDirDropbox === "/")
+    			googleToDropbox(x, $scope.curDestDirDropbox, count);
+
+    		else
+    			googleToDropbox(x, $scope.curDestDirDropbox + "/", count);
     	}
     };
 
+
+    var dropboxToGoogle = function(id, name, dest, num){
+    	dbClient.aFileToGDrive(id, name, dest, gdClient, true, function(){
+    		console.log("EXECUTED");
+    	});
+    };
+
+    $scope.dropboxToGoogle = function(){
+    	var count = Object.keys($scope.dFileSelect).length;
+    	for(x in $scope.dFileSelect){
+    		if($scope.curDestDirGoogle === "/")
+    			dropboxToGoogle($scope.curDestDirGoogle, $scope.dFileSelect[x].name, rootCreate[0], count);
+    		else
+    			dropboxToGoogle($scope.curDestDirGoogle, $scope.dFileSelect[x].name, rootCreate[0], count);
+    	}
+    }
 
     //-----------LOCAL UPLOAD FILES------------//
 
