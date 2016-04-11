@@ -243,7 +243,7 @@
     <!-- Local Destination -->
 
     <!-- href="home" handles the refresh of the page -->
-    <li ng-init="imgsrc_local='../img/local.png'" ng-mouseover="imgsrc_local='../img/local_select.png'" ng-mouseout="imgsrc_local='../img/local.png'" class="li-margin"><a target="_self" href="home" download="<file>" ng-style="localDestStyle" type="file" ng-click="showDestgoogle=false; showDestdropbox=false; showDestbox=false; showDestlocal= true; googleDestStyle={'background-color':'white'}; dropboxDestStyle={'background-color':'white'}; boxDestStyle={'background-color':'white'}; localDestStyle={'background-color':'red'}; scroll(); dropboxToLocalDownload()" href="#"><img class="drive-size" ng-src="{{imgsrc_local}}"></a></li>
+    <li ng-init="imgsrc_local='../img/local.png'" ng-mouseover="imgsrc_local='../img/local_select.png'" ng-mouseout="imgsrc_local='../img/local.png'" class="li-margin"><a ng-style="localDestStyle" type="file" ng-click="showDestgoogle=false; showDestdropbox=false; showDestbox=false; showDestlocal= true; googleDestStyle={'background-color':'white'}; dropboxDestStyle={'background-color':'white'}; boxDestStyle={'background-color':'white'}; localDestStyle={'background-color':'red'}; scroll(); dropboxToLocalDownload()" href="#"><img class="drive-size" ng-src="{{imgsrc_local}}"></a></li>
 
 <!-- <a target="_self" href="example.com/uploads/asd4a4d5a.pdf" download="foo.pdf"> -->
 </input>

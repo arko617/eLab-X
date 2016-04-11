@@ -1658,12 +1658,53 @@ angular.module('HomeCtrl', []).controller('HomeController', ['$scope', '$window'
 		// 	angular.element(document.getElementById("local-confirm").disabled = false);
 	};
 
-	// WOKR ON THIS SHIT MATT
 
+    //Matt
     $scope.dropboxToLocalDownload = function() {
         alert("Dropbox to local download");
-        $scope.uploadForm();
+
+        var filePath;
+
+        var a;
+
+        for(var x in $scope.dFileSelect) {
+            a = x;
+        }
+        
+        if($scope.curDestDirLocal === "/") {
+            filePath = $scope.curDestDirLocal + $scope.dFileSelect[a].name;
+            console.log(filePath);
+        }
+
+        else {
+            filePath = $scope.curDestDirLocal + "/" + $scope.dFileSelect[a].name;
+            console.log(filePath);
+        } 
+
+
+
+        alert("My filePath is " + filePath);
+
+        options = {download:true} // download link instead of preview
+
+        dbClient.getDownloadLink(filePath, options, function(response) {
+            console.log(response);
+            alert(filePath);
+        });
+        //USEFUL
     };
+
+    //
+// dbp.getDownloadLink = function(filePath, options, callback){
+//     this.api.makeUrl(filePath, options, function(error, url) {
+//           if (error) {
+//             return (error);  // Something went wrong.
+//           }
+
+//           callback && callback(url,error);
+//         });
+// }
+    //
 
 	$scope.toggleDestFolder = function(x, storage){
 		console.log(storage);
