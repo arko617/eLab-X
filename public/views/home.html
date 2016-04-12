@@ -38,12 +38,12 @@
 	    </button>
 	</div>
 	<div class="dropdown operation-copy">
-	    <button class="btn btn-primary dropdown-toggle action" id="google-copy" type="button" data-toggle="dropdown" style="background-color:green; border-color:green" ng-mouseover="copyHoverIn()" ng-mouseout="copyHoverOut()" ng-click="toggleModal()" disabled>
+	    <button class="btn btn-primary dropdown-toggle action" id="google-copy" type="button" data-toggle="dropdown" style="background-color:green; border-color:green" ng-mouseover="copyHoverIn()" ng-mouseout="copyHoverOut()" ng-click="toggleModal(); copyIt()" disabled>
 	    <span class="glyphicon glyphicon-size glyphicon-file"></span>
 	    </button>
 	</div>
 	<div class="dropdown operation-move">
-	    <button class="btn btn-primary dropdown-toggle action" id="google-move" type="button" data-toggle="dropdown" style="background-color:green; border-color:green" ng-mouseover="moveHoverIn()" ng-mouseout="moveHoverOut()" ng-click="toggleModal()" disabled>
+	    <button class="btn btn-primary dropdown-toggle action" id="google-move" type="button" data-toggle="dropdown" style="background-color:green; border-color:green" ng-mouseover="moveHoverIn()" ng-mouseout="moveHoverOut()" ng-click="toggleModal(); moveIt()" disabled>
 	    <span class="glyphicon glyphicon-size glyphicon-transfer"></span>
 	    </button>
 	</div>
@@ -106,12 +106,12 @@
 <!--  -->
 
 	<div class="dropdown operation-copy">
-	    <button class="btn btn-primary dropdown-toggle action" id="dropbox-copy" type="button" data-toggle="dropdown" style="background-color:blue; border-color:blue" ng-mouseover="copyHoverIn()" ng-mouseout="copyHoverOut()" ng-click="toggleModal()" disabled>
+	    <button class="btn btn-primary dropdown-toggle action" id="dropbox-copy" type="button" data-toggle="dropdown" style="background-color:blue; border-color:blue" ng-mouseover="copyHoverIn()" ng-mouseout="copyHoverOut()" ng-click="toggleModal(); copyIt()" disabled>
 	    <span class="glyphicon glyphicon-size glyphicon-file"></span>
 	    </button>
 	</div>
 	<div class="dropdown operation-move">
-	    <button class="btn btn-primary dropdown-toggle action" id="dropbox-move" type="button" data-toggle="dropdown" style="background-color:blue; border-color:blue" ng-mouseover="moveHoverIn()" ng-mouseout="moveHoverOut()" ng-click="toggleModal()" disabled>
+	    <button class="btn btn-primary dropdown-toggle action" id="dropbox-move" type="button" data-toggle="dropdown" style="background-color:blue; border-color:blue" ng-mouseover="moveHoverIn()" ng-mouseout="moveHoverOut()" ng-click="toggleModal(); moveIt()" disabled>
 	    <span class="glyphicon glyphicon-size glyphicon-transfer"></span>
 	    </button>
 	</div>
@@ -295,7 +295,7 @@
 	<div style="height:88%; width:92%; overflow-y:scroll; margin-top:5px">
 		<ul ng-repeat="x in dropboxDestFile" class="nav navbar-nav">
 			<li>
-				<img class="folder-size-blue" ng-src="../img/folder.png" ng-dblclick="intoDropboxDestFolder(x)">
+				<img class="folder-size-blue" ng-src="{{x.folder_image}}" ng-dblclick="intoDropboxDestFolder(x)">
 				<img title="{{x.size}}" data-toggle="tooltip" data-placement="top" class="checkbox-size" ng-src="{{x.folderDest}}" ng-click="toggleDestFolder(x, 'd')" tooltip>
 				<br/>
 				<div class="folder-name" style="color:blue">{{x.name}}</div>

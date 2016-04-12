@@ -143,7 +143,6 @@ dbp.upload = function(destination,data,options,callback){
 		}
 		console.log('Uploaded a data file to dropbox!', resp)
 		callback && callback()
-		window.location = window.location.href;
 	})
 }
 
@@ -180,6 +179,7 @@ dbp.aFileToGDrive = function(path,fileName,destinationFolderId, gClient, isCopy,
 			blob.name = fileName;	//set the data name
 
 			//Upload
+			console.log('!!!!',xhr)
 			gClient.upload(destinationFolderId,blob,function(){
 				// if not a copy, remove the original file in db
 				if (!isCopy){

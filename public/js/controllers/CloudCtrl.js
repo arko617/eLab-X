@@ -277,23 +277,27 @@ function dropboxTests(){
 		console.log('Test Dropbox......')
 
 		
-		// Load a directory content
-		dbClient.readDirContent('/Apps',function(result){
-			console.log('----dropbox TEST: read a directory', result)
+		// // Load a directory content
+		// dbClient.readDirContent('/Apps',function(result){
+		// 	console.log('----dropbox TEST: read a directory', result)
 
-		})
+		// })
 
 		//Read a file content
+		/*
 		dbClient.readAFile('gitignore.txt', function(result){
 			console.log('----dropbox TEST: read a file content', result)
 		})
+		*/
 
 		// rename
+		/*
 		filePath = '/testing/b.pdf';
 		newFilePath = '/testing/d.pdf';
 		dbClient.rename(filePath, newFilePath, function(resp){
 			console.log('----dropbox TEST: rename',resp)
 		})
+		*/
 
 		/*
 		// Create download link for an item
@@ -322,11 +326,12 @@ function dropboxTests(){
 		})
 		*/
 
-		/*
+		
 		// upload a file to a google drive destination from dropbox
 		// TEST: elab's folder in gDrive: "0B99TACL_6_flb2EwbnhiLUVNdEE"
 		path = '/'
-		fileName = 'gitignore.txt'
+		fileName = 'wuer136intro-4.JPG';
+		// fileName = 'gitignore.txt'
 		destFolderId = "0B99TACL_6_flb2EwbnhiLUVNdEE"
 		gClient = gdClient
 		isCopy = true
@@ -335,7 +340,7 @@ function dropboxTests(){
 		console.log('Moving/Copying a file from dropbox to gooogle drive.......')
 		dbClient.aFileToGDrive(path,fileName,destFolderId, gClient, isCopy, function(){
 		})
-		*/
+		
 
 		/*
 		// Create a folder

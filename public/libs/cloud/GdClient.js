@@ -220,6 +220,8 @@ gdp.upload = function(destFolderId, datablob,callback){
 	const delimiter = "\r\n--" + boundary + "\r\n";
 	const close_delim = "\r\n--" + boundary + "--";
 	var reader = new FileReader();
+
+	console.log('!!!!',datablob)
 	reader.readAsBinaryString(datablob);
 	reader.onload = function(e) {
 		var contentType = datablob.type || 'application/octet-stream';

@@ -342,26 +342,58 @@ angular.module('HomeCtrl', []).controller('HomeController', ['$scope', '$window'
 
     //-----------MOVE/COPY OPERATION----------//
 
-    var googleToDropbox = function(id, dest, num){
-    	gdClient.aFileToDropbox(id, dbClient, dest, {noOverwrite: true}, true, function(){
+    $scope.copy = true;
+
+    $scope.copyIt = function(){
+        $scope.copy = true;
+    }
+
+    $scope.moveIt = function(){
+        $scope.copy = false;
+    }    
+
+    var googleToDropbox = function(id, dest){
+    	gdClient.aFileToDropbox(id, dbClient, dest, {noOverwrite: true}, $scope.copy, function(){
     		console.log("EXECUTED");
     	});
     };
 
-    $scope.googleToDropboxPerform = function(){
-    	var count = Object.keys($scope.gFileSelect).length;
-    	for(x in $scope.gFileSelect){
-    		if($scope.curDestDirDropbox === "/")
-    			googleToDropbox(x, $scope.curDestDirDropbox, count);
+    var googleToDropboxDir = function(file, dest){
+        dbClient.mkdir(dest + file.name, function(resp){
+            for(var i = 0; i < file.children.length; i++){
+                console.log(file.children[i].name);
+                if(file.children[i].directory)
+                    googleToDropboxDir(file.children[i], dest + file.name + "/");
 
-    		else
-    			googleToDropbox(x, $scope.curDestDirDropbox + "/", count);
+                else
+                    googleToDropbox(file.children[i].id, dest + file.name + "/");
+            }
+        });
+    };
+
+    $scope.googleToDropboxPerform = function(){
+    	for(x in $scope.gFileSelect){
+    		if($scope.curDestDirDropbox === "/"){
+                if($scope.gFileSelect[x].directory)
+                    googleToDropboxDir($scope.gFileSelect[x], $scope.curDestDirDropbox);
+
+                else
+                    googleToDropbox(x, $scope.curDestDirDropbox);
+            }
+
+    		else{
+                if($scope.gFileSelect[x].directory)
+                    googleToDropboxDir($scope.gFileSelect[x], $scope.curDestDirDropbox + "/");
+
+                else
+                    googleToDropbox(x, $scope.curDestDirDropbox + "/");
+            }
     	}
     };
 
 
     var dropboxToGoogle = function(id, name, dest, num){
-    	dbClient.aFileToGDrive(id, name, dest, gdClient, true, function(){
+    	dbClient.aFileToGDrive(id, name, dest, gdClient, $scope.copy, function(){
     		console.log("EXECUTED");
     	});
     };
@@ -1424,7 +1456,7 @@ angular.module('HomeCtrl', []).controller('HomeController', ['$scope', '$window'
 				console.log(response);
 				if(i === lFile.length-1)
 					$scope.toggleModal();
-				window.location = window.location.href;
+				// window.location = window.location.href;
 			});
 		}
 	};
@@ -1452,6 +1484,7 @@ angular.module('HomeCtrl', []).controller('HomeController', ['$scope', '$window'
 
 
 	$scope.temp_parentDest = [];
+    $scope.temp_parentDBDest = [];
 
 	$scope.googleDestFile = gFile;
 	$scope.dropboxDestFile = dFile;
@@ -1542,13 +1575,29 @@ angular.module('HomeCtrl', []).controller('HomeController', ['$scope', '$window'
 	$scope.curDestDirDropbox = "/";
 
 	$scope.intoDropboxDestFolder = function(f){
+        if(!f.directory) 
+            return;
+
+        if(f.children.length === 0) {
+            $scope.temp_parentDBDest = f.sibling;
+
+            if($scope.curDestDirDropbox === "/")
+                $scope.curDestDirDropbox += f.name;
+
+            else
+                $scope.curDestDirDropbox += "/" + f.name;
+
+            $scope.dropboxDestFile = empty;
+            return;
+        }
+
 		if($scope.curDestDirDropbox === "/")
 			$scope.curDestDirDropbox += f.name;
 
 		else
 			$scope.curDestDirDropbox += "/" + f.name;
 
-		$scope.dropboxDestFile = empty;
+		$scope.dropboxDestFile = f.children;;
 	}
 
 	$scope.outofDropboxDestFolder = function(){
@@ -1557,11 +1606,19 @@ angular.module('HomeCtrl', []).controller('HomeController', ['$scope', '$window'
 				$scope.curDestDirDropbox = $scope.curDestDirDropbox.slice(0, -1);
 
 			$scope.curDestDirDropbox = $scope.curDestDirDropbox.slice(0, -1);
-			$scope.dropboxDestFile = dFile.slice();
+			
+            if($scope.dropboxDestFile === empty){
+                $scope.dropboxDestFile = $scope.temp_parentDBDest;
+                $scope.temp_parentDBDest = [];
+            }
+
+            else
+                $scope.dropboxDestFile = $scope.dropboxDestFile[0].parent;
 		}
 
-		if($scope.curDestDirDropbox === "")
-			$scope.curDestDirDropbox = "/";
+        if($scope.curDestDirDropbox === "")
+            $scope.curDestDirDropbox = "/";
+
 	}
 
 	$scope.curDestDirBox = "/";
