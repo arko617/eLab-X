@@ -1737,6 +1737,14 @@ angular.module('HomeCtrl', []).controller('HomeController', ['$scope', '$window'
 
 
     //Matt
+    var downloadFile = function(url, name) {
+        var link = document.createElement("a");
+        link.download = name;
+        link.href = url;
+        link.click();
+    }
+
+
     $scope.dropboxToLocalDownload = function() {
         alert("Dropbox to local download");
 
@@ -1758,18 +1766,21 @@ angular.module('HomeCtrl', []).controller('HomeController', ['$scope', '$window'
             console.log(filePath);
         } 
 
-
-
         alert("My filePath is " + filePath);
 
         options = {download:true} // download link instead of preview
 
         dbClient.getDownloadLink(filePath, options, function(response) {
             console.log(response);
-            alert(filePath);
+            alert(response);
+
+            //
+            // download.file(response.url, "/");
+           downloadFile(response.url, $scope.dFileSelect[a].name);
         });
         //USEFUL
     };
+
 
     //
 // dbp.getDownloadLink = function(filePath, options, callback){

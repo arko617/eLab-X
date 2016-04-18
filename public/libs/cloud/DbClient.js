@@ -56,7 +56,7 @@ dbp.readAFile = function(filePath, callback){
 		});
 }
 
-// Read a file content
+// rename a file
 dbp.rename = function(filePath, newFilePath, callback){
 	this.api.move(filePath, newFilePath, function(error, resp) {
 		  if (error) {
