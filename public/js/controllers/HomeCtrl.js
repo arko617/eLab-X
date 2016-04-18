@@ -368,7 +368,6 @@ angular.module('HomeCtrl', []).controller('HomeController', ['$scope', '$window'
                 else
                     googleToDropbox(file.children[i].id, dest + file.name + "/");
                 }
-            }
         });
     };
 
