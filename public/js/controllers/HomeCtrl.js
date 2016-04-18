@@ -1746,7 +1746,7 @@ angular.module('HomeCtrl', []).controller('HomeController', ['$scope', '$window'
 
 
     $scope.dropboxToLocalDownload = function() {
-        alert("Dropbox to local download");
+        console.log("Dropbox to local download");
 
         var filePath;
 
@@ -1766,17 +1766,13 @@ angular.module('HomeCtrl', []).controller('HomeController', ['$scope', '$window'
             console.log(filePath);
         } 
 
-        alert("My filePath is " + filePath);
+        console.log("My filePath is " + filePath);
 
         options = {download:true} // download link instead of preview
 
         dbClient.getDownloadLink(filePath, options, function(response) {
             console.log(response);
-            alert(response);
-
-            //
-            // download.file(response.url, "/");
-           downloadFile(response.url, $scope.dFileSelect[a].name);
+            downloadFile(response.url, $scope.dFileSelect[a].name);
         });
         //USEFUL
     };
