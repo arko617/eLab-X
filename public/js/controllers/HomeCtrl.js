@@ -1774,7 +1774,7 @@ angular.module('HomeCtrl', []).controller('HomeController', ['$scope', '$window'
 
         gdClient.getItemMeta($scope.gFileSelect[a].id, function(response) {
             console.log(response);
-            downloadFile(response.alternateLink, $scope.gFileSelect[a].name);
+            downloadFile(response.webContentLink, $scope.gFileSelect[a].name);
         });
         //USEFUL
     };
