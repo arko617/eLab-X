@@ -1737,6 +1737,24 @@ angular.module('HomeCtrl', []).controller('HomeController', ['$scope', '$window'
 
 
     //Matt
+    $scope.downloadFlag = "";
+
+    $scope.gdDownloadIt = function(){
+        $scope.downloadFlag = "Google";
+    }
+
+    $scope.dbDownloadIt = function(){
+        $scope.downloadFlag = "Dropbox";
+    }
+
+    $scope.toLocalDownload = function(){
+        if($scope.downloadFlag === "Google")
+            $scope.gdToLocalDownload();
+
+        else
+            $scope.dropboxToLocalDownload();
+    }
+
     var downloadFile = function(url, name) {
         var link = document.createElement("a");
         link.download = name;
@@ -1744,6 +1762,22 @@ angular.module('HomeCtrl', []).controller('HomeController', ['$scope', '$window'
         link.click();
     }
 
+
+    $scope.gdToLocalDownload = function() {
+        console.log("Google to local download");
+
+        var a;
+
+        for(var x in $scope.gFileSelect) {
+            a = x;
+        }
+
+        gdClient.getItemMeta($scope.gFileSelect[a].id, function(response) {
+            console.log(response);
+            downloadFile(response.alternateLink, $scope.gFileSelect[a].name);
+        });
+        //USEFUL
+    };
 
     $scope.dropboxToLocalDownload = function() {
         console.log("Dropbox to local download");
