@@ -172,14 +172,16 @@ dbp.aFileToGDrive = function(path,fileName,destinationFolderId, gClient, isCopy,
 		var blob = null;	// the data blob
 		var xhr = new XMLHttpRequest(); 
 		xhr.open("GET", url.url); 
-		xhr.responseType = "ArrayBuffer";//force the HTTP response, response-type header to be blob
+		//xhr.responseType = "ArrayBuffer";//force the HTTP response, response-type header to be blob
+		xhr.responseType = "blob"; // 042116 want blob for response type; see http://qnimate.com/an-introduction-to-javascript-blobs-and-file-interface/
+
 		xhr.onload = function(){
 			//Get the data blob
 			blob = xhr.response;	//xhr.response is now a blob object
-			blob.name = fileName;	//set the data name
+			blob.name = fileName	//set the data name
 
 			//Upload
-			console.log('!!!!',xhr)
+			console.log('!!!!dropbox blob',xhr.response)
 			gClient.upload(destinationFolderId,blob,function(){
 				// if not a copy, remove the original file in db
 				if (!isCopy){

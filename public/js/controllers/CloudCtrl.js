@@ -47,7 +47,7 @@ var SCOPES = ['https://www.googleapis.com/auth/drive.install','https://www.googl
 */
 function handleGoogleClientLoad() {
 	//gapi.client.setApiKey(apiKey);
-	window.setTimeout(checkAuth, 400);	//e.g.500ms; remember to wait some time for the google script to load
+	window.setTimeout(checkAuth, 1000);	//e.g.500ms; remember to wait some time for the google script to load
 }
 
 /**
@@ -330,7 +330,7 @@ function dropboxTests(){
 		// upload a file to a google drive destination from dropbox
 		// TEST: elab's folder in gDrive: "0B99TACL_6_flb2EwbnhiLUVNdEE"
 		path = '/'
-		fileName = 'wuer136intro-4.JPG';
+		fileName = 'dumb.js';
 		// fileName = 'gitignore.txt'
 		destFolderId = "0B99TACL_6_flb2EwbnhiLUVNdEE"
 		gClient = gdClient
