@@ -1833,16 +1833,19 @@ angular.module('HomeCtrl', []).controller('HomeController', ['$scope', '$window'
         gdClient.getItemMeta($scope.gFileSelect[a].id, function(response) {
             console.log(response);
             
-            if(response.webContentLink)
+                                            //Figure out what to do with this
+            if(response.webContentLink) {   //TODO: Do something with response.webContentLink
                 downloadFile(response.webContentLink, $scope.gFileSelect[a].name);
+            }
             
             else{
-
+                //MATTHEW: DONT TOUCH 
             }
         });
         //USEFUL
     };
 
+    //
     $scope.dropboxToLocalDownload = function() {
         console.log("Dropbox to local download");
 
@@ -1871,6 +1874,9 @@ angular.module('HomeCtrl', []).controller('HomeController', ['$scope', '$window'
         dbClient.getDownloadLink(filePath, options, function(response) {
             console.log(response);
             downloadFile(response.url, $scope.dFileSelect[a].name);
+
+            //TODO: FIgure out how to downlaod it
+            //response.url do something wiith this
         });
         //USEFUL
     };
