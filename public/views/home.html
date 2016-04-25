@@ -366,9 +366,9 @@
 <!-- WORK ON THIS SHIT MATT-->
 <!-- Work on HTML stuff here -->
  <div ng-show="showDestlocal" class="container" style="width:400px; height:120px; margin-top:50px" id="local-display-destination">
- <center><button style="width:100px; height:50px; font-size:15px; margin-top:25px" class="btn btn-sm btn-primary" ng-click="">Open</button>
+ <center><button style="width:100px; height:50px; font-size:15px; margin-top:25px" class="btn btn-sm btn-primary" ng-click="localOpen(); toLocalDownload()">Open</button>
 	<div style="width:50px; display:inline-block"></div>
-	<button style="width:100px; height:50px; font-size:15px; margin-top:25px" class="btn btn-sm btn-primary" ng-click="toLocalDownload()">Save</button></center>
+	<button style="width:100px; height:50px; font-size:15px; margin-top:25px" class="btn btn-sm btn-primary" ng-click="localSave(); toLocalDownload()">Save</button></center>
 <!-- <div class="btn btn-primary" id="directoryDestLocal" ng--click="outofLocalDestFolder()">
 	<span class="glyphicon glyphicon-triangle-left">&nbsp;</span>{{curDestDirLocal}}</div>
 	<div style="height:88%; width:92%; overflow-y:scroll; margin-top:5px">	

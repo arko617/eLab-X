@@ -1796,6 +1796,15 @@ angular.module('HomeCtrl', []).controller('HomeController', ['$scope', '$window'
 
     //Matt
     $scope.downloadFlag = "";
+    $scope.saveIt = false;
+
+    $scope.localSave = function(){
+        $scope.saveIt = true;
+    }
+
+    $scope.localOpen = function(){
+        $scope.saveIt = false;
+    }
 
     $scope.gdDownloadIt = function(){
         $scope.downloadFlag = "Google";
@@ -1833,12 +1842,19 @@ angular.module('HomeCtrl', []).controller('HomeController', ['$scope', '$window'
         gdClient.getItemMeta($scope.gFileSelect[a].id, function(response) {
             console.log(response);
             
-            if(response.webContentLink)
+            if($scope.saveIt){
+                if(response.webContentLink)
                 downloadFile(response.webContentLink, $scope.gFileSelect[a].name);
             
-            else{
+                else{
 
+                }
             }
+
+            else{
+                downloadFile(response.alternateLink, $scope.gFileSelect[a].name);
+            }
+            
         });
         //USEFUL
     };
@@ -1870,7 +1886,14 @@ angular.module('HomeCtrl', []).controller('HomeController', ['$scope', '$window'
 
         dbClient.getDownloadLink(filePath, options, function(response) {
             console.log(response);
-            downloadFile(response.url, $scope.dFileSelect[a].name);
+
+            if($scope.saveIt){
+                downloadFile(response.url, $scope.dFileSelect[a].name);
+            }
+
+            else{
+                
+            }
         });
         //USEFUL
     };
