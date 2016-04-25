@@ -1844,31 +1844,16 @@ angular.module('HomeCtrl', []).controller('HomeController', ['$scope', '$window'
             
 
             if($scope.saveIt){
-                if(response.webContentLink)
-
-                                            //Figure out what to do with this
-            if(response.webContentLink) {   //TODO: Do something with response.webContentLink
-
-                downloadFile(response.webContentLink, $scope.gFileSelect[a].name);
+                                                //Figure out what to do with this
+                if(response.webContentLink) {   //TODO: Do something with response.webContentLink
+                    downloadFile(response.webContentLink, $scope.gFileSelect[a].name);
+                } else{
+                    downloadFile(response.alternateLink, $scope.gFileSelect[a].name);
+                }            
             }
-            
-
-                else{
-
-                }
-
-            else{
-                //MATTHEW: DONT TOUCH 
-
-            }
-
-            else{
-                downloadFile(response.alternateLink, $scope.gFileSelect[a].name);
-            }
-            
-        });
         //USEFUL
-    };
+        });
+    }
 
     //
     $scope.dropboxToLocalDownload = function() {
