@@ -172,6 +172,8 @@ angular.module('HomeCtrl', []).controller('HomeController', ['$scope', '$window'
     $scope.selectOneDB = {folder_image: "../img/folder.png"};
     $scope.renameSelectDB = "";
 
+    $scope.lFileSelect = {};
+
 
 
     //-----------CREATE OPERATION----------//
@@ -1137,6 +1139,7 @@ angular.module('HomeCtrl', []).controller('HomeController', ['$scope', '$window'
 			if(storage === "l"){
 				$scope.folderSelectLocal++;
 				$scope.folderSelectionLocal();
+                $scope.lFileSelect[x.id] = x;
 				return;
 			}
 		}
@@ -1262,6 +1265,8 @@ angular.module('HomeCtrl', []).controller('HomeController', ['$scope', '$window'
 			if(storage === "l"){
 				$scope.folderSelectLocal--;
 				$scope.folderSelectionLocal();
+                if(x.id in $scope.lFileSelect)
+                    delete $scope.lFileSelect[x.id];
 				return;
 			}
 		}
@@ -1374,14 +1379,18 @@ angular.module('HomeCtrl', []).controller('HomeController', ['$scope', '$window'
 		for(var i = 0; i < $scope.localFile.length; i++){
 			$scope.localFile[i].folder = "../img/checked_checkbox.png";
 			$scope.folderSelectLocal++;
+            $scope.lFileSelect[$scope.localFile[i].id] = $scope.localFile[i];
 		}
 
 		$scope.folderSelectionLocal();
 	};
 
 	$scope.selectNoneLocal = function(){
-		for(var i = 0; i < $scope.localFile.length; i++)
+		for(var i = 0; i < $scope.localFile.length; i++){
 			$scope.localFile[i].folder = "../img/checkbox.png";
+            if($scope.localFile[i].id in $scope.lFileSelect)
+                delete $scope.lFileSelect[$scope.localFile[i].id];
+        }
 
 		$scope.folderSelectLocal = 0;
 		$scope.folderSelectionLocal();
@@ -1480,7 +1489,7 @@ angular.module('HomeCtrl', []).controller('HomeController', ['$scope', '$window'
 			angular.element(document.getElementById("local-copy").disabled = false);
 
 		else
-			angular.element(document.getElementById("local-copy").disabled = true);
+			angular.element(document.getElementById("local-copy").disabled = false);
 	};
 
 	
@@ -1491,12 +1500,15 @@ angular.module('HomeCtrl', []).controller('HomeController', ['$scope', '$window'
 	///////////////////////////////////////////////////////////////////////////
 
 	$scope.uploadLocalToGoogle = function(){
-		for(var i = 0; i < lFile.length; i++){
-			gdClient.upload(rootCreateDest[rootCreateDest.length-1], lFile[i].original,function(response){
+        var count = Object.keys($scope.lFileSelect).length;
+		for(var i in $scope.lFileSelect){
+			gdClient.upload(rootCreateDest[rootCreateDest.length-1], $scope.lFileSelect[i].original,function(response){
 				console.log(response);
-				if(i === lFile.length-1)
+                count--;
+				if(count === 0){
 					$scope.toggleModal();
-				// window.location = window.location.href;
+                    window.location = window.location.href;
+                }
 			});
 		}
 	};
@@ -1511,12 +1523,15 @@ angular.module('HomeCtrl', []).controller('HomeController', ['$scope', '$window'
 		if($scope.curDestDirDropbox !== "/")
 			filePath = $scope.curDestDirDropbox + "/";
 
-		for(var i = 0; i < lFile.length; i++) {
-			dbClient.upload(filePath + lFile[i].name, lFile[i].original, null, function(response) {
+        var count = Object.keys($scope.lFileSelect).length;
+		for(var i in $scope.lFileSelect) {
+			dbClient.upload(filePath + $scope.lFileSelect[i].name, $scope.lFileSelect[i].original, null, function(response) {
 				console.log(response);
-				if(i === lFile.length-1)
+                count--;
+				if(count === 0){
 					$scope.toggleModal();
-				window.location = window.location.href;
+                    window.location = window.location.href;
+                }
 			});
 		}
 	}
@@ -1820,6 +1835,7 @@ angular.module('HomeCtrl', []).controller('HomeController', ['$scope', '$window'
             
             if(response.webContentLink)
                 downloadFile(response.webContentLink, $scope.gFileSelect[a].name);
+            
             else{
 
             }

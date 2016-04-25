@@ -241,9 +241,9 @@
     <li ng-init="imgsrc_dropbox='../img/dropbox.png'" ng-mouseover="imgsrc_dropbox='../img/dropbox_select.png'" ng-mouseout="imgsrc_dropbox='../img/dropbox.png'" class="li-margin"><a ng-style="dropboxDestStyle" ng-click="showDestgoogle=false; showDestdropbox=true; showDestbox=false; showDestlocal= false; googleDestStyle={'background-color':'white'}; dropboxDestStyle={'background-color':'blue'}; boxDestStyle={'background-color':'white'}; localDestStyle={'background-color':'white'}; scroll()" href="#"><img class="drive-size" ng-src="{{imgsrc_dropbox}}"></a></li>
     <li ng-init="imgsrc_box='../img/box.png'" ng-mouseover="imgsrc_box='../img/box_select.png'" ng-mouseout="imgsrc_box='../img/box.png'" class="li-margin"><a ng-style="boxDestStyle" ng-click="showDestgoogle=false; showDestdropbox=false; showDestbox=true; showDestlocal= false; googleDestStyle={'background-color':'white'}; dropboxDestStyle={'background-color':'white'}; boxDestStyle={'background-color':'violet'}; localDestStyle={'background-color':'white'}; scroll()" href="#"><img class="drive-size" ng-src="{{imgsrc_box}}"></a></li>
     <!-- Local Destination -->
-
+    
     <!-- href="home" handles the refresh of the page -->
-    <li ng-init="imgsrc_local='../img/local.png'" ng-mouseover="imgsrc_local='../img/local_select.png'" ng-mouseout="imgsrc_local='../img/local.png'" class="li-margin"><a ng-style="localDestStyle" type="file" ng-click="showDestgoogle=false; showDestdropbox=false; showDestbox=false; showDestlocal= true; googleDestStyle={'background-color':'white'}; dropboxDestStyle={'background-color':'white'}; boxDestStyle={'background-color':'white'}; localDestStyle={'background-color':'red'}; scroll(); toLocalDownload()" href="#"><img class="drive-size" ng-src="{{imgsrc_local}}"></a></li>
+    <li ng-init="imgsrc_local='../img/local.png'" ng-mouseover="imgsrc_local='../img/local_select.png'" ng-mouseout="imgsrc_local='../img/local.png'" class="li-margin"><a ng-style="localDestStyle" type="file" ng-click="showDestgoogle=false; showDestdropbox=false; showDestbox=false; showDestlocal= true; googleDestStyle={'background-color':'white'}; dropboxDestStyle={'background-color':'white'}; boxDestStyle={'background-color':'white'}; localDestStyle={'background-color':'red'}; scroll()" href="#"><img class="drive-size" ng-src="{{imgsrc_local}}"></a></li>
 
 <!-- <a target="_self" href="example.com/uploads/asd4a4d5a.pdf" download="foo.pdf"> -->
 </input>
@@ -365,9 +365,11 @@
 
 <!-- WORK ON THIS SHIT MATT-->
 <!-- Work on HTML stuff here -->
-<!-- <div ng-show="showDestlocal"class="container" id="local-display-destination">
-
-	<div class="btn btn-primary" id="directoryDestLocal" ng--click="outofLocalDestFolder()">
+ <div ng-show="showDestlocal" class="container" style="width:400px; height:120px; margin-top:50px" id="local-display-destination">
+ <center><button style="width:100px; height:50px; font-size:15px; margin-top:25px" class="btn btn-sm btn-primary" ng-click="">Open</button>
+	<div style="width:50px; display:inline-block"></div>
+	<button style="width:100px; height:50px; font-size:15px; margin-top:25px" class="btn btn-sm btn-primary" ng-click="toLocalDownload()">Download</button></center>
+<!-- <div class="btn btn-primary" id="directoryDestLocal" ng--click="outofLocalDestFolder()">
 	<span class="glyphicon glyphicon-triangle-left">&nbsp;</span>{{curDestDirLocal}}</div>
 	<div style="height:88%; width:92%; overflow-y:scroll; margin-top:5px">	
 		<ul ng-repeat="x in localDestFile" class="nav navbar-nav">
@@ -380,7 +382,7 @@
 		</ul>
 	</div>
 
-	<div class="dropdown operation-confirm">
+ <div class="dropdown operation-confirm">
 	    <button class="btn btn-primary dropdown-toggle action" id="local-confirm" type="button" data-toggle="dropdown" style="background-color:red; border-color:red" ng-mouseover="confirmHoverIn()" ng-mouseout="confirmHoverOut()">
 	    <span class="glyphicon glyphicon-size glyphicon-thumbs-up"></span>
 	    </button>
@@ -400,8 +402,8 @@
 	    <button class="btn btn-primary dropdown-toggle action" id="local-unselectDest" type="button" data-toggle="dropdown" style="background-color:red; border-color:red" ng-mouseover="unselectDestHoverIn()" ng-mouseout="unselectDestHoverOut()" ng-click="selectNoneDestLocal()">
 	    <span class="glyphicon glyphicon-size glyphicon-unchecked"></span>
 	    </button>
-	</div>
-</div> -->
+	</div> -->
+</div> 
 <!-- WORK ON THIS SHIT -->
 
 </modal>
