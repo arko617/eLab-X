@@ -163,6 +163,7 @@ dbp.mkdir = function(path, callback){
 // move/copy a single file into drive from dropbox.
 dbp.aFileToGDrive = function(path,fileName,destinationFolderId, gClient, isCopy, callback){
 	filePath = path + fileName;
+	console.log("XXXXXXXXXXXXXXXXXXXXXXXXXXX", filePath);
 	options = {download:true}; // A direct download link in db
 	var that = this
 

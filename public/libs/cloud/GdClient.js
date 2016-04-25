@@ -152,6 +152,7 @@ gdp.createFolder = function(destFolderId,title,callback){
 			console.log('Fail to create folder in google drive')
 			return
 		}
+		callback && callback(resp);
 		console.log('Successfully Created a folder', resp)
 	})
 }

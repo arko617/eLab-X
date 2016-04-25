@@ -1,4 +1,5 @@
 var rootCreate = ['0AN9TACL_6_flUk9PVA'];
+var rootCreateDest = ['0AN9TACL_6_flUk9PVA'];
 
 var empty = [];
 
@@ -36,7 +37,8 @@ angular.module('HomeCtrl', []).controller('HomeController', ['$scope', '$window'
     $scope.renameModalGoogle = false;
     $scope.toggleRenameModalGoogle = function(){
         $scope.renameModalGoogle = !$scope.renameModalGoogle;
-        angular.element(document.getElementById("google-rename-refresh-input").innerHTML = "<input style='width:70%' type='text' name='newName' id='google-folder-rename' value=" + $scope.renameSelect + "><br><br><br>");   
+        console.log($scope.renameSelect);
+        angular.element(document.getElementById("google-rename-refresh-input").innerHTML = "<input style='width:70%' type='text' name='newName' id='google-folder-rename' value='" + $scope.renameSelect + "'><br><br><br>");   
     };
 
     $scope.deleteModalGoogle = false;
@@ -89,7 +91,7 @@ angular.module('HomeCtrl', []).controller('HomeController', ['$scope', '$window'
     $scope.renameModalDropbox = false;
     $scope.toggleRenameModalDropbox = function(){
         $scope.renameModalDropbox = !$scope.renameModalDropbox;
-        angular.element(document.getElementById("dropbox-rename-refresh-input").innerHTML = "<input style='width:70%' type='text' name='newName' id='dropbox-folder-rename' value=" + $scope.renameSelectDB + "><br><br><br>");   
+        angular.element(document.getElementById("dropbox-rename-refresh-input").innerHTML = "<input style='width:70%' type='text' name='newName' id='dropbox-folder-rename' value='" + $scope.renameSelectDB + "'><br><br><br>");   
     };
 
     $scope.deleteModalDropbox = false;
@@ -274,12 +276,14 @@ angular.module('HomeCtrl', []).controller('HomeController', ['$scope', '$window'
    			$scope.folderSelectGoogle--;
    			$scope.folderSelectionGoogle();
    			
-   			for(var j = 0; j < $scope.gFileSelect[i].sibling.length; j++){
-   				if($scope.gFileSelect[i].sibling[j].id === i){
-   					delete $scope.gFileSelect[i].sibling[j];
-   					console.log($scope.googleFile);
-   				}
-   			}
+            if($scope.gFileSelect[i].sibling){
+                for(var j = 0; j < $scope.gFileSelect[i].sibling.length; j++){
+                    if($scope.gFileSelect[i].sibling[j].id === i){
+                        delete $scope.gFileSelect[i].sibling[j];
+                        console.log($scope.googleFile);
+                    }
+                }
+            }
 
     		delete $scope.gFileSelect[i];
     		for(var k = 0; k < $scope.gDirSelect.length; k++){
@@ -392,21 +396,59 @@ angular.module('HomeCtrl', []).controller('HomeController', ['$scope', '$window'
     };
 
 
-    var dropboxToGoogle = function(id, name, dest, num){
+    var dropboxToGoogle = function(id, name, dest){
     	dbClient.aFileToGDrive(id, name, dest, gdClient, $scope.copy, function(){
     		console.log("EXECUTED");
     	});
     };
 
-    $scope.dropboxToGoogle = function(){
-    	var count = Object.keys($scope.dFileSelect).length;
+    var dropboxToGoogleDir = function(dest, add, file){
+        if(add){
+            gdClient.createFolder(add,file.name,function(resp){
+                for(var i = 0; i < file.children.length; i++){
+                    if(file.children[i].directory)
+                        dropboxToGoogleDir(file.id + "/", resp.id, file.children[i]);
+
+                    else
+                        dropboxToGoogle(file.id + "/", file.children[i].name, resp.id); 
+                }
+            });
+        }
+
+        else{
+            gdClient.createFolder(rootCreateDest[rootCreateDest.length-1],file.name,function(resp){
+                for(var i = 0; i < file.children.length; i++){
+                    if(file.children[i].directory)
+                        dropboxToGoogleDir(file.id + "/", resp.id, file.children[i]);
+
+                    else
+                        dropboxToGoogle(file.id + "/", file.children[i].name, resp.id); 
+                }
+            });
+        }
+    };
+
+    $scope.dropboxToGooglePerform = function(){
+    	// var count = Object.keys($scope.dFileSelect).length;
     	for(x in $scope.dFileSelect){
-    		if($scope.curDestDirGoogle === "/")
-    			dropboxToGoogle($scope.curDestDirGoogle, $scope.dFileSelect[x].name, rootCreate[0], count);
-    		else
-    			dropboxToGoogle($scope.curDestDirGoogle, $scope.dFileSelect[x].name, rootCreate[0], count);
+    		if($scope.curDirDropbox === "/"){
+                if($scope.dFileSelect[x].directory)
+                    dropboxToGoogleDir($scope.curDirDropbox, null, $scope.dFileSelect[x]);
+
+                else
+                    dropboxToGoogle($scope.curDirDropbox, $scope.dFileSelect[x].name, rootCreateDest[rootCreateDest.length-1]);
+            }
+
+            else{
+                if($scope.dFileSelect[x].directory)
+                    dropboxToGoogleDir($scope.curDirDropbox + "/", null, $scope.dFileSelect[x]);
+
+                else
+                    dropboxToGoogle($scope.curDirDropbox + "/", $scope.dFileSelect[x].name, rootCreateDest[rootCreateDest.length-1]);
+            }
     	}
     }
+
 
     //-----------LOCAL UPLOAD FILES------------//
 
@@ -689,7 +731,6 @@ angular.module('HomeCtrl', []).controller('HomeController', ['$scope', '$window'
 				$scope.curDirDropbox += "/" + f.name;
 
 			$scope.dropboxFile = empty;
-			rootCreate.push(f.id);
 
 			if(f.select){
 				$scope.dDirSelect.push(f);		
@@ -712,7 +753,6 @@ angular.module('HomeCtrl', []).controller('HomeController', ['$scope', '$window'
 			$scope.curDirDropbox += "/" + f.name;
 
 		$scope.dropboxFile = f.children;
-		rootCreate.push(f.id);
 
 		if($scope.checkLvlDB)
 			$scope.levelDB++;
@@ -1452,7 +1492,7 @@ angular.module('HomeCtrl', []).controller('HomeController', ['$scope', '$window'
 
 	$scope.uploadLocalToGoogle = function(){
 		for(var i = 0; i < lFile.length; i++){
-			gdClient.upload(rootCreate[0], lFile[i].original,function(response){
+			gdClient.upload(rootCreateDest[rootCreateDest.length-1], lFile[i].original,function(response){
 				console.log(response);
 				if(i === lFile.length-1)
 					$scope.toggleModal();
@@ -1507,6 +1547,7 @@ angular.module('HomeCtrl', []).controller('HomeController', ['$scope', '$window'
 				$scope.curDestDirGoogle += "/" + f.name;
 
 			$scope.googleDestFile = empty;
+            rootCreateDest.push(f.id);
 			return;
 		}
 		
@@ -1549,6 +1590,7 @@ angular.module('HomeCtrl', []).controller('HomeController', ['$scope', '$window'
 			$scope.curDestDirGoogle += "/" + f.name;
 
 		$scope.googleDestFile = f.children;
+        rootCreateDest.push(f.id);
 	}
 
 	$scope.outofGoogleDestFolder = function(){
@@ -1567,6 +1609,7 @@ angular.module('HomeCtrl', []).controller('HomeController', ['$scope', '$window'
 				$scope.googleDestFile = $scope.googleDestFile[0].parent;
 		}
 
+        rootCreateDest.pop();
 
 		if($scope.curDestDirGoogle === "")
 			$scope.curDestDirGoogle = "/";
@@ -1774,7 +1817,12 @@ angular.module('HomeCtrl', []).controller('HomeController', ['$scope', '$window'
 
         gdClient.getItemMeta($scope.gFileSelect[a].id, function(response) {
             console.log(response);
-            downloadFile(response.webContentLink, $scope.gFileSelect[a].name);
+            
+            if(response.webContentLink)
+                downloadFile(response.webContentLink, $scope.gFileSelect[a].name);
+            else{
+
+            }
         });
         //USEFUL
     };
