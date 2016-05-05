@@ -1973,10 +1973,17 @@ angular.module('HomeCtrl', []).controller('HomeController', ['$scope', '$window'
         gdClient.getItemMeta($scope.gFileSelect[a].id, function(response) {
             console.log(response);
             
+
             if($scope.saveIt){
                 if(response.webContentLink)
+
+                                            //Figure out what to do with this
+            if(response.webContentLink) {   //TODO: Do something with response.webContentLink
+
                 downloadFile(response.webContentLink, $scope.gFileSelect[a].name);
+            }
             
+
                 else{
                     var downloadUrl = "";
                     var exportLinks = response.exportLinks || {};
@@ -2025,6 +2032,10 @@ angular.module('HomeCtrl', []).controller('HomeController', ['$scope', '$window'
 
                     downloadFile(downloadUrl, $scope.gFileSelect[a].name);
                 }
+
+            else{
+                //MATTHEW: DONT TOUCH 
+
             }
 
             else{
@@ -2035,6 +2046,7 @@ angular.module('HomeCtrl', []).controller('HomeController', ['$scope', '$window'
         //USEFUL
     };
 
+    //
     $scope.dropboxToLocalDownload = function() {
         console.log("Dropbox to local download");
 
@@ -2063,6 +2075,7 @@ angular.module('HomeCtrl', []).controller('HomeController', ['$scope', '$window'
         dbClient.getDownloadLink(filePath, options, function(response) {
             console.log(response);
 
+
             if($scope.saveIt){
                 downloadFile(response.url, $scope.dFileSelect[a].name);
             }
@@ -2070,6 +2083,12 @@ angular.module('HomeCtrl', []).controller('HomeController', ['$scope', '$window'
             else{
                 
             }
+
+            downloadFile(response.url, $scope.dFileSelect[a].name);
+
+            //TODO: FIgure out how to downlaod it
+            //response.url do something wiith this
+
         });
         //USEFUL
     };
