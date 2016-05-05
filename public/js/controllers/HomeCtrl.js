@@ -1970,18 +1970,14 @@ angular.module('HomeCtrl', []).controller('HomeController', ['$scope', '$window'
             a = x;
         }
 
-        gdClient.getItemMeta($scope.gFileSelect[a].id, function(response) {
+        gdClient.getItemMeta($scope.gFileSelect[a].id, function(response){
             console.log(response);
             
 
             if($scope.saveIt){
-                if(response.webContentLink)
-
-                                            //Figure out what to do with this
-            if(response.webContentLink) {   //TODO: Do something with response.webContentLink
-
-                downloadFile(response.webContentLink, $scope.gFileSelect[a].name);
-            }
+                if(response.webContentLink) {   //TODO: Do something with response.webContentLink
+                    downloadFile(response.webContentLink, $scope.gFileSelect[a].name);
+                }
             
 
                 else{
@@ -2032,10 +2028,6 @@ angular.module('HomeCtrl', []).controller('HomeController', ['$scope', '$window'
 
                     downloadFile(downloadUrl, $scope.gFileSelect[a].name);
                 }
-
-            else{
-                //MATTHEW: DONT TOUCH 
-
             }
 
             else{
@@ -2083,8 +2075,6 @@ angular.module('HomeCtrl', []).controller('HomeController', ['$scope', '$window'
             else{
                 
             }
-
-            downloadFile(response.url, $scope.dFileSelect[a].name);
 
             //TODO: FIgure out how to downlaod it
             //response.url do something wiith this
