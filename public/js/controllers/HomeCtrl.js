@@ -21,6 +21,7 @@ var isEmpty = function(obj) {
     return true;
 };
 
+//Change name to "alphabeticizedSort"
 var customSort = function(a, b){
     if(a.name > b.name)
         return 1;
@@ -30,8 +31,38 @@ var customSort = function(a, b){
 
     else
         return 0;
-
 };
+
+//Works! But is this default behavior
+var chronologicalSort = function(a, b) {
+   var aModifiedDate = a.window.IFrame1.document.lastModified;
+   var bModifiedDate = b.window.IFrame1.document.lastModified;
+
+   console.log("HELLO");
+   console.log(aModifiedDate);
+
+   console.log(bModifiedDate);
+
+   if(aModifiedDate > bModifiedDate)
+        return 1;
+    else if(aModifiedDate < bModifiedDate)
+        return -1;
+    else 
+        return 0;
+}
+
+//Sorts from biggest file to smallest file
+var fileSizeSort = function(a, b) {
+    var aFileSize = a.size;
+    var bFileSize = b.size;
+
+    if(aFileSize > bFileSize) 
+        return 1;
+    else if(aFileSize < bFileSize) 
+        return -1;
+    else
+        return 0;
+}
 
 angular.module('HomeCtrl', []).controller('HomeController', ['$scope', '$window', '$timeout', function($scope, $window, $timeout) {
 	
@@ -518,8 +549,10 @@ angular.module('HomeCtrl', []).controller('HomeController', ['$scope', '$window'
 				lFile[lFile.length-1].size += " MB";
         }
 
-        lFile.sort(customSort);
-        
+//        lFile.sort(customSort);
+//        lFile.sort(chronologicalSort);
+        lFile.sort(fileSizeSort);
+
         angular.element(document.getElementById('js-upload-files').value = "");
     }
 
@@ -672,7 +705,9 @@ angular.module('HomeCtrl', []).controller('HomeController', ['$scope', '$window'
 						}
 					}
 
-                    f.children[cur].children.sort(customSort);
+//                    f.children[cur].children.sort(customSort);
+//                    f.children[cur].children.sort(chronologicalSort);
+                    f.children[cur].children.sort(fileSizeSort);
 
 					// f.children[cur].children[0].parent = f.children.slice();
 					console.log("F CHILDREN: ", f.children[cur].children);
@@ -1721,7 +1756,9 @@ angular.module('HomeCtrl', []).controller('HomeController', ['$scope', '$window'
 						}
 					}
 
-                    f.children[cur].children.sort(customSort);
+//                    f.children[cur].children.sort(customSort);
+//                    f.children[cur].children.sort(chronologicalSort);
+                    f.children[cur].children.sort(fileSizeSort);
 
 					// f.children[cur].children[0].parent = f.children.slice();
 					console.log("F CHILDREN: ", f.children[cur].children);
