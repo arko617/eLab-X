@@ -355,6 +355,9 @@ gdp.aFileToDropbox = function(fileId, dboxClient, destination, options, isCopy, 
 						console.log('It is a move option from dropbox to google drive--> Deleted the original file')
 						callback && callback()
 					})
+				}else{
+						console.log('Finish upload to dropbox...')
+						callback && callback()
 				}
 
 			})

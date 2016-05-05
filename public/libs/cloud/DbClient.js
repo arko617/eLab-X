@@ -190,6 +190,9 @@ dbp.aFileToGDrive = function(path,fileName,destinationFolderId, gClient, isCopy,
 						console.log('It is a move option from dropbox to google drive--> Deleted the original file')
 						callback && callback()
 					})
+				}else{
+						console.log('Finish upload to google drive...')
+						callback && callback()
 				}
 			})
 		}

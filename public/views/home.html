@@ -1,16 +1,16 @@
-<center>
+<!-- <center>
 <div class="test">
 	<button type="button" class="btn btn-primary testGd" ng-Click="testGDrive()"> Test google drive </button>
 	<button type="button" class="btn btn-primary testDb" ng-Click="testDropbox()"> Test dropbox </button>
 </div>
 <br>
 </center>
-<br/><br/>
+<br/><br/> -->
 
 <div class="container">
   <center>
   <ul class="nav navbar-nav">
-    <li ng-init="imgsrc_google='../img/google.png'" ng-mouseover="imgsrc_google='../img/google_select.png'" ng-mouseout="imgsrc_google='../img/google.png'" class="li-margin"><a ng-style="googleStyle" ng-click="showgoogle=true; showdropbox=false; showbox=false; showlocal= false; googleStyle={'background-color':'green'}; dropboxStyle={'background-color':'white'}; boxStyle={'background-color':'white'}; localStyle={'background-color':'white'}" href="#"><img class="drive-size"ng-src="{{imgsrc_google}}"></a></li>
+    <li ng-init="imgsrc_google='../img/google.png'" ng-mouseover="imgsrc_google='../img/google_select.png'" ng-mouseout="imgsrc_google='../img/google.png'" class="li-margin"><a ng-style="googleStyle" ng-click="showgoogle=true; showdropbox=false; showbox=false; showlocal=false; googleStyle={'background-color':'green'}; dropboxStyle={'background-color':'white'}; boxStyle={'background-color':'white'}; localStyle={'background-color':'white'}" href="#"><img class="drive-size"ng-src="{{imgsrc_google}}"></a></li>
     <li ng-init="imgsrc_dropbox='../img/dropbox.png'" ng-mouseover="imgsrc_dropbox='../img/dropbox_select.png'" ng-mouseout="imgsrc_dropbox='../img/dropbox.png'" class="li-margin"><a ng-style="dropboxStyle" ng-click="showgoogle=false; showdropbox=true; showbox=false; showlocal= false; googleStyle={'background-color':'white'}; dropboxStyle={'background-color':'blue'}; boxStyle={'background-color':'white'}; localStyle={'background-color':'white'}" href="#"><img class="drive-size" ng-src="{{imgsrc_dropbox}}"></a></li>
     <li ng-init="imgsrc_box='../img/box.png'" ng-mouseover="imgsrc_box='../img/box_select.png'" ng-mouseout="imgsrc_box='../img/box.png'" class="li-margin"><a ng-style="boxStyle" ng-click="showgoogle=false; showdropbox=false; showbox=true; showlocal= false; googleStyle={'background-color':'white'}; dropboxStyle={'background-color':'white'}; boxStyle={'background-color':'violet'}; localStyle={'background-color':'white'}" href="#"><img class="drive-size" ng-src="{{imgsrc_box}}"></a></li>
     <li ng-init="imgsrc_local='../img/local.png'" ng-mouseover="imgsrc_local='../img/local_select.png'" ng-mouseout="imgsrc_local='../img/local.png'" class="li-margin"><a ng-style="localStyle" ng-click="showgoogle=false; showdropbox=false; showbox=false; showlocal= true; googleStyle={'background-color':'white'}; dropboxStyle={'background-color':'white'}; boxStyle={'background-color':'white'}; localStyle={'background-color':'red'}" href="#"><img class="drive-size" ng-src="{{imgsrc_local}}"></a></li>
@@ -365,10 +365,10 @@
 
 <!-- WORK ON THIS SHIT MATT-->
 <!-- Work on HTML stuff here -->
- <div ng-show="showDestlocal" class="container" style="width:400px; height:120px; margin-top:50px" id="local-display-destination">
- <center><button style="width:100px; height:50px; font-size:15px; margin-top:25px" class="btn btn-sm btn-primary" ng-click="localOpen(); toLocalDownload()">Open</button>
-	<div style="width:50px; display:inline-block"></div>
-	<button style="width:100px; height:50px; font-size:15px; margin-top:25px" class="btn btn-sm btn-primary" ng-click="localSave(); toLocalDownload()">Save</button></center>
+ <div ng-show="showDestlocal" class="container" style="height:120px; margin-top:50px" id="local-display-destination">
+ <!-- <button style="width:100px; height:50px; font-size:15px; margin-top:25px" class="btn btn-sm btn-primary" ng-click="localOpen(); toLocalDownload()">Open</button> 
+	<div style="width:50px; display:inline-block"></div> -->
+	<center><button style="width:100px; height:50px; font-size:15px; margin-top:25px" class="btn btn-sm btn-primary" ng-click="localSave(); toLocalDownload()">Download</button></center>
 <!-- <div class="btn btn-primary" id="directoryDestLocal" ng--click="outofLocalDestFolder()">
 	<span class="glyphicon glyphicon-triangle-left">&nbsp;</span>{{curDestDirLocal}}</div>
 	<div style="height:88%; width:92%; overflow-y:scroll; margin-top:5px">	
