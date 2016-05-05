@@ -210,8 +210,9 @@ li{
 }
 
 .folder-name{
-  margin-top: 5px;
+  margin-top: 0px;
   margin-left: 57px;
+  margin-bottom: 25px;
   height: 10px;
   width: 100px;
   text-align: center;

@@ -73,6 +73,7 @@ var getRootContent = function(file){
 		}
 					
 		console.log("DFILE: ", file);
+		dFile.sort(customSort);
 	});
 };
 
@@ -89,6 +90,7 @@ var getContent = function(parent, file, name, p){
 		}
 					
 		console.log("DFILE: ", file);
+		parent.children.sort(customSort);
 	});
 };
 
@@ -110,20 +112,70 @@ function handleAuthResult(authResult) {
 						console.log("ALL FILES: ", files);
 						for(var i = 0; i < files.length; i++){
 							console.log("FILESIZE: ", files[i].size);
+
+							var extension = "";
+							if(!files[i].fileExtension){
+								var exportLinks = files[i].exportLinks;
+								for (var property in exportLinks) {				
+									if (exportLinks.hasOwnProperty(property)) {
+										switch (property){
+										case "application/pdf":
+											extension = ".pdf";
+											break;
+										case "application/rtf":
+											extension = ".rtf";
+											break;
+										case "application/vnd.oasis.opendocument.text":
+											extension = ".txt";
+											break;
+										case "application/vnd.openxmlformats-officedocument.wordprocessingml.document":
+											extension = ".doc";
+											break;
+										case "text/html":
+											extension = ".html";
+											break;
+										case "text/plain":
+											extension = ".txt";
+											break;
+										case "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet":
+											extension = ".xlsx";
+											break;
+										case "application/x-vnd.oasis.opendocument.spreadsheet":
+											extension = ".xlsx";
+											break;
+										case "application/vnd.openxmlformats-officedocument.presentationml.presentation":
+											extension = ".ppt";
+											break;
+										case "image/png":
+											extension = ".png";
+											break;
+										case "image/jpeg":
+											extension = ".jpeg";
+											break;
+										case "image/svg+xml":
+											extension = ".xml";
+											break;
+										}
+									}
+								}
+							}
+
 							if(files[i].mimeType === "application/vnd.google-apps.folder"){
-								gFile.push({original: files[i], id: files[i].id, name: files[i].title, size: files[i].modifiedDate.split("T")[0] + "\n" + (Math.ceil(files[i].fileSize /= 1000000) || "N/A"), folder: "../img/checkbox.png", folder_image: "../img/folder.png", folderDest: "../img/checkbox.png", select: false, selectDest: false, directory: true, children: [], sibling: gFile});
+								gFile.push({original: files[i], id: files[i].id, name: files[i].title + extension, size: files[i].modifiedDate.split("T")[0] + "\n" + (Math.ceil(files[i].fileSize /= 1000000) || "N/A"), folder: "../img/checkbox.png", folder_image: "../img/folder.png", folderDest: "../img/checkbox.png", select: false, selectDest: false, directory: true, children: [], sibling: gFile});
 								
 								if(files[i].fileSize)
 									gFile[gFile.length-1].size += " MB";
 							}
 
 							else{
-								gFile.push({original: files[i], id: files[i].id, name: files[i].title, size: files[i].modifiedDate.split("T")[0] + "\n" + (Math.ceil(files[i].fileSize /= 1000000) || "N/A"), folder: "../img/checkbox.png", folder_image: "../img/file.png", folderDest: "../img/checkbox.png", select: false, selectDest: false, directory: false});
+								gFile.push({original: files[i], id: files[i].id, name: files[i].title  + extension, size: files[i].modifiedDate.split("T")[0] + "\n" + (Math.ceil(files[i].fileSize /= 1000000) || "N/A"), folder: "../img/checkbox.png", folder_image: "../img/file.png", folderDest: "../img/checkbox.png", select: false, selectDest: false, directory: false});
 							
 								if(files[i].fileSize)
 									gFile[gFile.length-1].size += " MB";
 							}
 						}
+
+						gFile.sort(customSort);
 						console.log("GFILE: ", gFile);
 
 						for(var x = 0; x < gFile.length; x++){
@@ -138,20 +190,69 @@ function handleAuthResult(authResult) {
 									}
 
 									for(var i = 0; i < files.length; i++){
+										var extension = "";
+										if(!files[i].fileExtension){
+											var exportLinks = files[i].exportLinks;
+											for (var property in exportLinks) {				
+												if (exportLinks.hasOwnProperty(property)) {
+													switch (property){
+													case "application/pdf":
+														extension = ".pdf";
+														break;
+													case "application/rtf":
+														extension = ".rtf";
+														break;
+													case "application/vnd.oasis.opendocument.text":
+														extension = ".txt";
+														break;
+													case "application/vnd.openxmlformats-officedocument.wordprocessingml.document":
+														extension = ".doc";
+														break;
+													case "text/html":
+														extension = ".html";
+														break;
+													case "text/plain":
+														extension = ".txt";
+														break;
+													case "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet":
+														extension = ".xlsx";
+														break;
+													case "application/x-vnd.oasis.opendocument.spreadsheet":
+														extension = ".xlsx";
+														break;
+													case "application/vnd.openxmlformats-officedocument.presentationml.presentation":
+														extension = ".ppt";
+														break;
+													case "image/png":
+														extension = ".png";
+														break;
+													case "image/jpeg":
+														extension = ".jpeg";
+														break;
+													case "image/svg+xml":
+														extension = ".xml";
+														break;
+													}
+												}
+											}
+										}
+
 										if(files[i].mimeType === "application/vnd.google-apps.folder"){
-											gFile[cur].children.push({original: files[i], id: files[i].id, name: files[i].title, size: files[i].modifiedDate.split("T")[0] + "\n" + (Math.ceil(files[i].fileSize /= 1000000) || "N/A"), folder: "../img/checkbox.png", folderDest: "../img/checkbox.png", folder_image: "../img/folder.png", select: false, selectDest: false, directory: true, children: [], parent: gFile, sibling: gFile[cur].children, mother: gFile[cur]});
+											gFile[cur].children.push({original: files[i], id: files[i].id, name: files[i].title + extension, size: files[i].modifiedDate.split("T")[0] + "\n" + (Math.ceil(files[i].fileSize /= 1000000) || "N/A"), folder: "../img/checkbox.png", folderDest: "../img/checkbox.png", folder_image: "../img/folder.png", select: false, selectDest: false, directory: true, children: [], parent: gFile, sibling: gFile[cur].children, mother: gFile[cur]});
 										
 											if(files[i].fileSize)
 												gFile[cur].children[gFile[cur].children.length-1].size += " MB";
 										}
 											
 										else{
-											gFile[cur].children.push({original: files[i], id: files[i].id, name: files[i].title, size: files[i].modifiedDate.split("T")[0] + "\n" + (Math.ceil(files[i].fileSize /= 1000000) || "N/A"), folder: "../img/checkbox.png", folderDest: "../img/checkbox.png", folder_image: "../img/file.png", select: false, selectDest: false, directory: false, parent: gFile, mother: gFile[cur]});
+											gFile[cur].children.push({original: files[i], id: files[i].id, name: files[i].title  + extension, size: files[i].modifiedDate.split("T")[0] + "\n" + (Math.ceil(files[i].fileSize /= 1000000) || "N/A"), folder: "../img/checkbox.png", folderDest: "../img/checkbox.png", folder_image: "../img/file.png", select: false, selectDest: false, directory: false, parent: gFile, mother: gFile[cur]});
 										
 											if(files[i].fileSize)
 												gFile[cur].children[gFile[cur].children.length-1].size += " MB";
 										}
 									}
+
+									gFile[cur].children.sort(customSort);
 
 									// gFile[cur].children[0].parent = gFile.slice();
 									console.log("GFILE CHILDREN: ", gFile[cur].children);

@@ -1,5 +1,7 @@
 var rootCreate = ['0AN9TACL_6_flUk9PVA'];
 var rootCreateDest = ['0AN9TACL_6_flUk9PVA'];
+var dBoxToGDriveCheck = 0;
+var gDriveToDBoxCheck = 0;
 
 var empty = [];
 
@@ -17,10 +19,25 @@ var isEmpty = function(obj) {
     	    return false;
     }
     return true;
-}
+};
+
+var customSort = function(a, b){
+    if(a.name > b.name)
+        return 1;
+
+    else if(a.name < b.name)
+        return -1;
+
+    else
+        return 0;
+
+};
 
 angular.module('HomeCtrl', []).controller('HomeController', ['$scope', '$window', '$timeout', function($scope, $window, $timeout) {
-	$scope.showgoogle = true;
+	
+    //AFTER REFRESH
+    $scope.showgoogle = true;
+    $scope.googleStyle = {'background-color':'green'};
 
 	$scope.showModal = false;
     $scope.toggleModal = function(){
@@ -358,9 +375,17 @@ angular.module('HomeCtrl', []).controller('HomeController', ['$scope', '$window'
         $scope.copy = false;
     }    
 
-    var googleToDropbox = function(id, dest){
-    	gdClient.aFileToDropbox(id, dbClient, dest, {noOverwrite: true}, $scope.copy, function(){
+    var googleToDropbox = function(file, dest){
+        if(file.original.mimeType !== "application/vnd.google-apps.spreadsheet")
+            gDriveToDBoxCheck++;
+
+    	gdClient.aFileToDropbox(file.id, dbClient, dest, {noOverwrite: true}, $scope.copy, function(){
     		console.log("EXECUTED");
+            gDriveToDBoxCheck--;
+
+            console.log(gDriveToDBoxCheck);
+            if(gDriveToDBoxCheck === 0)
+                window.location = window.location.href;
     	});
     };
 
@@ -372,8 +397,8 @@ angular.module('HomeCtrl', []).controller('HomeController', ['$scope', '$window'
                     googleToDropboxDir(file.children[i], dest + file.name + "/");
 
                 else
-                    googleToDropbox(file.children[i].id, dest + file.name + "/");
-                }
+                    googleToDropbox(file.children[i], dest + file.name + "/");
+            }
         });
     };
 
@@ -399,8 +424,14 @@ angular.module('HomeCtrl', []).controller('HomeController', ['$scope', '$window'
 
 
     var dropboxToGoogle = function(id, name, dest){
+        dBoxToGDriveCheck++;
     	dbClient.aFileToGDrive(id, name, dest, gdClient, $scope.copy, function(){
     		console.log("EXECUTED");
+            dBoxToGDriveCheck--;
+
+            console.log(dBoxToGDriveCheck);
+            if(dBoxToGDriveCheck === 0)
+                window.location = window.location.href;
     	});
     };
 
@@ -486,6 +517,8 @@ angular.module('HomeCtrl', []).controller('HomeController', ['$scope', '$window'
 			if(files[i].size)
 				lFile[lFile.length-1].size += " MB";
         }
+
+        lFile.sort(customSort);
         
         angular.element(document.getElementById('js-upload-files').value = "");
     }
@@ -578,19 +611,68 @@ angular.module('HomeCtrl', []).controller('HomeController', ['$scope', '$window'
 					}
 					console.log("ELAB: ", files);
 					for(var i = 0; i < files.length; i++){
+                        var extension = "";
+                        if(!files[i].fileExtension){
+                            var exportLinks = files[i].exportLinks;
+                            for (var property in exportLinks) {             
+                                if (exportLinks.hasOwnProperty(property)) {
+                                    switch (property){
+                                    case "application/pdf":
+                                        extension = ".pdf";
+                                        break;
+                                    case "application/rtf":
+                                        extension = ".rtf";
+                                        break;
+                                    case "application/vnd.oasis.opendocument.text":
+                                        extension = ".txt";
+                                        break;
+                                    case "application/vnd.openxmlformats-officedocument.wordprocessingml.document":
+                                        extension = ".doc";
+                                        break;
+                                    case "text/html":
+                                        extension = ".html";
+                                        break;
+                                    case "text/plain":
+                                        extension = ".txt";
+                                        break;
+                                    case "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet":
+                                        extension = ".xlsx";
+                                        break;
+                                    case "application/x-vnd.oasis.opendocument.spreadsheet":
+                                        extension = ".xlsx";
+                                        break;
+                                    case "application/vnd.openxmlformats-officedocument.presentationml.presentation":
+                                        extension = ".ppt";
+                                        break;
+                                    case "image/png":
+                                        extension = ".png";
+                                        break;
+                                    case "image/jpeg":
+                                        extension = ".jpeg";
+                                        break;
+                                    case "image/svg+xml":
+                                        extension = ".xml";
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+
 						if(files[i].mimeType === "application/vnd.google-apps.folder"){
-							f.children[cur].children.push({original: files[i], id: files[i].id, name: files[i].title, size: files[i].modifiedDate.split("T")[0] + "\n" + (Math.ceil(files[i].fileSize /= 1000000) || "N/A"), folder: "../img/checkbox.png", folder_image: "../img/folder.png", folderDest: "../img/checkbox.png", select: false, selectDest: false, directory: true, children: [], parent: f.children, sibling: f.children[cur].children, mother: f.children[cur]});
+							f.children[cur].children.push({original: files[i], id: files[i].id, name: files[i].title + extension, size: files[i].modifiedDate.split("T")[0] + "\n" + (Math.ceil(files[i].fileSize /= 1000000) || "N/A"), folder: "../img/checkbox.png", folder_image: "../img/folder.png", folderDest: "../img/checkbox.png", select: false, selectDest: false, directory: true, children: [], parent: f.children, sibling: f.children[cur].children, mother: f.children[cur]});
 						
 							if(files[i].fileSize)
 								f.children[cur].children[f.children[cur].children.length-1].size += " MB";
 						}
 							
 						else{
-							f.children[cur].children.push({original: files[i], id: files[i].id, name: files[i].title, size: files[i].modifiedDate.split("T")[0] + "\n" + (Math.ceil(files[i].fileSize /= 1000000) || "N/A"), folder: "../img/checkbox.png", folder_image: "../img/file.png", folderDest: "../img/checkbox.png", select: false, selectDest: false, directory: false, parent: f.children, mother: f.children[cur]});
+							f.children[cur].children.push({original: files[i], id: files[i].id, name: files[i].title + extension, size: files[i].modifiedDate.split("T")[0] + "\n" + (Math.ceil(files[i].fileSize /= 1000000) || "N/A"), folder: "../img/checkbox.png", folder_image: "../img/file.png", folderDest: "../img/checkbox.png", select: false, selectDest: false, directory: false, parent: f.children, mother: f.children[cur]});
 							if(files[i].fileSize)
 								f.children[cur].children[f.children[cur].children.length-1].size += " MB";
 						}
 					}
+
+                    f.children[cur].children.sort(customSort);
 
 					// f.children[cur].children[0].parent = f.children.slice();
 					console.log("F CHILDREN: ", f.children[cur].children);
@@ -1578,19 +1660,68 @@ angular.module('HomeCtrl', []).controller('HomeController', ['$scope', '$window'
 					}
 					console.log("ELAB: ", files);
 					for(var i = 0; i < files.length; i++){
+                        var extension = "";
+                        if(!files[i].fileExtension){
+                            var exportLinks = files[i].exportLinks;
+                            for (var property in exportLinks) {             
+                                if (exportLinks.hasOwnProperty(property)) {
+                                    switch (property){
+                                    case "application/pdf":
+                                        extension = ".pdf";
+                                        break;
+                                    case "application/rtf":
+                                        extension = ".rtf";
+                                        break;
+                                    case "application/vnd.oasis.opendocument.text":
+                                        extension = ".txt";
+                                        break;
+                                    case "application/vnd.openxmlformats-officedocument.wordprocessingml.document":
+                                        extension = ".doc";
+                                        break;
+                                    case "text/html":
+                                        extension = ".html";
+                                        break;
+                                    case "text/plain":
+                                        extension = ".txt";
+                                        break;
+                                    case "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet":
+                                        extension = ".xlsx";
+                                        break;
+                                    case "application/x-vnd.oasis.opendocument.spreadsheet":
+                                        extension = ".xlsx";
+                                        break;
+                                    case "application/vnd.openxmlformats-officedocument.presentationml.presentation":
+                                        extension = ".ppt";
+                                        break;
+                                    case "image/png":
+                                        extension = ".png";
+                                        break;
+                                    case "image/jpeg":
+                                        extension = ".jpeg";
+                                        break;
+                                    case "image/svg+xml":
+                                        extension = ".xml";
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+
 						if(files[i].mimeType === "application/vnd.google-apps.folder"){
-							f.children[cur].children.push({id: files[i].id, name: files[i].title, size: Math.ceil(files[i].fileSize /= 1000000) || "N/A", folder: "../img/checkbox.png", folder_image: "../img/folder.png", folderDest: "../img/checkbox.png", select: false, selectDest: false, directory: true, children: [], parent: f.children, sibling: f.children[cur].children, mother: f.children[cur]});
+							f.children[cur].children.push({id: files[i].id, name: files[i].title + extension, size: Math.ceil(files[i].fileSize /= 1000000) || "N/A", folder: "../img/checkbox.png", folder_image: "../img/folder.png", folderDest: "../img/checkbox.png", select: false, selectDest: false, directory: true, children: [], parent: f.children, sibling: f.children[cur].children, mother: f.children[cur]});
 						
 							if(files[i].fileSize)
 								f.children[cur].children[f.children[cur].children.length-1].size += " MB";
 						}
 							
 						else{
-							f.children[cur].children.push({id: files[i].id, name: files[i].title, size: Math.ceil(files[i].fileSize /= 1000000) || "N/A", folder: "../img/checkbox.png", folder_image: "../img/file.png", folderDest: "../img/checkbox.png", select: false, selectDest: false, directory: false, parent: f.children, mother: f.children[cur]});
+							f.children[cur].children.push({id: files[i].id, name: files[i].title + extension, size: Math.ceil(files[i].fileSize /= 1000000) || "N/A", folder: "../img/checkbox.png", folder_image: "../img/file.png", folderDest: "../img/checkbox.png", select: false, selectDest: false, directory: false, parent: f.children, mother: f.children[cur]});
 							if(files[i].fileSize)
 								f.children[cur].children[f.children[cur].children.length-1].size += " MB";
 						}
 					}
+
+                    f.children[cur].children.sort(customSort);
 
 					// f.children[cur].children[0].parent = f.children.slice();
 					console.log("F CHILDREN: ", f.children[cur].children);
@@ -1839,17 +1970,65 @@ angular.module('HomeCtrl', []).controller('HomeController', ['$scope', '$window'
             a = x;
         }
 
-        gdClient.getItemMeta($scope.gFileSelect[a].id, function(response) {
+        gdClient.getItemMeta($scope.gFileSelect[a].id, function(response){
             console.log(response);
             
 
             if($scope.saveIt){
-                                                //Figure out what to do with this
-                if(response.webContentLink) {   //TODO: Do something with response.webContentLink
+
+              if(response.webContentLink) {   //TODO: Do something with response.webContentLink
                     downloadFile(response.webContentLink, $scope.gFileSelect[a].name);
-                } else{
-                    downloadFile(response.alternateLink, $scope.gFileSelect[a].name);
-                }            
+                }
+            
+
+                else{
+                    var downloadUrl = "";
+                    var exportLinks = response.exportLinks || {};
+                    for (var property in exportLinks) {             
+                        if (exportLinks.hasOwnProperty(property)) {
+                            switch (property){
+                            case "application/pdf":
+                                downloadUrl = exportLinks[property]
+                                break;
+                            case "application/rtf":
+                                downloadUrl = exportLinks[property]
+                                break;
+                            case "application/vnd.oasis.opendocument.text":
+                                downloadUrl = exportLinks[property]
+                                break;
+                            case "application/vnd.openxmlformats-officedocument.wordprocessingml.document":
+                                downloadUrl = exportLinks[property]
+                                break;
+                            case "text/html":
+                                downloadUrl = exportLinks[property]
+                                break;
+                            case "text/plain":
+                                downloadUrl = exportLinks[property]
+                                break;
+                            case "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet":
+                                downloadUrl = exportLinks[property]
+                                break;
+                            case "application/x-vnd.oasis.opendocument.spreadsheet":
+                                downloadUrl = exportLinks[property]
+                                break;
+                            case "application/vnd.openxmlformats-officedocument.presentationml.presentation":
+                                downloadUrl = exportLinks[property]
+                                break;
+                            case "image/png":
+                                downloadUrl = exportLinks[property]
+                                break;
+                            case "image/jpeg":
+                                downloadUrl = exportLinks[property]
+                                break;
+                            case "image/svg+xml":
+                                downloadUrl = exportLinks[property]
+                                break;
+                            }
+                        }
+                    }
+
+                    downloadFile(downloadUrl, $scope.gFileSelect[a].name);
+                }
             }
         //USEFUL
         });
@@ -1892,8 +2071,6 @@ angular.module('HomeCtrl', []).controller('HomeController', ['$scope', '$window'
             else{
                 
             }
-
-            downloadFile(response.url, $scope.dFileSelect[a].name);
 
             //TODO: FIgure out how to downlaod it
             //response.url do something wiith this
