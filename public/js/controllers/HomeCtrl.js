@@ -31,11 +31,11 @@ var setCookie = function(cvalue, exseconds) {
 
 
 //Change name to "alphabeticizedSort"
-var customSort = function(a, b){
-    if(a.name > b.name)
+var alphabeticizedSort = function(a, b){
+    if(a.name.toLowerCase() > b.name.toLowerCase())
         return 1;
 
-    else if(a.name < b.name)
+    else if(a.name.toLowerCase() < b.name.toLowerCase())
         return -1;
 
     else
@@ -464,7 +464,7 @@ angular.module('HomeCtrl', []).controller('HomeController', ['$scope', '$window'
         $scope.copy = false;
     }    
 
-    var googleToDropbox = function(file, dest, id){
+    var googleToDropbox = function(file, dest, id, checkFolder){
         if(file.original.mimeType){
             if(file.original.mimeType !== "application/vnd.google-apps.spreadsheet")
                 gDriveToDBoxCheck++;
@@ -479,7 +479,7 @@ angular.module('HomeCtrl', []).controller('HomeController', ['$scope', '$window'
 
             console.log(gDriveToDBoxCheck);
             if(gDriveToDBoxCheck === 0){
-                if(!$scope.copy)
+                if(!$scope.copy && checkFolder)
                     deleteGoogleRecurse(id);
 
                 else{
@@ -508,7 +508,7 @@ angular.module('HomeCtrl', []).controller('HomeController', ['$scope', '$window'
                     googleToDropboxDir(file.children[i], dest + file.name + "/", id);
 
                 else
-                    googleToDropbox(file.children[i], dest + file.name + "/", id);
+                    googleToDropbox(file.children[i], dest + file.name + "/", id, true);
             }
         });
     };
@@ -520,7 +520,7 @@ angular.module('HomeCtrl', []).controller('HomeController', ['$scope', '$window'
                     googleToDropboxDir($scope.gFileSelect[x], $scope.curDestDirDropbox, x);
 
                 else{
-                    googleToDropbox($scope.gFileSelect[x], $scope.curDestDirDropbox, x);
+                    googleToDropbox($scope.gFileSelect[x], $scope.curDestDirDropbox, x, false);
                 }
             }
 
@@ -529,7 +529,7 @@ angular.module('HomeCtrl', []).controller('HomeController', ['$scope', '$window'
                     googleToDropboxDir($scope.gFileSelect[x], $scope.curDestDirDropbox + "/", x);
 
                 else
-                    googleToDropbox($scope.gFileSelect[x], $scope.curDestDirDropbox + "/", x);
+                    googleToDropbox($scope.gFileSelect[x], $scope.curDestDirDropbox + "/", x, false);
             }
     	}
     };
@@ -657,9 +657,9 @@ angular.module('HomeCtrl', []).controller('HomeController', ['$scope', '$window'
 				lFile[lFile.length-1].size += " MB";
         }
 
-//        lFile.sort(customSort);
-//        lFile.sort(chronologicalSort);
-        lFile.sort(fileSizeSort);
+       lFile.sort(alphabeticizedSort);
+       // lFile.sort(chronologicalSort);
+       // lFile.sort(fileSizeSort);
 
         angular.element(document.getElementById('js-upload-files').value = "");
     }
@@ -813,9 +813,9 @@ angular.module('HomeCtrl', []).controller('HomeController', ['$scope', '$window'
 						}
 					}
 
-//                    f.children[cur].children.sort(customSort);
-//                    f.children[cur].children.sort(chronologicalSort);
-                    f.children[cur].children.sort(fileSizeSort);
+                   f.children[cur].children.sort(alphabeticizedSort);
+                   // f.children[cur].children.sort(chronologicalSort);
+                    // f.children[cur].children.sort(fileSizeSort);
 
 					// f.children[cur].children[0].parent = f.children.slice();
 					console.log("F CHILDREN: ", f.children[cur].children);
@@ -1864,9 +1864,9 @@ angular.module('HomeCtrl', []).controller('HomeController', ['$scope', '$window'
 						}
 					}
 
-//                    f.children[cur].children.sort(customSort);
-//                    f.children[cur].children.sort(chronologicalSort);
-                    f.children[cur].children.sort(fileSizeSort);
+                   f.children[cur].children.sort(alphabeticizedSort);
+                   // f.children[cur].children.sort(chronologicalSort);
+                    // f.children[cur].children.sort(fileSizeSort);
 
 					// f.children[cur].children[0].parent = f.children.slice();
 					console.log("F CHILDREN: ", f.children[cur].children);

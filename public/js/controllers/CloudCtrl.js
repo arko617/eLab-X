@@ -73,8 +73,8 @@ var getRootContent = function(file){
 		}
 					
 		console.log("DFILE: ", file);
-//		dFile.sort(customSort);
-		dFile.sort(chronologicalSort);
+		dFile.sort(alphabeticizedSort);
+		// dFile.sort(chronologicalSort);
 	});
 };
 
@@ -91,9 +91,9 @@ var getContent = function(parent, file, name, p){
 		}
 					
 		console.log("DFILE: ", file);
-		//parent.children.sort(customSort);
-//		parent.children.sort(chronologicalSort);
-		parent.children.sort(fileSizeSort);
+		parent.children.sort(alphabeticizedSort);
+		// parent.children.sort(chronologicalSort);
+		// parent.children.sort(fileSizeSort);
 	});
 };
 
@@ -178,9 +178,9 @@ function handleAuthResult(authResult) {
 							}
 						}
 
-//						gFile.sort(customSort);
-//						gFile.sort(chronologicalSort);
-						gFile.sort(fileSizeSort);
+						gFile.sort(alphabeticizedSort);
+						// gFile.sort(chronologicalSort);
+						// gFile.sort(fileSizeSort);
 						console.log("GFILE: ", gFile);
 
 						for(var x = 0; x < gFile.length; x++){
@@ -257,9 +257,9 @@ function handleAuthResult(authResult) {
 										}
 									}
 
-//									gFile[cur].children.sort(customSort);
-//									gFile[cur].children.sort(chronologicalSort);
-									gFile[cur].children.sort(fileSizeSort);
+									gFile[cur].children.sort(alphabeticizedSort);
+									// gFile[cur].children.sort(chronologicalSort);
+									// gFile[cur].children.sort(fileSizeSort);
 
 									// gFile[cur].children[0].parent = gFile.slice();
 									console.log("GFILE CHILDREN: ", gFile[cur].children);
