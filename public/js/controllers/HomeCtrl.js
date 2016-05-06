@@ -2,7 +2,7 @@ var rootCreate = ['0AN9TACL_6_flUk9PVA'];
 var rootCreateDest = ['0AN9TACL_6_flUk9PVA'];
 var dBoxToGDriveCheck = 0;
 var gDriveToDBoxCheck = 0;
-
+console.log("COOOOOOKKKKKIIIIIEEEEE: ", document.cookie);
 var empty = [];
 
 var gFile = [];
@@ -21,6 +21,13 @@ var isEmpty = function(obj) {
     return true;
 };
 
+var setCookie = function(cvalue, exseconds) {
+    var d = new Date();
+    d.setTime(d.getTime() + (exseconds*1000));
+    var expires = "expires="+ d.toUTCString();
+    document.cookie = cvalue + "; " + expires;
+};
+
 var customSort = function(a, b){
     if(a.name > b.name)
         return 1;
@@ -36,8 +43,51 @@ var customSort = function(a, b){
 angular.module('HomeCtrl', []).controller('HomeController', ['$scope', '$window', '$timeout', function($scope, $window, $timeout) {
 	
     //AFTER REFRESH
-    $scope.showgoogle = true;
-    $scope.googleStyle = {'background-color':'green'};
+
+    if(document.cookie === "0"){
+        $scope.showgoogle = true;
+        $scope.showdropbox = false;
+        $scope.showbox = false;
+        $scope.showlocal = false;
+        $scope.googleStyle = {'background-color':'green'};
+        $scope.dropboxStyle = {'background-color':'white'};
+        $scope.boxStyle = {'background-color':'white'};
+        $scope.localStyle = {'background-color':'white'};
+    }
+
+    else if(document.cookie === "1"){
+        $scope.showgoogle = false;
+        $scope.showdropbox = true;
+        $scope.showbox = false;
+        $scope.showlocal = false;
+        $scope.googleStyle = {'background-color':'white'};
+        $scope.dropboxStyle = {'background-color':'blue'};
+        $scope.boxStyle = {'background-color':'white'};
+        $scope.localStyle = {'background-color':'white'};
+    }
+
+    else if(document.cookie === "2"){
+        $scope.showgoogle = false;
+        $scope.showdropbox = false;
+        $scope.showbox = true;
+        $scope.showlocal = false;
+        $scope.googleStyle = {'background-color':'white'};
+        $scope.dropboxStyle = {'background-color':'white'};
+        $scope.boxStyle = {'background-color':'violet'};
+        $scope.localStyle = {'background-color':'white'};
+    }
+
+    else if(document.cookie === "3"){
+        $scope.showgoogle = false;
+        $scope.showdropbox = false;
+        $scope.showbox = false;
+        $scope.showlocal = true;
+        $scope.googleStyle = {'background-color':'white'};
+        $scope.dropboxStyle = {'background-color':'white'};
+        $scope.boxStyle = {'background-color':'white'};
+        $scope.localStyle = {'background-color':'red'};
+    }
+    
 
 	$scope.showModal = false;
     $scope.toggleModal = function(){
@@ -205,6 +255,7 @@ angular.module('HomeCtrl', []).controller('HomeController', ['$scope', '$window'
 			if(folder.fileSize)
 				gFile[gFile.length-1].size += " MB";
 			console.log(gFile);
+            setCookie(0, 5);
     		window.location = window.location.href;
     	});
     }
@@ -239,6 +290,7 @@ angular.module('HomeCtrl', []).controller('HomeController', ['$scope', '$window'
     		path.shift();
     		path.pop();
     		lookIn(dFile, path, resp);
+            setCookie(1, 5);
     		window.location = window.location.href;
     	});
     }
@@ -257,7 +309,8 @@ angular.module('HomeCtrl', []).controller('HomeController', ['$scope', '$window'
     	gdClient.rename($scope.selectOne.id, document.getElementById("google-folder-rename").value,function(file){
 			$scope.selectOne.name = file.title;
 			document.getElementById($scope.selectOne.id).childNodes[1].childNodes[7].innerHTML = file.title;
-    		window.location = window.location.href;
+    		setCookie(0, 5);
+            window.location = window.location.href;
 		});
     }
 
@@ -272,7 +325,8 @@ angular.module('HomeCtrl', []).controller('HomeController', ['$scope', '$window'
     		console.log(resp);
     		$scope.selectOneDB.name = resp.name;
 			document.getElementById($scope.selectOneDB.id).childNodes[1].childNodes[7].innerHTML = resp.name;
-    		window.location = window.location.href;
+    		setCookie(1, 5);
+            window.location = window.location.href;
     	});
     }
 
@@ -314,6 +368,7 @@ angular.module('HomeCtrl', []).controller('HomeController', ['$scope', '$window'
     		var elem = angular.element(document.getElementById(i));
     		console.log(elem);
     		elem.remove();
+            setCookie(0, 5);
     		window.location = window.location.href;
     	});
     }
@@ -346,6 +401,7 @@ angular.module('HomeCtrl', []).controller('HomeController', ['$scope', '$window'
     		console.log($scope.dFileSelect);
     		var elem = angular.element(document.getElementById(i));
     		elem.remove();
+            setCookie(1, 5);
     		window.location = window.location.href;
     	});
     }
@@ -375,29 +431,51 @@ angular.module('HomeCtrl', []).controller('HomeController', ['$scope', '$window'
         $scope.copy = false;
     }    
 
-    var googleToDropbox = function(file, dest){
-        if(file.original.mimeType !== "application/vnd.google-apps.spreadsheet")
-            gDriveToDBoxCheck++;
+    var googleToDropbox = function(file, dest, id){
+        if(file.original.mimeType){
+            if(file.original.mimeType !== "application/vnd.google-apps.spreadsheet")
+                gDriveToDBoxCheck++;
+        }
+
+        else
+            gDriveToDBoxCheck++;        
 
     	gdClient.aFileToDropbox(file.id, dbClient, dest, {noOverwrite: true}, $scope.copy, function(){
     		console.log("EXECUTED");
             gDriveToDBoxCheck--;
 
             console.log(gDriveToDBoxCheck);
-            if(gDriveToDBoxCheck === 0)
-                window.location = window.location.href;
+            if(gDriveToDBoxCheck === 0){
+                if(!$scope.copy)
+                    deleteGoogleRecurse(id);
+
+                else{
+                    setCookie(1, 5);
+                    window.location = window.location.href;
+                }   
+            }
     	});
     };
 
-    var googleToDropboxDir = function(file, dest){
+    var googleToDropboxDir = function(file, dest, id){
         dbClient.mkdir(dest + file.name, function(resp){
+            if(file.id === id && file.children.length === 0){
+                if(!$scope.copy)
+                    deleteGoogleRecurse(id);
+
+                else{
+                    setCookie(1, 5);
+                    window.location = window.location.href;
+                }  
+            }
+
             for(var i = 0; i < file.children.length; i++){
                 console.log(file.children[i].name);
                 if(file.children[i].directory)
-                    googleToDropboxDir(file.children[i], dest + file.name + "/");
+                    googleToDropboxDir(file.children[i], dest + file.name + "/", id);
 
                 else
-                    googleToDropbox(file.children[i], dest + file.name + "/");
+                    googleToDropbox(file.children[i], dest + file.name + "/", id);
             }
         });
     };
@@ -406,56 +484,84 @@ angular.module('HomeCtrl', []).controller('HomeController', ['$scope', '$window'
     	for(x in $scope.gFileSelect){
     		if($scope.curDestDirDropbox === "/"){
                 if($scope.gFileSelect[x].directory)
-                    googleToDropboxDir($scope.gFileSelect[x], $scope.curDestDirDropbox);
+                    googleToDropboxDir($scope.gFileSelect[x], $scope.curDestDirDropbox, x);
 
-                else
-                    googleToDropbox(x, $scope.curDestDirDropbox);
+                else{
+                    googleToDropbox($scope.gFileSelect[x], $scope.curDestDirDropbox, x);
+                }
             }
 
     		else{
                 if($scope.gFileSelect[x].directory)
-                    googleToDropboxDir($scope.gFileSelect[x], $scope.curDestDirDropbox + "/");
+                    googleToDropboxDir($scope.gFileSelect[x], $scope.curDestDirDropbox + "/", x);
 
                 else
-                    googleToDropbox(x, $scope.curDestDirDropbox + "/");
+                    googleToDropbox($scope.gFileSelect[x], $scope.curDestDirDropbox + "/", x);
             }
     	}
     };
 
 
-    var dropboxToGoogle = function(id, name, dest){
+    var dropboxToGoogle = function(id, name, dest, path){
         dBoxToGDriveCheck++;
-    	dbClient.aFileToGDrive(id, name, dest, gdClient, $scope.copy, function(){
+    	dbClient.aFileToGDrive(id, name, dest, gdClient, true, function(){
     		console.log("EXECUTED");
             dBoxToGDriveCheck--;
 
             console.log(dBoxToGDriveCheck);
-            if(dBoxToGDriveCheck === 0)
-                window.location = window.location.href;
+            if(dBoxToGDriveCheck === 0){
+                if(!$scope.copy)
+                    deleteDropboxRecurse(path);
+
+                else{
+                    setCookie(0, 5);
+                    window.location = window.location.href;
+                }
+            }
     	});
     };
 
-    var dropboxToGoogleDir = function(dest, add, file){
+    var dropboxToGoogleDir = function(dest, add, file, path){
         if(add){
             gdClient.createFolder(add,file.name,function(resp){
+                if(file.id === path && file.children.length === 0){
+                    if(!$scope.copy)
+                        deleteDropboxRecurse(path);
+
+                    else{
+                        setCookie(0, 5);
+                        window.location = window.location.href;
+                    }  
+                }
+
                 for(var i = 0; i < file.children.length; i++){
                     if(file.children[i].directory)
-                        dropboxToGoogleDir(file.id + "/", resp.id, file.children[i]);
+                        dropboxToGoogleDir(file.id + "/", resp.id, file.children[i], path);
 
                     else
-                        dropboxToGoogle(file.id + "/", file.children[i].name, resp.id); 
+                        dropboxToGoogle(file.id + "/", file.children[i].name, resp.id, path); 
                 }
             });
         }
 
         else{
             gdClient.createFolder(rootCreateDest[rootCreateDest.length-1],file.name,function(resp){
+                if(file.id === path && file.children.length === 0){
+                    if(!$scope.copy)
+                        deleteDropboxRecurse(path);
+
+                    else{
+                        setCookie(0, 5);
+                        window.location = window.location.href;
+                    }  
+                }
+
                 for(var i = 0; i < file.children.length; i++){
                     if(file.children[i].directory)
-                        dropboxToGoogleDir(file.id + "/", resp.id, file.children[i]);
+                        dropboxToGoogleDir(file.id + "/", resp.id, file.children[i], path);
 
                     else
-                        dropboxToGoogle(file.id + "/", file.children[i].name, resp.id); 
+                        dropboxToGoogle(file.id + "/", file.children[i].name, resp.id, path); 
                 }
             });
         }
@@ -466,18 +572,18 @@ angular.module('HomeCtrl', []).controller('HomeController', ['$scope', '$window'
     	for(x in $scope.dFileSelect){
     		if($scope.curDirDropbox === "/"){
                 if($scope.dFileSelect[x].directory)
-                    dropboxToGoogleDir($scope.curDirDropbox, null, $scope.dFileSelect[x]);
+                    dropboxToGoogleDir($scope.curDirDropbox, null, $scope.dFileSelect[x], x);
 
                 else
-                    dropboxToGoogle($scope.curDirDropbox, $scope.dFileSelect[x].name, rootCreateDest[rootCreateDest.length-1]);
+                    dropboxToGoogle($scope.curDirDropbox, $scope.dFileSelect[x].name, rootCreateDest[rootCreateDest.length-1], x);
             }
 
             else{
                 if($scope.dFileSelect[x].directory)
-                    dropboxToGoogleDir($scope.curDirDropbox + "/", null, $scope.dFileSelect[x]);
+                    dropboxToGoogleDir($scope.curDirDropbox + "/", null, $scope.dFileSelect[x], x);
 
                 else
-                    dropboxToGoogle($scope.curDirDropbox + "/", $scope.dFileSelect[x].name, rootCreateDest[rootCreateDest.length-1]);
+                    dropboxToGoogle($scope.curDirDropbox + "/", $scope.dFileSelect[x].name, rootCreateDest[rootCreateDest.length-1], x);
             }
     	}
     }

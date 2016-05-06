@@ -119,7 +119,7 @@ li{
 }
 
 #drive-dropbox{
-  border-color: blue;
+  border-color: #339aff;
   border-style: solid;
   border-width: 8px;
   background-color: black;
@@ -160,7 +160,7 @@ li{
 
 #dropbox-display{
   height: 500px;
-  border-color: blue;
+  border-color: #339aff;
   border-style: solid;
   border-width: 8px;
   background-color: black;
@@ -169,7 +169,7 @@ li{
 
 #dropbox-display-destination{
   height: 500px;
-  border-color: blue;
+  border-color: #339aff;
   border-style: solid;
   border-width: 8px;
   background-color: black;
@@ -238,7 +238,7 @@ li{
 }
 
 .folder-size-blue:hover{
-  background-color: blue;
+  background-color: #339aff;
 }
 
 .folder-size-violet{
@@ -342,8 +342,8 @@ li{
   height: 34px;
   width: 92%;
   background-color: black;
-  border-color: blue;
-  color: blue;
+  border-color: #339aff;
+  color: #339aff;
   text-align: left;
 }
 
@@ -386,8 +386,8 @@ li{
   height: 34px;
   width: 92%;
   background-color: black;
-  border-color: blue;
-  color: blue;
+  border-color: #339aff;
+  color: #339aff;
   text-align: left;
 }
 

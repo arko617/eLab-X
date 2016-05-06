@@ -11,7 +11,7 @@
   <center>
   <ul class="nav navbar-nav">
     <li ng-init="imgsrc_google='../img/google.png'" ng-mouseover="imgsrc_google='../img/google_select.png'" ng-mouseout="imgsrc_google='../img/google.png'" class="li-margin"><a ng-style="googleStyle" ng-click="showgoogle=true; showdropbox=false; showbox=false; showlocal=false; googleStyle={'background-color':'green'}; dropboxStyle={'background-color':'white'}; boxStyle={'background-color':'white'}; localStyle={'background-color':'white'}" href="#"><img class="drive-size"ng-src="{{imgsrc_google}}"></a></li>
-    <li ng-init="imgsrc_dropbox='../img/dropbox.png'" ng-mouseover="imgsrc_dropbox='../img/dropbox_select.png'" ng-mouseout="imgsrc_dropbox='../img/dropbox.png'" class="li-margin"><a ng-style="dropboxStyle" ng-click="showgoogle=false; showdropbox=true; showbox=false; showlocal= false; googleStyle={'background-color':'white'}; dropboxStyle={'background-color':'blue'}; boxStyle={'background-color':'white'}; localStyle={'background-color':'white'}" href="#"><img class="drive-size" ng-src="{{imgsrc_dropbox}}"></a></li>
+    <li ng-init="imgsrc_dropbox='../img/dropbox.png'" ng-mouseover="imgsrc_dropbox='../img/dropbox_select.png'" ng-mouseout="imgsrc_dropbox='../img/dropbox.png'" class="li-margin"><a ng-style="dropboxStyle" ng-click="showgoogle=false; showdropbox=true; showbox=false; showlocal= false; googleStyle={'background-color':'white'}; dropboxStyle={'background-color':'#339aff'}; boxStyle={'background-color':'white'}; localStyle={'background-color':'white'}" href="#"><img class="drive-size" ng-src="{{imgsrc_dropbox}}"></a></li>
     <li ng-init="imgsrc_box='../img/box.png'" ng-mouseover="imgsrc_box='../img/box_select.png'" ng-mouseout="imgsrc_box='../img/box.png'" class="li-margin"><a ng-style="boxStyle" ng-click="showgoogle=false; showdropbox=false; showbox=true; showlocal= false; googleStyle={'background-color':'white'}; dropboxStyle={'background-color':'white'}; boxStyle={'background-color':'violet'}; localStyle={'background-color':'white'}" href="#"><img class="drive-size" ng-src="{{imgsrc_box}}"></a></li>
     <li ng-init="imgsrc_local='../img/local.png'" ng-mouseover="imgsrc_local='../img/local_select.png'" ng-mouseout="imgsrc_local='../img/local.png'" class="li-margin"><a ng-style="localStyle" ng-click="showgoogle=false; showdropbox=false; showbox=false; showlocal= true; googleStyle={'background-color':'white'}; dropboxStyle={'background-color':'white'}; boxStyle={'background-color':'white'}; localStyle={'background-color':'red'}" href="#"><img class="drive-size" ng-src="{{imgsrc_local}}"></a></li>
   </ul>
@@ -80,7 +80,7 @@
 				<img class="folder-size-blue" ng-src="{{x.folder_image}}" ng-dblclick="intoDropboxFolder(x)">
 				<img title="{{x.size}}" data-toggle="tooltip" data-placement="top" class="checkbox-size" ng-src="{{x.folder}}" ng-click="toggleFolder(x, 'd')" tooltip>
 				<br/>
-				<div class="folder-name" style="color:blue">{{x.name}}</div>
+				<div class="folder-name" style="color:#339aff">{{x.name}}</div>
 			</li>
 		</ul>
 	</div>
@@ -99,39 +99,39 @@
 
 <!--  -->
 	<div class="dropdown operation-create">
-	    <button class="btn btn-primary dropdown-toggle action" id="dropbox-create" type="button" data-toggle="dropdown" style="background-color:blue; border-color:blue" ng-mouseover="createHoverIn()" ng-mouseout="createHoverOut()" ng-click="toggleCreateModalDropbox()">
+	    <button class="btn btn-primary dropdown-toggle action" id="dropbox-create" type="button" data-toggle="dropdown" style="background-color:#339aff; border-color:#339aff" ng-mouseover="createHoverIn()" ng-mouseout="createHoverOut()" ng-click="toggleCreateModalDropbox()">
 	    <span class="glyphicon glyphicon-size glyphicon-folder-open"></span>
 	    </button>
 	</div>
 <!--  -->
 
 	<div class="dropdown operation-copy">
-	    <button class="btn btn-primary dropdown-toggle action" id="dropbox-copy" type="button" data-toggle="dropdown" style="background-color:blue; border-color:blue" ng-mouseover="copyHoverIn()" ng-mouseout="copyHoverOut()" ng-click="toggleModal(); copyIt(); dbDownloadIt()" disabled>
+	    <button class="btn btn-primary dropdown-toggle action" id="dropbox-copy" type="button" data-toggle="dropdown" style="background-color:#339aff; border-color:#339aff" ng-mouseover="copyHoverIn()" ng-mouseout="copyHoverOut()" ng-click="toggleModal(); copyIt(); dbDownloadIt()" disabled>
 	    <span class="glyphicon glyphicon-size glyphicon-file"></span>
 	    </button>
 	</div>
 	<div class="dropdown operation-move">
-	    <button class="btn btn-primary dropdown-toggle action" id="dropbox-move" type="button" data-toggle="dropdown" style="background-color:blue; border-color:blue" ng-mouseover="moveHoverIn()" ng-mouseout="moveHoverOut()" ng-click="toggleModal(); moveIt(); dbDownloadIt()" disabled>
+	    <button class="btn btn-primary dropdown-toggle action" id="dropbox-move" type="button" data-toggle="dropdown" style="background-color:#339aff; border-color:#339aff" ng-mouseover="moveHoverIn()" ng-mouseout="moveHoverOut()" ng-click="toggleModal(); moveIt(); dbDownloadIt()" disabled>
 	    <span class="glyphicon glyphicon-size glyphicon-transfer"></span>
 	    </button>
 	</div>
 	<div class="dropdown operation-rename">
-	    <button class="btn btn-primary dropdown-toggle action" id="dropbox-rename" type="button" data-toggle="dropdown" style="background-color:blue; border-color:blue" ng-mouseover="renameHoverIn()" ng-mouseout="renameHoverOut()" ng-click="toggleRenameModalDropbox()" disabled>
+	    <button class="btn btn-primary dropdown-toggle action" id="dropbox-rename" type="button" data-toggle="dropdown" style="background-color:#339aff; border-color:#339aff" ng-mouseover="renameHoverIn()" ng-mouseout="renameHoverOut()" ng-click="toggleRenameModalDropbox()" disabled>
 	    <span class="glyphicon glyphicon-size glyphicon-pencil"></span>
 	    </button>
 	</div>
 	<div class="dropdown operation-delete">
-	    <button class="btn btn-primary dropdown-toggle action" id="dropbox-delete" type="button" data-toggle="dropdown" style="background-color:blue; border-color:blue" ng-mouseover="deleteHoverIn()" ng-mouseout="deleteHoverOut()" ng-click="toggleDeleteModalDropbox()" disabled>
+	    <button class="btn btn-primary dropdown-toggle action" id="dropbox-delete" type="button" data-toggle="dropdown" style="background-color:#339aff; border-color:#339aff" ng-mouseover="deleteHoverIn()" ng-mouseout="deleteHoverOut()" ng-click="toggleDeleteModalDropbox()" disabled>
 	    <span class="glyphicon glyphicon-size glyphicon-trash"></span>
 	    </button>
 	</div>
 	<div class="dropdown operation-select">
-	    <button class="btn btn-primary dropdown-toggle action" id="dropbox-select" type="button" data-toggle="dropdown" style="background-color:blue; border-color:blue" ng-mouseover="selectHoverIn()" ng-mouseout="selectHoverOut()" ng-click="selectAllDropbox()">
+	    <button class="btn btn-primary dropdown-toggle action" id="dropbox-select" type="button" data-toggle="dropdown" style="background-color:#339aff; border-color:#339aff" ng-mouseover="selectHoverIn()" ng-mouseout="selectHoverOut()" ng-click="selectAllDropbox()">
 	    <span class="glyphicon glyphicon-size glyphicon-check"></span>
 	    </button>
 	</div>
 	<div class="dropdown operation-unselect">
-	    <button class="btn btn-primary dropdown-toggle action" id="dropbox-unselect" type="button" data-toggle="dropdown" style="background-color:blue; border-color:blue" ng-mouseover="unselectHoverIn()" ng-mouseout="unselectHoverOut()" ng-click="selectNoneDropbox()">
+	    <button class="btn btn-primary dropdown-toggle action" id="dropbox-unselect" type="button" data-toggle="dropdown" style="background-color:#339aff; border-color:#339aff" ng-mouseover="unselectHoverIn()" ng-mouseout="unselectHoverOut()" ng-click="selectNoneDropbox()">
 	    <span class="glyphicon glyphicon-size glyphicon-unchecked"></span>
 	    </button>
 	</div>
@@ -238,7 +238,7 @@
   <center>
   <ul class="nav navbar-nav">
     <li ng-init="imgsrc_google='../img/google.png'" ng-mouseover="imgsrc_google='../img/google_select.png'" ng-mouseout="imgsrc_google='../img/google.png'" class="li-margin"><a ng-style="googleDestStyle" ng-click="showDestgoogle=true; showDestdropbox=false; showDestbox=false; showDestlocal=false; googleDestStyle={'background-color':'green'}; dropboxDestStyle={'background-color':'white'}; boxDestStyle={'background-color':'white'}; localDestStyle={'background-color':'white'}; scroll()" href="#"><img class="drive-size" ng-src="{{imgsrc_google}}"></a></li>
-    <li ng-init="imgsrc_dropbox='../img/dropbox.png'" ng-mouseover="imgsrc_dropbox='../img/dropbox_select.png'" ng-mouseout="imgsrc_dropbox='../img/dropbox.png'" class="li-margin"><a ng-style="dropboxDestStyle" ng-click="showDestgoogle=false; showDestdropbox=true; showDestbox=false; showDestlocal= false; googleDestStyle={'background-color':'white'}; dropboxDestStyle={'background-color':'blue'}; boxDestStyle={'background-color':'white'}; localDestStyle={'background-color':'white'}; scroll()" href="#"><img class="drive-size" ng-src="{{imgsrc_dropbox}}"></a></li>
+    <li ng-init="imgsrc_dropbox='../img/dropbox.png'" ng-mouseover="imgsrc_dropbox='../img/dropbox_select.png'" ng-mouseout="imgsrc_dropbox='../img/dropbox.png'" class="li-margin"><a ng-style="dropboxDestStyle" ng-click="showDestgoogle=false; showDestdropbox=true; showDestbox=false; showDestlocal= false; googleDestStyle={'background-color':'white'}; dropboxDestStyle={'background-color':'#339aff'}; boxDestStyle={'background-color':'white'}; localDestStyle={'background-color':'white'}; scroll()" href="#"><img class="drive-size" ng-src="{{imgsrc_dropbox}}"></a></li>
     <li ng-init="imgsrc_box='../img/box.png'" ng-mouseover="imgsrc_box='../img/box_select.png'" ng-mouseout="imgsrc_box='../img/box.png'" class="li-margin"><a ng-style="boxDestStyle" ng-click="showDestgoogle=false; showDestdropbox=false; showDestbox=true; showDestlocal= false; googleDestStyle={'background-color':'white'}; dropboxDestStyle={'background-color':'white'}; boxDestStyle={'background-color':'violet'}; localDestStyle={'background-color':'white'}; scroll()" href="#"><img class="drive-size" ng-src="{{imgsrc_box}}"></a></li>
     <!-- Local Destination -->
     
@@ -298,29 +298,29 @@
 				<img class="folder-size-blue" ng-src="{{x.folder_image}}" ng-dblclick="intoDropboxDestFolder(x)">
 				<img title="{{x.size}}" data-toggle="tooltip" data-placement="top" class="checkbox-size" ng-src="{{x.folderDest}}" ng-click="toggleDestFolder(x, 'd')" tooltip>
 				<br/>
-				<div class="folder-name" style="color:blue">{{x.name}}</div>
+				<div class="folder-name" style="color:#339aff">{{x.name}}</div>
 			</li>
 		</ul>
 	</div>
 
 	<div class="dropdown operation-confirm">
-	    <button class="btn btn-primary dropdown-toggle action" id="dropbox-confirm" type="button" data-toggle="dropdown" style="background-color:blue; border-color:blue" ng-mouseover="confirmHoverIn()" ng-mouseout="confirmHoverOut()" ng-click="uploadLocalToDropbox(); googleToDropboxPerform()">
+	    <button class="btn btn-primary dropdown-toggle action" id="dropbox-confirm" type="button" data-toggle="dropdown" style="background-color:#339aff; border-color:#339aff" ng-mouseover="confirmHoverIn()" ng-mouseout="confirmHoverOut()" ng-click="uploadLocalToDropbox(); googleToDropboxPerform()">
 	    <span class="glyphicon glyphicon-size glyphicon-thumbs-up"></span>
 	    </button>
 	</div>
 	<div class="dropdown operation-cancel">
-	    <button class="btn btn-primary dropdown-toggle action" id="dropbox-cancel" type="button" data-toggle="dropdown" style="background-color:blue; border-color:blue" ng-mouseover="cancelHoverIn()" ng-mouseout="cancelHoverOut()" ng-click="showDestgoogle=false; showDestdropbox=false; showDestbox=false; showDestlocal=false; googleDestStyle={'background-color':'white'}; dropboxDestStyle={'background-color':'white'}; boxDestStyle={'background-color':'white'}; localDestStyle={'background-color':'white'}" data-dismiss="modal" aria-hidden="true">
+	    <button class="btn btn-primary dropdown-toggle action" id="dropbox-cancel" type="button" data-toggle="dropdown" style="background-color:#339aff; border-color:#339aff" ng-mouseover="cancelHoverIn()" ng-mouseout="cancelHoverOut()" ng-click="showDestgoogle=false; showDestdropbox=false; showDestbox=false; showDestlocal=false; googleDestStyle={'background-color':'white'}; dropboxDestStyle={'background-color':'white'}; boxDestStyle={'background-color':'white'}; localDestStyle={'background-color':'white'}" data-dismiss="modal" aria-hidden="true">
 	    <span class="glyphicon glyphicon-size glyphicon-thumbs-down"></span>
 	    </button>
 	</div>
-	<div class="verticalLine" style="color:blue"></div>
+	<div class="verticalLine" style="color:#339aff"></div>
 	<div class="dropdown operation-selectDest">
-	    <button class="btn btn-primary dropdown-toggle action" id="dropbox-selectDest" type="button" data-toggle="dropdown" style="background-color:blue; border-color:blue" ng-mouseover="selectDestHoverIn()" ng-mouseout="selectDestHoverOut()" ng-click="selectAllDestDropbox()">
+	    <button class="btn btn-primary dropdown-toggle action" id="dropbox-selectDest" type="button" data-toggle="dropdown" style="background-color:#339aff; border-color:#339aff" ng-mouseover="selectDestHoverIn()" ng-mouseout="selectDestHoverOut()" ng-click="selectAllDestDropbox()">
 	    <span class="glyphicon glyphicon-size glyphicon-check"></span>
 	    </button>
 	</div>
 	<div class="dropdown operation-unselectDest">
-	    <button class="btn btn-primary dropdown-toggle action" id="dropbox-unselectDest" type="button" data-toggle="dropdown" style="background-color:blue; border-color:blue" ng-mouseover="unselectDestHoverIn()" ng-mouseout="unselectDestHoverOut()" ng-click="selectNoneDestDropbox()">
+	    <button class="btn btn-primary dropdown-toggle action" id="dropbox-unselectDest" type="button" data-toggle="dropdown" style="background-color:#339aff; border-color:#339aff" ng-mouseover="unselectDestHoverIn()" ng-mouseout="unselectDestHoverOut()" ng-click="selectNoneDestDropbox()">
 	    <span class="glyphicon glyphicon-size glyphicon-unchecked"></span>
 	    </button>
 	</div>
