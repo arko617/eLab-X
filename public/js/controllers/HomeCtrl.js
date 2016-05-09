@@ -483,7 +483,7 @@ angular.module('HomeCtrl', []).controller('HomeController', ['$scope', '$window'
                     deleteGoogleRecurse(id);
 
                 else{
-                    setCookie(1, 5);
+                    setCookie(0, 5);
                     window.location = window.location.href;
                 }   
             }
@@ -497,7 +497,7 @@ angular.module('HomeCtrl', []).controller('HomeController', ['$scope', '$window'
                     deleteGoogleRecurse(id);
 
                 else{
-                    setCookie(1, 5);
+                    setCookie(0, 5);
                     window.location = window.location.href;
                 }  
             }
@@ -547,7 +547,7 @@ angular.module('HomeCtrl', []).controller('HomeController', ['$scope', '$window'
                     deleteDropboxRecurse(path);
 
                 else{
-                    setCookie(0, 5);
+                    setCookie(1, 5);
                     window.location = window.location.href;
                 }
             }
@@ -562,7 +562,7 @@ angular.module('HomeCtrl', []).controller('HomeController', ['$scope', '$window'
                         deleteDropboxRecurse(path);
 
                     else{
-                        setCookie(0, 5);
+                        setCookie(1, 5);
                         window.location = window.location.href;
                     }  
                 }
@@ -584,7 +584,7 @@ angular.module('HomeCtrl', []).controller('HomeController', ['$scope', '$window'
                         deleteDropboxRecurse(path);
 
                     else{
-                        setCookie(0, 5);
+                        setCookie(1, 5);
                         window.location = window.location.href;
                     }  
                 }
