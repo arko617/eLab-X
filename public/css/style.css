@@ -492,4 +492,17 @@ li{
   background-color: #001f3f;
 }
 
+.loading-image {
+  height: 200px;
+  width: 200px;
+}
 
+#loadingDrive{
+  margin-left: 425px;
+  margin-top: -325px;
+}
+
+#loadingDropbox{
+  margin-left: 425px;
+  margin-top: -325px;
+}

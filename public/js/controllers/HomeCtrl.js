@@ -7,7 +7,8 @@ var empty = [];
 
 var gFile = [];
 
-var bFile = [{name: 'Resume', size:"0 MB", folder: "../img/checkbox.png", folderDest: "../img/checkbox.png"}];
+// var bFile = [{name: 'Resume', size:"0 MB", folder: "../img/checkbox.png", folderDest: "../img/checkbox.png"}];
+var bFile = [];
 
 var dFile = [];
 
@@ -73,10 +74,13 @@ var fileSizeSort = function(a, b) {
         return 0;
 }
 
-angular.module('HomeCtrl', []).controller('HomeController', ['$scope', '$window', '$timeout', function($scope, $window, $timeout) {
-	
-    //AFTER REFRESH
+var done = function(){
+     document.getElementById("loadingDrive").style.display = "none";
+};
 
+angular.module('HomeCtrl', []).controller('HomeController', ['$scope', '$window', '$timeout', function($scope, $window, $timeout) {  
+
+    //AFTER REFRESH
     if(document.cookie === "0"){
         $scope.showgoogle = true;
         $scope.showdropbox = false;
@@ -698,12 +702,21 @@ angular.module('HomeCtrl', []).controller('HomeController', ['$scope', '$window'
 	$scope.temp_parent = [];
 	$scope.temp_parentDB = [];
 
+
 	$scope.googleFile = gFile;
 	$scope.dropboxFile = dFile;
 	$scope.boxFile = bFile;
 	$scope.localFile = lFile;
 
+    setInterval(function(){ 
+        if($scope.googleFile.length > 0)
+            document.getElementById("loadingDrive").style.display = "none";
 
+        if($scope.dropboxFile.length > 0)
+            document.getElementById("loadingDropbox").style.display = "none";
+
+        $scope.$apply();
+    }, 1000);
 
 	//--------------INTO AND OUT OF DIRECTORY-----------//
 
@@ -2434,7 +2447,6 @@ angular.module('HomeCtrl', []).controller('HomeController', ['$scope', '$window'
 	};																  //
 																	  //
 	//--------------------JOHNNY: for APIs testing--------------------//
-
 }])
 .directive('modal', function () {
     return {
