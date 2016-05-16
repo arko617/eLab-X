@@ -14,6 +14,7 @@ var dFile = [];
 
 var lFile = [];
 
+
 var isEmpty = function(obj) {
     for(var key in obj) {
 	    if(obj.hasOwnProperty(key))
@@ -1737,6 +1738,7 @@ angular.module('HomeCtrl', []).controller('HomeController', ['$scope', '$window'
 	////////////////////////---------DESTINATION----------/////////////////////
 	///////////////////////////////////////////////////////////////////////////
 
+
 	$scope.uploadLocalToGoogle = function(){
         var count = Object.keys($scope.lFileSelect).length;
 		for(var i in $scope.lFileSelect){
@@ -2103,6 +2105,7 @@ angular.module('HomeCtrl', []).controller('HomeController', ['$scope', '$window'
         $scope.downloadFlag = "Dropbox";
     }
 
+    //FUCK
     $scope.toLocalDownload = function(){
         if($scope.downloadFlag === "Google")
             $scope.gdToLocalDownload();
@@ -2119,10 +2122,34 @@ angular.module('HomeCtrl', []).controller('HomeController', ['$scope', '$window'
     }
 
 
+    //Zip
+    $scope.zipFolders = function() {
+        var zip = new JSZip();
+        zip.file("Hello.txt", "Hello World\n");
+        var img = zip.folder("images");
+        img.file("smile.gif", imgData, {base64: true});
+        zip.generateAsync({type:"blob"})
+        .then(function(content) {
+            // see FileSaver.js
+            saveAs(content, "example.zip");
+        });
+    }
+    /***************************************************************************************/
+
+    //FUCK
     $scope.gdToLocalDownload = function() {
         console.log("Google to local download");
 
         var a;
+        alert($scope.folderFlag);
+
+        //Downloading folders
+        if($scope.folderFlag != 0) {
+            alert("FUCK");
+            $scope.zipFolders();
+            return;
+        }
+
 
         for(var x in $scope.gFileSelect) {
             a = x;
@@ -2199,6 +2226,13 @@ angular.module('HomeCtrl', []).controller('HomeController', ['$scope', '$window'
         var filePath;
 
         var a;
+
+        //Downloading folders
+        if($scope.folderFlagDB != 0) {
+            $scope.zipFolders();
+            return;
+        }
+
 
         for(var x in $scope.dFileSelect) {
             a = x;
