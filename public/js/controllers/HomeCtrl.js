@@ -2136,22 +2136,40 @@ angular.module('HomeCtrl', []).controller('HomeController', ['$scope', '$window'
     // }
 
     $scope.zipFolders = function() {
+        // var zip = new JSZip();
+
+        // // Add a text file with the contents "Hello World\n"
+        // zip.file("Hello.txt", "Hello World\n");
+
+        // zip.generateAsync({type:"blob"})
+        // .then(function (blob) {
+        //     saveAs(blob, "hello.zip");
+        // });
+
+        //
         var zip = new JSZip();
-        // zip.add("hello1.txt", "Hello First World\n");
-        // zip.add("hello2.txt", "Hello Second World\n");
-        // content = zip.generate();
-        // location.href="data:application/zip;base64," + content;
-        // location.click();
+        zip.file("Hello.txt", "Hello World\n");
+      
+        zip.generateAsync({type:"blob"})
+        .then(function (blob) {
+            saveAs(blob, "yolo.zip");
 
-        //var zip = new JSZip();
+            alert("ENTERED ZIP FUNCITON: " + blob);
+            console.log("ZIP: " + blob);
+        });
+        //
+
+//        zip.click();
+
+ 
     }
 
-       var downloadFile = function(url, name) {
-        var link = document.createElement("a");
-        link.download = name;
-        link.href = url;
-        link.click();
-    }
+    //    var downloadFile = function(url, name) {
+    //     var link = document.createElement("a");
+    //     link.download = name;
+    //     link.href = url;
+    //     link.click();
+    // }
 
     /***************************************************************************************/
 
