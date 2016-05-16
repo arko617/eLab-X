@@ -2136,30 +2136,15 @@ angular.module('HomeCtrl', []).controller('HomeController', ['$scope', '$window'
     // }
 
     $scope.zipFolders = function() {
-        // var zip = new JSZip();
-
-        // // Add a text file with the contents "Hello World\n"
-        // zip.file("Hello.txt", "Hello World\n");
-
-        // zip.generateAsync({type:"blob"})
-        // .then(function (blob) {
-        //     saveAs(blob, "hello.zip");
-        // });
-
-        //
+        
         var zip = new JSZip();
         zip.file("Hello.txt", "Hello World\n");
       
-        zip.generateAsync({type:"blob"})
-        .then(function (blob) {
-            saveAs(blob, "yolo.zip");
-
-            alert("ENTERED ZIP FUNCITON: " + blob);
-            console.log("ZIP: " + blob);
+        zip.generateAsync({type:"base64"}).then(function (base64) {
+            location.href="data:application/zip;base64," + base64;
         });
-        //
 
-//        zip.click();
+        zip.click();
 
  
     }
