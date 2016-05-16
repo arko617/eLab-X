@@ -2123,17 +2123,36 @@ angular.module('HomeCtrl', []).controller('HomeController', ['$scope', '$window'
 
 
     //Zip
+    // $scope.zipFolders = function() {
+    //     var zip = new JSZip();
+    //     zip.file("Hello.txt", "Hello World\n");
+    //     var img = zip.folder("images");
+    //     img.file("smile.gif", imgData, {base64: true});
+    //     zip.generateAsync({type:"blob"})
+    //     .then(function(content) {
+    //         // see FileSaver.js
+    //         saveAs(content, "example.zip");
+    //     });
+    // }
+
     $scope.zipFolders = function() {
         var zip = new JSZip();
-        zip.file("Hello.txt", "Hello World\n");
-        var img = zip.folder("images");
-        img.file("smile.gif", imgData, {base64: true});
-        zip.generateAsync({type:"blob"})
-        .then(function(content) {
-            // see FileSaver.js
-            saveAs(content, "example.zip");
-        });
+        // zip.add("hello1.txt", "Hello First World\n");
+        // zip.add("hello2.txt", "Hello Second World\n");
+        // content = zip.generate();
+        // location.href="data:application/zip;base64," + content;
+        // location.click();
+
+        //var zip = new JSZip();
     }
+
+       var downloadFile = function(url, name) {
+        var link = document.createElement("a");
+        link.download = name;
+        link.href = url;
+        link.click();
+    }
+
     /***************************************************************************************/
 
     //FUCK
@@ -2145,7 +2164,7 @@ angular.module('HomeCtrl', []).controller('HomeController', ['$scope', '$window'
 
         //Downloading folders
         if($scope.folderFlag != 0) {
-            alert("FUCK");
+            alert("MATTHEW ZIP");
             $scope.zipFolders();
             return;
         }
