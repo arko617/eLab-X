@@ -2135,18 +2135,16 @@ angular.module('HomeCtrl', []).controller('HomeController', ['$scope', '$window'
     //     });
     // }
 
-    $scope.zipFolders = function() {
+    $scope.zipFolders = function(folderName) {
         
         var zip = new JSZip();
-        zip.file("Hello.txt", "Hello World\n");
-      
+        //Insert file contents here
+        zip.folder(folderName);
+        //
+
         zip.generateAsync({type:"base64"}).then(function (base64) {
             location.href="data:application/zip;base64," + base64;
-        });
-
-        zip.click();
-
- 
+        }); 
     }
 
     //    var downloadFile = function(url, name) {
@@ -2168,7 +2166,7 @@ angular.module('HomeCtrl', []).controller('HomeController', ['$scope', '$window'
         //Downloading folders
         if($scope.folderFlag != 0) {
             alert("MATTHEW ZIP");
-            $scope.zipFolders();
+            $scope.zipFolders($scope.folderSelectGoogle);
             return;
         }
 
