@@ -80,7 +80,6 @@ var done = function(){
 };
 
 angular.module('HomeCtrl', []).controller('HomeController', ['$scope', '$window', '$timeout', function($scope, $window, $timeout) {  
-console.log("LOAAAAAAAADDDDDDDDDDDDDDDDDD: ", document.getElementById("loadingLocal").style.display);
     //AFTER REFRESH
     if(document.cookie === "0"){
         $scope.showgoogle = true;
@@ -575,6 +574,10 @@ console.log("LOAAAAAAAADDDDDDDDDDDDDDDDDD: ", document.getElementById("loadingLo
         return googleToDropbox($scope.renameReplaceFileInfo[0], $scope.renameReplaceFileInfo[1], $scope.renameReplaceFileInfo[2], $scope.renameReplaceFileInfo[3], false, $scope.renameReplaceFileInfo[0].name);
     };
 
+    $scope.replaceChosenCancelDropbox = function(){
+        $scope.dropboxDestFile = dFile;
+    };
+
     var googleToDropboxDir = function(file, dest, id, fileName){
         dbClient.mkdir(dest + fileName, function(resp){
             if(resp.status){
@@ -691,7 +694,7 @@ console.log("LOAAAAAAAADDDDDDDDDDDDDDDDDD: ", document.getElementById("loadingLo
     };
 
     $scope.dropboxToGooglePerform = function(){
-    	// var count = Object.keys($scope.dFileSelect).length;
+    	$scope.googleDestFile = [];
     	for(x in $scope.dFileSelect){
     		if($scope.curDirDropbox === "/"){
                 if($scope.dFileSelect[x].directory)
@@ -803,13 +806,18 @@ console.log("LOAAAAAAAADDDDDDDDDDDDDDDDDD: ", document.getElementById("loadingLo
         if($scope.dropboxFile.length > 0)
             document.getElementById("loadingDropbox").style.display = "none";
 
+        if($scope.googleDestFile.length > 0)
+            document.getElementById("loadingGoogleDest").style.display = "none";
+        else
+            document.getElementById("loadingGoogleDest").style.display = "inherit";
+
         if($scope.dropboxDestFile.length > 0)
             document.getElementById("loadingDropboxDest").style.display = "none";
         else
             document.getElementById("loadingDropboxDest").style.display = "inherit";
 
         $scope.$apply();
-    }, 1000);
+    }, 500);
 
  
 	//--------------INTO AND OUT OF DIRECTORY-----------//

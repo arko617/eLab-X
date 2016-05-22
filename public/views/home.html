@@ -299,6 +299,9 @@
 	    <span class="glyphicon glyphicon-size glyphicon-unchecked"></span>
 	    </button>
 	</div>
+	<div id="loadingGoogleDest">
+	  <img class="loading-image" src="../img/loaderDrive.gif" alt="Loading..." />
+	</div>
 </div>
 
 <div ng-show="showDestdropbox" class="container" id="dropbox-display-destination">
@@ -543,7 +546,7 @@
 	<div style="width:10px; display:inline-block"></div>
 	<button style="width:100px; height:50px; font-size:15px" class="btn btn-sm btn-primary" ng-click="replaceChosen()" data-dismiss="modal" aria-hidden="true">Replace</button>
 	<div style="width:10px; display:inline-block"></div>
-	<button style="width:100px; height:50px; font-size:15px" class="btn btn-sm btn-primary" data-dismiss="modal" aria-hidden="true">Cancel</button>
+	<button style="width:100px; height:50px; font-size:15px" class="btn btn-sm btn-primary" ng-click="replaceChosenCancelDropbox()" data-dismiss="modal" aria-hidden="true">Cancel</button>
 	</center>
 </mod>
 
@@ -559,7 +562,7 @@
 	<div style="width:10px; display:inline-block"></div>
 	<button style="width:100px; height:50px; font-size:15px" class="btn btn-sm btn-primary" ng-click="replaceChosenFileDropbox()" data-dismiss="modal" aria-hidden="true">Replace</button>
 	<div style="width:10px; display:inline-block"></div>
-	<button style="width:100px; height:50px; font-size:15px" class="btn btn-sm btn-primary" data-dismiss="modal" aria-hidden="true">Cancel</button>
+	<button style="width:100px; height:50px; font-size:15px" class="btn btn-sm btn-primary" ng-click="replaceChosenCancelDropbox()" data-dismiss="modal" aria-hidden="true">Cancel</button>
 	</center>
 </mod>
 <!-- End of Rename/Replace Modal -->
