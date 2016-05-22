@@ -79,7 +79,7 @@ var done = function(){
 };
 
 angular.module('HomeCtrl', []).controller('HomeController', ['$scope', '$window', '$timeout', function($scope, $window, $timeout) {  
-
+console.log("LOAAAAAAAADDDDDDDDDDDDDDDDDD: ", document.getElementById("loadingLocal").style.display);
     //AFTER REFRESH
     if(document.cookie === "0"){
         $scope.showgoogle = true;
@@ -128,7 +128,18 @@ angular.module('HomeCtrl', []).controller('HomeController', ['$scope', '$window'
 
 	$scope.showModal = false;
     $scope.toggleModal = function(){
+        angular.element(document.getElementById("google-rename-refresh-input").innerHTML = "<input style='width:70%' type='text' name='newName' id='google-folder-rename' value='" + $scope.renameSelect + "'><br><br><br>");
         $scope.showModal = !$scope.showModal;
+    };
+
+    $scope.renameReplaceModal = false;
+    $scope.toggleRenameReplaceFolderModal = function(){
+        $scope.renameReplaceModal = !$scope.renameReplaceModal;
+    };
+
+    $scope.renameReplaceFileModal = false;
+    $scope.toggleRenameReplaceFileModal = function(){
+        $scope.renameReplaceFileModal = !$scope.renameReplaceFileModal;
     };
 
     //--------GOOGLE--------//
@@ -384,7 +395,7 @@ angular.module('HomeCtrl', []).controller('HomeController', ['$scope', '$window'
     			$scope.fileFlag--;
    			
    			$scope.folderSelectGoogle--;
-   			$scope.folderSelectionGoogle();
+   			// $scope.folderSelectionGoogle();
    			
             if($scope.gFileSelect[i].sibling){
                 for(var j = 0; j < $scope.gFileSelect[i].sibling.length; j++){
@@ -402,9 +413,9 @@ angular.module('HomeCtrl', []).controller('HomeController', ['$scope', '$window'
     			}
     		}
     		console.log($scope.gFileSelect);
-    		var elem = angular.element(document.getElementById(i));
-    		console.log(elem);
-    		elem.remove();
+    		// var elem = angular.element(document.getElementById(i));
+    		// console.log(elem);
+    		// elem.remove();
             setCookie(0, 5);
     		window.location = window.location.href;
     	});
@@ -420,6 +431,7 @@ angular.module('HomeCtrl', []).controller('HomeController', ['$scope', '$window'
 
     //---Dropbox---//
     var deleteDropboxRecurse = function(i){
+        console.log(i);
     	dbClient.remove(i,function(resp){
     		console.log($scope.dFileSelect);
     		if($scope.dFileSelect[i].directory)
@@ -428,7 +440,7 @@ angular.module('HomeCtrl', []).controller('HomeController', ['$scope', '$window'
     			$scope.fileFlagDB--;
    			
    			$scope.folderSelectDropbox--;
-   			$scope.folderSelectionDropbox();
+   			// $scope.folderSelectionDropbox();
 
     		delete $scope.dFileSelect[i];
     		for(var k = 0; k < $scope.dDirSelect.length; k++){
@@ -436,8 +448,8 @@ angular.module('HomeCtrl', []).controller('HomeController', ['$scope', '$window'
     				delete $scope.dDirSelect[k];
     		}
     		console.log($scope.dFileSelect);
-    		var elem = angular.element(document.getElementById(i));
-    		elem.remove();
+    		// var elem = angular.element(document.getElementById(i));
+    		// elem.remove();
             setCookie(1, 5);
     		window.location = window.location.href;
     	});
@@ -457,6 +469,9 @@ angular.module('HomeCtrl', []).controller('HomeController', ['$scope', '$window'
 
 
     //-----------MOVE/COPY OPERATION----------//
+    $scope.renameReplaceFileName = "";
+    $scope.renameReplaceFileImage = "";
+    $scope.renameReplaceFileInfo = [];
 
     $scope.copy = true;
 
@@ -468,7 +483,7 @@ angular.module('HomeCtrl', []).controller('HomeController', ['$scope', '$window'
         $scope.copy = false;
     }    
 
-    var googleToDropbox = function(file, dest, id, checkFolder){
+    var googleToDropbox = function(file, dest, id, checkFolder, overWrite, fileName){
         if(file.original.mimeType){
             if(file.original.mimeType !== "application/vnd.google-apps.spreadsheet")
                 gDriveToDBoxCheck++;
@@ -477,26 +492,95 @@ angular.module('HomeCtrl', []).controller('HomeController', ['$scope', '$window'
         else
             gDriveToDBoxCheck++;        
 
-    	gdClient.aFileToDropbox(file.id, dbClient, dest, {noOverwrite: true}, $scope.copy, function(){
-    		console.log("EXECUTED");
-            gDriveToDBoxCheck--;
+        console.log(dFile);
+        
+        dbClient.getDownloadLink(dest + fileName, null, function(resp, error){
+            if(error){
+                gdClient.aFileToDropbox(file.id, dbClient, dest, {noOverwrite: overWrite}, $scope.copy, dest + fileName, function(){
+                    console.log("EXECUTED");
+                    gDriveToDBoxCheck--;
 
-            console.log(gDriveToDBoxCheck);
-            if(gDriveToDBoxCheck === 0){
-                if(!$scope.copy && checkFolder)
-                    deleteGoogleRecurse(id);
+                    console.log(gDriveToDBoxCheck);
+                    if(gDriveToDBoxCheck === 0){
+                        if(!$scope.copy && checkFolder)
+                            deleteGoogleRecurse(id);
+
+                        else{
+                            setCookie(0, 5);
+                            window.location = window.location.href;
+                        }   
+                    }
+                });
+            }
+
+            else{
+                if(!overWrite){
+                    console.log("OVERWRITE::::: ", overWrite);
+                    gdClient.aFileToDropbox(file.id, dbClient, dest, {noOverwrite: overWrite}, $scope.copy, null, function(){
+                        console.log("EXECUTED");
+                        gDriveToDBoxCheck--;
+
+                        console.log(gDriveToDBoxCheck);
+                        if(gDriveToDBoxCheck === 0){
+                            if(!$scope.copy && checkFolder)
+                                deleteGoogleRecurse(id);
+
+                            else{
+                                setCookie(0, 5);
+                                window.location = window.location.href;
+                            }   
+                        }
+                    });
+                }
 
                 else{
-                    setCookie(0, 5);
-                    window.location = window.location.href;
-                }   
+                    gDriveToDBoxCheck--;
+                    renameReplaceFile(file, dest, id, checkFolder);
+                }
             }
-    	});
+        });
     };
 
-    var googleToDropboxDir = function(file, dest, id){
-        dbClient.mkdir(dest + file.name, function(resp){
-            if(file.id === id && file.children.length === 0){
+    $scope.renameChosen = function(){
+        return googleToDropboxDir($scope.renameReplaceFileInfo[0], $scope.renameReplaceFileInfo[1], $scope.renameReplaceFileInfo[2], document.getElementById("rename-replace-input").value);
+    };
+
+    $scope.replaceChosen = function(){
+        dbClient.remove($scope.curDestDirDropbox + $scope.renameReplaceFileInfo[0].name,function(resp){
+            console.log(resp);
+            googleToDropboxDir($scope.renameReplaceFileInfo[0], $scope.renameReplaceFileInfo[1], $scope.renameReplaceFileInfo[2], $scope.renameReplaceFileInfo[0].name);
+        });
+    };
+
+    var renameReplaceFolder = function(file, dest, id, fileName){
+        $scope.renameReplaceFileName = fileName;
+        $scope.renameReplaceFileImage = file.folder_image;
+        $scope.renameReplaceFileInfo = [file, dest, id];
+        return $scope.toggleRenameReplaceFolderModal();
+    };
+
+    var renameReplaceFile = function(file, dest, id, checkFolder){
+        $scope.renameReplaceFileName = file.name;
+        $scope.renameReplaceFileImage = file.folder_image;
+        $scope.renameReplaceFileInfo = [file, dest, id, checkFolder];
+        return $scope.toggleRenameReplaceFileModal();
+    };
+
+    $scope.renameChosenFileDropbox = function(){
+        return googleToDropbox($scope.renameReplaceFileInfo[0], $scope.renameReplaceFileInfo[1], $scope.renameReplaceFileInfo[2], $scope.renameReplaceFileInfo[3], true, document.getElementById("rename-replace-file-input").value);
+    };
+
+    $scope.replaceChosenFileDropbox = function(){
+        return googleToDropbox($scope.renameReplaceFileInfo[0], $scope.renameReplaceFileInfo[1], $scope.renameReplaceFileInfo[2], $scope.renameReplaceFileInfo[3], false, $scope.renameReplaceFileInfo[0].name);
+    };
+
+    var googleToDropboxDir = function(file, dest, id, fileName){
+        dbClient.mkdir(dest + fileName, function(resp){
+            if(resp.status){
+                return renameReplaceFolder(file, dest, id, fileName);
+            }
+
+            else if(file.id === id && file.children.length === 0){
                 if(!$scope.copy)
                     deleteGoogleRecurse(id);
 
@@ -509,31 +593,32 @@ angular.module('HomeCtrl', []).controller('HomeController', ['$scope', '$window'
             for(var i = 0; i < file.children.length; i++){
                 console.log(file.children[i].name);
                 if(file.children[i].directory)
-                    googleToDropboxDir(file.children[i], dest + file.name + "/", id);
+                    googleToDropboxDir(file.children[i], dest + fileName + "/", id, file.children[i].name);
 
                 else
-                    googleToDropbox(file.children[i], dest + file.name + "/", id, true);
+                    googleToDropbox(file.children[i], dest + fileName + "/", id, true, true, file.children[i].name);
             }
         });
     };
 
     $scope.googleToDropboxPerform = function(){
+        $scope.dropboxDestFile = [];
     	for(x in $scope.gFileSelect){
     		if($scope.curDestDirDropbox === "/"){
                 if($scope.gFileSelect[x].directory)
-                    googleToDropboxDir($scope.gFileSelect[x], $scope.curDestDirDropbox, x);
+                    googleToDropboxDir($scope.gFileSelect[x], $scope.curDestDirDropbox, x, $scope.gFileSelect[x].name);
 
                 else{
-                    googleToDropbox($scope.gFileSelect[x], $scope.curDestDirDropbox, x, false);
+                    googleToDropbox($scope.gFileSelect[x], $scope.curDestDirDropbox, x, false, true, $scope.gFileSelect[x].name);
                 }
             }
 
     		else{
                 if($scope.gFileSelect[x].directory)
-                    googleToDropboxDir($scope.gFileSelect[x], $scope.curDestDirDropbox + "/", x);
+                    googleToDropboxDir($scope.gFileSelect[x], $scope.curDestDirDropbox + "/", x, $scope.gFileSelect[x].name);
 
                 else
-                    googleToDropbox($scope.gFileSelect[x], $scope.curDestDirDropbox + "/", x, false);
+                    googleToDropbox($scope.gFileSelect[x], $scope.curDestDirDropbox + "/", x, false, true, $scope.gFileSelect[x].name);
             }
     	}
     };
@@ -666,9 +751,11 @@ angular.module('HomeCtrl', []).controller('HomeController', ['$scope', '$window'
        // lFile.sort(fileSizeSort);
 
         angular.element(document.getElementById('js-upload-files').value = "");
+        document.getElementById("loadingLocal").style.display = "none";
     }
 
     $scope.uploadForm = function() {
+        document.getElementById("loadingLocal").style.display = "inherit";
         var uploadFiles = angular.element(document.getElementById('js-upload-files').files);
         $scope.startUpload(uploadFiles);
     }
@@ -715,9 +802,15 @@ angular.module('HomeCtrl', []).controller('HomeController', ['$scope', '$window'
         if($scope.dropboxFile.length > 0)
             document.getElementById("loadingDropbox").style.display = "none";
 
+        if($scope.dropboxDestFile.length > 0)
+            document.getElementById("loadingDropboxDest").style.display = "none";
+        else
+            document.getElementById("loadingDropboxDest").style.display = "inherit";
+
         $scope.$apply();
     }, 1000);
 
+ 
 	//--------------INTO AND OUT OF DIRECTORY-----------//
 
 	//---Google---//	
@@ -1745,6 +1838,7 @@ angular.module('HomeCtrl', []).controller('HomeController', ['$scope', '$window'
                 count--;
 				if(count === 0){
 					$scope.toggleModal();
+                    setCookie(0, 5);
                     window.location = window.location.href;
                 }
 			});
@@ -1768,6 +1862,7 @@ angular.module('HomeCtrl', []).controller('HomeController', ['$scope', '$window'
                 count--;
 				if(count === 0){
 					$scope.toggleModal();
+                    setCookie(1, 5);
                     window.location = window.location.href;
                 }
 			});

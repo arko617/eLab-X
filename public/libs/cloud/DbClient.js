@@ -72,10 +72,10 @@ dbp.rename = function(filePath, newFilePath, callback){
 dbp.getDownloadLink = function(filePath, options, callback){
 	this.api.makeUrl(filePath, options, function(error, url) {
 		  if (error) {
-		    return (error);  // Something went wrong.
+		    return callback && callback(url, error);;  // Something went wrong.
 		  }
 
-		  callback && callback(url,error);
+		  callback && callback(url, error);
 		});
 }
 
@@ -151,7 +151,7 @@ dbp.mkdir = function(path, callback){
 	this.api.mkdir(path,function(error,resp){
 		if (error){
 			console.log('fail to create a folder in dropbox', error)
-			return
+			callback && callback(error)
 		}
 		console.log('Created a folder in dropbox', resp)
 		callback && callback(resp)

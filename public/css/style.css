@@ -506,3 +506,15 @@ li{
   margin-left: 425px;
   margin-top: -325px;
 }
+
+#loadingLocal{
+  margin-left: 425px;
+  margin-top: -325px;
+  display: none;
+}
+
+#loadingDropboxDest{
+  margin-left: 425px;
+  margin-top: -325px;
+  display: none;
+}

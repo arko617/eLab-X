@@ -269,7 +269,7 @@ gdp.upload = function(destFolderId, datablob,callback){
 // ---------------------------------- Function to do copy and move across cloud storages	
 
 // move or copy a file from google drive to dropbox
-gdp.aFileToDropbox = function(fileId, dboxClient, destination, options, isCopy, callback){
+gdp.aFileToDropbox = function(fileId, dboxClient, destination, options, isCopy, customPath, callback){
 	var downloadUrl;
 	var that = this
 
@@ -346,7 +346,10 @@ gdp.aFileToDropbox = function(fileId, dboxClient, destination, options, isCopy, 
 			console.log('===',downloadUrl)
 			console.log('[[]]',blob)
 
-			dataFullPath = "{0}{1}".f(destination,file.title)	//we need to give the fullpath, including the file name
+			if(customPath)
+				dataFullPath = customPath;
+			else
+				dataFullPath = "{0}{1}".f(destination,file.title)	//we need to give the fullpath, including the file name
 
 			dboxClient.upload(dataFullPath,blob,options,function(resp){
 

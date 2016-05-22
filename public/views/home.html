@@ -233,12 +233,15 @@
 	    <span class="glyphicon glyphicon-size glyphicon-unchecked"></span>
 	    </button>
 	</div>
+	<div id="loadingLocal">
+	  <img class="loading-image" src="../img/loaderDrive.gif" alt="Loading..." />
+	</div>
 </div>
 <!-- End of Local -->
 
 <!-- Destination Popup -->
 
-<modal title="Choose File Destination" visible="showModal">
+<modal title="Choose Destination" visible="showModal">
 <button style="margin-top:-60px" type="button" class="close" ng-click="showDestgoogle=false; showDestdropbox=false; showDestbox=false; showDestlocal=false; googleDestStyle={'background-color':'white'}; dropboxDestStyle={'background-color':'white'}; boxDestStyle={'background-color':'white'}; localDestStyle={'background-color':'white'}" data-dismiss="modal" aria-hidden="true">&times;</button>
  <div ng-show="true" class="container" >
   <center>
@@ -259,7 +262,6 @@
 </div>
 
 <div ng-show="showDestgoogle" class="container" id="google-display-destination">
-
 	<div class="btn btn-primary" id="directoryDestGoogle" ng--click="outofGoogleDestFolder()"><span class="glyphicon glyphicon-triangle-left">&nbsp;</span>{{curDestDirGoogle}}</div>
 	<div style="height:88%; width:92%; overflow-y:scroll; margin-top:5px">
 		<ul ng-repeat="x in googleDestFile" class="nav navbar-nav">
@@ -329,6 +331,9 @@
 	    <button class="btn btn-primary dropdown-toggle action" id="dropbox-unselectDest" type="button" data-toggle="dropdown" style="background-color:#339aff; border-color:#339aff" ng-mouseover="unselectDestHoverIn()" ng-mouseout="unselectDestHoverOut()" ng-click="selectNoneDestDropbox()">
 	    <span class="glyphicon glyphicon-size glyphicon-unchecked"></span>
 	    </button>
+	</div>
+	<div id="loadingDropboxDest">
+	  <img class="loading-image" src="../img/loaderDropbox.gif" alt="Loading..." />
 	</div>
 </div>
 
@@ -521,3 +526,36 @@
 <!-- ---------------------- -->
 <!-- End of Dropbox -->
 
+<!-- Rename/Replace Modal -->
+<mod title="Rename or Replace?" visible="renameReplaceModal">
+	<button style="margin-top:-60px" type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+	<center>
+	<h4><h4>
+	<img src="{{renameReplaceFileImage}}" style="width:100px;height:100px;"><br>
+	<div id="rename-replace">
+		<input style="width:70%" type="text" name="newName" id="rename-replace-input" value="{{renameReplaceFileName}}"><br><br><br>
+	</div>
+	<button style="width:100px; height:50px; font-size:15px" class="btn btn-sm btn-primary" ng-click="renameChosen()" data-dismiss="modal" aria-hidden="true">Rename</button>
+	<div style="width:10px; display:inline-block"></div>
+	<button style="width:100px; height:50px; font-size:15px" class="btn btn-sm btn-primary" ng-click="replaceChosen()" data-dismiss="modal" aria-hidden="true">Replace</button>
+	<div style="width:10px; display:inline-block"></div>
+	<button style="width:100px; height:50px; font-size:15px" class="btn btn-sm btn-primary" data-dismiss="modal" aria-hidden="true">Cancel</button>
+	</center>
+</mod>
+
+<mod title="Rename or Replace?" visible="renameReplaceFileModal">
+	<button style="margin-top:-60px" type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+	<center>
+	<h4><h4>
+	<img src="{{renameReplaceFileImage}}" style="width:100px;height:100px;"><br>
+	<div id="rename-replace-file">
+		<input style="width:70%" type="text" name="newName" id="rename-replace-file-input" value="{{renameReplaceFileName}}"><br><br><br>
+	</div>
+	<button style="width:100px; height:50px; font-size:15px" class="btn btn-sm btn-primary" ng-click="renameChosenFileDropbox()" data-dismiss="modal" aria-hidden="true">Rename</button>
+	<div style="width:10px; display:inline-block"></div>
+	<button style="width:100px; height:50px; font-size:15px" class="btn btn-sm btn-primary" ng-click="replaceChosenFileDropbox()" data-dismiss="modal" aria-hidden="true">Replace</button>
+	<div style="width:10px; display:inline-block"></div>
+	<button style="width:100px; height:50px; font-size:15px" class="btn btn-sm btn-primary" data-dismiss="modal" aria-hidden="true">Cancel</button>
+	</center>
+</mod>
+<!-- End of Rename/Replace Modal -->
