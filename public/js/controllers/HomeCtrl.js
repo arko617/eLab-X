@@ -14,6 +14,7 @@ var dFile = [];
 
 var lFile = [];
 
+
 var isEmpty = function(obj) {
     for(var key in obj) {
 	    if(obj.hasOwnProperty(key))
@@ -1830,6 +1831,7 @@ console.log("LOAAAAAAAADDDDDDDDDDDDDDDDDD: ", document.getElementById("loadingLo
 	////////////////////////---------DESTINATION----------/////////////////////
 	///////////////////////////////////////////////////////////////////////////
 
+
 	$scope.uploadLocalToGoogle = function(){
         var count = Object.keys($scope.lFileSelect).length;
 		for(var i in $scope.lFileSelect){
@@ -2198,6 +2200,7 @@ console.log("LOAAAAAAAADDDDDDDDDDDDDDDDDD: ", document.getElementById("loadingLo
         $scope.downloadFlag = "Dropbox";
     }
 
+    //FUCK
     $scope.toLocalDownload = function(){
         if($scope.downloadFlag === "Google")
             $scope.gdToLocalDownload();
@@ -2214,10 +2217,54 @@ console.log("LOAAAAAAAADDDDDDDDDDDDDDDDDD: ", document.getElementById("loadingLo
     }
 
 
+    //Zip
+    // $scope.zipFolders = function() {
+    //     var zip = new JSZip();
+    //     zip.file("Hello.txt", "Hello World\n");
+    //     var img = zip.folder("images");
+    //     img.file("smile.gif", imgData, {base64: true});
+    //     zip.generateAsync({type:"blob"})
+    //     .then(function(content) {
+    //         // see FileSaver.js
+    //         saveAs(content, "example.zip");
+    //     });
+    // }
+
+    $scope.zipFolders = function(folderName) {
+        
+        var zip = new JSZip();
+        //Insert file contents here
+        zip.folder(folderName);
+        //
+
+        zip.generateAsync({type:"base64"}).then(function (base64) {
+            location.href="data:application/zip;base64," + base64;
+        }); 
+    }
+
+    //    var downloadFile = function(url, name) {
+    //     var link = document.createElement("a");
+    //     link.download = name;
+    //     link.href = url;
+    //     link.click();
+    // }
+
+    /***************************************************************************************/
+
+    //FUCK
     $scope.gdToLocalDownload = function() {
         console.log("Google to local download");
 
         var a;
+        alert($scope.folderFlag);
+
+        //Downloading folders
+        if($scope.folderFlag != 0) {
+            alert("MATTHEW ZIP");
+            $scope.zipFolders($scope.folderSelectGoogle);
+            return;
+        }
+
 
         for(var x in $scope.gFileSelect) {
             a = x;
@@ -2294,6 +2341,13 @@ console.log("LOAAAAAAAADDDDDDDDDDDDDDDDDD: ", document.getElementById("loadingLo
         var filePath;
 
         var a;
+
+        //Downloading folders
+        if($scope.folderFlagDB != 0) {
+            $scope.zipFolders();
+            return;
+        }
+
 
         for(var x in $scope.dFileSelect) {
             a = x;
