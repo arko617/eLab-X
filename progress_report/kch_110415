@@ -1,3 +1,0 @@
-1. Add a new page for testing google drive and dropbox api calls in backend.
-2. Add google drive client and dropbox client. Fail to initiate google drive client; need to double check the client id.
-
